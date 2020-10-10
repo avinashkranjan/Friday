@@ -89,10 +89,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               right: 100.0,
               child: GestureDetector(
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (_) => BottomNavigation()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => BottomNavigation()),
+                  );
                 },
                 child: Container(
                   width: 150.0,
