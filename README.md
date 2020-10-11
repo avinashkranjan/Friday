@@ -8,7 +8,7 @@
 <h2 align=center> "Friday - Your Personal Class Manager Assistant, It'll never let you miss another assignment deadline or any upcoming test."
   
   
-<h1 align=center> Introduction 🚩
+<h1 align=center> Introduction 🚩 </h1>
   <p align="center">
     Since after the pandemic almost everything has been moved on virtual world So has <b>Education</b>. All our classes has been moved online and with that all our <b><em>assignments, test, exams, Viva</b></em> are being held on online platform as well, With so many <b><em>assignments deadlines, upcoming exams dates and being busy with our life</b></em> we forget the deadlines and examdates on most occasion. I don't know how many of you but it happens to me frequently. So I came up with this <b>app</b> which once feeded with all the required data it'll remind you of the <b><em>assignement deadlines, upcoming exams, unfinished homework</b></em>. So, you can plan your schedule accordingly.
     
