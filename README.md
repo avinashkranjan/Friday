@@ -18,7 +18,7 @@
     
 <h1 align=center> Application Preview 👀
   <p align="center">
-    <img src="https://user-images.githubusercontent.com/55796944/95674880-cb7cf800-0bd0-11eb-94fd-20b50ab35219.png" height="408px" width="204px">  <img src="https://user-images.githubusercontent.com/55796944/95674883-cddf5200-0bd0-11eb-9b9a-f22d94217089.png" height="408px" width="204px">  <img src="https://user-images.githubusercontent.com/55796944/95674884-d041ac00-0bd0-11eb-9eb3-299fd123973a.png" height="408px" width="204px">  <img src="https://user-images.githubusercontent.com/55796944/95674885-d172d900-0bd0-11eb-9259-d22fb91cfad6.png" height="408px" width="204px">
+    <img src="https://user-images.githubusercontent.com/55796944/95674880-cb7cf800-0bd0-11eb-94fd-20b50ab35219.png" height="363px" width="181px">  <img src="https://user-images.githubusercontent.com/55796944/95674883-cddf5200-0bd0-11eb-9b9a-f22d94217089.png" height="363px" width="181px">  <img src="https://user-images.githubusercontent.com/55796944/95674884-d041ac00-0bd0-11eb-9eb3-299fd123973a.png" height="363px" width="181px">  <img src="https://user-images.githubusercontent.com/55796944/95674885-d172d900-0bd0-11eb-9259-d22fb91cfad6.png" height="363px" width="181px">
     
 <h1 align=center> Working Preview ▶
   
