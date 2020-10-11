@@ -30,7 +30,7 @@
   <p align="center">
     <img src="https://user-images.githubusercontent.com/55796944/95675411-b904bd80-0bd4-11eb-945d-810010a86da8.gif" height="408px" width="204px">
   
-   <h2 align="center"> Video Preview ⏩ <a href="https://github.com/avinashkranjan/Friday">  <img src="https://img.shields.io/badge/Click Me%20-%23FF0000.svg?&style=for-the-badge&logo=YouTube&logoColor=white"/> </a>
+   <h2 align="center"> Video Preview ⏩ <a href="https://youtu.be/IJCo80Y0wjI">  <img src="https://img.shields.io/badge/Click Me%20-%23FF0000.svg?&style=for-the-badge&logo=YouTube&logoColor=white"/> </a>
   
     
 <h1 align=center> Project Admin ❤️ </h1>
