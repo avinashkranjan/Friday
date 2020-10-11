@@ -22,12 +22,16 @@
     <img src="https://user-images.githubusercontent.com/55796944/95674880-cb7cf800-0bd0-11eb-94fd-20b50ab35219.png" height="363px" width="181px">  <img src="https://user-images.githubusercontent.com/55796944/95674883-cddf5200-0bd0-11eb-9b9a-f22d94217089.png" height="363px" width="181px">  <img src="https://user-images.githubusercontent.com/55796944/95674884-d041ac00-0bd0-11eb-9eb3-299fd123973a.png" height="363px" width="181px">  <img src="https://user-images.githubusercontent.com/55796944/95674885-d172d900-0bd0-11eb-9259-d22fb91cfad6.png" height="363px" width="181px">
     
 <h1 align=center> Working Preview ▶ </h1>
+  <p align="center">
+    <img src="https://user-images.githubusercontent.com/55796944/95675411-b904bd80-0bd4-11eb-945d-810010a86da8.gif" height="408px" width="204px">
+  
+   <h2 align="center"> Video Preview ⏩ <a href="https://github.com/avinashkranjan/Friday">  <img src="https://img.shields.io/badge/Click Me%20-%23FF0000.svg?&style=for-the-badge&logo=YouTube&logoColor=white"/> </a>
   
     
 <h1 align=center> Project Admin ❤️ </h1>
 <p align="center">
   <a href="https://github.com/avinashkranjan"><img src="https://user-images.githubusercontent.com/55796944/95675026-dab07580-0bd1-11eb-93e2-1cb1de8acf38.png" width=150px height=150px /></a> 
-  
+    
 <p align="center">
   <img src="https://img.shields.io/badge/avinashkranjan%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>  <img src="https://img.shields.io/badge/iavinashranjan%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/> <img src="https://img.shields.io/badge/avinashkranjan7%20-%23E4405F.svg?&style=for-the-badge&logo=Instagram&logoColor=white"/>               
     
