@@ -15,6 +15,7 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: recentHomeworks.length,
       itemBuilder: (BuildContext context, int index) {
         Homework homework = recentHomeworks[index];
