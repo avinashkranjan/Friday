@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1045472240686-6hi7tgkpuq1860ntv6ungfqv4f8pop23.apps.googleusercontent.com</string>
+	<string>1045472240686-nlbmr04bf5iq3c2r6qqiagu9s8i54pfm.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1045472240686-6hi7tgkpuq1860ntv6ungfqv4f8pop23</string>
+	<string>com.googleusercontent.apps.1045472240686-nlbmr04bf5iq3c2r6qqiagu9s8i54pfm</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCQzb8FYxi0tSHoK4YQa63ZcLAwzomyAy0</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>io.flutter.flutter.app</string>
+	<string>com.example.Automation</string>
 	<key>PROJECT_ID</key>
 	<string>friday-683ad</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1045472240686:ios:0e63900a6c0c5af68febbf</string>
+	<string>1:1045472240686:ios:8029da3d7f8b62f98febbf</string>
 </dict>
 </plist>
