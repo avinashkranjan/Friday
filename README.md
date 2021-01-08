@@ -1,6 +1,6 @@
 <h1 align=center> 🎓 Friday </h1>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
   
 <p align="center">
@@ -55,6 +55,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/infiniteoverflow"><img src="https://avatars1.githubusercontent.com/u/40236624?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aswin Gopinathan</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/issues?q=author%3Ainfiniteoverflow" title="Bug reports">🐛</a> <a href="https://github.com/avinashkranjan/Friday/commits?author=infiniteoverflow" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/purnima143"><img src="https://avatars1.githubusercontent.com/u/57852378?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Purnima Sharma</b></sub></a><br /><a href="#design-purnima143" title="Design">🎨</a></td>
+    <td align="center"><a href="https://github.com/HimeshNayak"><img src="https://avatars2.githubusercontent.com/u/30944790?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Himesh Nayak</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/commits?author=HimeshNayak" title="Code">💻</a></td>
   </tr>
 </table>
 
