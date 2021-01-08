@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:class_manager/constants.dart';
+
+///Project Local Imports
+import 'package:class_manager/screens/login_page.dart';
 import 'package:class_manager/widgets/bottom_navigation.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -91,7 +94,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => BottomNavigation()),
+                    MaterialPageRoute(builder: (_) => LoginPage()),
                   );
                 },
                 child: Container(
