@@ -38,7 +38,7 @@ class RecentsAlerts extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 30.0),
               padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
               height: 130.0,
-              width: 306.0,
+              width: MediaQuery.of(context).size.width - 85,
               decoration: BoxDecoration(
                 color: kCardColor,
                 borderRadius: BorderRadius.only(
