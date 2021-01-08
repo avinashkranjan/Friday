@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "infiniteoverflow",
+      "name": "Aswin Gopinathan",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/40236624?v=4",
+      "profile": "https://github.com/infiniteoverflow",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "Friday",
+  "projectOwner": "avinashkranjan",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
