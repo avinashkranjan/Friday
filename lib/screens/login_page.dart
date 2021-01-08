@@ -5,7 +5,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:class_manager/constants.dart';
 import 'package:class_manager/screens/signup_page.dart';
 import 'package:class_manager/widgets/auth_canvas.dart';
-import 'package:class_manager/widgets/bottom_navigation.dart';
+import 'package:class_manager/services/authentication.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -90,6 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                       TextFormField(
                         controller: _email,
                         cursorColor: Colors.white,
+                        textInputAction: TextInputAction.next,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           isDense: true,
@@ -118,6 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _pswd,
                         obscureText: true,
                         cursorColor: Colors.white,
+                        textInputAction: TextInputAction.done,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           isDense: true,
@@ -205,15 +207,13 @@ class _LoginPageState extends State<LoginPage> {
                                 onPressed: () async {
                                   if (_formKey.currentState.validate()) {
                                     _formKey.currentState.save();
-                                    print("Validated: " +
-                                        _email.text +
-                                        "," +
-                                        _pswd.text);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => BottomNavigation()),
-                                    );
+                                    print(
+                                        "Validated: ${_email.text}, ${_pswd.text}");
+                                    await AuthenticationService.handlelogin(
+                                        _email.text, _pswd.text, context);
+
+                                    print("User Logged In");
+                                    _formKey.currentState.reset();
                                   }
                                 },
                               ),

@@ -4,7 +4,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 ///Project Local Imports
 import 'package:class_manager/constants.dart';
 import 'package:class_manager/widgets/auth_canvas.dart';
-import 'package:class_manager/widgets/bottom_navigation.dart';
+import 'package:class_manager/services/authentication.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -77,6 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       TextFormField(
                         controller: _name,
                         cursorColor: Colors.white,
+                        textInputAction: TextInputAction.next,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           isDense: true,
@@ -103,6 +104,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       TextFormField(
                         controller: _email,
                         cursorColor: Colors.white,
+                        textInputAction: TextInputAction.next,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           isDense: true,
@@ -131,6 +133,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         controller: _pswd,
                         obscureText: true,
                         cursorColor: Colors.white,
+                        textInputAction: TextInputAction.next,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           isDense: true,
@@ -158,6 +161,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         controller: _conpswd,
                         obscureText: true,
                         cursorColor: Colors.white,
+                        textInputAction: TextInputAction.done,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           isDense: true,
@@ -174,8 +178,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         validator: (value) {
                           if (_conpswd.text.length >= MIN_PASSWORD_LENGTH) {
                             return null;
-                          } else if (_conpswd.text.length !=
-                              _pswd.text.length) {
+                          } else if (_conpswd.text != _pswd.text) {
                             return "Passwords do not match";
                           }
                           return "Enter Valid password";
@@ -201,12 +204,15 @@ class _SignUpPageState extends State<SignUpPage> {
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
                             print(
-                                "Validated: " + _email.text + "," + _pswd.text);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => BottomNavigation()),
-                            );
+                                "Validated: Name: ${_name.text} \n email: ${_email.text}");
+                            await AuthenticationService.handleSignUp(
+                                email: _email.text,
+                                name: _name.text,
+                                password: _pswd.text,
+                                context: context);
+
+                            print("User Added");
+                            _formKey.currentState.reset();
                           }
                         },
                       ),

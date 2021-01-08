@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:class_manager/constants.dart';
 
 ///Project Local Imports
+import 'package:class_manager/constants.dart';
 import 'package:class_manager/screens/login_page.dart';
-import 'package:class_manager/widgets/bottom_navigation.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
