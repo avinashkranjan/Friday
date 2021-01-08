@@ -23,6 +23,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "HimeshNayak",
+      "name": "Himesh Nayak",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/30944790?v=4",
+      "profile": "https://github.com/HimeshNayak",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
