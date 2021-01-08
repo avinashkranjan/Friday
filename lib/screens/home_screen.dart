@@ -3,6 +3,7 @@ import 'package:class_manager/constants.dart';
 import 'package:class_manager/widgets/header.dart';
 import 'package:class_manager/widgets/recents_alerts.dart';
 import 'package:class_manager/widgets/recents_homeworks.dart';
+import 'package:class_manager/screens/homework_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -76,11 +77,17 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 30.0),
               RecentHomeworks(),
               Center(
-                child: Text(
-                  "View all",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor, fontSize: 15.0),
-                ),
+                child: FlatButton(
+                    padding: EdgeInsets.all(0),
+                    child: Text(
+                      "View all",
+                      style: TextStyle(
+                          color: Theme.of(context).accentColor, fontSize: 15.0),
+                    ),
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HomeworkScreen()))),
               ),
               SizedBox(height: 30.0),
             ],
