@@ -86,21 +86,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
             ),
             Positioned(
-                top: MediaQuery.of(context).size.height - 125,
+                top: MediaQuery.of(context).size.height - 130,
                 left: 100.0,
+                right: 100.0,
                 child: GestureDetector(
                   onTap: () {
-          Navigator.push(
-                     context,
-                     MaterialPageRoute(builder: (_) => BottomNavigation()),
-                   );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => LoginPage()),
+                    );
                   },
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+                    width: 150.0,
+                    height: 55.0,
+                    padding: EdgeInsets.only(left: 40.0),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(50),
-                      ),
+                      borderRadius: BorderRadius.circular(50.0),
                       color: Theme.of(context).accentColor,
                     ),
                     child: Row(
@@ -109,14 +110,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           "GET GOING",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w400,
                           ),
-                        ),
-                        Icon(
-                          Icons.keyboard_arrow_right,
-                          color: Colors.white,
-                          size: 28.0,
                         ),
                       ],
                     ),
