@@ -84,45 +84,42 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height - 130,
-              left: 100.0,
-              right: 100.0,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => BottomNavigation()),
-                  );
-                },
-                child: Container(
-                  width: 150.0,
-                  height: 55.0,
-                  padding: EdgeInsets.only(left: 40.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50.0),
-                    color: Theme.of(context).accentColor,
-                  ),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "GET GOING",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w400,
+                top: MediaQuery.of(context).size.height - 125,
+                left: 100.0,
+                child: GestureDetector(
+                  onTap: () {
+          Navigator.push(
+                     context,
+                     MaterialPageRoute(builder: (_) => BottomNavigation()),
+                   );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                      color: Theme.of(context).accentColor,
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          "GET GOING",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 20.0),
-                      Icon(
-                        Icons.keyboard_arrow_right,
-                        color: Colors.white,
-                        size: 28.0,
-                      ),
-                    ],
+                        Icon(
+                          Icons.keyboard_arrow_right,
+                          color: Colors.white,
+                          size: 28.0,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ),
-            ),
+                )),
           ],
         ),
       ),

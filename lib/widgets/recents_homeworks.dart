@@ -25,7 +25,7 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
               margin: EdgeInsets.only(bottom: 30.0),
               padding: EdgeInsets.fromLTRB(20.0, 20.0, 10.0, 10.0),
               height: 100.0,
-              width: 321.0,
+              width: MediaQuery.of(context).size.width - 70,
               decoration: BoxDecoration(
                 color: kCardColor,
                 borderRadius: BorderRadius.circular(12.0),
@@ -37,14 +37,16 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
+                      Container(
+                        width: 100,
+                        child:Text(
                         homework.title,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18.0,
                           fontWeight: FontWeight.w500,
                         ),
-                      ),
+                      ),),
                       SizedBox(height: 15.0),
                       Row(
                         children: <Widget>[
