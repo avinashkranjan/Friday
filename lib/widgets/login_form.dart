@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 ///Project Local Imports
 import 'package:class_manager/constants.dart';
 import 'package:class_manager/screens/signup_page.dart';
 import 'package:class_manager/services/authentication.dart';
+import 'package:class_manager/services/auth_error_msg_toast.dart';
 import 'package:class_manager/widgets/auth_input_form_field.dart';
 
 class LoginForm extends StatefulWidget {
@@ -13,20 +16,25 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  FToast errToast;
   String errorMsg;
+  bool isProcessing;
   TextEditingController _email, _pswd;
   GlobalKey<FormState> _formKey;
   @override
   void initState() {
+    super.initState();
+    errToast = FToast();
+    errToast.init(context);
+    isProcessing = false;
     _email = new TextEditingController();
     _pswd = new TextEditingController();
     _formKey = new GlobalKey<FormState>();
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    Widget _loginForm = Container(
       alignment: Alignment.centerLeft,
       height: MediaQuery.of(context).size.height,
       padding: EdgeInsets.symmetric(horizontal: 30),
@@ -108,7 +116,7 @@ class _LoginFormState extends State<LoginForm> {
                     "Forgot Password?",
                     style: TextStyle(
                       fontSize: 15,
-                      color: Theme.of(context).accentColor,
+                      color: kAuthThemeColor,
                     ),
                   ),
                 ),
@@ -132,7 +140,7 @@ class _LoginFormState extends State<LoginForm> {
                         child: Text(
                           "Sign Up",
                           style: TextStyle(
-                            color: Theme.of(context).accentColor,
+                            color: kAuthThemeColor,
                             fontSize: 20,
                           ),
                         ),
@@ -149,7 +157,7 @@ class _LoginFormState extends State<LoginForm> {
                       RaisedButton(
                         padding:
                             EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                        color: Theme.of(context).accentColor,
+                        color: kAuthThemeColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadiusDirectional.circular(30)),
                         child: Text(
@@ -164,11 +172,22 @@ class _LoginFormState extends State<LoginForm> {
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
                             print("Validated: ${_email.text}, ${_pswd.text}");
+                            //Close the keyboard
+                            SystemChannels.textInput
+                                .invokeMethod('TextInput.hide');
+                            setState(() {
+                              isProcessing = true;
+                            });
                             errorMsg = await AuthenticationService.handlelogin(
                                 _email.text, _pswd.text, context);
 
                             print("User Logged In");
-                            _formKey.currentState.reset();
+                            setState(() {
+                              isProcessing = false;
+                              _formKey.currentState.reset();
+                              //show error msg
+                              showErrToast(errorMsg, errToast);
+                            });
                           }
                         },
                       ),
@@ -178,6 +197,19 @@ class _LoginFormState extends State<LoginForm> {
           ),
         ),
       ),
+    );
+    return Stack(
+      children: [
+        _loginForm,
+        isProcessing
+            ? Container(
+                height: double.infinity,
+                width: double.infinity,
+                child: Center(child: CircularProgressIndicator()),
+                color: Colors.black.withOpacity(0.3),
+              )
+            : SizedBox.shrink(),
+      ],
     );
   }
 }

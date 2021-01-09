@@ -28,7 +28,7 @@ class AuthenticationService {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (_) => BottomNavigation()),
-          ModalRoute.withName('/'),
+          (Route<dynamic> route) => false,
         );
       } else {
         print("Login Error: Undefined Error!");
@@ -70,7 +70,7 @@ class AuthenticationService {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (_) => BottomNavigation()),
-          ModalRoute.withName('/'),
+          (Route<dynamic> route) => false,
         );
       } else {
         print("SignUp Error: Undefined Error!");
