@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:class_manager/constants.dart';
 
-import '../constants.dart';
-
-class MyPainter extends CustomPainter {
+class CanvasDesign extends CustomPainter {
   final BuildContext context;
-  MyPainter({this.context});
+  CanvasDesign({this.context});
 
   @override
   void paint(Canvas canvas, Size size) {
     //TODO: Remove magic numbers
-    Offset smallestCircleCenter = Offset(size.width * .87, size.height * 0.03),
-        mediumCircleCenter = Offset(size.width * .80, size.height * 0.12),
-        largestCircleCenter = Offset(size.width * .65, size.height * 0.05);
+    Offset smallestCircleCenter = Offset(size.width * .93, size.height * 0.035),
+        mediumCircleCenter = Offset(size.width * .85, size.height * 0.12),
+        largestCircleCenter = Offset(size.width * .7, size.height * 0.05);
 
     final paint = Paint()
-      ..color = Theme.of(context).accentColor
+      ..color = Theme.of(context).accentColor 
       ..style = PaintingStyle.fill;
 
     final sideCurve = new Path()

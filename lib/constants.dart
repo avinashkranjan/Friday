@@ -18,6 +18,6 @@ const kInputTextStyle = TextStyle(
 // Authentication Constants
 const int MIN_PASSWORD_LENGTH = 8;
 //For canvas designs
-const double smallestCircleRadius = 15,
+const double smallestCircleRadius = 13,
     mediumCircleRadius = 20,
     largestCircleRadius = 30;
