@@ -68,7 +68,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 right: 50,
                 child: RaisedButton(
                   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                  color: Theme.of(context).accentColor,
+                  color: kAuthThemeColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadiusDirectional.circular(30)),
                   child: Container(
@@ -105,7 +105,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     child: Text(
                       "Log In",
                       style: TextStyle(
-                        color: Theme.of(context).accentColor,
+                        color: kAuthThemeColor,
                         fontSize: 20,
                       ),
                     ),

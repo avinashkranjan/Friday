@@ -16,6 +16,7 @@ const kInputTextStyle = TextStyle(
 );
 
 // Authentication Constants
+const kAuthThemeColor = Colors.deepPurpleAccent;
 const int MIN_PASSWORD_LENGTH = 8;
 //For canvas designs
 const double smallestCircleRadius = 13,
