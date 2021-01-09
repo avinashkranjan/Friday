@@ -11,7 +11,7 @@ class AuthenticationService {
   static Future<dynamic> handlelogin(
       String email, String password, BuildContext context) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
-    String errorMsg = "";
+    String errorMsg;
     try {
       UserCredential userCred = await auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -31,11 +31,11 @@ class AuthenticationService {
           ModalRoute.withName('/'),
         );
       } else {
-        print("Error 4 (Login): Unexpected Error!");
-        errorMsg = "Unexpected Error Occured";
+        print("Login Error: Undefined Error!");
+        errorMsg = "Undefined Error Occured";
       }
     } on FirebaseAuthException catch (err) {
-      print("Error 3 (Login): Code: ${err.code}\nMsg: ${err.message}");
+      print("Login Error: Code: ${err.code}\nMsg: ${err.message}");
       if (err.code == 'user-not-found')
         errorMsg = "User does not exist";
       else
@@ -53,7 +53,7 @@ class AuthenticationService {
     @required BuildContext context,
   }) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
-    String errorMsg = "";
+    String errorMsg;
     try {
       UserCredential userCred = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -73,11 +73,11 @@ class AuthenticationService {
           ModalRoute.withName('/'),
         );
       } else {
-        print("Error 2 (Creating Acc.): Unexpected Error!");
-        errorMsg = "Unexpected Error Occured";
+        print("SignUp Error: Undefined Error!");
+        errorMsg = "Undefined Error Occured";
       }
     } on FirebaseAuthException catch (err) {
-      print("Error 1 (Creating Acc.): Code: ${err.code}\nMsg: ${err.message}");
+      print("SignUp Error: Code: ${err.code}\nMsg: ${err.message}");
       errorMsg = err.message;
     }
 
