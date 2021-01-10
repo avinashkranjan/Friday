@@ -21,11 +21,20 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   void initState() {
     super.initState();
-    _homeScreen = HomeScreen();
+    _homeScreen = HomeScreen(
+      openHomeworkPage: openHomeworkPage,
+    );
     _classesScreen = ClassesScreen();
     _homeworkScreen = HomeworkScreen();
     _pages = [_homeScreen, _classesScreen, _homeworkScreen];
     _currentPage = _homeScreen;
+  }
+
+  void openHomeworkPage() {
+    setState(() {
+      _selectedTab = 2;
+      _currentPage = _pages[2];
+    });
   }
 
   @override
