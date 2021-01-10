@@ -10,3 +10,15 @@ const kCalendarDay = TextStyle(
   color: kTextColor,
   fontSize: 16.0,
 );
+
+const kInputTextStyle = TextStyle(
+  color: Colors.white70,
+);
+
+// Authentication Constants
+const kAuthThemeColor = Colors.deepPurpleAccent;
+const int MIN_PASSWORD_LENGTH = 8;
+//For canvas designs
+const double smallestCircleRadius = 13,
+    mediumCircleRadius = 20,
+    largestCircleRadius = 30;
