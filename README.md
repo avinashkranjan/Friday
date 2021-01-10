@@ -1,7 +1,7 @@
 <h1 align=center> 🎓 Friday </h1>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
   
 <p align="center">
@@ -58,6 +58,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/purnima143"><img src="https://avatars1.githubusercontent.com/u/57852378?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Purnima Sharma</b></sub></a><br /><a href="#design-purnima143" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/HimeshNayak"><img src="https://avatars2.githubusercontent.com/u/30944790?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Himesh Nayak</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/commits?author=HimeshNayak" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/hareshnayak"><img src="https://avatars1.githubusercontent.com/u/61956975?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Haresh Nayak</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/issues?q=author%3Ahareshnayak" title="Bug reports">🐛</a> <a href="https://github.com/avinashkranjan/Friday/commits?author=hareshnayak" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Imadarshsri"><img src="https://avatars1.githubusercontent.com/u/45717875?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adarsh Srivastava</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/commits?author=Imadarshsri" title="Code">💻</a></td>
   </tr>
 </table>
 
