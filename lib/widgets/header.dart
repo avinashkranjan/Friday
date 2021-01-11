@@ -22,6 +22,12 @@ class Header extends StatelessWidget {
             ),
           ),
           CircleAvatar(
+            child:GestureDetector(
+                      onTap:()=> showDialog(
+                      context: context,
+                      builder: (_) =>
+                          ProfileOverlay(),), 
+            ),
             radius: 25.0,
             backgroundImage: AssetImage("assets/images/profile_pic.jpg"),
           ),
