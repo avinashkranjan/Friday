@@ -64,7 +64,7 @@ class ProfileOverlayState extends State<ProfileOverlay>
                     ]),
                 Container(child: CircleAvatar(
                   radius: 50,  
-                  backgroundImage: AssetImage(''),
+                  backgroundImage: AssetImage("assets/images/profile_pic.jpg"),
                 ),),
                 
                 Container(
