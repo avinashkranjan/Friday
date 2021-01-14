@@ -1,5 +1,5 @@
-name: Friday
-description: Your Personal Class Manager Assistant, It'll never let you miss another assignment deadline or upcoming test.
+name: class_manager
+description: A new Flutter project.
 
 publish_to: "none"
 
