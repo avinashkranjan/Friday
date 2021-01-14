@@ -84,7 +84,9 @@ class _LoginFormState extends State<LoginForm> {
                 textInputAction: TextInputAction.next,
                 suffixIcon: Icon(Icons.person, color: Colors.white),
                 validator: (value) {
-                  if (_email.text.contains('@') && _email.text.contains('.')) {
+                  RegExp _emailRegex = RegExp(
+                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+                  if (_emailRegex.hasMatch(_email.text)) {
                     return null;
                   }
                   return "Enter Valid Email";
@@ -178,7 +180,7 @@ class _LoginFormState extends State<LoginForm> {
                             setState(() {
                               isProcessing = true;
                             });
-                            errorMsg = await AuthenticationService.handlelogin(
+                            errorMsg = await AuthenticationService.handleLogin(
                                 _email.text, _pswd.text, context);
 
                             print("User Logged In");
