@@ -134,8 +134,10 @@ class _LoginFormState extends State<LoginForm> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       RaisedButton(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 15,
+                            horizontal:
+                                (MediaQuery.of(context).size.width / 8) - 10),
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadiusDirectional.circular(30)),
@@ -157,8 +159,10 @@ class _LoginFormState extends State<LoginForm> {
                         width: 10,
                       ),
                       RaisedButton(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 15,
+                            horizontal:
+                                (MediaQuery.of(context).size.width / 8) - 10),
                         color: kAuthThemeColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadiusDirectional.circular(30)),
