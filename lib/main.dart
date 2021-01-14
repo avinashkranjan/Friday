@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Class Manager',
+      title: 'Friday',
       theme: ThemeData(
         primaryColor: Color(0xFF202328),
         accentColor: Color(0xFF651FFF),

@@ -104,9 +104,19 @@ class _BottomNavigationState extends State<BottomNavigation> {
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                "assets/icons/comment.svg",
+                "assets/icons/test.svg",
                 width: 35.0,
                 color: _selectedTab == 3
+                    ? Theme.of(context).accentColor
+                    : kTextColor,
+              ),
+              title: SizedBox.shrink(),
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                "assets/icons/user.svg",
+                width: 35.0,
+                color: _selectedTab == 4
                     ? Theme.of(context).accentColor
                     : kTextColor,
               ),
