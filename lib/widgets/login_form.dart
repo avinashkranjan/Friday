@@ -135,7 +135,7 @@ class _LoginFormState extends State<LoginForm> {
                     children: [
                       RaisedButton(
                         padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 30),
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadiusDirectional.circular(30)),
@@ -158,7 +158,7 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                       RaisedButton(
                         padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 30),
                         color: kAuthThemeColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadiusDirectional.circular(30)),
