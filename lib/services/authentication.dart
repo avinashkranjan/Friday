@@ -80,6 +80,8 @@ class AuthenticationService {
         print(
             "signUpEmail succeeded \n Credentials of user=>Email: ${user.email} and  UID: ${user.uid}");
 
+        // Add the name of user
+        await user.updateProfile(displayName: name);
         // Navigate to Dashboard
         Navigator.pushAndRemoveUntil(
           context,

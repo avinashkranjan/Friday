@@ -87,7 +87,9 @@ class _SignUpFormState extends State<SignUpForm> {
                 textInputAction: TextInputAction.next,
                 suffixIcon: Icon(Icons.email, color: Colors.white),
                 validator: (value) {
-                  if (_email.text.contains('@') && _email.text.contains('.')) {
+                  RegExp _emailRegex = RegExp(
+                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+                  if (_emailRegex.hasMatch(_email.text)) {
                     return null;
                   }
                   return "Enter Valid Email";
