@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 ///Project Local Imports
-import 'package:class_manager/screens/onboarding_page.dart';
+import 'package:class_manager/services/authentication.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Color(0xFF12171D),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: OnboardingPage(),
+      home: AuthenticationService.handleEntryPoint(),
     );
   }
 }

@@ -4,11 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 /// Project Imports
 import 'package:class_manager/screens/welcome_screen.dart';
+import 'package:class_manager/screens/onboarding_page.dart';
 import 'package:class_manager/widgets/bottom_navigation.dart';
 
 class AuthenticationService {
   /// Handles Authentication Login
-  static Future<dynamic> handlelogin(
+  static Future<dynamic> handleLogin(
       String email, String password, BuildContext context) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     String errorMsg;
@@ -82,6 +83,18 @@ class AuthenticationService {
     }
 
     return errorMsg;
+  }
+
+  /// Handles and Decides Entry Point of App by checking current active session
+  static Widget handleEntryPoint() {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    print("Handling Auth: " + auth.currentUser.uid);
+    User _currUser = auth.currentUser;
+    if (_currUser == null) {
+      return OnboardingPage();
+    } else {
+      return BottomNavigation();
+    }
   }
 
   static Future<bool> signout(BuildContext context) async {
