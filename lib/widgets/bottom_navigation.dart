@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:class_manager/constants.dart';
-import 'package:class_manager/screens/classes_screen.dart';
-import 'package:class_manager/screens/home_screen.dart';
-import 'package:class_manager/screens/homework_screen.dart';
+
+/// Project Imports
+import '../screens/home_screen.dart';
+import '../screens/classes_screen.dart';
+import '../screens/homework_screen.dart';
+import '../widgets/animated_nav_bar.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -26,7 +27,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
     );
     _classesScreen = ClassesScreen();
     _homeworkScreen = HomeworkScreen();
-    _pages = [_homeScreen, _classesScreen, _homeworkScreen];
+    _pages = [
+      _homeScreen,
+      _classesScreen,
+      _homeworkScreen,
+      _homeworkScreen, //TODO: Chats Page
+      _homeworkScreen, //TODO: Profile
+    ];
     _currentPage = _homeScreen;
   }
 
@@ -55,72 +62,30 @@ class _BottomNavigationState extends State<BottomNavigation> {
       bottom: 0.0,
       left: 0.0,
       right: 0.0,
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30.0),
-          topRight: Radius.circular(30.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).backgroundColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            topRight: Radius.circular(30.0),
+          ),
         ),
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Theme.of(context).backgroundColor,
-          currentIndex: _selectedTab,
-          onTap: (int index) {
-            setState(() {
-              _selectedTab = index;
-              if (index == 0 || index == 1 || index == 2)
-                _currentPage = _pages[index];
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/icons/house.svg",
-                width: 35.0,
-                color: _selectedTab == 0
-                    ? Theme.of(context).accentColor
-                    : kTextColor,
-              ),
-              title: SizedBox.shrink(),
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/icons/read_book.svg",
-                width: 35.0,
-                color: _selectedTab == 1
-                    ? Theme.of(context).accentColor
-                    : kTextColor,
-              ),
-              title: SizedBox.shrink(),
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/icons/homework.svg",
-                width: 35.0,
-                color: _selectedTab == 2
-                    ? Theme.of(context).accentColor
-                    : kTextColor,
-              ),
-              title: SizedBox.shrink(),
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/icons/test.svg",
-                width: 35.0,
-                color: _selectedTab == 3
-                    ? Theme.of(context).accentColor
-                    : kTextColor,
-              ),
-              title: SizedBox.shrink(),
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/icons/user.svg",
-                width: 35.0,
-                color: _selectedTab == 4
-                    ? Theme.of(context).accentColor
-                    : kTextColor,
-              ),
-              title: SizedBox.shrink(),
+        padding: EdgeInsets.symmetric(
+          vertical: 10,
+        ),
+        child: Column(
+          children: [
+            BottomNavBar(
+              selectedIdx: _selectedTab,
+              selectedColor: Colors.white,
+              unselectedColor: Colors.grey,
+              itemPadding: EdgeInsets.all(10),
+              onPressed: (int idx) {
+                setState(() {
+                  _selectedTab = idx;
+                  _currentPage = _pages[idx];
+                });
+              },
             ),
           ],
         ),
