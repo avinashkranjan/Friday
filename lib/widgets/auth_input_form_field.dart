@@ -22,7 +22,7 @@ class AuthInputField extends StatefulWidget {
 }
 
 class _AuthInputFieldState extends State<AuthInputField> {
-  UnderlineInputBorder _inputBorderStyle = UnderlineInputBorder(
+  UnderlineInputBorder _inputBorderStyle = const UnderlineInputBorder(
     borderSide: BorderSide(
       color: Colors.white70,
     ),

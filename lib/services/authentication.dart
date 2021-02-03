@@ -1,3 +1,5 @@
+import 'package:class_manager/screens/signup_additional_details_screen.dart';
+import 'package:class_manager/services/user_info_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:class_manager/screens/welcome_screen.dart';
 import 'package:class_manager/screens/onboarding_page.dart';
 import 'package:class_manager/widgets/bottom_navigation.dart';
+import 'package:provider/provider.dart';
 
 class AuthenticationService {
   /// Handles and Decides Entry Point of App by checking current active session
@@ -82,12 +85,19 @@ class AuthenticationService {
 
         // Add the name of user
         await user.updateProfile(displayName: name);
-        // Navigate to Dashboard
-        Navigator.pushAndRemoveUntil(
+        // Set essential details to [UserInfoServices]
+        Provider.of<UserInfoServices>(context, listen: false)
+            .setEssentialDetailsOfUser(user.displayName, user.email);
+        // Navigate to Addtional Details Form
+        Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => BottomNavigation()),
-          (Route<dynamic> route) => false,
+          MaterialPageRoute(builder: (_) => SignUpAdditionalDetails())
         );
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(builder: (_) => BottomNavigation()),
+        //   (Route<dynamic> route) => false,
+        // );
       } else {
         print("SignUp Error: Undefined Error!");
         errorMsg = "Undefined Error Occured";

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 enum Gender { Male, Female, Other }
@@ -11,7 +12,7 @@ class Users {
     this.uid,
     @required this.name,
     @required this.email,
-  this.profilePictureUrl,
+    this.profilePictureUrl,
     @required this.university,
     @required this.course,
     @required this.year,
@@ -20,12 +21,31 @@ class Users {
     @required this.gender,
   });
 
-  factory Users.fromJson(_snapshot) {
-    //DocumentSnapshot
+  void setEsssentialDetails(
+    String _name,
+    String _email,
+  ) {
+    this.name = _name;
+    this.email = _email;
+  }
+
+  void setAdditionalDetails(String _course, String _dept, String _college,
+      int _year, Gender _gender, int _age,
+      [String _profilePicUrl = ""]) {
+    this.course = _course;
+    this.department = _dept;
+    this.university = _college;
+    this.year = _year;
+    this.gender = _gender;
+    this.age = _age;
+    this.profilePictureUrl = _profilePicUrl;
+  }
+
+  factory Users.fromJson(DocumentSnapshot _snapshot) {
     Map<String, dynamic> json = _snapshot.data();
     Gender _gender = stringToEnum(json["gender"]);
     return new Users(
-      uid: json["uid"],
+      uid: _snapshot.id,
       name: json["name"],
       email: json["email"],
       profilePictureUrl: json["profilePictureUrl"],
