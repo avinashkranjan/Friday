@@ -25,3 +25,7 @@ const double smallestCircleRadius = 13,
 
 // Profile Constants
 const double profilePictureDiameter = 120;
+
+// Firestore Constants
+
+const String usersCollection = "users";
