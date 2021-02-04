@@ -67,7 +67,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    "Welcome, Sir",
+                    "Welcome",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 29.0,
@@ -86,36 +86,30 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
             ),
             Positioned(
-                top: MediaQuery.of(context).size.height - 130,
-                left: 100.0,
-                right: 100.0,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => LoginPage()),
-                    );
-                  },
-                  child: Container(
-                    width: 150.0,
-                    height: 55.0,
-                    padding: EdgeInsets.only(left: 40.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50.0),
-                      color: Theme.of(context).accentColor,
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        Text(
-                          "GET GOING",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
+              top: MediaQuery.of(context).size.height - 130,
+              left: 100.0,
+              right: 100.0,
+              child: RaisedButton(
+                color: Theme.of(context).accentColor,
+                shape: StadiumBorder(),
+                padding: EdgeInsets.symmetric(vertical: 15),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => LoginPage()),
+                  );
+                },
+                child: Text(
+                  "GET GOING",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
                   ),
-                )),
+                ),
+              ),
+            ),
           ],
         ),
       ),
