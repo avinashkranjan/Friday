@@ -21,7 +21,7 @@ class Users {
     @required this.gender,
   });
 
-  void setEsssentialDetails(
+  Users.setEsssentialDetails(
     String _name,
     String _email,
   ) {

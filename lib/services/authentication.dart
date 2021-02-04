@@ -1,5 +1,6 @@
 import 'package:class_manager/screens/signup_additional_details_screen.dart';
 import 'package:class_manager/services/user_info_services.dart';
+import 'package:class_manager/widgets/auth_handling_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,14 +13,15 @@ import 'package:provider/provider.dart';
 
 class AuthenticationService {
   /// Handles and Decides Entry Point of App by checking current active session
-  static Widget handleEntryPoint() {
+  static Widget handleEntryPoint(BuildContext context) {
     final FirebaseAuth auth = FirebaseAuth.instance;
     print("Handling Auth");
     User _currUser = auth.currentUser;
     if (_currUser == null) {
       return OnboardingPage();
     } else {
-      return BottomNavigation();
+      return AuthHandlingWidget(
+          name: _currUser.displayName, email: _currUser.email);
     }
   }
 
@@ -87,12 +89,10 @@ class AuthenticationService {
         await user.updateProfile(displayName: name);
         // Set essential details to [UserInfoServices]
         Provider.of<UserInfoServices>(context, listen: false)
-            .setEssentialDetailsOfUser(user.displayName, user.email);
+            .setEssentialDetailsOfUser(name, email);
         // Navigate to Addtional Details Form
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => SignUpAdditionalDetails())
-        );
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => SignUpAdditionalDetails()));
         // Navigator.pushAndRemoveUntil(
         //   context,
         //   MaterialPageRoute(builder: (_) => BottomNavigation()),
@@ -123,7 +123,7 @@ class AuthenticationService {
       // Navigate to Onboarding Page
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (_) => WelcomeScreen()),
+        MaterialPageRoute(builder: (_) => OnboardingPage()),
         (Route<dynamic> route) => false,
       );
       return "Signing Out";

@@ -18,19 +18,20 @@ class UserInfoServices extends ChangeNotifier {
   bool hasData = false;
 
   Users get user => _user;
-  Future<void> fetchUserDetailsFromDatabase(context) async {
+  Future<bool> fetchUserDetailsFromDatabase(context) async {
     // Write the code to fetch from Firestore Collection `users`
     bool isUserExists = await UserDBServices.fetchUserData(context);
     if (!isUserExists) {
       // TODO: Collect user info by showing form
-      await UserDBServices.addUser(_user);
-      await UserDBServices.fetchUserData(context);
-    }
+      print("user details not present in firestore");
+   }
     // notifyListeners();
+    return isUserExists;
   }
 
   Future<void> addUserToDatabase() async {
     await UserDBServices.addUser(_user);
+    notifyListeners();
   }
 
   void setUser(Users _usr) {
@@ -40,8 +41,7 @@ class UserInfoServices extends ChangeNotifier {
   }
 
   void setEssentialDetailsOfUser(String name, String email) {
-    this._user.setEsssentialDetails(name, email);
-    notifyListeners();
+    this._user = Users.setEsssentialDetails(name, email);
   }
 
   void setAdditionalDetailsOfUser(String _course, String _dept, String _college,

@@ -1,4 +1,3 @@
-import 'package:class_manager/services/user_info_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -6,6 +5,7 @@ import 'package:provider/provider.dart';
 
 ///Project Local Imports
 import 'package:class_manager/services/authentication.dart';
+import 'package:class_manager/services/user_info_services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Color(0xFF12171D),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: AuthenticationService.handleEntryPoint(),
+        home: AuthenticationService.handleEntryPoint(context),
       ),
     );
   }

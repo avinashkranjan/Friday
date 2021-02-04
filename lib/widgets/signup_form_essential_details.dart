@@ -1,4 +1,5 @@
 import 'package:class_manager/screens/signup_additional_details_screen.dart';
+import 'package:class_manager/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -7,7 +8,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 ///Project Local Imports
 import 'package:class_manager/constants.dart';
 import 'package:class_manager/screens/login_page.dart';
-import 'package:class_manager/services/authentication.dart';
 import 'package:class_manager/services/auth_error_msg_toast.dart';
 import 'package:class_manager/widgets/auth_input_form_field.dart';
 
@@ -175,38 +175,40 @@ class _SignUpFormEssentialDetailsState
                       ),
                     ),
                     onPressed: () async {
-                      // if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      print(
-                          "Validated: Name: ${_name.text} \n email: ${_email.text}");
+                      if (_formKey.currentState.validate()) {
+                        _formKey.currentState.save();
+                        print(
+                            "Validated: Name: ${_name.text} \n email: ${_email.text}");
 
-                      //Close the keyboard
-                      SystemChannels.textInput.invokeMethod('TextInput.hide');
+                        //Close the keyboard
+                        SystemChannels.textInput.invokeMethod('TextInput.hide');
 
-                      setState(() {
-                        isProcessing = true;
-                      });
-                      // Authenticate user
-                      // TODO: Uncomment after Testing
-                      // errorMsg = await AuthenticationService.handleSignUp(
-                      //     email: _email.text,
-                      //     name: _name.text,
-                      //     password: _pswd.text,
-                      //     context: context);
-                      // Navigate to Addtional Details Form
-                      // TODO: Remove after Testing
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => SignUpAdditionalDetails()));
-                      print("User Authenticated");
-                      setState(() {
-                        isProcessing = false;
-                        _formKey.currentState.reset();
-                        //show error msg
-                        showErrToast(errorMsg ?? " ", errToast);
-                      });
-                      // }
+                        setState(() {
+                          isProcessing = true;
+                        });
+                        // Authenticate user
+                        // TODO: Uncomment after Testing
+                        errorMsg = await AuthenticationService.handleSignUp(
+                            email: _email.text,
+                            name: _name.text,
+                            password: _pswd.text,
+                            context: context);
+                        // Navigate to Addtional Details Form
+                        // TODO: Remove after Testing
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => SignUpAdditionalDetails()));
+
+                        setState(() {
+                          isProcessing = false;
+                          _formKey.currentState.reset();
+                          //show error msg
+                          errorMsg != null
+                              ? showErrToast(errorMsg ?? " ", errToast)
+                              : print("User Authenticated");
+                        });
+                      }
                     },
                   ),
                   Align(

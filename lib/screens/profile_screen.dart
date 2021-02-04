@@ -99,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               SizedBox(width: 20),
                             ],
                           ),
-                          SizedBox(height: 50),
+                          SizedBox(height: 40),
                           Center(
                             child: OutlineButton(
                               onPressed: () {
@@ -135,9 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: CircleAvatar(
                     radius: profilePictureDiameter / 2,
                     backgroundImage:
-                        userInfo.hasData && (_user.profilePictureUrl != null)
-                            ? NetworkImage(_user.profilePictureUrl)
-                            : AssetImage("assets/images/profile_pic.jpg"),
+                        AssetImage("assets/images/profile_pic.jpg"),
                     backgroundColor: Colors.transparent,
                     foregroundColor: Theme.of(context).backgroundColor,
                   ),
