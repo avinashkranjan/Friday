@@ -187,19 +187,11 @@ class _SignUpFormEssentialDetailsState
                           isProcessing = true;
                         });
                         // Authenticate user
-                        // TODO: Uncomment after Testing
                         errorMsg = await AuthenticationService.handleSignUp(
                             email: _email.text,
                             name: _name.text,
                             password: _pswd.text,
                             context: context);
-                        // Navigate to Addtional Details Form
-                        // TODO: Remove after Testing
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => SignUpAdditionalDetails()));
-
                         setState(() {
                           isProcessing = false;
                           _formKey.currentState.reset();

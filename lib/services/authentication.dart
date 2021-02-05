@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 /// Project Imports
-import 'package:class_manager/screens/welcome_screen.dart';
 import 'package:class_manager/screens/onboarding_page.dart';
 import 'package:class_manager/widgets/bottom_navigation.dart';
 import 'package:provider/provider.dart';
@@ -93,11 +92,6 @@ class AuthenticationService {
         // Navigate to Addtional Details Form
         Navigator.push(context,
             MaterialPageRoute(builder: (_) => SignUpAdditionalDetails()));
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(builder: (_) => BottomNavigation()),
-        //   (Route<dynamic> route) => false,
-        // );
       } else {
         print("SignUp Error: Undefined Error!");
         errorMsg = "Undefined Error Occured";

@@ -4,17 +4,6 @@ import 'package:flutter/material.dart';
 
 class UserInfoServices extends ChangeNotifier {
   Users _user;
-  // = // For testing Purpose
-  //     Users(
-  //   name: "John Doe",
-  //   email: "johndoe@gmail.com",
-  //   university: "Stanford University",
-  //   course: "Bachelor of Science",
-  //   year: 3,
-  //   department: "CSE",
-  //   age: 21,
-  //   gender: Gender.Male,
-  // );
   bool hasData = false;
 
   Users get user => _user;
@@ -22,10 +11,9 @@ class UserInfoServices extends ChangeNotifier {
     // Write the code to fetch from Firestore Collection `users`
     bool isUserExists = await UserDBServices.fetchUserData(context);
     if (!isUserExists) {
-      // TODO: Collect user info by showing form
       print("user details not present in firestore");
-   }
-    // notifyListeners();
+    }
+    notifyListeners();
     return isUserExists;
   }
 

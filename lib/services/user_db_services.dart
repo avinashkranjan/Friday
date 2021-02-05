@@ -25,10 +25,16 @@ class UserDBServices {
     User _currUser = FirebaseAuth.instance.currentUser;
     assert(_currUser is User);
 
-    DocumentSnapshot userSnap =
-        await firestoreDB.collection(usersCollection).doc(_currUser.uid).get();
-
-    if (!userSnap.exists) {
+    DocumentSnapshot userSnap;
+    try {
+      userSnap = await firestoreDB
+          .collection(usersCollection)
+          .doc(_currUser.uid)
+          .get();
+    } catch (e) {
+      print("Error while fetching data: ${e.toString()}");
+    }
+    if (userSnap == null || !userSnap.exists) {
       // Create User
       return false;
     } else {

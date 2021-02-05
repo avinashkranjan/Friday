@@ -168,11 +168,8 @@ class _SignUpFormAdditionalDetailsState
                           textInputAction: TextInputAction.next,
                           validator: (_) {
                             int _ag = int.tryParse(_age.text);
-                            if (_age.text.isNotEmpty && _ag != null) {
+                            if (_age.text.isNotEmpty && _ag != null)
                               return null;
-                            }
-                            if (_ag < 18 && _ag <= 30)
-                              return "Age should be between 18 to 30";
                             return "Enter valid age";
                           },
                           suffixIcon: Icon(Icons.person, color: Colors.white),
