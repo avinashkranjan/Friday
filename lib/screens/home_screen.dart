@@ -3,7 +3,6 @@ import 'package:class_manager/constants.dart';
 import 'package:class_manager/widgets/header.dart';
 import 'package:class_manager/widgets/recents_alerts.dart';
 import 'package:class_manager/widgets/recents_homeworks.dart';
-import 'package:class_manager/screens/homework_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback openHomeworkPage;

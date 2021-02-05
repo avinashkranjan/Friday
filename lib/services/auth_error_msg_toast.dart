@@ -7,9 +7,12 @@ void showErrToast(String errorMsg, FToast errToast) {
     padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(5.0),
-      color: Colors.redAccent,
+      color: Colors.transparent,
     ),
-    child: Text(errorMsg),
+    child: Text(
+      errorMsg,
+      style: TextStyle(color: Colors.red),
+    ),
   );
 
   errToast.showToast(

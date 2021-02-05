@@ -22,3 +22,10 @@ const int MIN_PASSWORD_LENGTH = 8;
 const double smallestCircleRadius = 13,
     mediumCircleRadius = 20,
     largestCircleRadius = 30;
+
+// Profile Constants
+const double profilePictureDiameter = 120;
+
+// Firestore Constants
+
+const String usersCollection = "users";

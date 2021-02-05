@@ -1,22 +1,26 @@
+import 'package:class_manager/screens/signup_additional_details_screen.dart';
+import 'package:class_manager/services/user_info_services.dart';
+import 'package:class_manager/widgets/auth_handling_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 /// Project Imports
-import 'package:class_manager/screens/welcome_screen.dart';
 import 'package:class_manager/screens/onboarding_page.dart';
 import 'package:class_manager/widgets/bottom_navigation.dart';
+import 'package:provider/provider.dart';
 
 class AuthenticationService {
   /// Handles and Decides Entry Point of App by checking current active session
-  static Widget handleEntryPoint() {
+  static Widget handleEntryPoint(BuildContext context) {
     final FirebaseAuth auth = FirebaseAuth.instance;
     print("Handling Auth");
     User _currUser = auth.currentUser;
     if (_currUser == null) {
       return OnboardingPage();
     } else {
-      return BottomNavigation();
+      return AuthHandlingWidget(
+          name: _currUser.displayName, email: _currUser.email);
     }
   }
 
@@ -82,12 +86,12 @@ class AuthenticationService {
 
         // Add the name of user
         await user.updateProfile(displayName: name);
-        // Navigate to Dashboard
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => BottomNavigation()),
-          (Route<dynamic> route) => false,
-        );
+        // Set essential details to [UserInfoServices]
+        Provider.of<UserInfoServices>(context, listen: false)
+            .setEssentialDetailsOfUser(name, email);
+        // Navigate to Addtional Details Form
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => SignUpAdditionalDetails()));
       } else {
         print("SignUp Error: Undefined Error!");
         errorMsg = "Undefined Error Occured";
@@ -113,7 +117,7 @@ class AuthenticationService {
       // Navigate to Onboarding Page
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (_) => WelcomeScreen()),
+        MaterialPageRoute(builder: (_) => OnboardingPage()),
         (Route<dynamic> route) => false,
       );
       return "Signing Out";

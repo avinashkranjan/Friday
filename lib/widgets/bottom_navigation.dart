@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 /// Project Imports
 import '../screens/home_screen.dart';
+import '../screens/profile_screen.dart';
 import '../screens/classes_screen.dart';
 import '../screens/homework_screen.dart';
 import '../widgets/animated_nav_bar.dart';
@@ -18,6 +19,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   HomeScreen _homeScreen;
   HomeworkScreen _homeworkScreen;
   ClassesScreen _classesScreen;
+  ProfileScreen _profileScreen;
 
   @override
   void initState() {
@@ -27,12 +29,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
     );
     _classesScreen = ClassesScreen();
     _homeworkScreen = HomeworkScreen();
+    _profileScreen = ProfileScreen();
     _pages = [
       _homeScreen,
       _classesScreen,
       _homeworkScreen,
       _homeworkScreen, //TODO: Chats Page
-      _homeworkScreen, //TODO: Profile
+      _profileScreen,
     ];
     _currentPage = _homeScreen;
   }
