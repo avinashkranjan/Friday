@@ -25,7 +25,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIdx;
-
+  @override
   @override
   Widget build(BuildContext context) {
     final navBarCurrentIndex =

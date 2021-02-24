@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:class_manager/constants.dart';
 import 'package:class_manager/widgets/build_classes.dart';
 import 'package:class_manager/widgets/header.dart';
+import 'package:intl/intl.dart';
 
 class ClassesScreen extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class ClassesScreen extends StatefulWidget {
 }
 
 class _ClassesScreenState extends State<ClassesScreen> {
+  final DateTime _today = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -20,7 +22,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "Oct",
+                DateFormat.MMM().format(_today).toString(),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18.0,
@@ -31,26 +33,32 @@ class _ClassesScreenState extends State<ClassesScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("09", style: kCalendarDay),
-                  Text("10", style: kCalendarDay),
-                  Text("11", style: kCalendarDay),
+                  Text(_today.subtract(Duration(days: 3)).day.toString(),
+                      style: kCalendarDay),
+                  Text(_today.subtract(Duration(days: 2)).day.toString(),
+                      style: kCalendarDay),
+                  Text(_today.subtract(Duration(days: 1)).day.toString(),
+                      style: kCalendarDay),
                   Text(
-                    "12",
+                    _today.day.toString(),
                     style: kCalendarDay.copyWith(
                       color: Colors.white,
                       fontSize: 17.0,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text("13", style: kCalendarDay),
-                  Text("14", style: kCalendarDay),
-                  Text("15", style: kCalendarDay),
+                  Text(_today.add(Duration(days: 1)).day.toString(),
+                      style: kCalendarDay),
+                  Text(_today.add(Duration(days: 2)).day.toString(),
+                      style: kCalendarDay),
+                  Text(_today.add(Duration(days: 3)).day.toString(),
+                      style: kCalendarDay),
                 ],
               ),
               Padding(
                 padding: EdgeInsets.only(left: 157.0, top: 3.0),
                 child: Text(
-                  "MON",
+                  DateFormat.E().format(_today).toString(),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 17.0,

@@ -15,7 +15,7 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  int _selectedTab = 0;
+  int selectedTab = 0;
   Widget _currentPage;
   List<Widget> _pages;
   HomeScreen _homeScreen;
@@ -26,7 +26,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   _setCurrentPage({@required int index}) {
     setState(() {
-      _selectedTab = index;
+      selectedTab = index;
       _pageController.jumpToPage(index);
       print('Widget rebuilt $index');
     });
@@ -53,7 +53,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   void openHomeworkPage() {
     setState(() {
-      _selectedTab = 2;
+      selectedTab = 2;
       _currentPage = _pages[2];
     });
   }
@@ -80,11 +80,12 @@ class _BottomNavigationState extends State<BottomNavigation> {
             children: _pages,
           ),
           CustomBottomNavigator(
-            selectedTab: navBar.currentIndex,
+            // selectedTab: navBar.currentIndex,
+            selectedTab: selectedTab,
             onPressed: (int idx) {
               _setCurrentPage(index: idx);
               _currentPage = _pages[idx];
-              print(_selectedTab);
+              print(selectedTab);
               // _selectedTab = idx;
             },
           )
@@ -92,46 +93,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
       ),
     );
   }
-
-  // bottomNavigator() {
-  //   return Positioned(
-  //     bottom: 0.0,
-  //     left: 0.0,
-  //     right: 0.0,
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         color: Theme.of(context).backgroundColor,
-  //         borderRadius: BorderRadius.only(
-  //           topLeft: Radius.circular(30.0),
-  //           topRight: Radius.circular(30.0),
-  //         ),
-  //       ),
-  //       padding: EdgeInsets.symmetric(
-  //         vertical: 10,
-  //       ),
-  //       child: Column(
-  //         children: [
-  //           BottomNavBar(
-  //             selectedIdx: _selectedTab,
-  //             selectedColor: Colors.white,
-  //             unselectedColor: Colors.grey,
-  //             itemPadding: EdgeInsets.all(10),
-  //             onPressed: (int idx) {
-  //               setState(() {
-  //                 // _selectedTab = idx;
-  //                 _setCurrentPage(index: idx);
-
-  //                 _currentPage = _pages[idx];
-  //                 _pageController.jumpToPage(idx);
-  //                 print(_selectedTab);
-  //               });
-  //             },
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }
 
 class CustomBottomNavigator extends StatelessWidget {
