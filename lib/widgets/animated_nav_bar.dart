@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import '../utils/bottom_navbar_tabs.dart';
@@ -9,6 +10,7 @@ class BottomNavBar extends StatefulWidget {
   final Color unselectedColor, selectedColor;
   final void Function(int) onPressed;
   final EdgeInsets itemPadding;
+  final PageController navigationConroller = PageController(initialPage: 0);
   BottomNavBar({
     Key key,
     this.selectedIdx = 0,
@@ -23,14 +25,12 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIdx;
-  @override
-  void initState() {
-    super.initState();
-    _selectedIdx = widget.selectedIdx;
-  }
 
   @override
   Widget build(BuildContext context) {
+    final navBarCurrentIndex =
+        Provider.of<BottomNavigationBarProvider>(context);
+    _selectedIdx = navBarCurrentIndex.currentIndex;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: List<Widget>.generate(bottomNavBarData.length, (idx) {
@@ -58,6 +58,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     onTap: () {
                       setState(() {
                         _selectedIdx = idx;
+                        navBarCurrentIndex.getCurrentIndex(index: idx);
                       });
                       widget.onPressed?.call(idx);
                     },

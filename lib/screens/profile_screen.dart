@@ -2,6 +2,7 @@ import 'package:class_manager/constants.dart';
 import 'package:class_manager/models/users.dart';
 import 'package:class_manager/services/authentication.dart';
 import 'package:class_manager/services/user_info_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,9 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    final User userData = firebaseAuth.currentUser;
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.8),
       body: SingleChildScrollView(
