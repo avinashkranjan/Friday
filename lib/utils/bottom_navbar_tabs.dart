@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 List<Map<String, String>> bottomNavBarData = const [
   {'svg': "assets/icons/house.svg", 'title': "Home"},
   {'svg': "assets/icons/read_book.svg", 'title': "Classes"},
@@ -5,3 +7,11 @@ List<Map<String, String>> bottomNavBarData = const [
   {'svg': "assets/icons/test.svg", 'title': "Chats"},
   {'svg': "assets/icons/user.svg", 'title': "Profile"},
 ];
+
+class BottomNavigationBarProvider extends ChangeNotifier {
+  int currentIndex = 0;
+  getCurrentIndex({@required int index}) {
+    currentIndex = index;
+    notifyListeners();
+  }
+}

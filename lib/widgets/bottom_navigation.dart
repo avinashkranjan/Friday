@@ -1,4 +1,6 @@
+import 'package:class_manager/utils/bottom_navbar_tabs.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// Project Imports
 import '../screens/home_screen.dart';
@@ -20,6 +22,15 @@ class _BottomNavigationState extends State<BottomNavigation> {
   HomeworkScreen _homeworkScreen;
   ClassesScreen _classesScreen;
   ProfileScreen _profileScreen;
+  final PageController _pageController = PageController(initialPage: 0);
+
+  _setCurrentPage({@required int index}) {
+    setState(() {
+      _selectedTab = index;
+      _pageController.jumpToPage(index);
+      print('Widget rebuilt $index');
+    });
+  }
 
   @override
   void initState() {
@@ -49,18 +60,89 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    final navBar = Provider.of<BottomNavigationBarProvider>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(
         children: <Widget>[
-          _currentPage,
-          _bottomNavigator(),
+          PageView(
+            physics: BouncingScrollPhysics(),
+            controller: _pageController,
+            onPageChanged: (int idx) {
+              setState(() {
+                // _selectedTab = idx;
+                _setCurrentPage(index: idx);
+                navBar.getCurrentIndex(index: idx);
+                // print(_selectedTab);
+                // _currentPage = _pages[idx];
+              });
+            },
+            children: _pages,
+          ),
+          CustomBottomNavigator(
+            selectedTab: navBar.currentIndex,
+            onPressed: (int idx) {
+              _setCurrentPage(index: idx);
+              _currentPage = _pages[idx];
+              print(_selectedTab);
+              // _selectedTab = idx;
+            },
+          )
         ],
       ),
     );
   }
 
-  _bottomNavigator() {
+  // bottomNavigator() {
+  //   return Positioned(
+  //     bottom: 0.0,
+  //     left: 0.0,
+  //     right: 0.0,
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         color: Theme.of(context).backgroundColor,
+  //         borderRadius: BorderRadius.only(
+  //           topLeft: Radius.circular(30.0),
+  //           topRight: Radius.circular(30.0),
+  //         ),
+  //       ),
+  //       padding: EdgeInsets.symmetric(
+  //         vertical: 10,
+  //       ),
+  //       child: Column(
+  //         children: [
+  //           BottomNavBar(
+  //             selectedIdx: _selectedTab,
+  //             selectedColor: Colors.white,
+  //             unselectedColor: Colors.grey,
+  //             itemPadding: EdgeInsets.all(10),
+  //             onPressed: (int idx) {
+  //               setState(() {
+  //                 // _selectedTab = idx;
+  //                 _setCurrentPage(index: idx);
+
+  //                 _currentPage = _pages[idx];
+  //                 _pageController.jumpToPage(idx);
+  //                 print(_selectedTab);
+  //               });
+  //             },
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+}
+
+class CustomBottomNavigator extends StatelessWidget {
+  final int selectedTab;
+  final void Function(int) onPressed;
+  CustomBottomNavigator({
+    @required this.selectedTab,
+    this.onPressed,
+  });
+  @override
+  Widget build(BuildContext context) {
     return Positioned(
       bottom: 0.0,
       left: 0.0,
@@ -79,16 +161,11 @@ class _BottomNavigationState extends State<BottomNavigation> {
         child: Column(
           children: [
             BottomNavBar(
-              selectedIdx: _selectedTab,
+              selectedIdx: selectedTab,
               selectedColor: Colors.white,
               unselectedColor: Colors.grey,
               itemPadding: EdgeInsets.all(10),
-              onPressed: (int idx) {
-                setState(() {
-                  _selectedTab = idx;
-                  _currentPage = _pages[idx];
-                });
-              },
+              onPressed: onPressed,
             ),
           ],
         ),
