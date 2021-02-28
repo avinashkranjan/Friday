@@ -7,6 +7,7 @@ import '../screens/home_screen.dart';
 import '../screens/profile_screen.dart';
 import '../screens/classes_screen.dart';
 import '../screens/homework_screen.dart';
+import '../screens/alert_screen.dart';
 import '../widgets/animated_nav_bar.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -20,6 +21,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   List<Widget> _pages;
   HomeScreen _homeScreen;
   HomeworkScreen _homeworkScreen;
+  AlertScreen _alertScreen;
   ClassesScreen _classesScreen;
   ProfileScreen _profileScreen;
   final PageController _pageController = PageController(initialPage: 0);
@@ -40,12 +42,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
     );
     _classesScreen = ClassesScreen();
     _homeworkScreen = HomeworkScreen();
+    _alertScreen = AlertScreen();
     _profileScreen = ProfileScreen();
     _pages = [
       _homeScreen,
       _classesScreen,
       _homeworkScreen,
-      _homeworkScreen, //TODO: Chats Page
+      _alertScreen, //TODO: Chats Page
       _profileScreen,
     ];
     _currentPage = _homeScreen;
