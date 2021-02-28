@@ -10,7 +10,7 @@ class _HomeworkScreenState extends State<HomeworkScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.8),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -24,8 +24,16 @@ class _HomeworkScreenState extends State<HomeworkScreen> {
               ),
             ),
             SizedBox(height: 30.0),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
+            Container(
+              padding: EdgeInsets.all(35.0),
+              height: MediaQuery.of(context).size.height - 123,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50.0),
+                  topRight: Radius.circular(50.0),
+                ),
+              ),
               child: RecentHomeworks(),
             ),
           ],
