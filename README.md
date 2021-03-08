@@ -9,7 +9,7 @@
     <img src="https://user-images.githubusercontent.com/55796944/95674682-5eb52e00-0bcf-11eb-969b-cb7add59921c.png" alt="Logo" height="150px" width="150px">
   </a>
 
-<h2 align=center> "Friday - Your Personal Class Manager Assistant, It'll never let you miss another assignment deadline or any upcoming test."
+<h2 align=center> "Friday - Your Personal Class Assistant, It'll never let you miss another assignment deadline or any upcoming test."
   
   
 <h1 align=center> Introduction 🚩 </h1>
