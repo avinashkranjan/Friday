@@ -140,12 +140,12 @@ class _SignUpFormAdditionalDetailsState
                   ),
                   SizedBox(height: 20),
                   AuthInputField(
-                    labelText: "Year",
+                    labelText: "Current Academic year",
                     controller: _year,
                     textInputAction: TextInputAction.next,
                     validator: (_) {
                       int _yr = int.tryParse(_year.text);
-                      if (_year.text.isNotEmpty && _yr != null && _yr <= 5) {
+                      if (_year.text.isNotEmpty && _yr != null && _yr>0 && _yr <= 5) {
                         return null;
                       }
                       return "Enter valid College Year";
