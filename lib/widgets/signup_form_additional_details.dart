@@ -179,11 +179,15 @@ class _SignUpFormAdditionalDetailsState
                     ],
                   ),
                   SizedBox(height: 50),
-                  RaisedButton(
-                    padding: EdgeInsets.symmetric(vertical: 13, horizontal: 20),
-                    color: kAuthThemeColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.circular(30)),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 13, horizontal: 20),
+                      primary: kAuthThemeColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.circular(30),
+                      ),
+                    ),
                     child: Text(
                       "Sign Up",
                       style: TextStyle(

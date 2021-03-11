@@ -66,11 +66,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 bottom: MediaQuery.of(context).size.height * 0.22,
                 left: 50,
                 right: 50,
-                child: RaisedButton(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                  color: kAuthThemeColor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusDirectional.circular(30)),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+                    primary: kAuthThemeColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.circular(30)),
+                  ),
                   child: Container(
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width * 0.6,
@@ -94,11 +96,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 bottom: MediaQuery.of(context).size.height * 0.12,
                 left: 50,
                 right: 50,
-                child: RaisedButton(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusDirectional.circular(30)),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+                    primary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.circular(30)),
+                  ),
                   child: Container(
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width * 0.6,

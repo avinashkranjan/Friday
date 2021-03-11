@@ -89,10 +89,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               top: MediaQuery.of(context).size.height - 130,
               left: 100.0,
               right: 100.0,
-              child: RaisedButton(
-                color: Theme.of(context).accentColor,
-                shape: StadiumBorder(),
-                padding: EdgeInsets.symmetric(vertical: 15),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).accentColor,
+                  shape: StadiumBorder(),
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                ),
                 onPressed: () {
                   Navigator.push(
                     context,
