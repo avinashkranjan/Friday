@@ -8,6 +8,25 @@ class BuildClasses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: getClassList(),
+      builder: (BuildContext context, AsyncSnapshot<List<Classes>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (!snapshot.hasData)
+          return Center(
+            child: Text(
+              'No classes added yet!',
+              style: TextStyle(color: Colors.white),
+            ),
+          );
+
+        return classesListBuilder(snapshot.data);
+      },
+    );
+  }
+
+  Widget classesListBuilder(List<Classes> classes) {
     return ListView.builder(
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),

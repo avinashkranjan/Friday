@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Classes {
   final String subject;
   final String type;
@@ -7,6 +9,13 @@ class Classes {
   bool isHappening = false;
 
   Classes({this.subject, this.type, this.teacherName, this.time});
+
+  factory Classes.fromMap(Map<String, dynamic> snapshot) => Classes(
+        subject: snapshot['subject'],
+        type: snapshot['type'],
+        teacherName: snapshot['teacherName'],
+        time: snapshot['time'],
+      );
 }
 
 List<Classes> classes = [
@@ -35,3 +44,17 @@ List<Classes> classes = [
     time: DateTime.parse("2020-06-06 07:30:00"),
   ),
 ];
+
+Future<List<Classes>> getClassList() async {
+  List<dynamic> classesMap = [];
+  await FirebaseFirestore.instance
+      .collection('homework')
+      .doc('dummyCollege')
+      .get()
+      .then((data) {
+    classesMap = data.data()['classes'];
+  });
+  return classesMap.map((e) {
+    return Classes.fromMap(e);
+  });
+}
