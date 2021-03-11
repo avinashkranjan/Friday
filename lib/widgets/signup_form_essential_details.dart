@@ -24,6 +24,20 @@ class _SignUpFormEssentialDetailsState
   bool isProcessing;
   TextEditingController _email, _pswd, _name, _conpswd;
   GlobalKey<FormState> _formKey;
+
+  bool obscurePassword = true;
+  bool obscureConfirmPassword = true;
+
+  void _switchObscurity(String flag) {
+    setState(() {
+      if (flag == 'Password') {
+        obscurePassword = !obscurePassword;
+      } else {
+        obscureConfirmPassword = !obscureConfirmPassword;
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -106,6 +120,8 @@ class _SignUpFormEssentialDetailsState
                   SizedBox(
                     height: 30,
                   ),
+
+                  // Email
                   AuthInputField(
                     controller: _email,
                     labelText: "Email",
@@ -123,12 +139,23 @@ class _SignUpFormEssentialDetailsState
                   SizedBox(
                     height: 30,
                   ),
+
+                  // Password
                   AuthInputField(
                     controller: _pswd,
                     labelText: "Password",
-                    obscureText: true,
+                    obscureText: obscurePassword,
                     textInputAction: TextInputAction.next,
-                    suffixIcon: Icon(Entypo.key, color: Colors.white),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        obscurePassword ? Entypo.eye : Entypo.eye_with_line,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        _switchObscurity('Password');
+                      },
+                    ),
                     validator: (value) {
                       if ((_pswd.text.length >= MIN_PASSWORD_LENGTH)) {
                         return null;
@@ -139,12 +166,25 @@ class _SignUpFormEssentialDetailsState
                   SizedBox(
                     height: 30,
                   ),
+
+                  // Confirm Password
                   AuthInputField(
                     controller: _conpswd,
                     labelText: "Confirm Password",
-                    obscureText: true,
+                    obscureText: obscureConfirmPassword,
                     textInputAction: TextInputAction.done,
-                    suffixIcon: Icon(Entypo.key, color: Colors.white),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        obscureConfirmPassword
+                            ? Entypo.eye
+                            : Entypo.eye_with_line,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        _switchObscurity('Confirm Password');
+                      },
+                    ),
                     validator: (value) {
                       if (_conpswd.text.length < MIN_PASSWORD_LENGTH) {
                         return "Password should be more than or equal 8 characters";
@@ -161,6 +201,8 @@ class _SignUpFormEssentialDetailsState
                   SizedBox(
                     height: 50,
                   ),
+
+                  // Continue Button
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding:
@@ -207,6 +249,8 @@ class _SignUpFormEssentialDetailsState
                       }
                     },
                   ),
+
+                  // Button to go to Login Screen
                   Align(
                     alignment: Alignment.center,
                     child: TextButton(
