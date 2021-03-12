@@ -161,11 +161,15 @@ class _SignUpFormEssentialDetailsState
                   SizedBox(
                     height: 50,
                   ),
-                  RaisedButton(
-                    padding: EdgeInsets.symmetric(vertical: 13, horizontal: 20),
-                    color: kAuthThemeColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.circular(30)),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 13, horizontal: 20),
+                      primary: kAuthThemeColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.circular(30),
+                      ),
+                    ),
                     child: Text(
                       "Continue",
                       style: TextStyle(
@@ -205,8 +209,10 @@ class _SignUpFormEssentialDetailsState
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: FlatButton(
-                      padding: EdgeInsets.zero,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                      ),
                       child: Text(
                         "I am already a member",
                         style: TextStyle(

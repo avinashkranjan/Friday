@@ -78,8 +78,10 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 30.0),
               RecentHomeworks(),
               Center(
-                child: FlatButton(
-                  padding: EdgeInsets.all(0),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.all(0),
+                  ),
                   child: Text(
                     "View all",
                     style: TextStyle(
