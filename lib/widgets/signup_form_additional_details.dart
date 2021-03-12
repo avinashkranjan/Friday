@@ -17,7 +17,6 @@ class SignUpFormAdditionalDetails extends StatefulWidget {
 
 class _SignUpFormAdditionalDetailsState
     extends State<SignUpFormAdditionalDetails> {
-  var currDt = DateTime.now();
   FToast errToast;
   String errorMsg;
   bool isProcessing;
@@ -141,12 +140,12 @@ class _SignUpFormAdditionalDetailsState
                   ),
                   SizedBox(height: 20),
                   AuthInputField(
-                    labelText: "Graduation Year",
+                    labelText: "Current Academic Year",
                     controller: _year,
                     textInputAction: TextInputAction.next,
                     validator: (_) {
                       int _yr = int.tryParse(_year.text);
-                      if (_year.text.isNotEmpty && _yr != null && _yr <= (currDt.year+10)) {
+                      if (_year.text.isNotEmpty && _yr != null &&_yr>0 && _yr <= 5) {
                         return null;
                       }
                       return "Enter valid College Year";
