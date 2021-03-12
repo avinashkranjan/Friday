@@ -6,6 +6,7 @@ import 'package:class_manager/constants.dart';
 import 'package:class_manager/screens/login_page.dart';
 import 'package:class_manager/screens/signup_page.dart';
 import 'package:class_manager/widgets/onboarding_canvas_design.dart';
+import 'package:class_manager/widgets/round_button.dart';
 
 class OnboardingPage extends StatefulWidget {
   @override
@@ -98,42 +99,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class RoundButton extends StatelessWidget {
-  RoundButton(
-      {@required this.color,
-      @required this.onPressed,
-      @required this.text,
-      @required this.textColor});
-  final Color color;
-  final String text;
-  final Function onPressed;
-  final Color textColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-        primary: color, //kAuthThemeColor
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusDirectional.circular(30)),
-      ),
-      child: Container(
-        alignment: Alignment.center,
-        width: MediaQuery.of(context).size.width * 0.6,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 20,
-            color: textColor,
-          ),
-        ),
-      ),
-      onPressed: onPressed,
     );
   }
 }
