@@ -206,33 +206,31 @@ class _SignUpFormAdditionalDetailsState
                           isProcessing = true;
                         });
 
-                          //Close the keyboard
-                          SystemChannels.textInput
-                              .invokeMethod('TextInput.hide');
+                        //Close the keyboard
+                        SystemChannels.textInput.invokeMethod('TextInput.hide');
 
-                          // Set Additional details to [UserInfoServices]
-                          int yr = int.tryParse(_year.text);
-                          int age = int.tryParse(_age.text);
-                          Provider.of<UserInfoServices>(context, listen: false)
-                              .setAdditionalDetailsOfUser(_course.text,
-                                  _dept.text, _college.text, yr, _gen, age);
+                        // Set Additional details to [UserInfoServices]
+                        int yr = int.tryParse(_year.text);
+                        int age = int.tryParse(_age.text);
 
-                          await Provider.of<UserInfoServices>(context,
-                                  listen: false)
-                              .addUserToDatabase();
-                          print("User Details Added");
+                        Provider.of<UserInfoServices>(context, listen: false)
+                            .setAdditionalDetailsOfUser(_course.text,
+                                _dept.text, _college.text, yr, _gen, age);
 
-                          setState(() {
-                            isProcessing = false;
-                            _formKey.currentState.reset();
-                          });
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => BottomNavigation()),
-                            (Route<dynamic> route) => false,
-                          );
+                        await Provider.of<UserInfoServices>(context,
+                                listen: false)
+                            .addUserToDatabase();
 
+                        setState(() {
+                          isProcessing = false;
+                          _formKey.currentState.reset();
+                        });
+                        print("User Details Added");
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (_) => BottomNavigation()),
+                          (Route<dynamic> route) => false,
+                        );
                       }
                     },
                   ),
