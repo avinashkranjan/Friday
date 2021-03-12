@@ -22,6 +22,15 @@ class _LoginFormState extends State<LoginForm> {
   bool isProcessing;
   TextEditingController _email, _pswd;
   GlobalKey<FormState> _formKey;
+
+  bool obscurePassword = true;
+
+  void _switchObscurity() {
+    setState(() {
+      obscurePassword = !obscurePassword;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -79,6 +88,8 @@ class _LoginFormState extends State<LoginForm> {
               SizedBox(
                 height: 70,
               ),
+
+              // Email
               AuthInputField(
                 controller: _email,
                 labelText: "Email",
@@ -96,13 +107,22 @@ class _LoginFormState extends State<LoginForm> {
               SizedBox(
                 height: 40,
               ),
+
+              // Password
               AuthInputField(
                 controller: _pswd,
                 labelText: "Password",
-                obscureText: true,
+                obscureText: obscurePassword,
                 // helperText: "Password should be more than 8 characters",
                 textInputAction: TextInputAction.done,
-                suffixIcon: Icon(Entypo.key, color: Colors.white),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    obscurePassword ? Entypo.eye : Entypo.eye_with_line,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  onPressed: _switchObscurity,
+                ),
                 validator: (value) {
                   if ((_pswd.text.length >= MIN_PASSWORD_LENGTH)) {
                     return null;
@@ -110,6 +130,8 @@ class _LoginFormState extends State<LoginForm> {
                   return "Password should be more than or equal to 8 characters";
                 },
               ),
+
+              // Forgot Password Button
               Align(
                 alignment: Alignment.centerRight,
 
@@ -137,8 +159,6 @@ class _LoginFormState extends State<LoginForm> {
               SizedBox(
                 height: 40,
               ),
-              
-              
               Container(
                   margin: EdgeInsets.all(10),
                   width: double.infinity,
