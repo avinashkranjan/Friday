@@ -110,17 +110,20 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
   }
 
   _todoButton(Homework homework) {
-    return RaisedButton(
+    return ElevatedButton(
       onPressed: () {
         setState(() {
           homework.isDone = !homework.isDone;
         });
       },
-      shape: CircleBorder(
-        side: BorderSide(color: Theme.of(context).accentColor),
+      style: ElevatedButton.styleFrom(
+        shape: CircleBorder(
+          side: BorderSide(color: Theme.of(context).accentColor),
+        ),
+        primary: homework.isDone
+            ? Theme.of(context).accentColor
+            : Colors.transparent,
       ),
-      color:
-          homework.isDone ? Theme.of(context).accentColor : Colors.transparent,
       child: homework.isDone ? Icon(Icons.check, color: Colors.white) : null,
     );
   }
