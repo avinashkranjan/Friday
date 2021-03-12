@@ -81,7 +81,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           SizedBox(height: 20),
                           buildDetails(
-                            "Year",
+                            "Current Academic Year",
                             userInfo.hasData
                                 ? _user.year.toString()
                                 : "Loading...",
