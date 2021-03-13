@@ -34,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     SizedBox(height: 0.15 * MediaQuery.of(context).size.height),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      margin: EdgeInsets.fromLTRB(15, 15, 15, 60),
                       padding: EdgeInsets.all(30),
                       decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
@@ -111,16 +111,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           SizedBox(height: 40),
                           Center(
                             child: OutlineButton(
-                              onPressed: () async{
+                              onPressed: () async {
                                 print("Signing out");
                                 var _gAuth = GoogleAuthenticate(context);
                                 bool response = await _gAuth.logOut();
-                                if(!response)// If Account Not Log-in Via Google Auth
+                                if (!response) // If Account Not Log-in Via Google Auth
                                   AuthenticationService.signout(context);
-                                else{// For Sign Out from Google Auth, Back to the On Boarding Page
-                                  Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => OnboardingPage(),
-                                  ));
+                                else {
+                                  // For Sign Out from Google Auth, Back to the On Boarding Page
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => OnboardingPage(),
+                                      ));
                                 }
                               },
                               borderSide: BorderSide(color: Colors.red),
