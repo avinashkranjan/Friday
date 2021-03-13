@@ -15,6 +15,8 @@ class ResetScreen extends StatefulWidget {
 class _ResetScreenState extends State<ResetScreen> {
   String _email;
   final auth = FirebaseAuth.instance;
+  
+
   @override
   Widget build(BuildContext context) {
     var textStyle = TextStyle(
@@ -31,50 +33,49 @@ class _ResetScreenState extends State<ResetScreen> {
               child: Container(),
               painter: CanvasDesign(context: context),
             ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  style: TextStyle(color: Colors.white),
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Theme.of(context).accentColor, width: 2.0),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      style: TextStyle(color: Colors.white),
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Theme.of(context).accentColor, width: 2.0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Theme.of(context).accentColor, width: 2.0),
+                        ),
+                        hintText: 'Email',
+                        hintStyle: TextStyle(fontSize: 20.0, color: Colors.white),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          _email = value.trim();
+                        });
+                      },
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Theme.of(context).accentColor, width: 2.0),
-                    ),
-                    hintText: 'Email',
-                    hintStyle: TextStyle(fontSize: 20.0, color: Colors.white),
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      _email = value.trim();
-                    });
-                  },
                 ),
-              ),
-            ),
-            Positioned(
-              top: MediaQuery.of(context).size.height - 380,
-              left: 100.0,
-              right: 100.0,
-              child: RaisedButton(
-                color: Theme.of(context).accentColor,
-                shape: StadiumBorder(),
-                padding: EdgeInsets.symmetric(vertical: 15),
+                Center(
+                        
+              child: ElevatedButton(
+             
+                style: ElevatedButton.styleFrom(shape: StadiumBorder(),primary:Theme.of(context).accentColor, ),
                 onPressed: () {
                   auth.sendPasswordResetEmail(email: _email);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => LoginPage()),
-                    
                   );
-                  AlertDialog(
-                    title: Text("Sample Alert Dialog"),
-                  );
+                  var snackBar = SnackBar(content: Text('Password Reset Email Sent Succesfully'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
                 child: Text(
                   "Send Reset Email",
@@ -87,6 +88,10 @@ class _ResetScreenState extends State<ResetScreen> {
                 ),
               ),
             ),
+              ],
+            ),
+            //SizedBox(height:100000),
+            
           ],
         ),
       ),
