@@ -2,6 +2,7 @@ import 'package:class_manager/constants.dart';
 import 'package:class_manager/models/users.dart';
 import 'package:class_manager/screens/onboarding_page.dart';
 import 'package:class_manager/services/authentication.dart';
+import 'package:class_manager/services/facebookAuthentication.dart';
 import 'package:class_manager/services/googleAuthentication.dart';
 import 'package:class_manager/services/user_info_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -111,16 +112,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           SizedBox(height: 40),
                           Center(
                             child: OutlineButton(
-                              onPressed: () async{
+                              onPressed: () async {
                                 print("Signing out");
+
                                 var _gAuth = GoogleAuthenticate(context);
-                                bool response = await _gAuth.logOut();
-                                if(!response)// If Account Not Log-in Via Google Auth
+                                bool gResponse = await _gAuth.logOut();
+
+                                if (!gResponse) // If Account Not Log-in Via Google Auth
                                   AuthenticationService.signout(context);
-                                else{// For Sign Out from Google Auth, Back to the On Boarding Page
-                                  Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => OnboardingPage(),
-                                  ));
+                                else {
+                                  var _fbAuth = FacebookAuth(context);
+                                  bool fbResponse = await _fbAuth.logOut();
+
+                                  if (!fbResponse) {
+                                    // If Account Not Log-in Via Facebook Auth
+                                    AuthenticationService.signout(context);
+                                  } else {
+                                    // For Sign Out from Google Auth or Facebook Auth, Back to the On Boarding Page
+                                    while(Navigator.canPop(context)) {
+                                      Navigator.pop(context);
+                                    }
+                                  }
                                 }
                               },
                               borderSide: BorderSide(color: Colors.red),

@@ -69,4 +69,6 @@ dependencies {
     // Declaring the dependencies for Firebase Authentication
     implementation 'com.google.firebase:firebase-auth'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // For Facebook Authentication
+    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
 }
