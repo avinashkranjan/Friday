@@ -78,6 +78,33 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "namancoder",
+      "name": "Naman Gupta",
+      "avatar_url": "https://avatars.githubusercontent.com/u/49373509?v=4",
+      "profile": "https://github.com/namancoder",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "D-Ajay-Kumar",
+      "name": "D-Ajay-Kumar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56850266?v=4",
+      "profile": "https://github.com/D-Ajay-Kumar",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "SamarpanCoder2002",
+      "name": "Samarpan Dasgupta",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66327336?v=4",
+      "profile": "https://www.linkedin.com/in/samarpan-dasgupta-4aa1061b0/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

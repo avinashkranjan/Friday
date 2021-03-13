@@ -1,4 +1,5 @@
 import 'package:class_manager/models/users.dart';
+import 'package:class_manager/services/googleAuthentication.dart';
 import 'package:class_manager/services/user_info_services.dart';
 import 'package:class_manager/widgets/auth_input_form_field.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class _SignUpFormAdditionalDetailsState
       color: Colors.white70,
     ),
   );
+
   @override
   void initState() {
     super.initState();
@@ -140,12 +142,12 @@ class _SignUpFormAdditionalDetailsState
                   ),
                   SizedBox(height: 20),
                   AuthInputField(
-                    labelText: "Year",
+                    labelText: "Current Academic Year",
                     controller: _year,
                     textInputAction: TextInputAction.next,
                     validator: (_) {
                       int _yr = int.tryParse(_year.text);
-                      if (_year.text.isNotEmpty && _yr != null && _yr <= 5) {
+                      if (_year.text.isNotEmpty && _yr != null &&_yr>0 && _yr <= 5) {
                         return null;
                       }
                       return "Enter valid College Year";
@@ -210,6 +212,7 @@ class _SignUpFormAdditionalDetailsState
                         // Set Additional details to [UserInfoServices]
                         int yr = int.tryParse(_year.text);
                         int age = int.tryParse(_age.text);
+
                         Provider.of<UserInfoServices>(context, listen: false)
                             .setAdditionalDetailsOfUser(_course.text,
                                 _dept.text, _college.text, yr, _gen, age);
@@ -217,12 +220,12 @@ class _SignUpFormAdditionalDetailsState
                         await Provider.of<UserInfoServices>(context,
                                 listen: false)
                             .addUserToDatabase();
-                        print("User Details Added");
 
                         setState(() {
                           isProcessing = false;
                           _formKey.currentState.reset();
                         });
+                        print("User Details Added");
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(builder: (_) => BottomNavigation()),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -7,6 +8,7 @@ import 'package:class_manager/screens/login_page.dart';
 import 'package:class_manager/screens/signup_page.dart';
 import 'package:class_manager/widgets/onboarding_canvas_design.dart';
 import 'package:class_manager/widgets/round_button.dart';
+import 'package:class_manager/services/googleAuthentication.dart';
 
 class OnboardingPage extends StatefulWidget {
   @override
@@ -64,7 +66,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
               ),
               Positioned(
-                bottom: MediaQuery.of(context).size.height * 0.22,
+                bottom: MediaQuery.of(context).size.height * 0.28,
                 left: 50,
                 right: 50,
                 child: RoundButton(
@@ -80,7 +82,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
               ),
               Positioned(
-                bottom: MediaQuery.of(context).size.height * 0.12,
+                bottom: MediaQuery.of(context).size.height * 0.18,
                 left: 50,
                 right: 50,
                 child: RoundButton(
@@ -92,6 +94,30 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       context,
                       MaterialPageRoute(builder: (_) => LoginPage()),
                     );
+                  },
+                ),
+              ),
+              Positioned(
+                bottom: MediaQuery.of(context).size.height * 0.12,
+                left: 50,
+                right: 50,
+                child: Center(
+                  child: Text("OR Connect With", style: TextStyle(
+                    color: kTextColor,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w700,
+                  ),),
+                ),
+              ),
+              Container(
+                alignment: Alignment.bottomCenter,
+                height: MediaQuery.of(context).size.height-50,
+                child: GestureDetector(
+                  child: Image.asset("assets/images/google.png", width: 50.0,),
+                  onTap: (){
+                    print("Google Authentication");
+                    var _gSignIn = GoogleAuthenticate(context);
+                    _gSignIn.login();
                   },
                 ),
               ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:class_manager/constants.dart';
 
 class AuthInputField extends StatefulWidget {
-  final Icon suffixIcon;
+  final Widget suffixIcon;
   final bool obscureText;
   final String labelText, hintText;
   final TextInputAction textInputAction;
