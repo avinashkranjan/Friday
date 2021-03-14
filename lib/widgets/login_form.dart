@@ -135,8 +135,8 @@ class _LoginFormState extends State<LoginForm> {
               Align(
                 alignment: Alignment.centerRight,
 
-                child: FlatButton(
-                  padding: EdgeInsets.zero,
+                child: TextButton(
+                  //padding: EdgeInsets.zero,
                   onPressed: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => ResetScreen()));
