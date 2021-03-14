@@ -21,6 +21,15 @@ class _LoginFormState extends State<LoginForm> {
   bool isProcessing;
   TextEditingController _email, _pswd;
   GlobalKey<FormState> _formKey;
+
+  bool obscurePassword = true;
+
+  void _switchObscurity() {
+    setState(() {
+      obscurePassword = !obscurePassword;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -78,6 +87,8 @@ class _LoginFormState extends State<LoginForm> {
               SizedBox(
                 height: 70,
               ),
+
+              // Email
               AuthInputField(
                 controller: _email,
                 labelText: "Email",
@@ -95,13 +106,22 @@ class _LoginFormState extends State<LoginForm> {
               SizedBox(
                 height: 40,
               ),
+
+              // Password
               AuthInputField(
                 controller: _pswd,
                 labelText: "Password",
-                obscureText: true,
+                obscureText: obscurePassword,
                 // helperText: "Password should be more than 8 characters",
                 textInputAction: TextInputAction.done,
-                suffixIcon: Icon(Entypo.key, color: Colors.white),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    obscurePassword ? Entypo.eye : Entypo.eye_with_line,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  onPressed: _switchObscurity,
+                ),
                 validator: (value) {
                   if ((_pswd.text.length >= MIN_PASSWORD_LENGTH)) {
                     return null;
@@ -109,10 +129,14 @@ class _LoginFormState extends State<LoginForm> {
                   return "Password should be more than or equal to 8 characters";
                 },
               ),
+
+              // Forgot Password Button
               Align(
                 alignment: Alignment.centerRight,
-                child: FlatButton(
-                  padding: EdgeInsets.zero,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                  ),
                   onPressed: null, //TODO: Implement Forgot Password Feature
                   child: Text(
                     "Forgot Password?",
@@ -126,6 +150,8 @@ class _LoginFormState extends State<LoginForm> {
               SizedBox(
                 height: 40,
               ),
+
+              // SignUp and Login buttons
               Container(
                   margin: EdgeInsets.all(10),
                   width: double.infinity,
@@ -133,14 +159,17 @@ class _LoginFormState extends State<LoginForm> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      RaisedButton(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal:
-                                (MediaQuery.of(context).size.width / 8) - 10),
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusDirectional.circular(30)),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15,
+                              horizontal:
+                                  (MediaQuery.of(context).size.width / 8) - 10),
+                          primary: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusDirectional.circular(30),
+                          ),
+                        ),
                         child: Text(
                           "Sign Up",
                           style: TextStyle(
@@ -158,14 +187,17 @@ class _LoginFormState extends State<LoginForm> {
                       SizedBox(
                         width: 10,
                       ),
-                      RaisedButton(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal:
-                                (MediaQuery.of(context).size.width / 8) - 10),
-                        color: kAuthThemeColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusDirectional.circular(30)),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15,
+                              horizontal:
+                                  (MediaQuery.of(context).size.width / 8) - 10),
+                          primary: kAuthThemeColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusDirectional.circular(30),
+                          ),
+                        ),
                         child: Text(
                           "Log In",
                           style: TextStyle(

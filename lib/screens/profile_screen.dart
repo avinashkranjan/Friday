@@ -1,6 +1,8 @@
 import 'package:class_manager/constants.dart';
 import 'package:class_manager/models/users.dart';
+import 'package:class_manager/screens/onboarding_page.dart';
 import 'package:class_manager/services/authentication.dart';
+import 'package:class_manager/services/googleAuthentication.dart';
 import 'package:class_manager/services/user_info_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           SizedBox(height: 20),
                           buildDetails(
-                            "Year",
+                            "Current Academic Year",
                             userInfo.hasData
                                 ? _user.year.toString()
                                 : "Loading...",
@@ -109,9 +111,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           SizedBox(height: 40),
                           Center(
                             child: OutlineButton(
-                              onPressed: () {
+                              onPressed: () async{
                                 print("Signing out");
-                                AuthenticationService.signout(context);
+                                var _gAuth = GoogleAuthenticate(context);
+                                bool response = await _gAuth.logOut();
+                                if(!response)// If Account Not Log-in Via Google Auth
+                                  AuthenticationService.signout(context);
+                                else{// For Sign Out from Google Auth, Back to the On Boarding Page
+                                  Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) => OnboardingPage(),
+                                  ));
+                                }
                               },
                               borderSide: BorderSide(color: Colors.red),
                               highlightElevation: 1,
