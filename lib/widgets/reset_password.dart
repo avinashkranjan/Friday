@@ -86,22 +86,39 @@ class _ResetScreenState extends State<ResetScreen> {
                     ),
                     onPressed: () {
                       if (!emailValid) {
-                        var snackBar =
-                            SnackBar(content: Text('Incorrect Email Entered') ,backgroundColor: Colors.red,);
+                        var snackBar = SnackBar(
+                          content: Text('Incorrect Email Entered'),
+                          backgroundColor: Colors.red,
+                        );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       } else {
-                        auth.sendPasswordResetEmail(email: _email);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => LoginPage()),
-                        );
-                        var snackBar = SnackBar(
-                            content:
-                                Text('Password Reset Email Sent Succesfully'));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        bool _errorOccurred = false;
+                        auth
+                            .sendPasswordResetEmail(email: _email)
+                            .catchError((err) {
+                          _errorOccurred = true;
+                          if (err.code == 'user-not-found') {
+                            var snackBar = SnackBar(
+                              content: Text('User does not exist!'),
+                              backgroundColor: Colors.red,
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        }).whenComplete(() {
+                          if (!_errorOccurred) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => LoginPage()),
+                            );
+                            var snackBar = SnackBar(
+                                content: Text(
+                                    'Password Reset Email Sent Succesfully'));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        });
                       }
-
-                     
                     },
                     child: Text(
                       "Send Reset Email",
