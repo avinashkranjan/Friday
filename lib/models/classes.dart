@@ -14,7 +14,9 @@ class Classes {
         subject: snapshot['subject'],
         type: snapshot['type'],
         teacherName: snapshot['teacherName'],
-        time: snapshot['time'],
+        time: (snapshot['time'] != null)
+            ? DateTime.parse(snapshot['time'].toDate().toString())
+            : null,
       );
 }
 
@@ -46,15 +48,15 @@ List<Classes> classes = [
 ];
 
 Future<List<Classes>> getClassList() async {
-  List<dynamic> classesMap = [];
-  await FirebaseFirestore.instance
+  List classesMap = [];
+  return FirebaseFirestore.instance
       .collection('homework')
-      .doc('dummyCollege')
+      .doc('dummyClasses')
       .get()
-      .then((data) {
-    classesMap = data.data()['classes'];
-  });
-  return classesMap.map((e) {
-    return Classes.fromMap(e);
+      .then((documentSnapshot) {
+    classesMap = documentSnapshot.data()['classes'] as List;
+    return classesMap.map((e) {
+      return Classes.fromMap(e);
+    }).toList();
   });
 }

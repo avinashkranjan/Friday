@@ -25,19 +25,23 @@ class _AuthHandlingWidgetState extends State<AuthHandlingWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<bool>(
-      future: checkingUserDetails,
-      builder: (ctx, AsyncSnapshot<bool> isUserExists) {
-        if (isUserExists.connectionState == ConnectionState.done) {
-          if (!isUserExists.data) {
-            Provider.of<UserInfoServices>(ctx, listen: false)
-                .setEssentialDetailsOfUser(widget.name, widget.email);
-            return SignUpAdditionalDetails();
-          } else
-            return BottomNavigation();
-        } else
-          return LoadingScreen();
-      },
-    );
+    /// HACK
+
+    return BottomNavigation();
+
+    // return FutureBuilder<bool>(
+    //   future: checkingUserDetails,
+    //   builder: (ctx, AsyncSnapshot<bool> isUserExists) {
+    //     if (isUserExists.connectionState == ConnectionState.done) {
+    //       if (!isUserExists.data) {
+    //         Provider.of<UserInfoServices>(ctx, listen: false)
+    //             .setEssentialDetailsOfUser(widget.name, widget.email);
+    //         return SignUpAdditionalDetails();
+    //       } else
+    //         return BottomNavigation();
+    //     } else
+    //       return LoadingScreen();
+    //   },
+    // );
   }
 }
