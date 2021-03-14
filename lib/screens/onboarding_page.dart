@@ -7,6 +7,7 @@ import 'package:class_manager/constants.dart';
 import 'package:class_manager/screens/login_page.dart';
 import 'package:class_manager/screens/signup_page.dart';
 import 'package:class_manager/widgets/onboarding_canvas_design.dart';
+import 'package:class_manager/widgets/round_button.dart';
 import 'package:class_manager/services/googleAuthentication.dart';
 import 'package:class_manager/services/facebookAuthentication.dart';
 
@@ -69,24 +70,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 bottom: MediaQuery.of(context).size.height * 0.28,
                 left: 50,
                 right: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                    primary: kAuthThemeColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.circular(30)),
-                  ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: Text(
-                      "Sign Up",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                child: RoundButton(
+                  text: 'Sign Up',
+                  color: kAuthThemeColor,
+                  textColor: Colors.white,
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -99,24 +86,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 bottom: MediaQuery.of(context).size.height * 0.18,
                 left: 50,
                 right: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                    primary: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.circular(30)),
-                  ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: Text(
-                      "Log In",
-                      style: TextStyle(
-                        color: kAuthThemeColor,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
+                child: RoundButton(
+                  color: Colors.white,
+                  text: 'Log In',
+                  textColor: kAuthThemeColor,
                   onPressed: () {
                     Navigator.push(
                       context,
