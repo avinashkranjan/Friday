@@ -7,7 +7,9 @@ import 'package:class_manager/constants.dart';
 import 'package:class_manager/screens/login_page.dart';
 import 'package:class_manager/screens/signup_page.dart';
 import 'package:class_manager/widgets/onboarding_canvas_design.dart';
+import 'package:class_manager/widgets/round_button.dart';
 import 'package:class_manager/services/googleAuthentication.dart';
+import 'package:class_manager/services/facebookAuthentication.dart';
 
 class OnboardingPage extends StatefulWidget {
   @override
@@ -68,24 +70,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 bottom: MediaQuery.of(context).size.height * 0.28,
                 left: 50,
                 right: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                    primary: kAuthThemeColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.circular(30)),
-                  ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: Text(
-                      "Sign Up",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                child: RoundButton(
+                  text: 'Sign Up',
+                  color: kAuthThemeColor,
+                  textColor: Colors.white,
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -98,24 +86,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 bottom: MediaQuery.of(context).size.height * 0.18,
                 left: 50,
                 right: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                    primary: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.circular(30)),
-                  ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: Text(
-                      "Log In",
-                      style: TextStyle(
-                        color: kAuthThemeColor,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
+                child: RoundButton(
+                  color: Colors.white,
+                  text: 'Log In',
+                  textColor: kAuthThemeColor,
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -129,25 +103,56 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 left: 50,
                 right: 50,
                 child: Center(
-                  child: Text("OR Connect With", style: TextStyle(
-                    color: kTextColor,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w700,
-                  ),),
+                  child: Text(
+                    "OR Connect With",
+                    style: TextStyle(
+                      color: kTextColor,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
               Container(
-                alignment: Alignment.bottomCenter,
-                height: MediaQuery.of(context).size.height-50,
-                child: GestureDetector(
-                  child: Image.asset("assets/images/google.png", width: 50.0,),
-                  onTap: (){
-                    print("Google Authentication");
-                    var _gSignIn = GoogleAuthenticate(context);
-                    _gSignIn.login();
-                  },
-                ),
-              ),
+                  alignment: Alignment.bottomCenter,
+                  height: MediaQuery.of(context).size.height - 50,
+                  child: Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 2 - 20,
+                        alignment: Alignment.bottomRight,
+                        child: GestureDetector(
+                          child: Image.asset(
+                            "assets/images/google.png",
+                            width: 50.0,
+                          ),
+                          onTap: () {
+                            print("Google Authentication");
+                            var _gSignIn = GoogleAuthenticate(context);
+                            _gSignIn.loginViaGoogle();
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: 37.0,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 2 - 20,
+                        alignment: Alignment.bottomLeft,
+                        child: GestureDetector(
+                          child: Image.asset(
+                            "assets/images/fbook.png",
+                            width: 48.0,
+                          ),
+                          onTap: () {
+                            print("Facebook Authentication");
+                            var _fbSignIn = FacebookAuth(context);
+                            _fbSignIn.logInViaFacebook();
+                          },
+                        ),
+                      ),
+                    ],
+                  )),
             ],
           ),
         ),

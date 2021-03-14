@@ -22,6 +22,7 @@ dependencies:
   firebase_auth: ^0.20.0+1
   email_validator: '^1.0.0'
   google_sign_in:
+  flutter_facebook_login:
 
 dev_dependencies:
   flutter_test:
