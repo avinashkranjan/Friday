@@ -1,3 +1,6 @@
+//import 'dart:html';
+import 'dart:io';
+
 import 'package:class_manager/constants.dart';
 import 'package:class_manager/models/users.dart';
 import 'package:class_manager/services/authentication.dart';
@@ -5,6 +8,8 @@ import 'package:class_manager/services/user_info_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -25,6 +30,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
           builder: (context, userInfo, _) {
             Users _user;
             if (userInfo.hasData) _user = userInfo.user;
+
+            uploadImage() async {
+              final _storage = FirebaseStorage.instance;
+              final _picker = ImagePicker();
+              PickedFile image;
+              image = await _picker.getImage(source: ImageSource.gallery);
+              var file = File(image.path);
+              if (image != null) {
+                var snapshot = await _storage.ref().child('profile/profileImage').putFile(file);
+                var downloadURL = await snapshot.ref.getDownloadURL();
+                setState(() {
+                  _user.profilePictureUrl = downloadURL;
+                });
+              } else {
+                print('No path received');
+              }
+            }
+
             return Stack(
               alignment: Alignment.center,
               children: [
@@ -82,9 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           SizedBox(height: 20),
                           buildDetails(
                             "Year",
-                            userInfo.hasData
-                                ? _user.year.toString()
-                                : "Loading...",
+                            userInfo.hasData ? _user.year.toString() : "Loading...",
                           ),
                           SizedBox(height: 20),
                           Row(
@@ -92,16 +113,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               buildDetails(
                                 "Gender",
-                                userInfo.hasData
-                                    ? enumToString(_user.gender)
-                                    : "Loading...",
+                                userInfo.hasData ? enumToString(_user.gender) : "Loading...",
                               ),
                               SizedBox(width: 20),
                               buildDetails(
                                 "Age",
-                                userInfo.hasData
-                                    ? _user.age.toString()
-                                    : "Loading...",
+                                userInfo.hasData ? _user.age.toString() : "Loading...",
                               ),
                               SizedBox(width: 20),
                             ],
@@ -115,8 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               },
                               borderSide: BorderSide(color: Colors.red),
                               highlightElevation: 1,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                               shape: StadiumBorder(),
                               color: Colors.transparent,
                               hoverColor: Theme.of(context).primaryColor,
@@ -141,21 +157,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   top: 0.1 * MediaQuery.of(context).size.height,
                   child: CircleAvatar(
                     radius: profilePictureDiameter / 2,
-                    backgroundImage:
-                        AssetImage("assets/images/profile_pic.jpg"),
+                    backgroundImage: (_user.profilePictureUrl.isNotEmpty)
+                        ? NetworkImage(_user.profilePictureUrl)
+                        : AssetImage("assets/images/profile_pic.jpg"),
                     backgroundColor: Colors.transparent,
                     foregroundColor: Theme.of(context).backgroundColor,
                   ),
                 ),
                 Positioned(
-                  top: 0.1 * MediaQuery.of(context).size.height +
-                      profilePictureDiameter -
-                      35,
+                  top: 0.1 * MediaQuery.of(context).size.height + profilePictureDiameter - 35,
                   left: (MediaQuery.of(context).size.width / 2) + 25,
-                  child: Icon(
-                    Icons.camera_alt,
-                    size: profilePictureDiameter * 0.25,
-                    color: Colors.white,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.camera_alt,
+                      size: profilePictureDiameter * 0.25,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      uploadImage();
+                    },
                   ),
                 ),
               ],
