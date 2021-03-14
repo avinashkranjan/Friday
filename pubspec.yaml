@@ -21,6 +21,7 @@ dependencies:
   cloud_firestore: ^0.16.0
   firebase_auth: ^0.20.0+1
   google_sign_in:
+  flutter_facebook_login:
 
 dev_dependencies:
   flutter_test:

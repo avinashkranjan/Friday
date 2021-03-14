@@ -2,6 +2,7 @@ import 'package:class_manager/constants.dart';
 import 'package:class_manager/models/users.dart';
 import 'package:class_manager/screens/onboarding_page.dart';
 import 'package:class_manager/services/authentication.dart';
+import 'package:class_manager/services/facebookAuthentication.dart';
 import 'package:class_manager/services/googleAuthentication.dart';
 import 'package:class_manager/services/user_info_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,7 +21,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final User userData = firebaseAuth.currentUser;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.8),
+      backgroundColor: Theme
+          .of(context)
+          .backgroundColor
+          .withOpacity(0.8),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         child: Consumer<UserInfoServices>(
@@ -32,12 +36,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Column(
                   children: [
-                    SizedBox(height: 0.15 * MediaQuery.of(context).size.height),
+                    SizedBox(height: 0.15 * MediaQuery
+                        .of(context)
+                        .size
+                        .height),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 15),
                       padding: EdgeInsets.all(30),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme
+                            .of(context)
+                            .primaryColor,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40),
                           topRight: Radius.circular(40),
@@ -111,16 +120,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           SizedBox(height: 40),
                           Center(
                             child: OutlineButton(
-                              onPressed: () async{
+                              onPressed: () async {
                                 print("Signing out");
+
                                 var _gAuth = GoogleAuthenticate(context);
-                                bool response = await _gAuth.logOut();
-                                if(!response)// If Account Not Log-in Via Google Auth
+                                bool gResponse = await _gAuth.logOut();
+
+                                if (!gResponse) // If Account Not Log-in Via Google Auth
                                   AuthenticationService.signout(context);
-                                else{// For Sign Out from Google Auth, Back to the On Boarding Page
-                                  Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => OnboardingPage(),
-                                  ));
+                                else {
+                                  var _fbAuth = FacebookAuth(context);
+                                  bool fbResponse = await _fbAuth.logOut();
+
+                                  if (!fbResponse) {
+                                    // If Account Not Log-in Via Facebook Auth
+                                    AuthenticationService.signout(context);
+                                  } else {
+                                    // For Sign Out from Google Auth or Facebook Auth, Back to the On Boarding Page
+                                    while (Navigator.canPop(context)) {
+                                      Navigator.pop(context);
+                                    }
+                                    Navigator.push(context, MaterialPageRoute(
+                                        builder: (context) => OnboardingPage()));
+                                  }
                                 }
                               },
                               borderSide: BorderSide(color: Colors.red),
@@ -129,10 +151,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   horizontal: 20, vertical: 10),
                               shape: StadiumBorder(),
                               color: Colors.transparent,
-                              hoverColor: Theme.of(context).primaryColor,
-                              splashColor: Theme.of(context).primaryColor,
-                              focusColor: Theme.of(context).primaryColor,
-                              highlightColor: Theme.of(context).primaryColor,
+                              hoverColor: Theme
+                                  .of(context)
+                                  .primaryColor,
+                              splashColor: Theme
+                                  .of(context)
+                                  .primaryColor,
+                              focusColor: Theme
+                                  .of(context)
+                                  .primaryColor,
+                              highlightColor: Theme
+                                  .of(context)
+                                  .primaryColor,
                               child: Text(
                                 "Log out",
                                 style: TextStyle(
@@ -148,20 +178,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
                 Positioned(
-                  top: 0.1 * MediaQuery.of(context).size.height,
+                  top: 0.1 * MediaQuery
+                      .of(context)
+                      .size
+                      .height,
                   child: CircleAvatar(
                     radius: profilePictureDiameter / 2,
                     backgroundImage:
-                        AssetImage("assets/images/profile_pic.jpg"),
+                    AssetImage("assets/images/profile_pic.jpg"),
                     backgroundColor: Colors.transparent,
-                    foregroundColor: Theme.of(context).backgroundColor,
+                    foregroundColor: Theme
+                        .of(context)
+                        .backgroundColor,
                   ),
                 ),
                 Positioned(
-                  top: 0.1 * MediaQuery.of(context).size.height +
+                  top: 0.1 * MediaQuery
+                      .of(context)
+                      .size
+                      .height +
                       profilePictureDiameter -
                       35,
-                  left: (MediaQuery.of(context).size.width / 2) + 25,
+                  left: (MediaQuery
+                      .of(context)
+                      .size
+                      .width / 2) + 25,
                   child: Icon(
                     Icons.camera_alt,
                     size: profilePictureDiameter * 0.25,
