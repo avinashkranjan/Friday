@@ -143,6 +143,7 @@ class _SignUpFormAdditionalDetailsState
                   ),
                   SizedBox(height: 20),
                   AuthInputField(
+                    textInputType: TextInputType.number,
                     labelText: "Current Academic Year",
                     controller: _year,
                     textInputAction: TextInputAction.next,
