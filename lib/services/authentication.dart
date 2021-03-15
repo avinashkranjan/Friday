@@ -36,20 +36,65 @@ class AuthenticationService {
       User user = userCred.user;
       final User currentUser = auth.currentUser;
 
-      if ((user != null) &&
-          (currentUser != null) &&
-          (user.uid == currentUser.uid)) {
-        print(
-            "Login succeeded \n Credentials of user=>Email: ${user.email} and  UID: ${user.uid}");
-        // Navigate to Dashboard
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => BottomNavigation()),
-          (Route<dynamic> route) => false,
-        );
+      if (user.emailVerified) {
+        if ((user != null) &&
+            (currentUser != null) &&
+            (user.uid == currentUser.uid)) {
+          print(
+              "Login succeeded \n Credentials of user=>Email: ${user.email} and  UID: ${user.uid}");
+          print("User Logged In");
+          // Navigate to Dashboard
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (_) => BottomNavigation()),
+            (Route<dynamic> route) => false,
+          );
+
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                backgroundColor: Colors.black38,
+                title: Text(
+                  "Log-in Complete",
+                  style: TextStyle(color: Colors.white),
+                ),
+                content: Text(
+                  "Enjoy this app",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ));
+        } else {
+          print("Login Error: Undefined Error!");
+          errorMsg = "Undefined Error Occured";
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    backgroundColor: Colors.black38,
+                    title: Text(
+                      "Log-in Error",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    content: Text(
+                      "Undefined Error Occured",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ));
+        }
       } else {
-        print("Login Error: Undefined Error!");
-        errorMsg = "Undefined Error Occured";
+        auth.signOut();
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  backgroundColor: Colors.black38,
+                  title: Text(
+                    "Log-in Error",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  content: Text(
+                    "Email not verified.... \nA email with verification link is send to the registered email\nPlease verify at first then log-in",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ));
       }
     } on FirebaseAuthException catch (_err) {
       print("Login Error: Code: ${_err.code}\nMsg: ${_err.message}");
