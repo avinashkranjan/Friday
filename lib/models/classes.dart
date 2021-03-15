@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 
 class Classes {
   final String subject;
@@ -18,6 +19,13 @@ class Classes {
             ? DateTime.parse(snapshot['time'].toDate().toString())
             : null,
       );
+
+  toMap() => {
+        'subject': subject,
+        'type': type,
+        'teacherName': teacherName,
+        'time': time,
+      };
 }
 
 List<Classes> classes = [
@@ -47,11 +55,68 @@ List<Classes> classes = [
   ),
 ];
 
+Map<String, Classes> generateDummyClasses() {
+  final uuid = Uuid();
+
+  Map<String, Classes> data = {
+    uuid.v4(): Classes(
+      subject: "Math",
+      type: "Online Class",
+      teacherName: "Julie Raybon",
+      time: DateTime.parse("2020-06-04 10:30:00"),
+    ),
+    uuid.v4(): Classes(
+      subject: "German",
+      type: "Online Class",
+      teacherName: "Mary Peterson",
+      time: DateTime.parse("2020-06-06 06:30:00"),
+    ),
+    uuid.v4(): Classes(
+      subject: "German",
+      type: "Online Class",
+      teacherName: "Mary Peterson",
+      time: DateTime.parse("2020-06-06 06:30:00"),
+    ),
+    uuid.v4(): Classes(
+      subject: "History",
+      type: "Online Class",
+      teacherName: "Jim Brooke",
+      time: DateTime.parse("2020-06-06 07:30:00"),
+    ),
+  };
+
+  return data;
+}
+
+Future<void> addClassesToFirestore() async {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  final DocumentReference documentReference =
+      _firestore.collection('colleges').doc('USICT-BTECH-CSE-3');
+
+  final Map<String, Classes> classesData = generateDummyClasses();
+
+  // final newMap = classesData.map((key, value) {
+  //   return MapEntry(key, value.toMap());
+  // });
+
+  // final classesMap = {'classes': newMap};
+
+  // print(classesMap);
+
+  documentReference.update({
+    'classes': classesData.map((key, value) {
+      return MapEntry(key, value.toMap());
+    })
+  });
+}
+
 Future<List<Classes>> getClassList() async {
+  // addClassesToFirestore();
   List classesMap = [];
   return FirebaseFirestore.instance
-      .collection('homework')
-      .doc('dummyClasses')
+      .collection('colleges')
+      .doc('USICT-BTECH-CSE-3')
       .get()
       .then((documentSnapshot) {
     classesMap = documentSnapshot.data()['classes'] as List;
