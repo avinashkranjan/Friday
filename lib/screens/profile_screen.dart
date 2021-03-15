@@ -41,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         .size
                         .height),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      margin: EdgeInsets.fromLTRB(15, 15, 15, 60),
                       padding: EdgeInsets.all(30),
                       decoration: BoxDecoration(
                         color: Theme
