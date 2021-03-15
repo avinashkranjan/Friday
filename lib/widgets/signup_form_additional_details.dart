@@ -1,4 +1,5 @@
 import 'package:class_manager/models/users.dart';
+import 'package:class_manager/screens/login_page.dart';
 import 'package:class_manager/services/googleAuthentication.dart';
 import 'package:class_manager/services/user_info_services.dart';
 import 'package:class_manager/widgets/auth_input_form_field.dart';
@@ -147,7 +148,10 @@ class _SignUpFormAdditionalDetailsState
                     textInputAction: TextInputAction.next,
                     validator: (_) {
                       int _yr = int.tryParse(_year.text);
-                      if (_year.text.isNotEmpty && _yr != null &&_yr>0 && _yr <= 5) {
+                      if (_year.text.isNotEmpty &&
+                          _yr != null &&
+                          _yr > 0 &&
+                          _yr <= 5) {
                         return null;
                       }
                       return "Enter valid College Year";
@@ -228,9 +232,22 @@ class _SignUpFormAdditionalDetailsState
                         print("User Details Added");
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (_) => BottomNavigation()),
+                          MaterialPageRoute(builder: (_) => LoginPage()),
                           (Route<dynamic> route) => false,
                         );
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  backgroundColor: Colors.black38,
+                                  title: Text(
+                                    "Sign-Up Complete",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  content: Text(
+                                    "A verification link send to your registered email\nPlease verify email and then log-in",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ));
                       }
                     },
                   ),
