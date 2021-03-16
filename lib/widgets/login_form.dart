@@ -1,3 +1,4 @@
+import 'package:class_manager/widgets/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -133,6 +134,13 @@ class _LoginFormState extends State<LoginForm> {
               // Forgot Password Button
               Align(
                 alignment: Alignment.centerRight,
+
+                child: TextButton(
+                  //padding: EdgeInsets.zero,
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => ResetScreen()));
+                  }, //TODO: Implement Forgot Password Feature
                 child: TextButton(
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
@@ -147,11 +155,10 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
               ),
+              ),
               SizedBox(
                 height: 40,
               ),
-
-              // SignUp and Login buttons
               Container(
                   margin: EdgeInsets.all(10),
                   width: double.infinity,
@@ -219,7 +226,6 @@ class _LoginFormState extends State<LoginForm> {
                             errorMsg = await AuthenticationService.handleLogin(
                                 _email.text, _pswd.text, context);
 
-                            print("User Logged In");
                             setState(() {
                               isProcessing = false;
                               _formKey.currentState.reset();
@@ -231,7 +237,7 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     ],
                   )),
-            ],
+              ],
           ),
         ),
       ),
