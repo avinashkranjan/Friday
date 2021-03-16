@@ -226,7 +226,6 @@ class _LoginFormState extends State<LoginForm> {
                             errorMsg = await AuthenticationService.handleLogin(
                                 _email.text, _pswd.text, context);
 
-                            print("User Logged In");
                             setState(() {
                               isProcessing = false;
                               _formKey.currentState.reset();

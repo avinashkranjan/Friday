@@ -41,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         .size
                         .height),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      margin: EdgeInsets.fromLTRB(15, 15, 15, 60),
                       padding: EdgeInsets.all(30),
                       decoration: BoxDecoration(
                         color: Theme
@@ -137,11 +137,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     AuthenticationService.signout(context);
                                   } else {
                                     // For Sign Out from Google Auth or Facebook Auth, Back to the On Boarding Page
-                                    while (Navigator.canPop(context)) {
-                                      Navigator.pop(context);
-                                    }
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) => OnboardingPage()));
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(builder: (_) => OnboardingPage()),
+                                          (Route<dynamic> route) => false,
+                                    );
                                   }
                                 }
                               },
