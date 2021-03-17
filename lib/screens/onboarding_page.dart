@@ -1,3 +1,4 @@
+import 'package:class_manager/models/newCollegeChecker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,6 +18,15 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
+  final _colFormKey = GlobalKey<FormState>();
+  TextEditingController _colName = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +39,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
               CustomPaint(
                 child: Container(),
                 painter: CanvasDesign(context: context),
+              ),
+              ElevatedButton(
+                child: Text("Temp"),
+                onPressed: () async {
+                  print("Temp Button Pressed");
+                  await collegeTake(context);
+                },
               ),
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.21,
@@ -158,5 +175,58 @@ class _OnboardingPageState extends State<OnboardingPage> {
         ),
       ),
     );
+  }
+
+  Future<Widget> collegeTake(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text("Enter Your College Name"),
+              content: Container(
+                height: MediaQuery.of(context).size.height / 5,
+                child: Form(
+                  key: _colFormKey,
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        controller: _colName,
+                        validator: (inputVal) {
+                          if (inputVal.length < 3)
+                            return "Enter a valid College Name";
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "College name",
+                          focusColor: Colors.blue,
+                          hoverColor: Colors.blue,
+                          fillColor: Colors.blue,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15.0,
+                      ),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(),
+                          child: Text(
+                            "Submit",
+                            style: TextStyle(
+                              letterSpacing: 1.0,
+                            ),
+                          ),
+                          onPressed: () async {
+                            if (_colFormKey.currentState.validate()) {
+                              var take = CollegeChecker(context,_colName.text);
+                                  await take.collegeEntryChecker();
+                            }
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ));
   }
 }
