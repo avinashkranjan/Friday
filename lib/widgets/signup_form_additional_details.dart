@@ -127,9 +127,63 @@ class _SignUpFormAdditionalDetailsState
                         SizedBox(height: 20),
 
                         // Cource textfield
-                        AuthInputField(
-                          labelText: "Course",
-                          controller: _course,
+                  AuthInputField(
+                    labelText: "Course",
+                    controller: _course,
+                    textInputAction: TextInputAction.next,
+                    validator: (_) {
+                      if (_course.text.isNotEmpty) {
+                        return null;
+                      }
+                      return "Enter valid Course Name";
+                    },
+                    suffixIcon: Icon(Icons.menu_book, color: Colors.white),
+                  ),
+                  SizedBox(height: 20),
+                  AuthInputField(
+                    labelText: "Department/Major",
+                    controller: _dept,
+                    textInputAction: TextInputAction.next,
+                    validator: (_) {
+                      if (_dept.text.isNotEmpty) {
+                        return null;
+                      }
+                      return "Enter valid Department Name";
+                    },
+                    suffixIcon:
+                        Icon(Icons.meeting_room_rounded, color: Colors.white),
+                  ),
+                  SizedBox(height: 20),
+                  AuthInputField(
+                    textInputType: TextInputType.number,
+                    labelText: "Current Academic Year",
+                    controller: _year,
+                    textInputAction: TextInputAction.next,
+                    validator: (_) {
+                      int _yr = int.tryParse(_year.text);
+                      if (_year.text.isNotEmpty &&
+                          _yr != null &&
+                          _yr > 0 &&
+                          _yr <= 5) {
+                        return null;
+                      }
+                      return "Enter valid College Year";
+                    },
+                    suffixIcon:
+                        Icon(Icons.confirmation_num, color: Colors.white),
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: genderField(context),
+                      ),
+                      SizedBox(width: 20),
+                      Flexible(
+                        child: AuthInputField(
+                          labelText: "Age",
+                          controller: _age,
                           textInputAction: TextInputAction.next,
                           validator: (_) {
                             if (_course.text.isNotEmpty) {
@@ -140,6 +194,9 @@ class _SignUpFormAdditionalDetailsState
                           suffixIcon:
                               Icon(Icons.menu_book, color: Colors.white),
                         ),
+                        ),
+                      ],
+                    ),
 
                         SizedBox(height: 20),
 
