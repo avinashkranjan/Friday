@@ -1,4 +1,6 @@
+import 'package:class_manager/services/user_info_services.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:class_manager/constants.dart';
 import 'package:class_manager/models/classes.dart';
@@ -8,8 +10,15 @@ class BuildClasses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String collegeID = Provider.of<UserInfoServices>(
+      context,
+      listen: false,
+    ).user.collegeID;
+
+    final classes = getClassList(collegeID);
+
     return FutureBuilder(
-      future: getClassList(),
+      future: classes,
       builder: (BuildContext context, AsyncSnapshot<List<Classes>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());

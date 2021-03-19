@@ -28,11 +28,11 @@ class Classes {
       };
 }
 
-Future<List<Classes>> getClassList() async {
+Future<List<Classes>> getClassList(String collegeID) async {
   List<Classes> classesList = [];
   return FirebaseFirestore.instance
       .collection('colleges')
-      .doc('USICT-BTECH-CSE-3')
+      .doc(collegeID)
       .get()
       .then((documentSnapshot) {
     if (documentSnapshot.exists) {
