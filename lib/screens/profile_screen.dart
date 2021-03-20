@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:class_manager/constants.dart';
 import 'package:class_manager/models/users.dart';
 import 'package:class_manager/screens/onboarding_page.dart';
@@ -6,8 +8,11 @@ import 'package:class_manager/services/facebookAuthentication.dart';
 import 'package:class_manager/services/googleAuthentication.dart';
 import 'package:class_manager/services/user_info_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as Path;
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -15,16 +20,55 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  ImagePicker _imagePicker = ImagePicker();
+  Reference _storageReference = FirebaseStorage.instance.ref();
+
+  void getImage() async {
+    PickedFile image = await _imagePicker.getImage(source: ImageSource.gallery);
+
+    if (image == null) {
+      return;
+    }
+
+    String imagePath = image.path;
+
+    File file = File(imagePath);
+
+    uploadPictures(file);
+  }
+
+  uploadPictures(File image) async {
+    // uploads picture(s) to storage and return it's URL
+    final Reference ref =
+        _storageReference.child('${Path.basename(image.path)}}');
+
+    final UploadTask uploadTask = ref.putFile(image);
+    // final TaskSnapshot storageTaskSnapshot =
+    String pictureUrl;
+    await uploadTask.then((taskSnapshot) async {
+      pictureUrl = await taskSnapshot.ref.getDownloadURL();
+    });
+
+    final userInfoProvider =
+        Provider.of<UserInfoServices>(context, listen: false);
+
+    Users currentUser = userInfoProvider.user;
+    currentUser.profilePictureUrl = pictureUrl;
+
+    userInfoProvider.setUser(currentUser);
+
+    userInfoProvider.upateProfilePictureUrl();
+
+    // return pictureUrl;
+  }
+
   @override
   Widget build(BuildContext context) {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     final User userData = firebaseAuth.currentUser;
 
     return Scaffold(
-      backgroundColor: Theme
-          .of(context)
-          .backgroundColor
-          .withOpacity(0.8),
+      backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.8),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         child: Consumer<UserInfoServices>(
@@ -36,17 +80,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Column(
                   children: [
-                    SizedBox(height: 0.15 * MediaQuery
-                        .of(context)
-                        .size
-                        .height),
+                    SizedBox(height: 0.15 * MediaQuery.of(context).size.height),
                     Container(
                       margin: EdgeInsets.fromLTRB(15, 15, 15, 60),
                       padding: EdgeInsets.all(30),
                       decoration: BoxDecoration(
-                        color: Theme
-                            .of(context)
-                            .primaryColor,
+                        color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40),
                           topRight: Radius.circular(40),
@@ -139,8 +178,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     // For Sign Out from Google Auth or Facebook Auth, Back to the On Boarding Page
                                     Navigator.pushAndRemoveUntil(
                                       context,
-                                      MaterialPageRoute(builder: (_) => OnboardingPage()),
-                                          (Route<dynamic> route) => false,
+                                      MaterialPageRoute(
+                                          builder: (_) => OnboardingPage()),
+                                      (Route<dynamic> route) => false,
                                     );
                                   }
                                 }
@@ -151,18 +191,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   horizontal: 20, vertical: 10),
                               shape: StadiumBorder(),
                               color: Colors.transparent,
-                              hoverColor: Theme
-                                  .of(context)
-                                  .primaryColor,
-                              splashColor: Theme
-                                  .of(context)
-                                  .primaryColor,
-                              focusColor: Theme
-                                  .of(context)
-                                  .primaryColor,
-                              highlightColor: Theme
-                                  .of(context)
-                                  .primaryColor,
+                              hoverColor: Theme.of(context).primaryColor,
+                              splashColor: Theme.of(context).primaryColor,
+                              focusColor: Theme.of(context).primaryColor,
+                              highlightColor: Theme.of(context).primaryColor,
                               child: Text(
                                 "Log out",
                                 style: TextStyle(
@@ -178,35 +210,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
                 Positioned(
-                  top: 0.1 * MediaQuery
-                      .of(context)
-                      .size
-                      .height,
+                  top: 0.1 * MediaQuery.of(context).size.height,
                   child: CircleAvatar(
                     radius: profilePictureDiameter / 2,
-                    backgroundImage:
-                    AssetImage("assets/images/profile_pic.jpg"),
+                    backgroundImage: _user.profilePictureUrl.isEmpty
+                        ? AssetImage("assets/images/profile_pic.jpg")
+                        : NetworkImage(_user.profilePictureUrl),
                     backgroundColor: Colors.transparent,
-                    foregroundColor: Theme
-                        .of(context)
-                        .backgroundColor,
+                    foregroundColor: Theme.of(context).backgroundColor,
                   ),
                 ),
                 Positioned(
-                  top: 0.1 * MediaQuery
-                      .of(context)
-                      .size
-                      .height +
+                  top: 0.1 * MediaQuery.of(context).size.height +
                       profilePictureDiameter -
                       35,
-                  left: (MediaQuery
-                      .of(context)
-                      .size
-                      .width / 2) + 25,
-                  child: Icon(
-                    Icons.camera_alt,
-                    size: profilePictureDiameter * 0.25,
-                    color: Colors.white,
+                  left: (MediaQuery.of(context).size.width / 2) + 25,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.camera_alt,
+                      size: profilePictureDiameter * 0.25,
+                      color: Colors.white,
+                    ),
+                    onPressed: getImage,
                   ),
                 ),
               ],

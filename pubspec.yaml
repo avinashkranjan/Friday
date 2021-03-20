@@ -23,6 +23,9 @@ dependencies:
   email_validator: '^1.0.0'
   google_sign_in:
   flutter_facebook_login:
+  image_picker:
+  firebase_storage:
+  path_provider:
 
 dev_dependencies:
   flutter_test:

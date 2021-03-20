@@ -3,6 +3,7 @@ import 'package:class_manager/screens/login_page.dart';
 import 'package:class_manager/services/googleAuthentication.dart';
 import 'package:class_manager/services/user_info_services.dart';
 import 'package:class_manager/widgets/auth_input_form_field.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -31,6 +32,17 @@ class _SignUpFormAdditionalDetailsState
     ),
   );
 
+  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+
+  void getData() async {
+    var qs = await _firebaseFirestore.collection('users').get();
+    qs.docs.forEach(
+      (qds) {
+        print(qds.data());
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -43,6 +55,8 @@ class _SignUpFormAdditionalDetailsState
     _year = new TextEditingController();
     _age = new TextEditingController();
     _formKey = new GlobalKey<FormState>();
+
+    getData();
   }
 
   @override
