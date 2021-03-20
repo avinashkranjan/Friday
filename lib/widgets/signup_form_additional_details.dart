@@ -140,10 +140,7 @@ class _SignUpFormAdditionalDetailsState
                           suffixIcon:
                               Icon(Icons.menu_book, color: Colors.white),
                         ),
-
                         SizedBox(height: 20),
-
-                        // Major textfield
                         AuthInputField(
                           labelText: "Department/Major",
                           controller: _dept,
@@ -157,11 +154,9 @@ class _SignUpFormAdditionalDetailsState
                           suffixIcon: Icon(Icons.meeting_room_rounded,
                               color: Colors.white),
                         ),
-
                         SizedBox(height: 20),
-
-                        // Year textfield
                         AuthInputField(
+                          textInputType: TextInputType.number,
                           labelText: "Current Academic Year",
                           controller: _year,
                           textInputAction: TextInputAction.next,
@@ -178,10 +173,7 @@ class _SignUpFormAdditionalDetailsState
                           suffixIcon:
                               Icon(Icons.confirmation_num, color: Colors.white),
                         ),
-
                         SizedBox(height: 20),
-
-                        // Gender and Age
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -195,16 +187,15 @@ class _SignUpFormAdditionalDetailsState
                                 controller: _age,
                                 textInputAction: TextInputAction.next,
                                 validator: (_) {
-                                  int _ag = int.tryParse(_age.text);
-                                  if (_age.text.isNotEmpty && _ag != null)
+                                  if (_course.text.isNotEmpty) {
                                     return null;
-                                  return "Enter valid age";
+                                  }
+                                  return "Enter valid Course Name";
                                 },
                                 suffixIcon:
-                                    Icon(Icons.person, color: Colors.white),
+                                    Icon(Icons.menu_book, color: Colors.white),
                               ),
                             ),
-                            SizedBox(width: 20),
                           ],
                         ),
 
