@@ -8,7 +8,9 @@ class AuthInputField extends StatefulWidget {
   final TextInputAction textInputAction;
   final TextEditingController controller;
   final String Function(String) validator;
+  TextInputType textInputType;
   AuthInputField({
+    this.textInputType = TextInputType.text,
     @required this.controller,
     @required this.labelText,
     this.obscureText = false,
@@ -30,6 +32,7 @@ class _AuthInputFieldState extends State<AuthInputField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: widget.textInputType,
       controller: widget.controller,
       obscureText: widget.obscureText,
       cursorColor: Colors.white,
