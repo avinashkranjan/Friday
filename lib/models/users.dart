@@ -4,7 +4,14 @@ import 'package:flutter/cupertino.dart';
 enum Gender { Male, Female, Other }
 
 class Users {
-  String uid, name, email, profilePictureUrl, university, course, department;
+  String uid,
+      name,
+      email,
+      profilePictureUrl,
+      university,
+      course,
+      department,
+      collegeID;
   int age, year;
   Gender gender;
 
@@ -17,6 +24,7 @@ class Users {
     @required this.course,
     @required this.year,
     @required this.department,
+    @required this.collegeID,
     @required this.age,
     @required this.gender,
   });
@@ -53,6 +61,7 @@ class Users {
       course: json["course"],
       year: json["year"],
       department: json["department"],
+      collegeID: json['collegeID'],
       age: json["age"],
       gender: _gender,
     );
