@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 ///Project Local Imports
@@ -14,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     _scaffoldKey = new GlobalKey<ScaffoldState>();
+    FirebaseAuth.instance.signOut();
     super.initState();
   }
 
