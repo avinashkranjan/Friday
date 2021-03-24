@@ -8,14 +8,18 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(30.0, 50.0, 30.0, 30.0),
+      
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          SvgPicture.asset(
+          Flexible(
+          child:SvgPicture.asset(
             "assets/icons/grad_cap.svg",
             height: 70.0,
           ),
-          Consumer<UserInfoServices>(
+            ),
+          Flexible(
+          child:Consumer<UserInfoServices>(
             builder: (ctx, _userInfo, _) => FittedBox(
               fit: BoxFit.fitWidth,
               child: Text(
@@ -31,6 +35,7 @@ class Header extends StatelessWidget {
               ),
             ),
           ),
+            ),
           CircleAvatar(
             radius: 25.0,
             backgroundImage: AssetImage("assets/images/profile_pic.jpg"),
