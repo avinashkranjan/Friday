@@ -53,6 +53,8 @@ class _LoadingScreenState extends State<LoadingScreen>
             colors: [_animationLeft.value, _animationRight.value],
           ).createShader(rect);
         },
+        
+        child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -138,6 +140,7 @@ class _LoadingScreenState extends State<LoadingScreen>
           ],
         ),
       ),
+        ),
       bottomNavigationBar: Container(
         // height: 100, //0.1 * MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
