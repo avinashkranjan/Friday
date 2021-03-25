@@ -45,17 +45,6 @@ class _SignUpFormAdditionalDetailsState
     _collegeList.add('Not in the list');
   }
 
-  // FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-
-//   void getData() async {
-//     var qs = await _firebaseFirestore.collection('users').get();
-//     qs.docs.forEach(
-//       (qds) {
-//         print(qds.data());
-//       },
-//     );
-//   }
-
   @override
   void initState() {
     super.initState();
@@ -68,7 +57,6 @@ class _SignUpFormAdditionalDetailsState
     _age = new TextEditingController();
     _formKey = new GlobalKey<FormState>();
 
-    // getData();
     fetchColleges = getData();
   }
 

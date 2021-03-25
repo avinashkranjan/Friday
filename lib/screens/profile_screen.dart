@@ -21,7 +21,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   ImagePicker _imagePicker = ImagePicker();
-  Reference _storageReference = FirebaseStorage.instance.ref();
+  StorageReference _storageReference = FirebaseStorage.instance.ref();
 
   void getImage() async {
     PickedFile image = await _imagePicker.getImage(source: ImageSource.gallery);
@@ -39,15 +39,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   uploadPictures(File image) async {
     // uploads picture(s) to storage and return it's URL
-    final Reference ref =
+    final StorageReference ref =
         _storageReference.child('${Path.basename(image.path)}}');
 
-    final UploadTask uploadTask = ref.putFile(image);
-    // final TaskSnapshot storageTaskSnapshot =
-    String pictureUrl;
-    await uploadTask.then((taskSnapshot) async {
-      pictureUrl = await taskSnapshot.ref.getDownloadURL();
-    });
+    final StorageUploadTask uploadTask = ref.putFile(image);
+
+    UploadTaskSnapshot uploadTaskSnapshot = await uploadTask.future;
+    String pictureUrl = uploadTaskSnapshot.downloadUrl.toString();
 
     final userInfoProvider =
         Provider.of<UserInfoServices>(context, listen: false);
@@ -58,8 +56,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     userInfoProvider.setUser(currentUser);
 
     userInfoProvider.upateProfilePictureUrl();
-
-    // return pictureUrl;
   }
 
   @override
