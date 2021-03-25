@@ -24,6 +24,9 @@ dependencies:
   google_sign_in:
   uuid: ^3.0.1
   flutter_facebook_login:
+  image_picker:
+  firebase_storage:
+  path_provider:
 
 dev_dependencies:
   flutter_test:
