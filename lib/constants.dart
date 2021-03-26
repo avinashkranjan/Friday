@@ -29,3 +29,21 @@ const double profilePictureDiameter = 120;
 // Firestore Constants
 
 const String usersCollection = "users";
+
+UnderlineInputBorder _inputBorderStyle = const UnderlineInputBorder(
+  borderSide: BorderSide(
+    color: Colors.white70,
+  ),
+);
+
+InputDecoration dropdownDecoration = InputDecoration(
+  isDense: true,
+  labelText: "College",
+  border: _inputBorderStyle,
+  focusedBorder: _inputBorderStyle,
+  enabledBorder: _inputBorderStyle,
+  focusedErrorBorder: _inputBorderStyle,
+  focusColor: Colors.white,
+  hintStyle: kInputTextStyle,
+  labelStyle: kInputTextStyle,
+);

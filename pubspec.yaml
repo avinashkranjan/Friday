@@ -25,6 +25,9 @@ dependencies:
   uuid: ^3.0.1
   flutter_facebook_login:
   url_launcher: ^6.0.2
+  image_picker:
+  firebase_storage:
+  path_provider:
 
 dev_dependencies:
   flutter_test:
