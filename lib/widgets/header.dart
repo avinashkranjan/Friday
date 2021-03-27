@@ -36,7 +36,8 @@ class Header extends StatelessWidget {
                 ),
                 CircleAvatar(
                   radius: 25.0,
-                  backgroundImage: _userInfo.user.profilePictureUrl.isEmpty
+                  backgroundImage: _userInfo.user == null ||
+                          _userInfo.user.profilePictureUrl.isEmpty
                       ? AssetImage("assets/images/profile_pic.jpg")
                       : NetworkImage(_userInfo.user.profilePictureUrl),
                 ),
