@@ -1,6 +1,6 @@
 import 'package:class_manager/models/users.dart';
 import 'package:class_manager/screens/login_page.dart';
-import 'package:class_manager/services/googleAuthentication.dart';
+import 'package:class_manager/services/auth_error_msg_toast.dart';
 import 'package:class_manager/services/user_info_services.dart';
 import 'package:class_manager/widgets/auth_input_form_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +10,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
-import 'bottom_navigation.dart';
 
 class SignUpFormAdditionalDetails extends StatefulWidget {
   @override
@@ -23,9 +22,11 @@ class _SignUpFormAdditionalDetailsState
   FToast errToast;
   String errorMsg;
   bool isProcessing;
-  TextEditingController _course, _dept, _year, _age;
+  TextEditingController _course, _dept, _year, _age, _colName;
   Gender _gen;
   GlobalKey<FormState> _formKey;
+  GlobalKey<FormState> _colFormKey;
+  String _defaultCollegeName;
 
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
@@ -55,9 +56,12 @@ class _SignUpFormAdditionalDetailsState
     _dept = new TextEditingController();
     _year = new TextEditingController();
     _age = new TextEditingController();
+    _colName = new TextEditingController();
     _formKey = new GlobalKey<FormState>();
+    _colFormKey = new GlobalKey<FormState>();
 
     fetchColleges = getData();
+    _defaultCollegeName = null;
   }
 
   @override
@@ -241,19 +245,21 @@ class _SignUpFormAdditionalDetailsState
                                   .setAdditionalDetailsOfUser(_course.text,
                                       _dept.text, _college, yr, _gen, age);
 
-                              // TODO
-                              if (_college.compareTo('Not in this list') == 0) {
-                                // send to register college screen
-                              }
-
                               await Provider.of<UserInfoServices>(context,
                                       listen: false)
                                   .addUserToDatabase();
+
+                              // Adding College Data
+                              verifyFields(
+                                  _college.toUpperCase(),
+                                  _course.text.toUpperCase(),
+                                  _dept.text.toUpperCase());
 
                               setState(() {
                                 isProcessing = false;
                                 _formKey.currentState.reset();
                               });
+
                               print("User Details Added");
                               Navigator.pushAndRemoveUntil(
                                 context,
@@ -305,17 +311,117 @@ class _SignUpFormAdditionalDetailsState
       validator: (value) {
         if (value == null) {
           return 'Required';
-        }
+        } else if (value == "Not in the list")
+          return "New College Name Required";
         return null;
       },
       style: TextStyle(
         color: Colors.white,
       ),
-      value: null,
+      value: _defaultCollegeName,
       onChanged: (String newValue) {
+        print(newValue);
+
         setState(() {
           _college = newValue;
         });
+        if (newValue == "Not in the list") {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: Text("Enter Your College Name"),
+                    content: Container(
+                      height: MediaQuery.of(context).size.height / 5,
+                      child: Form(
+                        key: _colFormKey,
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              controller: _colName,
+                              validator: (inputVal) {
+                                if (inputVal.length < 3)
+                                  return "Enter a valid College Name";
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "College name",
+                                focusColor: Colors.blue,
+                                hoverColor: Colors.blue,
+                                fillColor: Colors.blue,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(),
+                                child: Text(
+                                  "Submit",
+                                  style: TextStyle(
+                                    letterSpacing: 1.0,
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  //Close the keyboard
+                                  SystemChannels.textInput
+                                      .invokeMethod('TextInput.hide');
+
+                                  if (_colFormKey.currentState.validate()) {
+                                    print("Validate");
+
+                                    QuerySnapshot _docTake =
+                                        await FirebaseFirestore.instance
+                                            .collection('colleges')
+                                            .where(
+                                              FieldPath.documentId,
+                                              isEqualTo: this
+                                                  ._colName
+                                                  .text
+                                                  .toUpperCase(),
+                                            )
+                                            .get();
+                                    if (_docTake.docs.isNotEmpty) {
+                                      print("Already Data Present");
+                                      showErrToast(
+                                        "College Already Present",
+                                        errToast,
+                                      );
+                                    } else {
+                                      print("Entry to list");
+                                      FirebaseFirestore.instance
+                                          .collection('colleges')
+                                          .doc(this._colName.text.toUpperCase())
+                                          .set({});
+
+                                      setState(() {
+                                        _collegeList.add(
+                                            this._colName.text.toUpperCase());
+                                        _collegeList.remove("Not in the list");
+                                        //_college = this._colName.text.toUpperCase();
+
+                                        _defaultCollegeName =
+                                            this._colName.text.toUpperCase();
+                                      });
+
+                                      showErrToast(
+                                        "College Added",
+                                        errToast,
+                                      );
+                                      Navigator.pop(context);
+                                    }
+                                  } else
+                                    print("Not Validate");
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ));
+        }
       },
       onSaved: (String value) {
         setState(() {
@@ -361,5 +467,70 @@ class _SignUpFormAdditionalDetailsState
         labelText: "Gender",
       ),
     );
+  }
+
+  Future<void> verifyFields(
+      String _collegeName, String _course, String _dept) async {
+    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+        .collection('colleges')
+        .doc(_collegeName)
+        .get();
+
+    if (documentSnapshot.data() == null) {
+      print("No Course Registered under this college");
+
+      FirebaseFirestore.instance.collection('colleges').doc(_collegeName).set({
+        _course: {
+          'Department': {
+            '1': _dept,
+          }
+        }
+      });
+    } else {
+      if (documentSnapshot.data().keys.contains(_course)) {
+        print("Course Present");
+        Map<String, dynamic> allResult = documentSnapshot.data();
+
+        print(allResult);
+
+        Map<String, dynamic> takeDept = allResult[_course].values.toList()[0];
+        print(takeDept);
+
+        if (takeDept.values.contains(_dept))
+          print("Same Dept Present");
+        else {
+          // New Dept with key adding
+          allResult[_course].values.toList()[0].addAll({
+            '${takeDept.length + 1}': _dept,
+          });
+
+          print(allResult);
+
+          // Push Result to Firestore
+          FirebaseFirestore.instance
+              .collection('colleges')
+              .doc(_collegeName)
+              .set(allResult);
+        }
+      } else {
+        print("That Course not Present");
+
+        Map<String, dynamic> allResult = documentSnapshot.data();
+        print(allResult);
+
+        allResult.addAll({
+          _course: {
+            'Department': {
+              '1': _dept,
+            }
+          }
+        });
+
+        FirebaseFirestore.instance
+            .collection('colleges')
+            .doc(_collegeName)
+            .set(allResult);
+      }
+    }
   }
 }

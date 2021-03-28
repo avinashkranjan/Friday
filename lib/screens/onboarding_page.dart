@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,9 +18,22 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
+  Future<void> met() async {
+    var take = await FirebaseFirestore.instance
+        .doc('colleges/USICT-BTECH-CSE-3')
+        .get();
+    print(take.data()['courses']);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () async {
+          await met();
+        },
+      ),
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Container(
