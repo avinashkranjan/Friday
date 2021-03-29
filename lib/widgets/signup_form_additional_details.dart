@@ -228,6 +228,7 @@ class _SignUpFormAdditionalDetailsState
                             if (_formKey.currentState.validate()) {
                               _formKey.currentState.save();
                               print("Adding User to users collection");
+
                               setState(() {
                                 isProcessing = true;
                               });
@@ -371,18 +372,8 @@ class _SignUpFormAdditionalDetailsState
                                   if (_colFormKey.currentState.validate()) {
                                     print("Validate");
 
-                                    QuerySnapshot _docTake =
-                                        await FirebaseFirestore.instance
-                                            .collection('colleges')
-                                            .where(
-                                              FieldPath.documentId,
-                                              isEqualTo: this
-                                                  ._colName
-                                                  .text
-                                                  .toUpperCase(),
-                                            )
-                                            .get();
-                                    if (_docTake.docs.isNotEmpty) {
+                                    if (_collegeList.contains(
+                                        this._colName.text.toUpperCase())) {
                                       print("Already Data Present");
                                       showErrToast(
                                         "College Already Present",
@@ -393,7 +384,11 @@ class _SignUpFormAdditionalDetailsState
                                       FirebaseFirestore.instance
                                           .collection('colleges')
                                           .doc(this._colName.text.toUpperCase())
-                                          .set({});
+                                          .set({
+                                        'classes': {},
+                                        'courses': {},
+                                        'details': {},
+                                      });
 
                                       setState(() {
                                         _collegeList.add(
@@ -471,65 +466,47 @@ class _SignUpFormAdditionalDetailsState
 
   Future<void> verifyFields(
       String _collegeName, String _course, String _dept) async {
-    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-        .collection('colleges')
-        .doc(_collegeName)
-        .get();
+    DocumentSnapshot documentSnapshot =
+        await FirebaseFirestore.instance.doc('colleges/$_collegeName').get();
 
-    if (documentSnapshot.data() == null) {
-      print("No Course Registered under this college");
+    print(documentSnapshot.data()['courses']);
 
-      FirebaseFirestore.instance.collection('colleges').doc(_collegeName).set({
-        _course: {
-          'Department': {
-            '1': _dept,
-          }
-        }
+    if (documentSnapshot.data()['courses'] == null) {
+      print("No Course Registered");
+      FirebaseFirestore.instance.doc('colleges/$_collegeName').set({
+        'courses': {
+          _course: [_dept],
+        },
       });
     } else {
-      if (documentSnapshot.data().keys.contains(_course)) {
-        print("Course Present");
-        Map<String, dynamic> allResult = documentSnapshot.data();
+      print("At least one course present");
+      if (documentSnapshot.data()['courses'].keys.contains(_course)) {
+        print("Same Course Present");
+        print(documentSnapshot.data()['courses'][_course]);
 
-        print(allResult);
-
-        Map<String, dynamic> takeDept = allResult[_course].values.toList()[0];
-        print(takeDept);
-
-        if (takeDept.values.contains(_dept))
+        if (documentSnapshot.data()['courses'][_course].contains(_dept)) {
           print("Same Dept Present");
-        else {
-          // New Dept with key adding
-          allResult[_course].values.toList()[0].addAll({
-            '${takeDept.length + 1}': _dept,
+        } else {
+          print("Dept not present");
+          print(_dept);
+
+          Map<String, dynamic> _currCourses =
+              documentSnapshot.data()['courses'];
+          _currCourses[_course].add(_dept);
+
+          FirebaseFirestore.instance.doc('colleges/$_collegeName').update({
+            'courses': _currCourses,
           });
-
-          print(allResult);
-
-          // Push Result to Firestore
-          FirebaseFirestore.instance
-              .collection('colleges')
-              .doc(_collegeName)
-              .set(allResult);
         }
       } else {
-        print("That Course not Present");
-
-        Map<String, dynamic> allResult = documentSnapshot.data();
-        print(allResult);
-
-        allResult.addAll({
-          _course: {
-            'Department': {
-              '1': _dept,
-            }
-          }
+        print("That new Course not present");
+        Map<String, dynamic> take = documentSnapshot.data()['courses'];
+        take.addAll({
+          _course: [_dept],
         });
-
-        FirebaseFirestore.instance
-            .collection('colleges')
-            .doc(_collegeName)
-            .set(allResult);
+        FirebaseFirestore.instance.doc('colleges/$_collegeName').update({
+          'courses': take,
+        });
       }
     }
   }
