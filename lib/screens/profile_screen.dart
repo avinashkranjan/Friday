@@ -209,9 +209,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   top: 0.1 * MediaQuery.of(context).size.height,
                   child: CircleAvatar(
                     radius: profilePictureDiameter / 2,
-                    backgroundImage: _user.profilePictureUrl.isEmpty
-                        ? AssetImage("assets/images/profile_pic.jpg")
-                        : NetworkImage(_user.profilePictureUrl),
+                    backgroundImage:
+                        _user != null && _user.profilePictureUrl.isEmpty
+                            ? AssetImage("assets/images/profile_pic.jpg")
+                            : NetworkImage(_user.profilePictureUrl),
                     backgroundColor: Colors.transparent,
                     foregroundColor: Theme.of(context).backgroundColor,
                   ),
