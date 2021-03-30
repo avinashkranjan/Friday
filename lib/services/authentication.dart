@@ -40,6 +40,9 @@ class AuthenticationService {
         if ((user != null) &&
             (currentUser != null) &&
             (user.uid == currentUser.uid)) {
+          UserInfoServices userInfoServices =
+              Provider.of<UserInfoServices>(context, listen: false);
+          userInfoServices.fetchUserDetailsFromDatabase(context);
           print(
               "Login succeeded \n Credentials of user=>Email: ${user.email} and  UID: ${user.uid}");
           print("User Logged In");
@@ -53,16 +56,16 @@ class AuthenticationService {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                backgroundColor: Colors.black38,
-                title: Text(
-                  "Log-in Complete",
-                  style: TextStyle(color: Colors.white),
-                ),
-                content: Text(
-                  "Enjoy this app",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ));
+                    backgroundColor: Colors.black38,
+                    title: Text(
+                      "Log-in Complete",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    content: Text(
+                      "Enjoy this app",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ));
         } else {
           print("Login Error: Undefined Error!");
           errorMsg = "Undefined Error Occured";
