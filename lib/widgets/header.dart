@@ -18,30 +18,33 @@ class Header extends StatelessWidget {
             ),
           ),
           Consumer<UserInfoServices>(
-            builder: (ctx, _userInfo, _) => Row(
-              children: [
-                FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Text(
-                    "Hello, " +
-                        (_userInfo.hasData
-                            ? _userInfo.user.name.split(" ")[0]
-                            : "Sir"),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold,
+            builder: (ctx, _userInfo, _) {
+              return Row(
+                children: [
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      "Hello, " +
+                          (_userInfo.user != null
+                              ? _userInfo.user.name.split(" ")[0]
+                              : "Sir"),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                CircleAvatar(
-                  radius: 25.0,
-                  backgroundImage: _userInfo.user.profilePictureUrl.isEmpty
-                      ? AssetImage("assets/images/profile_pic.jpg")
-                      : NetworkImage(_userInfo.user.profilePictureUrl),
-                ),
-              ],
-            ),
+                  CircleAvatar(
+                    radius: 25.0,
+                    backgroundImage: _userInfo.user != null &&
+                            _userInfo.user.profilePictureUrl.isNotEmpty
+                        ? NetworkImage(_userInfo.user.profilePictureUrl)
+                        : AssetImage("assets/images/profile_pic.jpg"),
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),
