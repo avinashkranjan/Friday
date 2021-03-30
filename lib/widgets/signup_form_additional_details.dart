@@ -212,14 +212,15 @@ class _SignUpFormAdditionalDetailsState
                             SizedBox(width: 20),
                             Flexible(
                               child: AuthInputField(
+                                textInputType: TextInputType.number,
                                 labelText: "Age",
                                 controller: _age,
                                 textInputAction: TextInputAction.next,
-                                validator: (_) {
-                                  if (_course.isNotEmpty) {
-                                    return null;
-                                  }
-                                  return "Enter valid Course Name";
+                                validator: (age) {
+                                  if (age.isNotEmpty &&
+                                      age.length == 2 &&
+                                      int.parse(age) >= 16) return null;
+                                  return "Enter Valid Age";
                                 },
                                 suffixIcon:
                                     Icon(Icons.menu_book, color: Colors.white),
