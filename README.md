@@ -1,9 +1,5 @@
 <h1 align=center> 🎓 Friday </h1>
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-  
 <p align="center">
   <a href="https://github.com/avinashkranjan/Friday">
     <img src="https://user-images.githubusercontent.com/55796944/95674682-5eb52e00-0bcf-11eb-969b-cb7add59921c.png" alt="Logo" height="150px" width="150px">
@@ -36,6 +32,23 @@
   
    <h2 align="center"> Video Preview ⏩ <a href="https://youtu.be/IJCo80Y0wjI">  <img src="https://img.shields.io/badge/Click Me%20-%23FF0000.svg?&style=for-the-badge&logo=YouTube&logoColor=white"/> </a>
   
+ ## Contributors ✨
+
+Thanks goes to these wonderful people.
+
+<table>
+	<tr>
+		<td>
+			<a href="https://github.com/avinashkranjan/Friday/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=avinashkranjan/Friday" />
+</a>
+		</td>
+	</tr>
+</table>
+
+
+Contributions of any kind welcome!
+  
     
 <h1 align=center> Project Admin ❤️ </h1>
 <p align="center">
@@ -44,36 +57,3 @@
 <p align="center">
   <img src="https://img.shields.io/badge/avinashkranjan%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>  <img src="https://img.shields.io/badge/iavinashranjan%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/> <img src="https://img.shields.io/badge/avinashkranjan7%20-%23E4405F.svg?&style=for-the-badge&logo=Instagram&logoColor=white"/>               
     
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/infiniteoverflow"><img src="https://avatars1.githubusercontent.com/u/40236624?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aswin Gopinathan</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/issues?q=author%3Ainfiniteoverflow" title="Bug reports">🐛</a> <a href="https://github.com/avinashkranjan/Friday/commits?author=infiniteoverflow" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/purnima143"><img src="https://avatars1.githubusercontent.com/u/57852378?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Purnima Sharma</b></sub></a><br /><a href="#design-purnima143" title="Design">🎨</a></td>
-    <td align="center"><a href="https://github.com/HimeshNayak"><img src="https://avatars2.githubusercontent.com/u/30944790?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Himesh Nayak</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/commits?author=HimeshNayak" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/hareshnayak"><img src="https://avatars1.githubusercontent.com/u/61956975?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Haresh Nayak</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/issues?q=author%3Ahareshnayak" title="Bug reports">🐛</a> <a href="https://github.com/avinashkranjan/Friday/commits?author=hareshnayak" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/Imadarshsri"><img src="https://avatars1.githubusercontent.com/u/45717875?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adarsh Srivastava</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/commits?author=Imadarshsri" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ajay963"><img src="https://avatars.githubusercontent.com/u/43930202?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ajay Manjhi</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/commits?author=ajay963" title="Code">💻</a></td>
-    <td align="center"><a href="http://www.linkedin.com/in/mysterio0801"><img src="https://avatars.githubusercontent.com/u/54456976?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vrishabh Agamya</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/commits?author=mysterio0801" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/mohitsoni-dev"><img src="https://avatars.githubusercontent.com/u/59525097?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mohit Soni</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/commits?author=mohitsoni-dev" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/namancoder"><img src="https://avatars.githubusercontent.com/u/49373509?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Naman Gupta</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/commits?author=namancoder" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/D-Ajay-Kumar"><img src="https://avatars.githubusercontent.com/u/56850266?v=4?s=100" width="100px;" alt=""/><br /><sub><b>D-Ajay-Kumar</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/commits?author=D-Ajay-Kumar" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.linkedin.com/in/samarpan-dasgupta-4aa1061b0/"><img src="https://avatars.githubusercontent.com/u/66327336?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Samarpan Dasgupta</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/commits?author=SamarpanCoder2002" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ishanailwal"><img src="https://avatars.githubusercontent.com/u/56601364?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Isha Nailwal</b></sub></a><br /><a href="https://github.com/avinashkranjan/Friday/commits?author=ishanailwal" title="Code">💻</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-Contributions of any kind welcome! 🚩
