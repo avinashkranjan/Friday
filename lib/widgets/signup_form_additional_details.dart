@@ -1,16 +1,17 @@
 import 'package:class_manager/models/users.dart';
 import 'package:class_manager/screens/login_page.dart';
-import 'package:class_manager/services/googleAuthentication.dart';
+import 'package:class_manager/services/auth_error_msg_toast.dart';
+import 'package:class_manager/services/classes_db_services.dart';
 import 'package:class_manager/services/user_info_services.dart';
 import 'package:class_manager/widgets/auth_input_form_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
-import 'bottom_navigation.dart';
 
 class SignUpFormAdditionalDetails extends StatefulWidget {
   @override
@@ -23,17 +24,19 @@ class _SignUpFormAdditionalDetailsState
   FToast errToast;
   String errorMsg;
   bool isProcessing;
-  TextEditingController _course, _dept, _year, _age;
+  TextEditingController _deptName, _year, _age, _colName, _courseName;
   Gender _gen;
   GlobalKey<FormState> _formKey;
+  GlobalKey<FormState> _colFormKey, _courseFormKey, _deptFormKey;
+  String _defaultCollegeName, _defaultCourseName, _defaultDepartmentName;
 
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
-  String _college;
-  List<String> _collegeList = [];
+  String _college, _course, _department;
+  final List<String> _collegeList = [], _coursesList = [], _departmentList = [];
   Future fetchColleges;
 
-  getData() async {
+  getCollegeNameData() async {
     QuerySnapshot querySnapshot =
         await firebaseFirestore.collection('colleges').get();
 
@@ -45,19 +48,65 @@ class _SignUpFormAdditionalDetailsState
     _collegeList.add('Not in the list');
   }
 
+  getCoursesData() async {
+    QuerySnapshot querySnapshot =
+        await firebaseFirestore.collection('courses').get();
+    List<QueryDocumentSnapshot> dataList = querySnapshot.docs;
+
+    for (QueryDocumentSnapshot data in dataList) {
+      _coursesList.add(data.id);
+    }
+    _coursesList.add('Not in the list');
+  }
+
+  getDepartmentData() async {
+    QuerySnapshot querySnapshot =
+        await firebaseFirestore.collection('departments').get();
+    List<QueryDocumentSnapshot> dataList = querySnapshot.docs;
+
+    for (QueryDocumentSnapshot data in dataList) {
+      _departmentList.add(data.id);
+    }
+    _departmentList.add('Not in the list');
+  }
+
   @override
   void initState() {
     super.initState();
     errToast = FToast();
     errToast.init(context);
     isProcessing = false;
-    _course = new TextEditingController();
-    _dept = new TextEditingController();
+
     _year = new TextEditingController();
     _age = new TextEditingController();
-    _formKey = new GlobalKey<FormState>();
+    _colName = new TextEditingController();
+    _courseName = new TextEditingController();
+    _deptName = new TextEditingController();
 
-    fetchColleges = getData();
+    _formKey = new GlobalKey<FormState>();
+    _colFormKey = new GlobalKey<FormState>();
+    _courseFormKey = new GlobalKey<FormState>();
+    _deptFormKey = new GlobalKey<FormState>();
+
+    fetchColleges = getCollegeNameData();
+
+    getCoursesData();
+    getDepartmentData();
+
+    _defaultCollegeName = null;
+    _defaultCourseName = null;
+    _defaultDepartmentName = null;
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _year.dispose();
+    _age.dispose();
+    _colName.dispose();
+    _courseName.dispose();
+    _deptName.dispose();
   }
 
   @override
@@ -126,34 +175,14 @@ class _SignUpFormAdditionalDetailsState
 
                         SizedBox(height: 20),
 
-                        // Cource textfield
-                        AuthInputField(
-                          labelText: "Course",
-                          controller: _course,
-                          textInputAction: TextInputAction.next,
-                          validator: (_) {
-                            if (_course.text.isNotEmpty) {
-                              return null;
-                            }
-                            return "Enter valid Course Name";
-                          },
-                          suffixIcon:
-                              Icon(Icons.menu_book, color: Colors.white),
-                        ),
+                        // Course dropdown
+                        courseField(context),
+
                         SizedBox(height: 20),
-                        AuthInputField(
-                          labelText: "Department/Major",
-                          controller: _dept,
-                          textInputAction: TextInputAction.next,
-                          validator: (_) {
-                            if (_dept.text.isNotEmpty) {
-                              return null;
-                            }
-                            return "Enter valid Department Name";
-                          },
-                          suffixIcon: Icon(Icons.meeting_room_rounded,
-                              color: Colors.white),
-                        ),
+
+                        // Department dropdown
+                        deptField(context),
+
                         SizedBox(height: 20),
                         AuthInputField(
                           textInputType: TextInputType.number,
@@ -187,7 +216,7 @@ class _SignUpFormAdditionalDetailsState
                                 controller: _age,
                                 textInputAction: TextInputAction.next,
                                 validator: (_) {
-                                  if (_course.text.isNotEmpty) {
+                                  if (_course.isNotEmpty) {
                                     return null;
                                   }
                                   return "Enter valid Course Name";
@@ -201,7 +230,7 @@ class _SignUpFormAdditionalDetailsState
 
                         SizedBox(height: 50),
 
-                        // Signup button
+                        // SignUp button
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
@@ -224,6 +253,7 @@ class _SignUpFormAdditionalDetailsState
                             if (_formKey.currentState.validate()) {
                               _formKey.currentState.save();
                               print("Adding User to users collection");
+
                               setState(() {
                                 isProcessing = true;
                               });
@@ -232,19 +262,20 @@ class _SignUpFormAdditionalDetailsState
                               SystemChannels.textInput
                                   .invokeMethod('TextInput.hide');
 
+                              // Adding College Data
+                              classesDBServices.verifyCollegeFieldAndUpdate(
+                                  _college.toUpperCase(),
+                                  _course.toUpperCase(),
+                                  _department.toUpperCase());
+
                               // Set Additional details to [UserInfoServices]
                               int yr = int.tryParse(_year.text);
                               int age = int.tryParse(_age.text);
 
                               Provider.of<UserInfoServices>(context,
                                       listen: false)
-                                  .setAdditionalDetailsOfUser(_course.text,
-                                      _dept.text, _college, yr, _gen, age);
-
-                              // TODO
-                              if (_college.compareTo('Not in this list') == 0) {
-                                // send to register college screen
-                              }
+                                  .setAdditionalDetailsOfUser(_course,
+                                      _department, _college, yr, _gen, age);
 
                               await Provider.of<UserInfoServices>(context,
                                       listen: false)
@@ -254,7 +285,9 @@ class _SignUpFormAdditionalDetailsState
                                 isProcessing = false;
                                 _formKey.currentState.reset();
                               });
+
                               print("User Details Added");
+
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(builder: (_) => LoginPage()),
@@ -305,17 +338,111 @@ class _SignUpFormAdditionalDetailsState
       validator: (value) {
         if (value == null) {
           return 'Required';
-        }
+        } else if (value == "Not in the list")
+          return "New College Name Required";
         return null;
       },
       style: TextStyle(
         color: Colors.white,
       ),
-      value: null,
+      value: _defaultCollegeName,
       onChanged: (String newValue) {
+        print(newValue);
+
         setState(() {
           _college = newValue;
         });
+        if (newValue == "Not in the list") {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: Text("Enter Your College Name"),
+                    content: Container(
+                      height: MediaQuery.of(context).size.height / 5,
+                      child: Form(
+                        key: _colFormKey,
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              controller: _colName,
+                              validator: (inputVal) {
+                                if (inputVal.length < 3)
+                                  return "Enter a valid College Name";
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "College name",
+                                focusColor: Colors.blue,
+                                hoverColor: Colors.blue,
+                                fillColor: Colors.blue,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(),
+                                child: Text(
+                                  "Submit",
+                                  style: TextStyle(
+                                    letterSpacing: 1.0,
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  //Close the keyboard
+                                  SystemChannels.textInput
+                                      .invokeMethod('TextInput.hide');
+
+                                  if (_colFormKey.currentState.validate()) {
+                                    print("Validate");
+
+                                    if (_collegeList.contains(
+                                        this._colName.text.toUpperCase())) {
+                                      print("Already Data Present");
+                                      showErrToast(
+                                        "College Already Present",
+                                        errToast,
+                                      );
+                                    } else {
+                                      print("Entry to list");
+                                      FirebaseFirestore.instance
+                                          .collection('colleges')
+                                          .doc(this._colName.text.toUpperCase())
+                                          .set({
+                                        'classes': {},
+                                        'courses': {},
+                                        'details': {},
+                                      });
+
+                                      setState(() {
+                                        _collegeList.add(
+                                            this._colName.text.toUpperCase());
+                                        _collegeList.remove("Not in the list");
+                                        //_college = this._colName.text.toUpperCase();
+
+                                        _defaultCollegeName =
+                                            this._colName.text.toUpperCase();
+                                      });
+
+                                      showErrToast(
+                                        "College Added",
+                                        errToast,
+                                      );
+                                      Navigator.pop(context);
+                                    }
+                                  } else
+                                    print("Not Validate");
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ));
+        }
       },
       onSaved: (String value) {
         setState(() {
@@ -325,6 +452,260 @@ class _SignUpFormAdditionalDetailsState
       dropdownColor: Theme.of(context).backgroundColor,
       decoration: dropdownDecoration.copyWith(labelText: 'College'),
       items: _collegeList.map<DropdownMenuItem<String>>(
+        (String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        },
+      ).toList(),
+    );
+  }
+
+  DropdownButtonFormField<String> courseField(BuildContext context) {
+    return DropdownButtonFormField(
+      validator: (value) {
+        if (value == null) {
+          return 'Required';
+        } else if (value == "Not in the list") return "New Course Required";
+        return null;
+      },
+      style: TextStyle(
+        color: Colors.white,
+      ),
+      value: _defaultCourseName,
+      onChanged: (String newValue) {
+        print(newValue);
+
+        setState(() {
+          _course = newValue;
+        });
+        if (newValue == "Not in the list") {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: Text("Enter Your College Name"),
+                    content: Container(
+                      height: MediaQuery.of(context).size.height / 5,
+                      child: Form(
+                        key: _courseFormKey,
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              controller: _courseName,
+                              validator: (inputVal) {
+                                if (inputVal.length < 2)
+                                  return "Enter a valid Course Name";
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Course name",
+                                focusColor: Colors.blue,
+                                hoverColor: Colors.blue,
+                                fillColor: Colors.blue,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(),
+                                child: Text(
+                                  "Submit",
+                                  style: TextStyle(
+                                    letterSpacing: 1.0,
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  //Close the keyboard
+                                  SystemChannels.textInput
+                                      .invokeMethod('TextInput.hide');
+
+                                  if (_courseFormKey.currentState.validate()) {
+                                    print("Validate");
+
+                                    if (_coursesList.contains(
+                                        this._courseName.text.toUpperCase())) {
+                                      print("Already Data Present");
+                                      showErrToast(
+                                        "College Already Present",
+                                        errToast,
+                                      );
+                                    } else {
+                                      print("Entry to list");
+                                      FirebaseFirestore.instance
+                                          .collection('courses')
+                                          .doc(this
+                                              ._courseName
+                                              .text
+                                              .toUpperCase())
+                                          .set({});
+
+                                      setState(() {
+                                        _coursesList.add(this
+                                            ._courseName
+                                            .text
+                                            .toUpperCase());
+                                        _coursesList.remove("Not in the list");
+                                        //_college = this._colName.text.toUpperCase();
+
+                                        _defaultCourseName =
+                                            this._courseName.text.toUpperCase();
+                                      });
+
+                                      showErrToast(
+                                        "Course Added",
+                                        errToast,
+                                      );
+                                      Navigator.pop(context);
+                                    }
+                                  } else
+                                    print("Not Validate");
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ));
+        }
+      },
+      onSaved: (String value) {
+        setState(() {
+          _course = value;
+        });
+      },
+      dropdownColor: Theme.of(context).backgroundColor,
+      decoration: dropdownDecoration.copyWith(labelText: 'Course'),
+      items: _coursesList.map<DropdownMenuItem<String>>(
+        (String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        },
+      ).toList(),
+    );
+  }
+
+  DropdownButtonFormField<String> deptField(BuildContext context) {
+    return DropdownButtonFormField(
+      validator: (value) {
+        if (value == null) {
+          return 'Required';
+        } else if (value == "Not in the list") return "New Department Required";
+        return null;
+      },
+      style: TextStyle(
+        color: Colors.white,
+      ),
+      value: _defaultDepartmentName,
+      onChanged: (String newValue) {
+        print(newValue);
+
+        setState(() {
+          _department = newValue;
+        });
+        if (newValue == "Not in the list") {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: Text("Enter Your Department Name"),
+                    content: Container(
+                      height: MediaQuery.of(context).size.height / 5,
+                      child: Form(
+                        key: _deptFormKey,
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              controller: _deptName,
+                              validator: (inputVal) {
+                                if (inputVal.length < 3)
+                                  return "Enter a valid Department Name";
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Department Name",
+                                focusColor: Colors.blue,
+                                hoverColor: Colors.blue,
+                                fillColor: Colors.blue,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(),
+                                child: Text(
+                                  "Submit",
+                                  style: TextStyle(
+                                    letterSpacing: 1.0,
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  //Close the keyboard
+                                  SystemChannels.textInput
+                                      .invokeMethod('TextInput.hide');
+
+                                  if (_deptFormKey.currentState.validate()) {
+                                    print("Validate");
+
+                                    if (_departmentList.contains(
+                                        this._deptName.text.toUpperCase())) {
+                                      print("Already Data Present");
+                                      showErrToast(
+                                        "Department Already Present",
+                                        errToast,
+                                      );
+                                    } else {
+                                      print("Entry to list");
+                                      FirebaseFirestore.instance
+                                          .collection('departments')
+                                          .doc(
+                                              this._deptName.text.toUpperCase())
+                                          .set({});
+
+                                      setState(() {
+                                        _departmentList.add(
+                                            this._deptName.text.toUpperCase());
+                                        _departmentList
+                                            .remove("Not in the list");
+
+                                        _defaultDepartmentName =
+                                            this._deptName.text.toUpperCase();
+                                      });
+
+                                      showErrToast(
+                                        "Department Added",
+                                        errToast,
+                                      );
+                                      Navigator.pop(context);
+                                    }
+                                  } else
+                                    print("Not Validate");
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ));
+        }
+      },
+      onSaved: (String value) {
+        setState(() {
+          _department = value;
+        });
+      },
+      dropdownColor: Theme.of(context).backgroundColor,
+      decoration: dropdownDecoration.copyWith(labelText: 'Department/Major'),
+      items: _departmentList.map<DropdownMenuItem<String>>(
         (String value) {
           return DropdownMenuItem<String>(
             value: value,

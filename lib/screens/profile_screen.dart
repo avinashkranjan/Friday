@@ -40,13 +40,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   uploadPictures(File image) async {
     // uploads picture(s) to storage and return it's URL
     final Reference ref =
-        _storageReference.child('${Path.basename(image.path)}}');
+    _storageReference.child('${Path.basename(image.path)}}');
 
     final UploadTask uploadTask = ref.putFile(image);
     String pictureUrl;
 
     await uploadTask.then(
-      (taskSnapshot) async {
+          (taskSnapshot) async {
         pictureUrl = await taskSnapshot.ref.getDownloadURL();
       },
     );
@@ -55,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     // String pictureUrl = uploadTaskSnapshot.downloadUrl.toString();
 
     final userInfoProvider =
-        Provider.of<UserInfoServices>(context, listen: false);
+    Provider.of<UserInfoServices>(context, listen: false);
 
     Users currentUser = userInfoProvider.user;
     currentUser.profilePictureUrl = pictureUrl;
@@ -183,7 +183,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (_) => OnboardingPage()),
-                                      (Route<dynamic> route) => false,
+                                          (Route<dynamic> route) => false,
                                     );
                                   }
                                 }
@@ -217,9 +217,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: CircleAvatar(
                     radius: profilePictureDiameter / 2,
                     backgroundImage:
-                        _user != null && _user.profilePictureUrl.isNotEmpty
-                            ? NetworkImage(_user.profilePictureUrl)
-                            : AssetImage("assets/images/profile_pic.jpg"),
+                    _user != null && _user.profilePictureUrl.isNotEmpty
+                        ? NetworkImage(_user.profilePictureUrl)
+                        : AssetImage("assets/images/profile_pic.jpg"),
                     backgroundColor: Colors.transparent,
                     foregroundColor: Theme.of(context).backgroundColor,
                   ),
