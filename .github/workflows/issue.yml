@@ -1,0 +1,13 @@
+name: Labeling new issue
+on:
+  issues:
+      types: ['opened']
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Renato66/auto-label@master
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          labels-synonyms: '{"GSSOC21":["gssoc","gssoc21","GSSOC21","GSSOC"]}'
+          

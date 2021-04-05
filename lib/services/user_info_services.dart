@@ -22,6 +22,12 @@ class UserInfoServices extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> upateProfilePictureUrl() async {
+    await UserDBServices.updateProfilePictureUrl(
+        _user.uid, _user.profilePictureUrl);
+    // notifyListeners();
+  }
+
   void setUser(Users _usr) {
     this._user = _usr;
     this.hasData = true;

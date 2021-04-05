@@ -1,9 +1,12 @@
 import 'package:class_manager/services/user_info_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
 import 'package:class_manager/constants.dart';
 import 'package:class_manager/models/classes.dart';
+
+import '../services/classes_db_services.dart';
 
 class BuildClasses extends StatelessWidget {
   final DateFormat dateFormat = DateFormat("hh:mm a");
@@ -15,7 +18,7 @@ class BuildClasses extends StatelessWidget {
       listen: false,
     ).user.collegeID;
 
-    final classes = getClassList(collegeID);
+    final classes = classesDBServices.getClassList(collegeID);
 
     return FutureBuilder(
       future: classes,
@@ -47,27 +50,12 @@ class BuildClasses extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(
-                  "${dateFormat.format(c.time)}",
-                  style: TextStyle(
-                    color: c.isPassed
-                        ? Colors.white.withOpacity(0.2)
-                        : Colors.white,
-                    fontSize: 18.0,
-                  ),
-                ),
+                _displayClassHeading(
+                    text: "${dateFormat.format(c.time)}", isPassed: c.isPassed),
                 SizedBox(width: 20.0),
                 _getTime(c, context),
                 SizedBox(width: 20.0),
-                Text(
-                  c.subject,
-                  style: TextStyle(
-                    color: c.isPassed
-                        ? Colors.white.withOpacity(0.2)
-                        : Colors.white,
-                    fontSize: 18.0,
-                  ),
-                ),
+                _displayClassHeading(text: c.subject, isPassed: c.isPassed),
                 SizedBox(width: 20.0),
                 c.isHappening
                     ? Container(
@@ -100,51 +88,32 @@ class BuildClasses extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.location_on,
-                          color: c.isPassed
-                              ? Theme.of(context).accentColor.withOpacity(0.3)
-                              : Theme.of(context).accentColor,
-                          size: 20.0,
-                        ),
-                        SizedBox(width: 8.0),
-                        Text(
-                          c.type,
-                          style: TextStyle(
-                            color: c.isPassed
-                                ? kTextColor.withOpacity(0.3)
-                                : kTextColor,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
+                    _buildClassDetail(
+                      context: context,
+                      icon: Icons.location_on,
+                      text: c.type,
+                      isPassed: c.isPassed,
                     ),
                     SizedBox(height: 6.0),
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.person,
-                          color: c.isPassed
-                              ? Theme.of(context).accentColor.withOpacity(0.3)
-                              : Theme.of(context).accentColor,
-                          size: 20.0,
-                        ),
-                        SizedBox(width: 8.0),
-                        Text(
-                          c.teacherName,
-                          style: TextStyle(
-                            color: c.isPassed
-                                ? kTextColor.withOpacity(0.3)
-                                : kTextColor,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
+                    _buildClassDetail(
+                      context: context,
+                      icon: Icons.person,
+                      text: c.teacherName,
+                      isPassed: c.isPassed,
                     ),
+                    SizedBox(height: 6.0),
+                    if (!c.isPassed && c.type == 'Online Class')
+                      InkWell(
+                        onTap: () async {
+                          await _launchURL(c.joinLink);
+                        },
+                        child: _buildClassDetail(
+                          context: context,
+                          icon: Icons.phone_outlined,
+                          text: 'Join Now',
+                          isPassed: c.isPassed,
+                        ),
+                      ),
                   ],
                 ),
               ],
@@ -155,6 +124,19 @@ class BuildClasses extends StatelessWidget {
       },
     );
   }
+
+  Widget _displayClassHeading({
+    @required String text,
+    bool isPassed = true,
+  }) =>
+      Text(
+        text,
+        // "${dateFormat.format(time)}",
+        style: TextStyle(
+          color: isPassed ? Colors.white.withOpacity(0.2) : Colors.white,
+          fontSize: 18.0,
+        ),
+      );
 
   _getStatus(Classes c) {
     DateTime now = DateTime.now();
@@ -167,6 +149,33 @@ class BuildClasses extends StatelessWidget {
       c.isHappening = true;
     }
   }
+
+  Widget _buildClassDetail({
+    @required BuildContext context,
+    @required IconData icon,
+    @required String text,
+    bool isPassed = true,
+  }) =>
+      Row(
+        children: <Widget>[
+          Icon(
+            icon,
+            color: isPassed
+                ? Theme.of(context).accentColor.withOpacity(0.3)
+                : Theme.of(context).accentColor,
+            size: 20.0,
+          ),
+          SizedBox(width: 8.0),
+          Text(
+            text,
+            style: TextStyle(
+              color: isPassed ? kTextColor.withOpacity(0.3) : kTextColor,
+              fontSize: 15.0,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      );
 
   _getTime(Classes c, context) {
     return Container(
@@ -205,4 +214,7 @@ class BuildClasses extends StatelessWidget {
     }
     return null;
   }
+
+  Future<void> _launchURL(String url) async =>
+      await canLaunch(url) ? await launch(url) : print('Could not launch $url');
 }

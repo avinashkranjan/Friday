@@ -11,29 +11,40 @@ class Header extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          SvgPicture.asset(
-            "assets/icons/grad_cap.svg",
-            height: 70.0,
-          ),
-          Consumer<UserInfoServices>(
-            builder: (ctx, _userInfo, _) => FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Text(
-                "Hello, " +
-                    (_userInfo.hasData
-                        ? _userInfo.user.name.split(" ")[0]
-                        : "Sir"),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+          Flexible(
+            child: SvgPicture.asset(
+              "assets/icons/grad_cap.svg",
+              height: 70.0,
             ),
           ),
-          CircleAvatar(
-            radius: 25.0,
-            backgroundImage: AssetImage("assets/images/profile_pic.jpg"),
+          Consumer<UserInfoServices>(
+            builder: (ctx, _userInfo, _) {
+              return Row(
+                children: [
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      "Hello, " +
+                          (_userInfo.user != null
+                              ? _userInfo.user.name.split(" ")[0]
+                              : "Sir"),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  CircleAvatar(
+                    radius: 25.0,
+                    backgroundImage: _userInfo.user != null &&
+                            _userInfo.user.profilePictureUrl.isNotEmpty
+                        ? NetworkImage(_userInfo.user.profilePictureUrl)
+                        : AssetImage("assets/images/profile_pic.jpg"),
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),

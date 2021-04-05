@@ -23,6 +23,17 @@ class UserDBServices {
         .set(_user.toJson(), SetOptions(merge: true));
   }
 
+  static Future<void> updateProfilePictureUrl(
+      String uid, String profilePictureUrl) async {
+    FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
+
+    await firestoreDB.collection(usersCollection).doc(uid).update(
+      {
+        'profilePictureUrl': profilePictureUrl,
+      },
+    );
+  }
+
   // Fetches User Data from Collection
   static Future<bool> fetchUserData(BuildContext context) async {
     FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
