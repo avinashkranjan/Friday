@@ -40,13 +40,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   uploadPictures(File image) async {
     // uploads picture(s) to storage and return it's URL
     final Reference ref =
-    _storageReference.child('${Path.basename(image.path)}}');
+        _storageReference.child('${Path.basename(image.path)}}');
 
     final UploadTask uploadTask = ref.putFile(image);
     String pictureUrl;
 
     await uploadTask.then(
-          (taskSnapshot) async {
+      (taskSnapshot) async {
         pictureUrl = await taskSnapshot.ref.getDownloadURL();
       },
     );
@@ -55,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     // String pictureUrl = uploadTaskSnapshot.downloadUrl.toString();
 
     final userInfoProvider =
-    Provider.of<UserInfoServices>(context, listen: false);
+        Provider.of<UserInfoServices>(context, listen: false);
 
     Users currentUser = userInfoProvider.user;
     currentUser.profilePictureUrl = pictureUrl;
@@ -64,6 +64,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     userInfoProvider.upateProfilePictureUrl();
   }
+
+  bool visiblity_name = true;
+  bool visiblity_fields = false;
 
   @override
   Widget build(BuildContext context) {
@@ -103,59 +106,66 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Center(
                             child: FittedBox(
                               fit: BoxFit.fitWidth,
-                              child: Text(
-                                userInfo.hasData ? _user.name : "Loading...",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.blue[200],
+                              child: Visibility(
+                                visible: visiblity_name,
+                                child: Text(
+                                  userInfo.hasData ? _user.name : "Loading...",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.blue[200],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                           SizedBox(height: 20),
                           buildDetails(
-                            "Email",
-                            userInfo.hasData ? _user.email : "Loading...",
-                          ),
+                              "Email",
+                              userInfo.hasData ? _user.email : "Loading...",
+                              true),
                           SizedBox(height: 20),
                           buildDetails(
-                            "College",
-                            userInfo.hasData ? _user.university : "Loading...",
-                          ),
+                              "College",
+                              userInfo.hasData
+                                  ? _user.university
+                                  : "Loading...",
+                              true),
                           SizedBox(height: 20),
                           buildDetails(
-                            "Course",
-                            userInfo.hasData ? _user.course : "Loading...",
-                          ),
+                              "Course",
+                              userInfo.hasData ? _user.course : "Loading...",
+                              true),
                           SizedBox(height: 20),
                           buildDetails(
-                            "Deptartment/Major",
-                            userInfo.hasData ? _user.department : "Loading...",
-                          ),
+                              "Deptartment/Major",
+                              userInfo.hasData
+                                  ? _user.department
+                                  : "Loading...",
+                              true),
                           SizedBox(height: 20),
                           buildDetails(
-                            "Current Academic Year",
-                            userInfo.hasData
-                                ? _user.year.toString()
-                                : "Loading...",
-                          ),
+                              "Current Academic Year",
+                              userInfo.hasData
+                                  ? _user.year.toString()
+                                  : "Loading...",
+                              true),
                           SizedBox(height: 20),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               buildDetails(
-                                "Gender",
-                                userInfo.hasData
-                                    ? enumToString(_user.gender)
-                                    : "Loading...",
-                              ),
+                                  "Gender",
+                                  userInfo.hasData
+                                      ? enumToString(_user.gender)
+                                      : "Loading...",
+                                  true),
                               SizedBox(width: 20),
                               buildDetails(
-                                "Age",
-                                userInfo.hasData
-                                    ? _user.age.toString()
-                                    : "Loading...",
-                              ),
+                                  "Age",
+                                  userInfo.hasData
+                                      ? _user.age.toString()
+                                      : "Loading...",
+                                  true),
                               SizedBox(width: 20),
                             ],
                           ),
@@ -183,7 +193,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (_) => OnboardingPage()),
-                                          (Route<dynamic> route) => false,
+                                      (Route<dynamic> route) => false,
                                     );
                                   }
                                 }
@@ -217,9 +227,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: CircleAvatar(
                     radius: profilePictureDiameter / 2,
                     backgroundImage:
-                    _user != null && _user.profilePictureUrl.isNotEmpty
-                        ? NetworkImage(_user.profilePictureUrl)
-                        : AssetImage("assets/images/profile_pic.jpg"),
+                        _user != null && _user.profilePictureUrl.isNotEmpty
+                            ? NetworkImage(_user.profilePictureUrl)
+                            : AssetImage("assets/images/profile_pic.jpg"),
                     backgroundColor: Colors.transparent,
                     foregroundColor: Theme.of(context).backgroundColor,
                   ),
@@ -238,6 +248,65 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: getImage,
                   ),
                 ),
+                Positioned(
+                  top: MediaQuery.of(context).size.height * 0.18,
+                  right: MediaQuery.of(context).size.width * 0.07,
+                  child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        visiblity_fields = !visiblity_fields;
+                        visiblity_name = !visiblity_name;
+                      });
+                    },
+                    icon: Icon(
+                      visiblity_name ? Icons.edit_outlined : Icons.check,
+                      color: Colors.white,
+                      size: profilePictureDiameter * 0.25,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: visiblity_fields,
+                  child: Positioned(
+                    top: MediaQuery.of(context).size.height * 0.27,
+                    child: Container(
+                      width: 200,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                        ),
+                        style: TextStyle(color: Colors.black),
+                        cursorColor: Colors.white,
+                        onChanged: (value) {
+                          _user.name = value;
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: visiblity_fields,
+                  child: Positioned(
+                    top: MediaQuery.of(context).size.height * 0.82,
+                    right: MediaQuery.of(context).size.height * 0.04,
+                    child: Container(
+                      width: 200,
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                        ),
+                        style: TextStyle(color: Colors.black),
+                        cursorColor: Colors.white,
+                        onChanged: (value) {
+                          _user.age = int.parse(value);
+                        },
+                      ),
+                    ),
+                  ),
+                ),
               ],
             );
           },
@@ -247,7 +316,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-Widget buildDetails(String title, String detail) {
+Widget buildDetails(String title, String detail, bool visible) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -261,11 +330,14 @@ Widget buildDetails(String title, String detail) {
         ),
       ),
       SizedBox(height: 10),
-      Text(
-        detail,
-        style: TextStyle(
-          fontSize: 20,
-          color: Colors.white,
+      Visibility(
+        visible: visible,
+        child: Text(
+          detail,
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+          ),
         ),
       ),
     ],
