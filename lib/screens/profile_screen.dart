@@ -21,7 +21,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   ImagePicker _imagePicker = ImagePicker();
-  StorageReference _storageReference = FirebaseStorage.instance.ref();
+  Reference _storageReference = FirebaseStorage.instance.ref();
 
   void getImage() async {
     PickedFile image = await _imagePicker.getImage(source: ImageSource.gallery);
@@ -39,16 +39,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   uploadPictures(File image) async {
     // uploads picture(s) to storage and return it's URL
-    final StorageReference ref =
-        _storageReference.child('${Path.basename(image.path)}}');
+    final Reference ref =
+    _storageReference.child('${Path.basename(image.path)}}');
 
-    final StorageUploadTask uploadTask = ref.putFile(image);
+    final UploadTask uploadTask = ref.putFile(image);
+    String pictureUrl;
 
-    UploadTaskSnapshot uploadTaskSnapshot = await uploadTask.future;
-    String pictureUrl = uploadTaskSnapshot.downloadUrl.toString();
+    await uploadTask.then(
+          (taskSnapshot) async {
+        pictureUrl = await taskSnapshot.ref.getDownloadURL();
+      },
+    );
+
+    // UploadTaskSnapshot uploadTaskSnapshot = await uploadTask.future;
+    // String pictureUrl = uploadTaskSnapshot.downloadUrl.toString();
 
     final userInfoProvider =
-        Provider.of<UserInfoServices>(context, listen: false);
+    Provider.of<UserInfoServices>(context, listen: false);
 
     Users currentUser = userInfoProvider.user;
     currentUser.profilePictureUrl = pictureUrl;
@@ -176,7 +183,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (_) => OnboardingPage()),
-                                      (Route<dynamic> route) => false,
+                                          (Route<dynamic> route) => false,
                                     );
                                   }
                                 }
@@ -209,9 +216,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   top: 0.1 * MediaQuery.of(context).size.height,
                   child: CircleAvatar(
                     radius: profilePictureDiameter / 2,
-                    backgroundImage: _user.profilePictureUrl.isEmpty
-                        ? AssetImage("assets/images/profile_pic.jpg")
-                        : NetworkImage(_user.profilePictureUrl),
+                    backgroundImage:
+                    _user != null && _user.profilePictureUrl.isNotEmpty
+                        ? NetworkImage(_user.profilePictureUrl)
+                        : AssetImage("assets/images/profile_pic.jpg"),
                     backgroundColor: Colors.transparent,
                     foregroundColor: Theme.of(context).backgroundColor,
                   ),
