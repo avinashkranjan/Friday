@@ -45,7 +45,7 @@ class FacebookAuth {
 
           // Navigate to Additional Details Form
           Navigator.push(this._context,
-              MaterialPageRoute(builder: (_) => SignUpAdditionalDetails()));
+              MaterialPageRoute(builder: (_) => SignUpAdditionalDetails("FaceBook")));
         } else {
           // Navigate to the Bottom Navigation Page
           Navigator.push(this._context,
