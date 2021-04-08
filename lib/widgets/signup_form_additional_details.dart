@@ -12,8 +12,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
+import 'bottom_navigation.dart';
 
 class SignUpFormAdditionalDetails extends StatefulWidget {
+  String authProvider = "EmailAndPassword";
+
+  SignUpFormAdditionalDetails(this.authProvider);
+
   @override
   _SignUpFormAdditionalDetailsState createState() =>
       _SignUpFormAdditionalDetailsState();
@@ -289,24 +294,38 @@ class _SignUpFormAdditionalDetailsState
 
                               print("User Details Added");
 
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(builder: (_) => LoginPage()),
-                                (Route<dynamic> route) => false,
-                              );
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                        backgroundColor: Colors.black38,
-                                        title: Text(
-                                          "Sign-Up Complete",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        content: Text(
-                                          "A verification link send to your registered email\nPlease verify email and then log-in",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ));
+                              if (widget.authProvider == "Google" ||
+                                  widget.authProvider == "FaceBook") {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => BottomNavigation()),
+                                  (Route<dynamic> route) => false,
+                                );
+                              } else {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => LoginPage()),
+                                  (Route<dynamic> route) => false,
+                                );
+
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          backgroundColor: Colors.black38,
+                                          title: Text(
+                                            "Sign-Up Complete",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          content: Text(
+                                            "A verification link send to your registered email\nPlease verify email and then log-in",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ));
+                              }
                             }
                           },
                         ),
