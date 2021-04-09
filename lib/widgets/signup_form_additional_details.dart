@@ -15,9 +15,8 @@ import '../constants.dart';
 import 'bottom_navigation.dart';
 
 class SignUpFormAdditionalDetails extends StatefulWidget {
-  String authProvider = "EmailAndPassword";
 
-  SignUpFormAdditionalDetails(this.authProvider);
+  SignUpFormAdditionalDetails();
 
   @override
   _SignUpFormAdditionalDetailsState createState() =>

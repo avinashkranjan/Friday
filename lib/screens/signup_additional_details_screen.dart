@@ -5,9 +5,8 @@ import 'package:class_manager/widgets/onboarding_canvas_design.dart';
 import 'package:class_manager/widgets/signup_form_additional_details.dart';
 
 class SignUpAdditionalDetails extends StatefulWidget {
-  String authProvider = "EmailAndPassword";
 
-  SignUpAdditionalDetails([this.authProvider = "EmailAndPassword"]);
+  SignUpAdditionalDetails();
 
   @override
   _SignUpAdditionalDetailsState createState() =>
@@ -35,7 +34,7 @@ class _SignUpAdditionalDetailsState extends State<SignUpAdditionalDetails> {
               child: Container(),
               painter: CanvasDesign(context: context),
             ),
-            SignUpFormAdditionalDetails(widget.authProvider),
+            SignUpFormAdditionalDetails(),
           ],
         ),
       ),

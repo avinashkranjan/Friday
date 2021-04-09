@@ -174,7 +174,7 @@ class AuthenticationService {
         user.sendEmailVerification();// Send Email Verification
 
         FirebaseAuth.instance
-            .signOut(); // IF USer Sign-in, then close or reopen the app, can navigate to the
+            .signOut(); // Without that, If User Sign-Up, then close and reopen the app, can navigate to the
         //bottom_navigation screen
 
         Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage()));
