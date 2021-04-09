@@ -39,10 +39,6 @@ class AuthenticationService {
       final User currentUser = auth.currentUser;
 
       if (user.emailVerified) {
-        print(user);
-        print(currentUser);
-        print(user.uid);
-        print(currentUser.uid);
         if ((user != null) &&
             (currentUser != null) &&
             (user.uid == currentUser.uid)) {
