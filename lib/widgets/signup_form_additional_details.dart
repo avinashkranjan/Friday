@@ -146,9 +146,9 @@ class _SignUpFormAdditionalDetailsState
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "Sign Up",
+                                "Additional Details",
                                 style: TextStyle(
-                                  fontSize: 42,
+                                  fontSize: 35,
                                   letterSpacing: 2,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -248,7 +248,7 @@ class _SignUpFormAdditionalDetailsState
                             ),
                           ),
                           child: Text(
-                            "Sign Up",
+                            "Save",
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.white,
@@ -294,38 +294,26 @@ class _SignUpFormAdditionalDetailsState
 
                               print("User Details Added");
 
-                              if (widget.authProvider == "Google" ||
-                                  widget.authProvider == "FaceBook") {
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => BottomNavigation()),
-                                  (Route<dynamic> route) => false,
-                                );
-                              } else {
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => LoginPage()),
-                                  (Route<dynamic> route) => false,
-                                );
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => BottomNavigation()),
+                                (Route<dynamic> route) => false,
+                              );
 
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                          backgroundColor: Colors.black38,
-                                          title: Text(
-                                            "Sign-Up Complete",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          content: Text(
-                                            "A verification link send to your registered email\nPlease verify email and then log-in",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ));
-                              }
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        backgroundColor: Colors.black38,
+                                        title: Text(
+                                          "Log-in Complete",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        content: Text(
+                                          "Enjoy This App",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ));
                             }
                           },
                         ),
