@@ -10,8 +10,14 @@ List<Map<String, String>> bottomNavBarData = const [
 
 class BottomNavigationBarProvider extends ChangeNotifier {
   int currentIndex = 0;
+
   getCurrentIndex({@required int index}) {
     currentIndex = index;
+    notifyListeners();
+  }
+
+  resetCurrentIndex() {
+    currentIndex = 0;
     notifyListeners();
   }
 }

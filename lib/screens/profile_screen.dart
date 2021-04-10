@@ -7,6 +7,7 @@ import 'package:class_manager/services/authentication.dart';
 import 'package:class_manager/services/facebookAuthentication.dart';
 import 'package:class_manager/services/googleAuthentication.dart';
 import 'package:class_manager/services/user_info_services.dart';
+import 'package:class_manager/utils/bottom_navbar_tabs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -40,13 +41,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   uploadPictures(File image) async {
     // uploads picture(s) to storage and return it's URL
     final Reference ref =
-    _storageReference.child('${Path.basename(image.path)}}');
+        _storageReference.child('${Path.basename(image.path)}}');
 
     final UploadTask uploadTask = ref.putFile(image);
     String pictureUrl;
 
     await uploadTask.then(
-          (taskSnapshot) async {
+      (taskSnapshot) async {
         pictureUrl = await taskSnapshot.ref.getDownloadURL();
       },
     );
@@ -55,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     // String pictureUrl = uploadTaskSnapshot.downloadUrl.toString();
 
     final userInfoProvider =
-    Provider.of<UserInfoServices>(context, listen: false);
+        Provider.of<UserInfoServices>(context, listen: false);
 
     Users currentUser = userInfoProvider.user;
     currentUser.profilePictureUrl = pictureUrl;
@@ -164,7 +165,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: OutlineButton(
                               onPressed: () async {
                                 print("Signing out");
-
+                                await Provider.of<BottomNavigationBarProvider>(
+                                        context,
+                                        listen: false)
+                                    .resetCurrentIndex();
                                 var _gAuth = GoogleAuthenticate(context);
                                 bool gResponse = await _gAuth.logOut();
 
@@ -183,7 +187,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (_) => OnboardingPage()),
-                                          (Route<dynamic> route) => false,
+                                      (Route<dynamic> route) => false,
                                     );
                                   }
                                 }
@@ -217,9 +221,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: CircleAvatar(
                     radius: profilePictureDiameter / 2,
                     backgroundImage:
-                    _user != null && _user.profilePictureUrl.isNotEmpty
-                        ? NetworkImage(_user.profilePictureUrl)
-                        : AssetImage("assets/images/profile_pic.jpg"),
+                        _user != null && _user.profilePictureUrl.isNotEmpty
+                            ? NetworkImage(_user.profilePictureUrl)
+                            : AssetImage("assets/images/profile_pic.jpg"),
                     backgroundColor: Colors.transparent,
                     foregroundColor: Theme.of(context).backgroundColor,
                   ),
