@@ -1,6 +1,8 @@
+import 'package:class_manager/screens/login_page.dart';
 import 'package:class_manager/screens/signup_additional_details_screen.dart';
 import 'package:class_manager/services/user_info_services.dart';
 import 'package:class_manager/widgets/auth_handling_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,26 +48,56 @@ class AuthenticationService {
           print(
               "Login succeeded \n Credentials of user=>Email: ${user.email} and  UID: ${user.uid}");
           print("User Logged In");
-          // Navigate to Dashboard
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (_) => BottomNavigation()),
-            (Route<dynamic> route) => false,
-          );
 
-          showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    backgroundColor: Colors.black38,
-                    title: Text(
-                      "Log-in Complete",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    content: Text(
-                      "Enjoy this app",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ));
+          DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+              .doc("users/${FirebaseAuth.instance.currentUser.uid}")
+              .get();
+
+          if (documentSnapshot.data() == null) {
+            print("Data Empty");
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => SignUpAdditionalDetails()),
+                  (Route<dynamic> route) => false,
+            );
+
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  backgroundColor: Colors.black38,
+                  title: Text(
+                    "You are one step away from successful Log-In",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  content: Text(
+                    "Please Fill the Form to Complete Log-in",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ));
+
+
+          } else {
+            // Navigate to Dashboard
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => BottomNavigation()),
+              (Route<dynamic> route) => false,
+            );
+
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  backgroundColor: Colors.black38,
+                  title: Text(
+                    "Log-in Complete",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  content: Text(
+                    "Enjoy this app",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ));
+          }
         } else {
           print("Login Error: Undefined Error!");
           errorMsg = "Undefined Error Occured";
@@ -138,8 +170,14 @@ class AuthenticationService {
         Provider.of<UserInfoServices>(context, listen: false)
             .setEssentialDetailsOfUser(name, email);
         // Navigate to Addtional Details Form
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => SignUpAdditionalDetails()));
+
+        user.sendEmailVerification();// Send Email Verification
+
+        FirebaseAuth.instance
+            .signOut(); // Without that, If User Sign-Up, then close and reopen the app, can navigate to the
+        //bottom_navigation screen
+
+        Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage()));
       } else {
         print("SignUp Error: Undefined Error!");
         errorMsg = "Undefined Error Occured";

@@ -51,7 +51,7 @@ class GoogleAuthenticate {
 
               // Navigate to Additional Details Form
               Navigator.push(this._context,
-                  MaterialPageRoute(builder: (_) => SignUpAdditionalDetails("Google")));
+                  MaterialPageRoute(builder: (_) => SignUpAdditionalDetails()));
             } else {
               // Navigate to the Bottom Navigation Page
               Navigator.push(this._context,
