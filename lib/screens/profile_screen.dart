@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:class_manager/services/user_db_services.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -67,11 +69,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   bool visiblity_name = true;
   bool visiblity_fields = false;
+  User _currUser = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     final User userData = firebaseAuth.currentUser;
+    FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.8),
@@ -165,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   userInfo.hasData
                                       ? _user.age.toString()
                                       : "Loading...",
-                                  true),
+                                  visiblity_name),
                               SizedBox(width: 20),
                             ],
                           ),
@@ -268,18 +272,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Visibility(
                   visible: visiblity_fields,
                   child: Positioned(
-                    top: MediaQuery.of(context).size.height * 0.27,
+                    top: MediaQuery.of(context).size.height * 0.26,
                     child: Container(
                       width: 200,
                       child: TextField(
+                        autofocus: true,
+                        enabled: true,
                         decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: kAuthThemeColor, width: 3),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: kAuthThemeColor, width: 3),
+                          ),
                         ),
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
                         onChanged: (value) {
-                          _user.name = value;
+                          setState(() async {
+                            if (value != '') {
+                              _user.name = value;
+                              await UserDBServices.updateName(_user.uid, value);
+                            }
+                          });
                         },
                       ),
                     ),
@@ -289,19 +306,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   visible: visiblity_fields,
                   child: Positioned(
                     top: MediaQuery.of(context).size.height * 0.82,
-                    right: MediaQuery.of(context).size.height * 0.04,
+                    right: MediaQuery.of(context).size.height * 0.07,
                     child: Container(
-                      width: 200,
+                      width: 150,
                       child: TextField(
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: kAuthThemeColor, width: 3),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: kAuthThemeColor, width: 3),
+                          ),
                         ),
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
                         onChanged: (value) {
-                          _user.age = int.parse(value);
+                          setState(() async {
+                            if (value != '') {
+                              _user.age = int.parse(value);
+                              await UserDBServices.updateAge(
+                                  _user.uid, int.parse(value));
+                            }
+                          });
                         },
                       ),
                     ),
