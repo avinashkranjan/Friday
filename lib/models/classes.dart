@@ -21,7 +21,7 @@ class Classes {
         teacherName: snapshot['teacherName'],
         joinLink: snapshot['joinLink'],
         time: (snapshot['time'] != null)
-            ? DateTime.parse(snapshot['time'].toDate().toString())
+            ? DateTime.parse(snapshot['time'])
             : DateTime.now(),
       );
 

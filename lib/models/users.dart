@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 enum Gender { Male, Female, Other }
+enum Mode { Online, Offline }
 
 class Users {
   String uid,
@@ -79,6 +80,7 @@ class Users {
       "department": department,
       "age": age,
       "gender": _gen,
+      "classes": {},
     };
   }
 }
@@ -94,6 +96,18 @@ String enumToString(Gender _gen) {
       break;
     default:
       return "Other";
+      break;
+  }
+}
+
+// Function to convert Mode enum to String
+String modeEnumToString(Mode _currMode) {
+  switch (_currMode) {
+    case Mode.Online:
+      return "Online";
+      break;
+    default:
+      return "Offline";
       break;
   }
 }

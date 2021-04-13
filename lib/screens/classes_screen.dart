@@ -1,3 +1,9 @@
+import 'package:class_manager/models/classes.dart';
+import 'package:class_manager/models/users.dart';
+import 'package:class_manager/services/classes_db_services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_time_picker/date_time_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:class_manager/constants.dart';
 import 'package:class_manager/widgets/build_classes.dart';
@@ -11,7 +17,22 @@ class ClassesScreen extends StatefulWidget {
 
 class _ClassesScreenState extends State<ClassesScreen> {
   final DateTime _today = DateTime.now();
+  final GlobalKey<FormState> _addClassFormKey = GlobalKey<FormState>();
+  List<Classes> classesList = [];
+
+  Mode _mode = Mode.Offline;
+  TextEditingController _subjectController = TextEditingController();
+  TextEditingController _teacherNameController = TextEditingController();
+  TextEditingController _joinLinkController = TextEditingController();
+  TextEditingController _dateController = TextEditingController();
+  TextEditingController _timeController = TextEditingController();
+
+  String _todayDate;
+
   int _calenderItemIndex = 0;
+
+  ClassesDBServices classesDBServices = ClassesDBServices();
+
   _setCalenderIndex({@required int index}) {
     setState(() {
       _calenderItemIndex = index;
@@ -21,112 +42,459 @@ class _ClassesScreenState extends State<ClassesScreen> {
 
   @override
   void initState() {
-    _calenderItemIndex = 0;
     super.initState();
+    _calenderItemIndex = 0;
+    _todayDate = _today.toString().split(" ")[0];
+    _dateController.text = _todayDate;
+
+    classesDBServices
+        .getClassList(FirebaseAuth.instance.currentUser.uid)
+        .listen((documentSnapshot) {
+      print('DocumentSnapShot: ${documentSnapshot.data()}');
+      if (documentSnapshot.exists) {
+        final Map<dynamic, dynamic> classesMap =
+            documentSnapshot.data()['classes'] as Map;
+
+        if (classesMap.containsKey(_todayDate)) {
+          List<dynamic> allClassesList = classesMap[_todayDate];
+
+          if (mounted) {
+            setState(() {
+              classesList.clear();
+              allClassesList.forEach((classInformation) {
+                classesList.add(Classes.fromMap(classInformation));
+              });
+            });
+          }
+
+          print("Present here: $classesList");
+        }
+      }
+    });
   }
 
   @override
   void dispose() {
     _calenderItemIndex = 0;
     super.dispose();
+    _subjectController.dispose();
+    _teacherNameController.dispose();
+    _joinLinkController.dispose();
+    _dateController.dispose();
+    _timeController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        Header(),
-        Padding(
-          padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 30.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                DateFormat.MMM().format(_today).toString(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  InkWell(
-                    onTap: () => _setCalenderIndex(index: -3),
-                    child: CalenderDateFormatAddition(
-                      dateTime: _today,
-                      dayAdditon: -3,
-                      itemSelected: (_calenderItemIndex == -3) ? true : false,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => _setCalenderIndex(index: -2),
-                    child: CalenderDateFormatAddition(
-                      dateTime: _today,
-                      dayAdditon: -2,
-                      itemSelected: (_calenderItemIndex == -2) ? true : false,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => _setCalenderIndex(index: -1),
-                    child: CalenderDateFormatAddition(
-                      dateTime: _today,
-                      dayAdditon: -1,
-                      itemSelected: (_calenderItemIndex == -1) ? true : false,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => _setCalenderIndex(index: 0),
-                    child: CalenderDateFormatAddition(
-                      dateTime: _today,
-                      dayAdditon: 0,
-                      itemSelected: (_calenderItemIndex == 0) ? true : false,
-                    ),
-                  ),
-                  InkWell(
-                      onTap: () => _setCalenderIndex(index: 1),
-                      child: CalenderDateFormatAddition(
-                        dateTime: _today,
-                        dayAdditon: 1,
-                        itemSelected: (_calenderItemIndex == 1) ? true : false,
-                      )),
-                  InkWell(
-                      onTap: () => _setCalenderIndex(index: 2),
-                      child: CalenderDateFormatAddition(
-                        dateTime: _today,
-                        dayAdditon: 2,
-                        itemSelected: (_calenderItemIndex == 2) ? true : false,
-                      )),
-                  InkWell(
-                      onTap: () => _setCalenderIndex(index: 3),
-                      child: CalenderDateFormatAddition(
-                        dateTime: _today,
-                        dayAdditon: 3,
-                        itemSelected: (_calenderItemIndex == 3) ? true : false,
-                      )),
-                ],
-              ),
-            ],
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(bottom: 60.0),
+        child: FloatingActionButton(
+          elevation: 7.0,
+          child: Icon(
+            Icons.add,
+            size: 30.0,
           ),
+          onPressed: () {
+            print("Add New Class");
+            addNewClass();
+          },
         ),
-        Container(
-          padding: EdgeInsets.all(40.0),
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(50.0),
-              topRight: Radius.circular(50.0),
+      ),
+      body: ListView(
+        children: <Widget>[
+          Header(),
+          Padding(
+            padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 30.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  DateFormat.MMM().format(_today).toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () => _setCalenderIndex(index: -3),
+                      child: CalenderDateFormatAddition(
+                        dateTime: _today,
+                        dayAdditon: -3,
+                        itemSelected: (_calenderItemIndex == -3) ? true : false,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => _setCalenderIndex(index: -2),
+                      child: CalenderDateFormatAddition(
+                        dateTime: _today,
+                        dayAdditon: -2,
+                        itemSelected: (_calenderItemIndex == -2) ? true : false,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => _setCalenderIndex(index: -1),
+                      child: CalenderDateFormatAddition(
+                        dateTime: _today,
+                        dayAdditon: -1,
+                        itemSelected: (_calenderItemIndex == -1) ? true : false,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => _setCalenderIndex(index: 0),
+                      child: CalenderDateFormatAddition(
+                        dateTime: _today,
+                        dayAdditon: 0,
+                        itemSelected: (_calenderItemIndex == 0) ? true : false,
+                      ),
+                    ),
+                    InkWell(
+                        onTap: () => _setCalenderIndex(index: 1),
+                        child: CalenderDateFormatAddition(
+                          dateTime: _today,
+                          dayAdditon: 1,
+                          itemSelected:
+                              (_calenderItemIndex == 1) ? true : false,
+                        )),
+                    InkWell(
+                        onTap: () => _setCalenderIndex(index: 2),
+                        child: CalenderDateFormatAddition(
+                          dateTime: _today,
+                          dayAdditon: 2,
+                          itemSelected:
+                              (_calenderItemIndex == 2) ? true : false,
+                        )),
+                    InkWell(
+                        onTap: () => _setCalenderIndex(index: 3),
+                        child: CalenderDateFormatAddition(
+                          dateTime: _today,
+                          dayAdditon: 3,
+                          itemSelected:
+                              (_calenderItemIndex == 3) ? true : false,
+                        )),
+                  ],
+                ),
+              ],
             ),
           ),
-          child: Column(
-            children: <Widget>[
-              BuildClasses(),
-            ],
+          Container(
+            width: double.maxFinite,
+            padding: EdgeInsets.all(40.0),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50.0),
+                topRight: Radius.circular(50.0),
+              ),
+            ),
+            child: classesListBuilder(classesList),
           ),
-        ),
-      ],
+        ],
+      ),
+    );
+  }
+
+  void addNewClass() {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            backgroundColor: Theme.of(context).backgroundColor,
+            elevation: 5.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            title: Align(
+              alignment: Alignment.center,
+              child: Text(
+                "Add New Class",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300,
+                  letterSpacing: 1.0,
+                ),
+              ),
+            ),
+            content: Container(
+              width: double.maxFinite,
+              height: MediaQuery.of(context).size.height / 2,
+              margin: EdgeInsets.only(top: 10.0),
+              child: Form(
+                key: _addClassFormKey,
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    modeChoice(),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    TextFormField(
+                      controller: _subjectController,
+                      style: TextStyle(
+                        color: Colors.white60,
+                      ),
+                      validator: (inputVal) {
+                        if (inputVal.length == 0) return "Enter Subject Name";
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: "Subject",
+                        labelStyle: TextStyle(color: Colors.white70),
+                        focusColor: Colors.white70,
+                        hoverColor: Colors.white70,
+                        fillColor: Colors.white70,
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white70),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white70),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    TextFormField(
+                      controller: _teacherNameController,
+                      style: TextStyle(
+                        color: Colors.white60,
+                      ),
+                      validator: (inputVal) {
+                        if (inputVal.length == 0) return "Enter Teacher Name";
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Teacher Name',
+                        labelStyle: TextStyle(color: Colors.white70),
+                        focusColor: Colors.white70,
+                        hoverColor: Colors.white70,
+                        fillColor: Colors.white70,
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white70),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white70),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: _dateController,
+                            enabled: false,
+                            style: TextStyle(color: Colors.white70),
+                            decoration: InputDecoration(
+                              labelText: 'Date',
+                              labelStyle: TextStyle(color: Colors.white70),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white70),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white70),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20.0,
+                        ),
+                        Expanded(
+                          child: DateTimePicker(
+                            type: DateTimePickerType.time,
+                            controller: this._timeController,
+                            style: TextStyle(
+                              color: Colors.white70,
+                            ),
+                            decoration: InputDecoration(
+                              labelText: 'Time',
+                              labelStyle: TextStyle(color: Colors.white70),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white70),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white70),
+                              ),
+                            ),
+                            onChanged: (val) => print(val),
+                            validator: (selectedTime) {
+                              if (selectedTime.length == 0)
+                                return "Enter a Valid Time";
+                              return null;
+                            },
+                            onSaved: (val) => print(val),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    TextFormField(
+                      controller: _joinLinkController,
+                      style: TextStyle(
+                        color: Colors.white60,
+                      ),
+                      validator: (inputVal) {
+                        if (inputVal.length == 0 && this._mode == Mode.Online)
+                          return "Enter Meeting Join Link";
+                        else if (inputVal.length > 0 &&
+                            this._mode == Mode.Offline)
+                          return "Meeting Join Link Can't Take With Offline Mode";
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: "Join Link",
+                        labelStyle: TextStyle(color: Colors.white70),
+                        focusColor: Colors.white70,
+                        hoverColor: Colors.white70,
+                        fillColor: Colors.white70,
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white70),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white70),
+                        ),
+                        disabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white70),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        ),
+                        child: Text(
+                          "Save",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        onPressed: () async {
+                          if (_addClassFormKey.currentState.validate()) {
+                            print("Proceed");
+                            DocumentSnapshot documentSnapShot =
+                                await FirebaseFirestore.instance
+                                    .doc(
+                                        'users/${FirebaseAuth.instance.currentUser.uid}')
+                                    .get();
+
+                            Map<String, dynamic> _classesListStored =
+                                documentSnapShot.data()['classes'] as Map;
+
+                            if (_classesListStored.containsKey(_todayDate)) {
+                              List<dynamic> dateSpecificRoutine =
+                                  _classesListStored[_todayDate].toList();
+                              print(dateSpecificRoutine);
+                              dateSpecificRoutine.add({
+                                'subject': _subjectController.text,
+                                'type': modeEnumToString(this._mode),
+                                'teacherName': _teacherNameController.text,
+                                'joinLink':
+                                    modeEnumToString(this._mode) == "Online"
+                                        ? _joinLinkController.text
+                                        : null,
+                                'time': '$_todayDate ${_timeController.text}',
+                              });
+
+                              _classesListStored[_todayDate] =
+                                  dateSpecificRoutine;
+                            } else {
+                              _classesListStored.addAll({
+                                '$_todayDate': [
+                                  {
+                                    'subject': _subjectController.text,
+                                    'type': modeEnumToString(this._mode),
+                                    'teacherName': _teacherNameController.text,
+                                    'joinLink':
+                                        modeEnumToString(this._mode) == "Online"
+                                            ? _joinLinkController.text
+                                            : null,
+                                    'time':
+                                        '$_todayDate ${_timeController.text}',
+                                  }
+                                ]
+                              });
+                            }
+
+                            FirebaseFirestore.instance
+                                .doc(
+                                    'users/${FirebaseAuth.instance.currentUser.uid}')
+                                .update({
+                              'classes': _classesListStored,
+                            });
+
+                            if (mounted) {
+                              setState(() {
+                                _timeController.clear();
+                                this._mode = null;
+                                _subjectController.clear();
+                                _teacherNameController.clear();
+                                _joinLinkController.clear();
+                              });
+                              Navigator.pop(context);
+                            }
+                          } else
+                            print("Can't Proceed");
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  DropdownButtonFormField<Mode> modeChoice() {
+    return DropdownButtonFormField(
+      validator: (currValue) {
+        if (currValue == null) return "Please Select a Mode";
+        return null;
+      },
+      items: Mode.values
+          .map((selectedMode) => DropdownMenuItem<Mode>(
+              value: selectedMode,
+              child: Text(
+                modeEnumToString(selectedMode),
+                style: TextStyle(color: Colors.white),
+              )))
+          .toList(),
+      value: null,
+      onChanged: (Mode mode) {
+        setState(() {
+          _mode = mode;
+        });
+      },
+      onSaved: (Mode mode) {
+        setState(() {
+          _mode = mode;
+        });
+      },
+      dropdownColor: Theme.of(context).backgroundColor,
+      decoration: dropdownDecoration.copyWith(
+        labelText: "Mode",
+      ),
     );
   }
 }
@@ -135,6 +503,7 @@ class CalenderDateFormatAddition extends StatelessWidget {
   final DateTime dateTime;
   final int dayAdditon;
   final bool itemSelected;
+
   CalenderDateFormatAddition(
       {@required this.dateTime,
       @required this.dayAdditon,

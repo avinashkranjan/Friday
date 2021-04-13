@@ -1,25 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/classes.dart';
 
 class ClassesDBServices {
-  Future<List<Classes>> getClassList(String collegeID) async {
+  Stream<DocumentSnapshot> getClassList(String collegeID){
     List<Classes> classesList = [];
-    return FirebaseFirestore.instance
-        .collection('colleges')
-        .doc(collegeID)
-        .get()
-        .then((documentSnapshot) {
-      if (documentSnapshot.exists) {
-        final classesMap = documentSnapshot.data()['classes'] as Map;
+    Stream<DocumentSnapshot> streamDocumentSnapshot = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .snapshots();
 
-        classesMap.forEach((key, value) {
-          classesList.add(Classes.fromMap(value));
-        });
-      }
-      return classesList;
-    });
+    return streamDocumentSnapshot;
+
+    // print(take);
+    //     .then((documentSnapshot) {
+    //   if (documentSnapshot.exists) {
+    //     final Map<dynamic, dynamic> classesMap =
+    //         documentSnapshot.data()['classes'] as Map;
+    //
+    //     print("Imported Data: ${documentSnapshot.data()['classes']}");
+    //
+    //     classesMap.forEach((key, value) {
+    //       classesList.add(Classes.fromMap(value));
+    //     });
+    //   }
+    //   return classesList;
+    // });
   }
 
   Map<String, Classes> generateDummyClasses() {

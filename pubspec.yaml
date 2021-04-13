@@ -28,6 +28,7 @@ dependencies:
   url_launcher: ^6.0.2
   firebase_storage: ^8.0.1
   path_provider:
+  date_time_picker: ^2.0.0
 
 dev_dependencies:
   flutter_test:
