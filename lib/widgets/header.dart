@@ -31,10 +31,12 @@ class Header extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 25.0,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.italic,
                       ),
                     ),
                   ),
+                  SizedBox(width: 10.0,),
                   CircleAvatar(
                     radius: 25.0,
                     backgroundImage: _userInfo.user != null &&

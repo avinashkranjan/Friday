@@ -1,12 +1,8 @@
-import 'package:class_manager/services/user_info_services.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
 import 'package:class_manager/constants.dart';
 import 'package:class_manager/models/classes.dart';
-
-import '../services/classes_db_services.dart';
 
 Widget classesListBuilder(List<Classes> classes) {
   final DateFormat dateFormat = DateFormat("hh:mm a");
@@ -102,7 +98,6 @@ Widget _displayClassHeading({
 }) =>
     Text(
       text,
-      // "${dateFormat.format(time)}",
       style: TextStyle(
         color: isPassed ? Colors.white.withOpacity(0.2) : Colors.white,
         fontSize: 18.0,

@@ -1,3 +1,4 @@
+import 'package:class_manager/models/users.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uuid/uuid.dart';
@@ -5,29 +6,57 @@ import 'package:uuid/uuid.dart';
 import '../models/classes.dart';
 
 class ClassesDBServices {
-  Stream<DocumentSnapshot> getClassList(String collegeID){
-    List<Classes> classesList = [];
+  Stream<DocumentSnapshot> getClassList(String collegeID) {
     Stream<DocumentSnapshot> streamDocumentSnapshot = FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser.uid)
         .snapshots();
 
     return streamDocumentSnapshot;
+  }
 
-    // print(take);
-    //     .then((documentSnapshot) {
-    //   if (documentSnapshot.exists) {
-    //     final Map<dynamic, dynamic> classesMap =
-    //         documentSnapshot.data()['classes'] as Map;
-    //
-    //     print("Imported Data: ${documentSnapshot.data()['classes']}");
-    //
-    //     classesMap.forEach((key, value) {
-    //       classesList.add(Classes.fromMap(value));
-    //     });
-    //   }
-    //   return classesList;
-    // });
+  Future<void> addNewClassToFireStore(String _todayDate, Mode _mode,
+      String _subject, String _teacher, String _time,
+      [String _joinLink]) async {
+    DocumentSnapshot documentSnapShot = await FirebaseFirestore.instance
+        .doc('users/${FirebaseAuth.instance.currentUser.uid}')
+        .get();
+
+    Map<String, dynamic> _classesListStored =
+        documentSnapShot.data()['classes'] as Map;
+
+    if (_classesListStored.containsKey(_todayDate)) {
+      List<dynamic> dateSpecificRoutine =
+          _classesListStored[_todayDate].toList();
+      print(dateSpecificRoutine);
+      dateSpecificRoutine.add({
+        'subject': _subject,
+        'type': modeEnumToString(_mode),
+        'teacherName': _teacher,
+        'joinLink': modeEnumToString(_mode) == "Online" ? _joinLink : null,
+        'time': '$_todayDate $_time',
+      });
+
+      _classesListStored[_todayDate] = dateSpecificRoutine;
+    } else {
+      _classesListStored.addAll({
+        _todayDate: [
+          {
+            'subject': _subject,
+            'type': modeEnumToString(_mode),
+            'teacherName': _teacher,
+            'joinLink': modeEnumToString(_mode) == "Online" ? _joinLink : null,
+            'time': '$_todayDate $_time',
+          }
+        ]
+      });
+    }
+
+    FirebaseFirestore.instance
+        .doc('users/${FirebaseAuth.instance.currentUser.uid}')
+        .update({
+      'classes': _classesListStored,
+    });
   }
 
   Map<String, Classes> generateDummyClasses() {
