@@ -57,7 +57,9 @@ class _ClassesScreenState extends State<ClassesScreen> {
         final Map<dynamic, dynamic> classesMap =
             documentSnapshot.data()['classes'] as Map;
 
-        if (classesMap.containsKey(_currDate)) {
+        if (classesMap != null &&
+            classesMap.isNotEmpty &&
+            classesMap.containsKey(_currDate)) {
           if (mounted) {
             setState(() {
               List<dynamic> allClassesList = classesMap[_currDate];

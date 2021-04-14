@@ -7,7 +7,8 @@ import '../models/classes.dart';
 
 class ClassesDBServices {
   Stream<DocumentSnapshot> getClassList(String collegeID) {
-    Stream<DocumentSnapshot> streamDocumentSnapshot = FirebaseFirestore.instance
+    final Stream<DocumentSnapshot> streamDocumentSnapshot = FirebaseFirestore
+        .instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser.uid)
         .snapshots();
@@ -18,17 +19,21 @@ class ClassesDBServices {
   Future<void> addNewClassToFireStore(String _todayDate, Mode _mode,
       String _subject, String _teacher, String _time,
       [String _joinLink]) async {
-    DocumentSnapshot documentSnapShot = await FirebaseFirestore.instance
+    final DocumentSnapshot documentSnapShot = await FirebaseFirestore.instance
         .doc('users/${FirebaseAuth.instance.currentUser.uid}')
         .get();
 
-    Map<String, dynamic> _classesListStored =
+    final Map<String, dynamic> _classesListStored =
         documentSnapShot.data()['classes'] as Map;
 
-    if (_classesListStored.containsKey(_todayDate)) {
-      List<dynamic> dateSpecificRoutine =
+    if (_classesListStored != null &&
+        _classesListStored.isNotEmpty &&
+        _classesListStored.containsKey(_todayDate)) {
+      final List<dynamic> dateSpecificRoutine =
           _classesListStored[_todayDate].toList();
-      print(dateSpecificRoutine);
+
+      print("New Data Added in Old Date Container");
+
       dateSpecificRoutine.add({
         'subject': _subject,
         'type': modeEnumToString(_mode),
@@ -39,6 +44,8 @@ class ClassesDBServices {
 
       _classesListStored[_todayDate] = dateSpecificRoutine;
     } else {
+      print("New Date Container Added");
+
       _classesListStored.addAll({
         _todayDate: [
           {
