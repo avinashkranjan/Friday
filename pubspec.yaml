@@ -28,6 +28,8 @@ dependencies:
   url_launcher: ^6.0.2
   firebase_storage: ^8.0.1
   path_provider:
+  table_calendar: ^3.0.0
+
 
 dev_dependencies:
   flutter_test:
