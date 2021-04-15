@@ -12,9 +12,6 @@ class UserDBServices {
     FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
     User _currUser = FirebaseAuth.instance.currentUser;
 
-    // Send Verification Email
-    _currUser.sendEmailVerification();
-
     assert(_currUser is User);
     // Adds a user using `uid` of Firebase_auth as primary key
     await firestoreDB

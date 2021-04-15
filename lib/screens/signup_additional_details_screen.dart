@@ -5,6 +5,9 @@ import 'package:class_manager/widgets/onboarding_canvas_design.dart';
 import 'package:class_manager/widgets/signup_form_additional_details.dart';
 
 class SignUpAdditionalDetails extends StatefulWidget {
+
+  SignUpAdditionalDetails();
+
   @override
   _SignUpAdditionalDetailsState createState() =>
       _SignUpAdditionalDetailsState();
@@ -12,6 +15,7 @@ class SignUpAdditionalDetails extends StatefulWidget {
 
 class _SignUpAdditionalDetailsState extends State<SignUpAdditionalDetails> {
   GlobalKey<ScaffoldState> _scaffoldKey;
+
   @override
   void initState() {
     _scaffoldKey = new GlobalKey<ScaffoldState>();

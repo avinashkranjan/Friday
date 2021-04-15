@@ -30,17 +30,23 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 child: Container(),
                 painter: CanvasDesign(context: context),
               ),
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.21,
-                left: 100.0,
-                right: 100.0,
+              Center(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    ClipRRect(
-                      child: SvgPicture.asset(
-                        "assets/icons/grad_cap.svg",
-                        height: 180.0,
-                        width: 150.0,
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.03,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.05),
+                      child: ClipRRect(
+                        child: SvgPicture.asset(
+                          "assets/icons/grad_cap.svg",
+                          height: 180.0,
+                          width: 150.0,
+                        ),
                       ),
                     ),
                     Text(
@@ -52,9 +58,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         letterSpacing: 1.1,
                       ),
                     ),
-                    SizedBox(height: 20.0),
                     Text(
-                      "Your Personal Classroom Assistant",
+                      "Your Personal\nClassroom Assistant",
                       maxLines: 2,
                       style: TextStyle(
                         color: kTextColor,
@@ -63,65 +68,49 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: MediaQuery.of(context).size.height * 0.28,
-                left: 50,
-                right: 50,
-                child: RoundButton(
-                  text: 'Sign Up',
-                  color: kAuthThemeColor,
-                  textColor: Colors.white,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => SignUpPage()),
-                    );
-                  },
-                ),
-              ),
-              Positioned(
-                bottom: MediaQuery.of(context).size.height * 0.18,
-                left: 50,
-                right: 50,
-                child: RoundButton(
-                  color: Colors.white,
-                  text: 'Log In',
-                  textColor: kAuthThemeColor,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => LoginPage()),
-                    );
-                  },
-                ),
-              ),
-              Positioned(
-                bottom: MediaQuery.of(context).size.height * 0.12,
-                left: 50,
-                right: 50,
-                child: Center(
-                  child: Text(
-                    "OR Connect With",
-                    style: TextStyle(
-                      color: kTextColor,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w700,
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.75,
+                      child: RoundButton(
+                        text: 'Sign Up',
+                        color: kAuthThemeColor,
+                        textColor: Colors.white,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => SignUpPage()),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ),
-              ),
-              Container(
-                  alignment: Alignment.bottomCenter,
-                  height: MediaQuery.of(context).size.height - 50,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width / 2 - 20,
-                        alignment: Alignment.bottomRight,
-                        child: GestureDetector(
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.75,
+                      child: RoundButton(
+                        color: Colors.white,
+                        text: 'Log In',
+                        textColor: kAuthThemeColor,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => LoginPage()),
+                          );
+                        },
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        "OR Connect With",
+                        style: TextStyle(
+                          color: kTextColor,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
                           child: Image.asset(
                             "assets/images/google.png",
                             width: 50.0,
@@ -132,14 +121,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             _gSignIn.loginViaGoogle();
                           },
                         ),
-                      ),
-                      SizedBox(
-                        width: 37.0,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width / 2 - 20,
-                        alignment: Alignment.bottomLeft,
-                        child: GestureDetector(
+                        GestureDetector(
                           child: Image.asset(
                             "assets/images/fbook.png",
                             width: 48.0,
@@ -150,9 +132,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             _fbSignIn.logInViaFacebook();
                           },
                         ),
-                      ),
-                    ],
-                  )),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

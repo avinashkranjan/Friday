@@ -12,8 +12,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
+import 'bottom_navigation.dart';
 
 class SignUpFormAdditionalDetails extends StatefulWidget {
+
+  SignUpFormAdditionalDetails();
+
   @override
   _SignUpFormAdditionalDetailsState createState() =>
       _SignUpFormAdditionalDetailsState();
@@ -141,9 +145,9 @@ class _SignUpFormAdditionalDetailsState
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "Sign Up",
+                                "Additional Details",
                                 style: TextStyle(
-                                  fontSize: 42,
+                                  fontSize: 35,
                                   letterSpacing: 2,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -243,7 +247,7 @@ class _SignUpFormAdditionalDetailsState
                             ),
                           ),
                           child: Text(
-                            "Sign Up",
+                            "Save",
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.white,
@@ -291,19 +295,21 @@ class _SignUpFormAdditionalDetailsState
 
                               Navigator.pushAndRemoveUntil(
                                 context,
-                                MaterialPageRoute(builder: (_) => LoginPage()),
+                                MaterialPageRoute(
+                                    builder: (_) => BottomNavigation()),
                                 (Route<dynamic> route) => false,
                               );
+
                               showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
                                         backgroundColor: Colors.black38,
                                         title: Text(
-                                          "Sign-Up Complete",
+                                          "Log-in Complete",
                                           style: TextStyle(color: Colors.white),
                                         ),
                                         content: Text(
-                                          "A verification link send to your registered email\nPlease verify email and then log-in",
+                                          "Enjoy This App",
                                           style: TextStyle(color: Colors.white),
                                         ),
                                       ));
