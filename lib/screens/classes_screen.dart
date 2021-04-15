@@ -54,11 +54,10 @@ class _ClassesScreenState extends State<ClassesScreen> {
         .getClassList(FirebaseAuth.instance.currentUser.uid)
         .listen((documentSnapshot) {
       if (documentSnapshot.exists) {
-        final Map<dynamic, dynamic> classesMap =
-            documentSnapshot.data()['classes'] as Map;
+        Map<dynamic, dynamic> classesMap = Map<dynamic, dynamic>();
+        classesMap = documentSnapshot.data()['classes'] as Map;
 
-        if (classesMap != null &&
-            classesMap.isNotEmpty &&
+        if (classesMap.isNotEmpty &&
             classesMap.containsKey(_currDate)) {
           if (mounted) {
             setState(() {

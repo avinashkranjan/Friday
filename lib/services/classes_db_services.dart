@@ -23,11 +23,10 @@ class ClassesDBServices {
         .doc('users/${FirebaseAuth.instance.currentUser.uid}')
         .get();
 
-    final Map<String, dynamic> _classesListStored =
-        documentSnapShot.data()['classes'] as Map;
+    Map<String, dynamic> _classesListStored = Map<String, dynamic>();
+    _classesListStored = documentSnapShot.data()['classes'] as Map;
 
-    if (_classesListStored != null &&
-        _classesListStored.isNotEmpty &&
+    if (_classesListStored.isNotEmpty &&
         _classesListStored.containsKey(_todayDate)) {
       final List<dynamic> dateSpecificRoutine =
           _classesListStored[_todayDate].toList();
