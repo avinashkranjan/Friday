@@ -16,6 +16,7 @@ class ClassesScreen extends StatefulWidget {
 }
 
 class _ClassesScreenState extends State<ClassesScreen> {
+<<<<<<< HEAD
   final DateTime _today = DateTime.now();
   final GlobalKey<FormState> _addClassFormKey = GlobalKey<FormState>();
   final List<Classes> classesList = [];
@@ -181,6 +182,116 @@ class _ClassesScreenState extends State<ClassesScreen> {
                   ],
                 ),
               ],
+=======
+  // final DateTime _today = DateTime.now();
+  // int _calenderItemIndex = 0;
+  // _setCalenderIndex({@required int index}) {
+  //   setState(() {
+  //     _calenderItemIndex = index;
+  //     print(_calenderItemIndex);
+  //   });
+  // }
+
+  // @override
+  // void initState() {
+  //   _calenderItemIndex = 0;
+  //   super.initState();
+  // }
+
+  // @override
+  // void dispose() {
+  //   _calenderItemIndex = 0;
+  //   super.dispose();
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        Header(),
+        // Padding(
+        //   padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 30.0),
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: <Widget>[
+        //       Text(
+        //         DateFormat.MMM().format(_today).toString(),
+        //         style: TextStyle(
+        //           color: Colors.white,
+        //           fontSize: 18.0,
+        //           fontWeight: FontWeight.bold,
+        //         ),
+        //       ),
+        //       SizedBox(height: 10.0),
+        //       Row(
+        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //         children: <Widget>[
+        //           InkWell(
+        //             onTap: () => _setCalenderIndex(index: -3),
+        //             child: CalenderDateFormatAddition(
+        //               dateTime: _today,
+        //               dayAdditon: -3,
+        //               itemSelected: (_calenderItemIndex == -3) ? true : false,
+        //             ),
+        //           ),
+        //           InkWell(
+        //             onTap: () => _setCalenderIndex(index: -2),
+        //             child: CalenderDateFormatAddition(
+        //               dateTime: _today,
+        //               dayAdditon: -2,
+        //               itemSelected: (_calenderItemIndex == -2) ? true : false,
+        //             ),
+        //           ),
+        //           InkWell(
+        //             onTap: () => _setCalenderIndex(index: -1),
+        //             child: CalenderDateFormatAddition(
+        //               dateTime: _today,
+        //               dayAdditon: -1,
+        //               itemSelected: (_calenderItemIndex == -1) ? true : false,
+        //             ),
+        //           ),
+        //           InkWell(
+        //             onTap: () => _setCalenderIndex(index: 0),
+        //             child: CalenderDateFormatAddition(
+        //               dateTime: _today,
+        //               dayAdditon: 0,
+        //               itemSelected: (_calenderItemIndex == 0) ? true : false,
+        //             ),
+        //           ),
+        //           InkWell(
+        //               onTap: () => _setCalenderIndex(index: 1),
+        //               child: CalenderDateFormatAddition(
+        //                 dateTime: _today,
+        //                 dayAdditon: 1,
+        //                 itemSelected: (_calenderItemIndex == 1) ? true : false,
+        //               )),
+        //           InkWell(
+        //               onTap: () => _setCalenderIndex(index: 2),
+        //               child: CalenderDateFormatAddition(
+        //                 dateTime: _today,
+        //                 dayAdditon: 2,
+        //                 itemSelected: (_calenderItemIndex == 2) ? true : false,
+        //               )),
+        //           InkWell(
+        //               onTap: () => _setCalenderIndex(index: 3),
+        //               child: CalenderDateFormatAddition(
+        //                 dateTime: _today,
+        //                 dayAdditon: 3,
+        //                 itemSelected: (_calenderItemIndex == 3) ? true : false,
+        //               )),
+        //         ],
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        Container(
+          padding: EdgeInsets.all(40.0),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(50.0),
+              topRight: Radius.circular(50.0),
+>>>>>>> upstream/master
             ),
           ),
           Container(

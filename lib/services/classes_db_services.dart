@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 import '../models/classes.dart';
 
 class ClassesDBServices {
+<<<<<<< HEAD
   Stream<DocumentSnapshot> getClassList(String collegeID) {
     final Stream<DocumentSnapshot> streamDocumentSnapshot = FirebaseFirestore
         .instance
@@ -62,6 +63,25 @@ class ClassesDBServices {
         .doc('users/${FirebaseAuth.instance.currentUser.uid}')
         .update({
       'classes': _classesListStored,
+=======
+  Future<List<Classes>> getClassList(String collegeID) async {
+    List<Classes> classesList = [];
+    return FirebaseFirestore.instance
+        .collection('colleges')
+        .doc(collegeID)
+        .get()
+        .then((documentSnapshot) {
+      if (documentSnapshot.exists) {
+        final classesMap = documentSnapshot.data()['classes'] as Map;
+        print(classesMap.length);
+
+        classesMap.forEach((key, value) {
+          classesList.add(Classes.fromMap(value));
+        });
+      }
+
+      return classesList;
+>>>>>>> upstream/master
     });
   }
 
