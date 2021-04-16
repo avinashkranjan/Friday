@@ -38,6 +38,8 @@
  <a>
  <img  width="70%" height="30%" src="https://raw.githubusercontent.com/GirlScriptSummerOfCode/MentorshipProgram/master/GSsoc%20Type%20Logo%20Black.png">
 
+ <img  width="60%" height="30%" src="https://swoc.tech/index.html"> 
+
  
 </p>
 
