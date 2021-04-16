@@ -28,12 +28,9 @@ dependencies:
   url_launcher: ^6.0.2
   firebase_storage: ^8.0.1
   path_provider:
-<<<<<<< HEAD
   date_time_picker: ^2.0.0
-=======
   table_calendar: ^3.0.0
 
->>>>>>> upstream/master
 
 dev_dependencies:
   flutter_test:

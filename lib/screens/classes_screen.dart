@@ -2,7 +2,6 @@ import 'package:class_manager/models/classes.dart';
 import 'package:class_manager/models/users.dart';
 import 'package:class_manager/services/classes_db_services.dart';
 import 'package:date_time_picker/date_time_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:class_manager/constants.dart';
 import 'package:class_manager/widgets/build_classes.dart';
@@ -10,14 +9,14 @@ import 'package:class_manager/widgets/header.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
+TextEditingController dateController = TextEditingController();
+
 class ClassesScreen extends StatefulWidget {
   @override
   _ClassesScreenState createState() => _ClassesScreenState();
 }
 
 class _ClassesScreenState extends State<ClassesScreen> {
-<<<<<<< HEAD
-  final DateTime _today = DateTime.now();
   final GlobalKey<FormState> _addClassFormKey = GlobalKey<FormState>();
   final List<Classes> classesList = [];
 
@@ -25,289 +24,100 @@ class _ClassesScreenState extends State<ClassesScreen> {
   TextEditingController _subjectController = TextEditingController();
   TextEditingController _teacherNameController = TextEditingController();
   TextEditingController _joinLinkController = TextEditingController();
-  TextEditingController _dateController = TextEditingController();
+
   TextEditingController _timeController = TextEditingController();
-
-  String _currDate;
-
-  int _calenderItemIndex = 0;
 
   ClassesDBServices classesDBServices = ClassesDBServices();
 
-  _setCalenderIndex({@required int index}) {
-    if (mounted) {
-      setState(() {
-        _calenderItemIndex = index;
-        print(_calenderItemIndex);
-        _currDate = DateTime(DateTime.now().year, DateTime.now().month,
-                DateTime.now().day + index)
-            .toString()
-            .split(" ")[0];
-        _dateController.text = _currDate;
-        classesList.clear();
-      });
-      currClassesRealTimeDataFetch();
-    }
-  }
-
-  currClassesRealTimeDataFetch() {
-    classesDBServices
-        .getClassList(FirebaseAuth.instance.currentUser.uid)
-        .listen((documentSnapshot) {
-      if (documentSnapshot.exists) {
-        Map<dynamic, dynamic> classesMap = Map<dynamic, dynamic>();
-        classesMap = documentSnapshot.data()['classes'] as Map;
-
-        if (classesMap.isNotEmpty &&
-            classesMap.containsKey(_currDate)) {
-          if (mounted) {
-            setState(() {
-              List<dynamic> allClassesList = classesMap[_currDate];
-
-              if (classesList.isNotEmpty) classesList.clear();
-
-              allClassesList.forEach((classInformation) {
-                classesList.add(Classes.fromMap(classInformation));
-              });
-            });
-          }
-        }
-      }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      dateController.text = DateTime.now().toString().split(" ")[0];
     });
   }
 
   @override
-  void initState() {
-    super.initState();
-    _calenderItemIndex = 0;
-    _currDate = _today.toString().split(" ")[0];
-    _dateController.text = _currDate;
-
-    currClassesRealTimeDataFetch();
-  }
-
-  @override
   void dispose() {
-    _calenderItemIndex = 0;
+    // TODO: implement dispose
     super.dispose();
-    _subjectController.dispose();
-    _teacherNameController.dispose();
-    _joinLinkController.dispose();
-    _dateController.dispose();
-    _timeController.dispose();
+    dateController.clear();
+    _subjectController.clear();
+    _teacherNameController.clear();
+    _joinLinkController.clear();
+    _timeController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      floatingActionButton:
-          _calenderItemIndex >= 0 ? floatingActionButtonCall() : null,
-      body: ListView(
-        children: <Widget>[
-          Header(),
-          Padding(
-            padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 30.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  DateFormat.MMM().format(_today).toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    InkWell(
-                      onTap: () => _setCalenderIndex(index: -3),
-                      child: CalenderDateFormatAddition(
-                        dateTime: _today,
-                        dayAdditon: -3,
-                        itemSelected: (_calenderItemIndex == -3) ? true : false,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => _setCalenderIndex(index: -2),
-                      child: CalenderDateFormatAddition(
-                        dateTime: _today,
-                        dayAdditon: -2,
-                        itemSelected: (_calenderItemIndex == -2) ? true : false,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => _setCalenderIndex(index: -1),
-                      child: CalenderDateFormatAddition(
-                        dateTime: _today,
-                        dayAdditon: -1,
-                        itemSelected: (_calenderItemIndex == -1) ? true : false,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => _setCalenderIndex(index: 0),
-                      child: CalenderDateFormatAddition(
-                        dateTime: _today,
-                        dayAdditon: 0,
-                        itemSelected: (_calenderItemIndex == 0) ? true : false,
-                      ),
-                    ),
-                    InkWell(
-                        onTap: () => _setCalenderIndex(index: 1),
-                        child: CalenderDateFormatAddition(
-                          dateTime: _today,
-                          dayAdditon: 1,
-                          itemSelected:
-                              (_calenderItemIndex == 1) ? true : false,
-                        )),
-                    InkWell(
-                        onTap: () => _setCalenderIndex(index: 2),
-                        child: CalenderDateFormatAddition(
-                          dateTime: _today,
-                          dayAdditon: 2,
-                          itemSelected:
-                              (_calenderItemIndex == 2) ? true : false,
-                        )),
-                    InkWell(
-                        onTap: () => _setCalenderIndex(index: 3),
-                        child: CalenderDateFormatAddition(
-                          dateTime: _today,
-                          dayAdditon: 3,
-                          itemSelected:
-                              (_calenderItemIndex == 3) ? true : false,
-                        )),
-                  ],
-                ),
-              ],
-=======
-  // final DateTime _today = DateTime.now();
-  // int _calenderItemIndex = 0;
-  // _setCalenderIndex({@required int index}) {
-  //   setState(() {
-  //     _calenderItemIndex = index;
-  //     print(_calenderItemIndex);
-  //   });
-  // }
-
-  // @override
-  // void initState() {
-  //   _calenderItemIndex = 0;
-  //   super.initState();
-  // }
-
-  // @override
-  // void dispose() {
-  //   _calenderItemIndex = 0;
-  //   super.dispose();
-  // }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        Header(),
-        // Padding(
-        //   padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 30.0),
-        //   child: Column(
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: <Widget>[
-        //       Text(
-        //         DateFormat.MMM().format(_today).toString(),
-        //         style: TextStyle(
-        //           color: Colors.white,
-        //           fontSize: 18.0,
-        //           fontWeight: FontWeight.bold,
-        //         ),
-        //       ),
-        //       SizedBox(height: 10.0),
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //         children: <Widget>[
-        //           InkWell(
-        //             onTap: () => _setCalenderIndex(index: -3),
-        //             child: CalenderDateFormatAddition(
-        //               dateTime: _today,
-        //               dayAdditon: -3,
-        //               itemSelected: (_calenderItemIndex == -3) ? true : false,
-        //             ),
-        //           ),
-        //           InkWell(
-        //             onTap: () => _setCalenderIndex(index: -2),
-        //             child: CalenderDateFormatAddition(
-        //               dateTime: _today,
-        //               dayAdditon: -2,
-        //               itemSelected: (_calenderItemIndex == -2) ? true : false,
-        //             ),
-        //           ),
-        //           InkWell(
-        //             onTap: () => _setCalenderIndex(index: -1),
-        //             child: CalenderDateFormatAddition(
-        //               dateTime: _today,
-        //               dayAdditon: -1,
-        //               itemSelected: (_calenderItemIndex == -1) ? true : false,
-        //             ),
-        //           ),
-        //           InkWell(
-        //             onTap: () => _setCalenderIndex(index: 0),
-        //             child: CalenderDateFormatAddition(
-        //               dateTime: _today,
-        //               dayAdditon: 0,
-        //               itemSelected: (_calenderItemIndex == 0) ? true : false,
-        //             ),
-        //           ),
-        //           InkWell(
-        //               onTap: () => _setCalenderIndex(index: 1),
-        //               child: CalenderDateFormatAddition(
-        //                 dateTime: _today,
-        //                 dayAdditon: 1,
-        //                 itemSelected: (_calenderItemIndex == 1) ? true : false,
-        //               )),
-        //           InkWell(
-        //               onTap: () => _setCalenderIndex(index: 2),
-        //               child: CalenderDateFormatAddition(
-        //                 dateTime: _today,
-        //                 dayAdditon: 2,
-        //                 itemSelected: (_calenderItemIndex == 2) ? true : false,
-        //               )),
-        //           InkWell(
-        //               onTap: () => _setCalenderIndex(index: 3),
-        //               child: CalenderDateFormatAddition(
-        //                 dateTime: _today,
-        //                 dayAdditon: 3,
-        //                 itemSelected: (_calenderItemIndex == 3) ? true : false,
-        //               )),
-        //         ],
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        Container(
-          padding: EdgeInsets.all(40.0),
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(50.0),
-              topRight: Radius.circular(50.0),
->>>>>>> upstream/master
-            ),
-          ),
-          Container(
-            width: double.maxFinite,
-            height: MediaQuery.of(context).size.height / 1.5,
-            padding: EdgeInsets.all(40.0),
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(50.0),
-                topRight: Radius.circular(50.0),
+        backgroundColor: Theme.of(context).backgroundColor,
+        floatingActionButton: floatingActionButtonCall(),
+        body: ListView(
+          children: [
+            Header(),
+            Container(
+              padding: EdgeInsets.all(40.0),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              ),
+              child: Column(
+                children: [
+                  BuildClasses(),
+                ],
               ),
             ),
-            child: classesListBuilder(classesList),
-          ),
-        ],
+          ],
+        ));
+  }
+
+  Widget floatingActionButtonCall() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 60.0),
+      child: FloatingActionButton(
+        elevation: 7.0,
+        child: Icon(
+          Icons.add,
+          size: 30.0,
+        ),
+        onPressed: () {
+          print("Add New Class");
+          addNewClass();
+        },
+      ),
+    );
+  }
+
+  DropdownButtonFormField<Mode> modeChoice() {
+    return DropdownButtonFormField(
+      validator: (currValue) {
+        if (currValue == null) return "Please Select a Mode";
+        return null;
+      },
+      items: Mode.values
+          .map((selectedMode) => DropdownMenuItem<Mode>(
+              value: selectedMode,
+              child: Text(
+                modeEnumToString(selectedMode),
+                style: TextStyle(color: Colors.white),
+              )))
+          .toList(),
+      value: null,
+      onChanged: (Mode mode) {
+        setState(() {
+          _mode = mode;
+        });
+      },
+      onSaved: (Mode mode) {
+        setState(() {
+          _mode = mode;
+        });
+      },
+      dropdownColor: Theme.of(context).backgroundColor,
+      decoration: dropdownDecoration.copyWith(
+        labelText: "Mode",
       ),
     );
   }
@@ -403,7 +213,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            controller: _dateController,
+                            controller: dateController,
                             enabled: false,
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
@@ -508,9 +318,16 @@ class _ClassesScreenState extends State<ClassesScreen> {
                           if (_addClassFormKey.currentState.validate()) {
                             print("Proceed");
 
+                            print(dateController.text);
+                            print(this._mode);
+                            print(_subjectController.text);
+                            print(_teacherNameController.text);
+                            print(_timeController.text);
+                            print(_joinLinkController.text);
+
                             // Add New Class Data to Database
                             await classesDBServices.addNewClassToFireStore(
-                                this._currDate,
+                                dateController.text,
                                 this._mode,
                                 _subjectController.text,
                                 _teacherNameController.text,
@@ -520,6 +337,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
                             // Reset
                             if (mounted) {
                               setState(() {
+                                dateController.clear();
                                 _timeController.clear();
                                 this._mode = null;
                                 _subjectController.clear();
@@ -545,55 +363,6 @@ class _ClassesScreenState extends State<ClassesScreen> {
             ),
           );
         });
-  }
-
-  Widget floatingActionButtonCall() {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 60.0),
-      child: FloatingActionButton(
-        elevation: 7.0,
-        child: Icon(
-          Icons.add,
-          size: 30.0,
-        ),
-        onPressed: () {
-          print("Add New Class");
-          addNewClass();
-        },
-      ),
-    );
-  }
-
-  DropdownButtonFormField<Mode> modeChoice() {
-    return DropdownButtonFormField(
-      validator: (currValue) {
-        if (currValue == null) return "Please Select a Mode";
-        return null;
-      },
-      items: Mode.values
-          .map((selectedMode) => DropdownMenuItem<Mode>(
-              value: selectedMode,
-              child: Text(
-                modeEnumToString(selectedMode),
-                style: TextStyle(color: Colors.white),
-              )))
-          .toList(),
-      value: null,
-      onChanged: (Mode mode) {
-        setState(() {
-          _mode = mode;
-        });
-      },
-      onSaved: (Mode mode) {
-        setState(() {
-          _mode = mode;
-        });
-      },
-      dropdownColor: Theme.of(context).backgroundColor,
-      decoration: dropdownDecoration.copyWith(
-        labelText: "Mode",
-      ),
-    );
   }
 }
 

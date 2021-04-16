@@ -35,6 +35,7 @@ class _SignUpFormAdditionalDetailsState
   String _defaultCollegeName, _defaultCourseName, _defaultDepartmentName;
 
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  ClassesDBServices classesDBServices = ClassesDBServices();
 
   String _college, _course, _department;
   final List<String> _collegeList = [], _coursesList = [], _departmentList = [];
