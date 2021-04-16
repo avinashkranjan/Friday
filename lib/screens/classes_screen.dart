@@ -1,4 +1,3 @@
-import 'package:class_manager/models/classes.dart';
 import 'package:class_manager/models/users.dart';
 import 'package:class_manager/services/classes_db_services.dart';
 import 'package:date_time_picker/date_time_picker.dart';
@@ -18,7 +17,6 @@ class ClassesScreen extends StatefulWidget {
 
 class _ClassesScreenState extends State<ClassesScreen> {
   final GlobalKey<FormState> _addClassFormKey = GlobalKey<FormState>();
-  final List<Classes> classesList = [];
 
   Mode _mode = Mode.Offline;
   TextEditingController _subjectController = TextEditingController();
@@ -27,7 +25,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
 
   TextEditingController _timeController = TextEditingController();
 
-  ClassesDBServices classesDBServices = ClassesDBServices();
+  final ClassesDBServices classesDBServices = ClassesDBServices();
 
   @override
   void initState() {
@@ -317,13 +315,6 @@ class _ClassesScreenState extends State<ClassesScreen> {
                         onPressed: () async {
                           if (_addClassFormKey.currentState.validate()) {
                             print("Proceed");
-
-                            print(dateController.text);
-                            print(this._mode);
-                            print(_subjectController.text);
-                            print(_teacherNameController.text);
-                            print(_timeController.text);
-                            print(_joinLinkController.text);
 
                             // Add New Class Data to Database
                             await classesDBServices.addNewClassToFireStore(

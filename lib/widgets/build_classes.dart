@@ -20,6 +20,8 @@ class BuildClasses extends StatefulWidget {
 
 class _BuildClassesState extends State<BuildClasses> {
   final DateFormat dateFormat = DateFormat("hh:mm a");
+  final ClassesDBServices classesDBServices = ClassesDBServices();
+
   List<Classes> classesList = [];
 
   DateTime _focusedDay = DateTime.now();
