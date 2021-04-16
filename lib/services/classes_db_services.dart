@@ -13,11 +13,13 @@ class ClassesDBServices {
         .then((documentSnapshot) {
       if (documentSnapshot.exists) {
         final classesMap = documentSnapshot.data()['classes'] as Map;
+        print(classesMap.length);
 
         classesMap.forEach((key, value) {
           classesList.add(Classes.fromMap(value));
         });
       }
+
       return classesList;
     });
   }
