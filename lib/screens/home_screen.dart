@@ -6,6 +6,7 @@ import 'package:class_manager/constants.dart';
 import 'package:class_manager/widgets/header.dart';
 import 'package:class_manager/widgets/recents_alerts.dart';
 import 'package:class_manager/widgets/recents_homeworks.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 
@@ -118,9 +119,12 @@ class _HomeScreenState extends State<HomeScreen> {
 class DataSearch extends SearchDelegate<String> {
   @override
   ThemeData appBarTheme(BuildContext context) {
-    return super.appBarTheme(context).copyWith(
-          backgroundColor: Theme.of(context).primaryColor,
-        );
+    return Theme.of(context).copyWith(
+      appBarTheme: AppBarTheme(
+        backgroundColor: Theme.of(context).primaryColor,
+        titleTextStyle: TextStyle(color: kTextColor),
+      ),
+    );
   }
 
   @override
@@ -166,142 +170,147 @@ class DataSearch extends SearchDelegate<String> {
         padding: EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Text(
-              "Recent Alerts",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 30.0),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: suggestionList.length,
-              itemBuilder: (context, index) {
-                final DateFormat dateFormat = DateFormat("hh:mm a");
-                Alert alert = suggestionList[index];
-                int hoursLeft = DateTime.now().difference(alert.time).inHours;
-                hoursLeft = hoursLeft < 0 ? -hoursLeft : 0;
-                double percent = hoursLeft / 48;
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(bottom: 30.0),
-                      height: 130.0,
-                      width: 15.0,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).accentColor,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30.0),
-                          bottomLeft: Radius.circular(30.0),
-                        ),
-                      ),
+            Column(
+              children: [
+                if (suggestionList.length != 0)
+                  Text(
+                    "Recent Alerts",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 30.0),
-                      padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
-                      height: 130.0,
-                      width: MediaQuery.of(context).size.width - 85,
-                      decoration: BoxDecoration(
-                        color: kCardColor,
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(12.0),
-                          bottomRight: Radius.circular(12.0),
+                  ),
+                if (suggestionList.length != 0) SizedBox(height: 30.0),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: suggestionList.length,
+                  itemBuilder: (context, index) {
+                    final DateFormat dateFormat = DateFormat("hh:mm a");
+                    Alert alert = suggestionList[index];
+                    int hoursLeft = DateTime.now().difference(alert.time).inHours;
+                    hoursLeft = hoursLeft < 0 ? -hoursLeft : 0;
+                    double percent = hoursLeft / 48;
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(bottom: 30.0),
+                          height: 130.0,
+                          width: 15.0,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).accentColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30.0),
+                              bottomLeft: Radius.circular(30.0),
+                            ),
+                          ),
                         ),
-                      ),
-                      child: Stack(
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        Container(
+                          margin: EdgeInsets.only(bottom: 30.0),
+                          padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+                          height: 130.0,
+                          width: MediaQuery.of(context).size.width - 85,
+                          decoration: BoxDecoration(
+                            color: kCardColor,
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(12.0),
+                              bottomRight: Radius.circular(12.0),
+                            ),
+                          ),
+                          child: Stack(
                             children: <Widget>[
-                              Text(
-                                alert.title,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    alert.title,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                    ),
+                                  ),
+                                  SizedBox(height: 15.0),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        AntDesign.clockcircle,
+                                        color: Theme.of(context).accentColor,
+                                        size: 17.0,
+                                      ),
+                                      SizedBox(width: 10.0),
+                                      Text(
+                                        "${DateTime.now().weekday == alert.time.weekday ? "Today" : DateFormat.EEEE().format(alert.time)}, ${dateFormat.format(alert.time)}",
+                                        style: TextStyle(
+                                          color: kTextColor,
+                                          fontSize: 15.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.0),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.receipt,
+                                        color: Theme.of(context).accentColor,
+                                        size: 17.0,
+                                      ),
+                                      SizedBox(width: 10.0),
+                                      Text(
+                                        alert.subject,
+                                        style: TextStyle(
+                                          color: kTextColor,
+                                          fontSize: 15.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Positioned(
+                                right: 0.0,
+                                child: CustomPaint(
+                                  foregroundPainter: CountdownPainter(
+                                    bgColor: kBGColor,
+                                    lineColor: _getColor(context, percent),
+                                    percent: percent,
+                                    width: 4.0,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "$hoursLeft",
+                                          style: TextStyle(
+                                            color: _getColor(context, percent),
+                                            fontSize: 26.0,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        Text(
+                                          "hours left",
+                                          style: TextStyle(
+                                            color: _getColor(context, percent),
+                                            fontSize: 13.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 15.0),
-                              Row(
-                                children: <Widget>[
-                                  Icon(
-                                    AntDesign.clockcircle,
-                                    color: Theme.of(context).accentColor,
-                                    size: 17.0,
-                                  ),
-                                  SizedBox(width: 10.0),
-                                  Text(
-                                    "${DateTime.now().weekday == alert.time.weekday ? "Today" : DateFormat.EEEE().format(alert.time)}, ${dateFormat.format(alert.time)}",
-                                    style: TextStyle(
-                                      color: kTextColor,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 10.0),
-                              Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.receipt,
-                                    color: Theme.of(context).accentColor,
-                                    size: 17.0,
-                                  ),
-                                  SizedBox(width: 10.0),
-                                  Text(
-                                    alert.subject,
-                                    style: TextStyle(
-                                      color: kTextColor,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              )
                             ],
                           ),
-                          Positioned(
-                            right: 0.0,
-                            child: CustomPaint(
-                              foregroundPainter: CountdownPainter(
-                                bgColor: kBGColor,
-                                lineColor: _getColor(context, percent),
-                                percent: percent,
-                                width: 4.0,
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(20.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      "$hoursLeft",
-                                      style: TextStyle(
-                                        color: _getColor(context, percent),
-                                        fontSize: 26.0,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    Text(
-                                      "hours left",
-                                      style: TextStyle(
-                                        color: _getColor(context, percent),
-                                        fontSize: 13.0,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              },
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ],
             ),
             FutureBuilder<List<dynamic>>(
               future: getHomeworkList(),
