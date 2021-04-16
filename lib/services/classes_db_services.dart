@@ -1,51 +1,67 @@
+import 'package:class_manager/models/users.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/classes.dart';
 
 class ClassesDBServices {
-  Future<List<Classes>> getClassList(String collegeID) async {
-    List<Classes> classesList = [];
-    return FirebaseFirestore.instance
-        .collection('colleges')
-        .doc(collegeID)
-        .get()
-        .then((documentSnapshot) {
-      if (documentSnapshot.exists) {
-        final classesMap = documentSnapshot.data()['classes'] as Map;
-        print(classesMap.length);
+  Stream<DocumentSnapshot> getClassListAsStream(String collegeID) {
+    final Stream<DocumentSnapshot> streamDocumentSnapshot = FirebaseFirestore
+        .instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .snapshots();
 
-        classesMap.forEach((key, value) {
-          classesList.add(Classes.fromMap(value));
-        });
-      }
-
-      return classesList;
-    });
+    return streamDocumentSnapshot;
   }
 
-  Map<String, Classes> generateDummyClasses() {
-    final uuid = Uuid();
+  Future<void> addNewClassToFireStore(String _todayDate, Mode _mode,
+      String _subject, String _teacher, String _time,
+      [String _joinLink]) async {
+    final DocumentSnapshot documentSnapShot = await FirebaseFirestore.instance
+        .doc('users/${FirebaseAuth.instance.currentUser.uid}')
+        .get();
 
-    Map<String, Classes> data = {};
+    Map<String, dynamic> _classesListStored = Map<String, dynamic>();
+    _classesListStored = documentSnapShot.data()['classes'] as Map;
 
-    classes.forEach((element) {
-      data[uuid.v4()] = element;
-    });
+    if (_classesListStored.isNotEmpty &&
+        _classesListStored.containsKey(_todayDate)) {
+      final List<dynamic> dateSpecificRoutine =
+          _classesListStored[_todayDate].toList();
 
-    return data;
-  }
+      print("New Data Added in Old Date Container");
 
-  Future<void> addDummyClassesToFirestore() async {
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    final DocumentReference documentReference =
-        _firestore.collection('colleges').doc('USICT-BTECH-CSE-3');
-    final Map<String, Classes> classesData = generateDummyClasses();
+      dateSpecificRoutine.add({
+        'subject': _subject,
+        'type': modeEnumToString(_mode),
+        'teacherName': _teacher,
+        'joinLink': modeEnumToString(_mode) == "Online" ? _joinLink : null,
+        'time': '$_todayDate $_time',
+      });
 
-    documentReference.update({
-      'classes': classesData.map((key, value) {
-        return MapEntry(key, value.toMap());
-      })
+      _classesListStored[_todayDate] = dateSpecificRoutine;
+    } else {
+      print("New Date Container Added");
+
+      _classesListStored.addAll({
+        _todayDate: [
+          {
+            'subject': _subject,
+            'type': modeEnumToString(_mode),
+            'teacherName': _teacher,
+            'joinLink': modeEnumToString(_mode) == "Online" ? _joinLink : null,
+            'time': '$_todayDate $_time',
+          }
+        ]
+      });
+    }
+
+    FirebaseFirestore.instance
+        .doc('users/${FirebaseAuth.instance.currentUser.uid}')
+        .update({
+      'classes': _classesListStored,
     });
   }
 
@@ -96,5 +112,3 @@ class ClassesDBServices {
     }
   }
 }
-
-ClassesDBServices classesDBServices = ClassesDBServices();
