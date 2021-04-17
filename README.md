@@ -36,10 +36,10 @@
 
 <p align="center">
  <a>
- <img  width="200" height="100" src="https://raw.githubusercontent.com/GirlScriptSummerOfCode/MentorshipProgram/master/GSsoc%20Type%20Logo%20Black.png">
+ <img  width="100" height="200" src="https://raw.githubusercontent.com/GirlScriptSummerOfCode/MentorshipProgram/master/GSsoc%20Type%20Logo%20Black.png">
 
 
- <img  width="200" height="200" src="https://swoc.tech/img/logo-2.png"> 
+ <img  width="100" height="100" src="https://swoc.tech/img/logo-2.png"> 
 
  
 </p>
