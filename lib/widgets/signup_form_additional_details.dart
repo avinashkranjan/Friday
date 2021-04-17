@@ -343,6 +343,7 @@ class _SignUpFormAdditionalDetailsState
 
   DropdownButtonFormField<String> collegeField(BuildContext context) {
     return DropdownButtonFormField(
+      isExpanded: true,
       validator: (value) {
         if (value == null) {
           return 'Required';
@@ -472,6 +473,7 @@ class _SignUpFormAdditionalDetailsState
 
   DropdownButtonFormField<String> courseField(BuildContext context) {
     return DropdownButtonFormField(
+      isExpanded: true,
       validator: (value) {
         if (value == null) {
           return 'Required';
@@ -601,6 +603,7 @@ class _SignUpFormAdditionalDetailsState
 
   DropdownButtonFormField<String> deptField(BuildContext context) {
     return DropdownButtonFormField(
+      isExpanded: true,
       validator: (value) {
         if (value == null) {
           return 'Required';
