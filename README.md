@@ -49,7 +49,16 @@ Thanks goes to these wonderful people.
 
 Contributions of any kind welcome!
   
-    
+
+![Issues](https://img.shields.io/github/issues/avinashkranjan/Friday)
+![Pull Requests](https://img.shields.io/github/issues-pr/avinashkranjan/Friday)
+![Forks](https://img.shields.io/github/forks/avinashkranjan/Friday)
+![Stars](https://img.shields.io/github/stars/avinashkranjan/Friday)
+[![License](https://img.shields.io/github/license/avinashkranjan/Friday)](https://github.com/avinashkranjan/Friday)
+![](https://img.shields.io/github/repo-size/avinashkranjan/Friday.svg?label=Repo%20size&style=flat-square)&nbsp;
+
+
+
 <h1 align=center> Project Admin ❤️ </h1>
 <p align="center">
   <a href="https://github.com/avinashkranjan"><img src="https://user-images.githubusercontent.com/55796944/95675026-dab07580-0bd1-11eb-93e2-1cb1de8acf38.png" width=150px height=150px /></a> 
