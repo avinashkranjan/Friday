@@ -11,7 +11,7 @@
 <h1 align=center> Introduction 🚩 </h1>
 
   <p align="center">
-    Since after the pandemic almost everything has been moved on virtual world So has <b>Education</b>. All our classes have been moved online and with that, all our <b><em> assignments, test, exams, Viva</b></em> are being held on online platform as well, With so many <b><em>assignments deadlines, upcoming exams dates and being busy with our life</b></em> we forget the deadlines and exam dates on most occasion. I don't know how many of you but it happens to me frequently. So I came up with this <b>app</b> which once fed with all the required data it'll remind you of the <b><em>assignement deadlines, upcoming exams, unfinished homework</b></em>. So, you can plan your schedule accordingly.
+    Since after the pandemic almost everything has been moved on virtual world So has <b>Education</b>. All our classes have been moved online and with that, all our <b><em> assignments, test, exams, Viva</b></em> are being held on an online platform as well, With so many <b><em>assignment deadlines, upcoming exam dates, and being busy with our life</b></em> we forget the deadlines and exam dates on most occasion. I don't know how many of you but it happens to me frequently. So I came up with this <b>app</b> which once fed with all the required data it'll remind you of the <b><em>assignm0ent deadlines, upcoming exams, unfinished homework</b></em>. So, you can plan your schedule accordingly.
     
 <h1 align=center> Tech Stack 🔥 </h1>  
   <p align="center">
