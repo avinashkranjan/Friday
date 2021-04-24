@@ -32,9 +32,21 @@
   
    <h2 align="center"> Video Preview ⏩ <a href="https://youtu.be/IJCo80Y0wjI">  <img src="https://img.shields.io/badge/Click Me%20-%23FF0000.svg?&style=for-the-badge&logo=YouTube&logoColor=white"/> </a>
   
- ## Contributors ✨
+ ## Open Source Programs _Friday_ has been Part of 🚀
 
-Thanks goes to these wonderful people.
+<p align="center">
+ <a>
+
+ [<img width="400" height="100" src="https://raw.githubusercontent.com/GirlScriptSummerOfCode/MentorshipProgram/master/GSsoc%20Type%20Logo%20Black.png">](https://gssoc.girlscript.tech/)  [<img width="150" height="100" src="https://swoc.tech/img/logo-2.png">](https://swoc.tech/)
+ 
+ 
+</p>
+
+</br>
+ 
+## Contributors ✨
+
+Thanks to these wonderful people.
 
 <table>
 	<tr>
