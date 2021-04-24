@@ -37,7 +37,7 @@
 <p align="center">
  <a>
 
- [<img align="center" width="300" height="100" src="https://raw.githubusercontent.com/GirlScriptSummerOfCode/MentorshipProgram/master/GSsoc%20Type%20Logo%20Black.png">](https://gssoc.girlscript.tech/)
+ [<img width="300" height="100" src="https://raw.githubusercontent.com/GirlScriptSummerOfCode/MentorshipProgram/master/GSsoc%20Type%20Logo%20Black.png">](https://gssoc.girlscript.tech/)
  
 
  [<img width="100" height="100" src="https://swoc.tech/img/logo-2.png">](https://swoc.tech/)
