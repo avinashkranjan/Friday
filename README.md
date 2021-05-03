@@ -11,7 +11,7 @@
 <h1 align=center> Introduction 🚩 </h1>
 
   <p align="center">
-    Since after the pandemic almost everything has been moved on virtual world So has <b>Education</b>. All our classes have been moved online and with that, all our <b><em> assignments, test, exams, Viva</b></em> are being held on an online platform as well, With so many <b><em>assignment deadlines, upcoming exam dates, and being busy with our life</b></em> we forget the deadlines and exam dates on most occasion. I don't know how many of you but it happens to me frequently. So I came up with this <b>app</b> which once fed with all the required data it'll remind you of the <b><em>assignm0ent deadlines, upcoming exams, unfinished homework</b></em>. So, you can plan your schedule accordingly.
+    Since after the pandemic almost everything has been moved on to the virtual world So has <b>Education</b>. All our classes have been moved online and with that, all our <b><em> assignments, test, exams, Viva</b></em> are being held on an online platform as well, With so many <b><em>assignment deadlines, upcoming exam dates, and being busy with our life</b></em> we forget the deadlines and exam dates on most occasion. I don't know how many of you but it happens to me frequently. So I came up with this <b>app</b> which once fed with all the required data it'll remind you of the <b><em>assignment deadlines, upcoming exams, unfinished homework</b></em>. So, you can plan your schedule accordingly.
     
 <h1 align=center> Tech Stack 🔥 </h1>  
   <p align="center">
@@ -30,7 +30,7 @@
   <p align="center">
     <img src="https://user-images.githubusercontent.com/55796944/95675411-b904bd80-0bd4-11eb-945d-810010a86da8.gif" height="408px" width="204px">
   
-   <h2 align="center"> Video Preview ⏩ <a href="https://youtu.be/IJCo80Y0wjI">  <img src="https://img.shields.io/badge/Click Me%20-%23FF0000.svg?&style=for-the-badge&logo=YouTube&logoColor=white"/> </a>
+   <h2 align="center"> Video Preview ⏩ <a href="https://youtu.be/IJCo80Y0wjI">  <img src="https://img.shields.io/badge/Click Me%20-%23FF0000.svg?& style=for-the-badge logo=YouTube&logoColor=white"/> </a>
   
  ## Open Source Programs _Friday_ has been Part of 🚀
 
@@ -78,3 +78,5 @@ Contributions of any kind welcome!
 <p align="center">
   <img src="https://img.shields.io/badge/avinashkranjan%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>  <img src="https://img.shields.io/badge/iavinashranjan%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/> <img src="https://img.shields.io/badge/avinashkranjan7%20-%23E4405F.svg?&style=for-the-badge&logo=Instagram&logoColor=white"/>               
     
+
+
