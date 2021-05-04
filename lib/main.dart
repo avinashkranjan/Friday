@@ -7,8 +7,6 @@ import 'package:provider/provider.dart';
 ///Project Local Imports
 import 'package:class_manager/services/authentication.dart';
 import 'package:class_manager/services/user_info_services.dart';
-import 'screens/loading_screen.dart';
-import 'widgets/bottom_navigation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
