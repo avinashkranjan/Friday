@@ -164,12 +164,63 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       : "Loading...",
                                   true),
                               SizedBox(width: 20),
-                              buildDetails(
-                                  "Age",
-                                  userInfo.hasData
-                                      ? _user.age.toString()
-                                      : "Loading...",
-                                  visiblity_name),
+                              Visibility(
+                                visible: !visiblity_fields,
+                                child: buildDetails(
+                                    "Age",
+                                    userInfo.hasData
+                                        ? _user.age.toString()
+                                        : "Loading...",
+                                    visiblity_name),
+                              ),
+                              Visibility(
+                                visible: visiblity_fields,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Age',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        letterSpacing: 1.2,
+                                        color: Colors.grey[600],
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 150,
+                                      child: TextField(
+                                        keyboardType: TextInputType.number,
+                                        decoration: InputDecoration(
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: kAuthThemeColor,
+                                                width: 3),
+                                          ),
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: kAuthThemeColor,
+                                                width: 3),
+                                          ),
+                                        ),
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.white),
+                                        cursorColor: Colors.white,
+                                        onChanged: (value) {
+                                          setState(() async {
+                                            if (value != '') {
+                                              _user.age = int.parse(value);
+                                              await UserDBServices.updateAge(
+                                                  _user.uid, int.parse(value));
+                                            }
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               SizedBox(width: 20),
                             ],
                           ),
@@ -295,40 +346,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             if (value != '') {
                               _user.name = value;
                               await UserDBServices.updateName(_user.uid, value);
-                            }
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                Visibility(
-                  visible: visiblity_fields,
-                  child: Positioned(
-                    top: MediaQuery.of(context).size.height * 0.82,
-                    right: MediaQuery.of(context).size.height * 0.07,
-                    child: Container(
-                      width: 150,
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: kAuthThemeColor, width: 3),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: kAuthThemeColor, width: 3),
-                          ),
-                        ),
-                        style: TextStyle(color: Colors.white),
-                        cursorColor: Colors.white,
-                        onChanged: (value) {
-                          setState(() async {
-                            if (value != '') {
-                              _user.age = int.parse(value);
-                              await UserDBServices.updateAge(
-                                  _user.uid, int.parse(value));
                             }
                           });
                         },
