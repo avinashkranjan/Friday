@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:class_manager/services/user_db_services.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -66,10 +68,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     userInfoProvider.upateProfilePictureUrl();
   }
 
+  bool visiblity_name = true;
+  bool visiblity_fields = false;
+  User _currUser = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     final User userData = firebaseAuth.currentUser;
+    FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.8),
@@ -104,58 +111,116 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Center(
                             child: FittedBox(
                               fit: BoxFit.fitWidth,
-                              child: Text(
-                                userInfo.hasData ? _user.name : "Loading...",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.blue[200],
+                              child: Visibility(
+                                visible: visiblity_name,
+                                child: Text(
+                                  userInfo.hasData ? _user.name : "Loading...",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.blue[200],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                           SizedBox(height: 20),
                           buildDetails(
-                            "Email",
-                            userInfo.hasData ? _user.email : "Loading...",
-                          ),
+                              "Email",
+                              userInfo.hasData ? _user.email : "Loading...",
+                              true),
                           SizedBox(height: 20),
                           buildDetails(
-                            "College",
-                            userInfo.hasData ? _user.university : "Loading...",
-                          ),
+                              "College",
+                              userInfo.hasData
+                                  ? _user.university
+                                  : "Loading...",
+                              true),
                           SizedBox(height: 20),
                           buildDetails(
-                            "Course",
-                            userInfo.hasData ? _user.course : "Loading...",
-                          ),
+                              "Course",
+                              userInfo.hasData ? _user.course : "Loading...",
+                              true),
                           SizedBox(height: 20),
                           buildDetails(
-                            "Deptartment/Major",
-                            userInfo.hasData ? _user.department : "Loading...",
-                          ),
+                              "Deptartment/Major",
+                              userInfo.hasData
+                                  ? _user.department
+                                  : "Loading...",
+                              true),
                           SizedBox(height: 20),
                           buildDetails(
-                            "Current Academic Year",
-                            userInfo.hasData
-                                ? _user.year.toString()
-                                : "Loading...",
-                          ),
+                              "Current Academic Year",
+                              userInfo.hasData
+                                  ? _user.year.toString()
+                                  : "Loading...",
+                              true),
                           SizedBox(height: 20),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               buildDetails(
-                                "Gender",
-                                userInfo.hasData
-                                    ? enumToString(_user.gender)
-                                    : "Loading...",
-                              ),
+                                  "Gender",
+                                  userInfo.hasData
+                                      ? enumToString(_user.gender)
+                                      : "Loading...",
+                                  true),
                               SizedBox(width: 20),
-                              buildDetails(
-                                "Age",
-                                userInfo.hasData
-                                    ? _user.age.toString()
-                                    : "Loading...",
+                              Visibility(
+                                visible: !visiblity_fields,
+                                child: buildDetails(
+                                    "Age",
+                                    userInfo.hasData
+                                        ? _user.age.toString()
+                                        : "Loading...",
+                                    visiblity_name),
+                              ),
+                              Visibility(
+                                visible: visiblity_fields,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Age',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        letterSpacing: 1.2,
+                                        color: Colors.grey[600],
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 150,
+                                      child: TextField(
+                                        keyboardType: TextInputType.number,
+                                        decoration: InputDecoration(
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: kAuthThemeColor,
+                                                width: 3),
+                                          ),
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: kAuthThemeColor,
+                                                width: 3),
+                                          ),
+                                        ),
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.white),
+                                        cursorColor: Colors.white,
+                                        onChanged: (value) {
+                                          setState(() async {
+                                            if (value != '') {
+                                              _user.age = int.parse(value);
+                                              await UserDBServices.updateAge(
+                                                  _user.uid, int.parse(value));
+                                            }
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               SizedBox(width: 20),
                             ],
@@ -242,6 +307,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: getImage,
                   ),
                 ),
+                Positioned(
+                  top: MediaQuery.of(context).size.height * 0.18,
+                  right: MediaQuery.of(context).size.width * 0.07,
+                  child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        visiblity_fields = !visiblity_fields;
+                        visiblity_name = !visiblity_name;
+                      });
+                    },
+                    icon: Icon(
+                      visiblity_name ? Icons.edit_outlined : Icons.check,
+                      color: Colors.white,
+                      size: profilePictureDiameter * 0.25,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: visiblity_fields,
+                  child: Positioned(
+                    top: MediaQuery.of(context).size.height * 0.26,
+                    child: Container(
+                      width: 200,
+                      child: TextField(
+                        autofocus: true,
+                        enabled: true,
+                        decoration: InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: kAuthThemeColor, width: 3),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: kAuthThemeColor, width: 3),
+                          ),
+                        ),
+                        style: TextStyle(color: Colors.white),
+                        cursorColor: Colors.white,
+                        onChanged: (value) {
+                          setState(() async {
+                            if (value != '') {
+                              _user.name = value;
+                              await UserDBServices.updateName(_user.uid, value);
+                            }
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ),
               ],
             );
           },
@@ -251,7 +366,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-Widget buildDetails(String title, String detail) {
+Widget buildDetails(String title, String detail, bool visible) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -265,11 +380,14 @@ Widget buildDetails(String title, String detail) {
         ),
       ),
       SizedBox(height: 10),
-      Text(
-        detail,
-        style: TextStyle(
-          fontSize: 20,
-          color: Colors.white,
+      Visibility(
+        visible: visible,
+        child: Text(
+          detail,
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+          ),
         ),
       ),
     ],

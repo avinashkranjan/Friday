@@ -31,6 +31,26 @@ class UserDBServices {
     );
   }
 
+  static Future<void> updateName(String uid, String Name) async {
+    FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
+
+    await firestoreDB.collection(usersCollection).doc(uid).update(
+      {
+        'name': Name,
+      },
+    );
+  }
+
+  static Future<void> updateAge(String uid, int Age) async {
+    FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
+
+    await firestoreDB.collection(usersCollection).doc(uid).update(
+      {
+        'age': Age,
+      },
+    );
+  }
+
   // Fetches User Data from Collection
   static Future<bool> fetchUserData(BuildContext context) async {
     FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
