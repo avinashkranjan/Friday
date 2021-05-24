@@ -6,6 +6,13 @@
   </a>
 
 <h2 align=center> "Friday - Your Personal Class Assistant, It'll never let you miss another assignment deadline or any upcoming test."
+
+![Issues](https://img.shields.io/github/issues/avinashkranjan/Friday)
+![Pull Requests](https://img.shields.io/github/issues-pr/avinashkranjan/Friday)
+![Forks](https://img.shields.io/github/forks/avinashkranjan/Friday)
+![Stars](https://img.shields.io/github/stars/avinashkranjan/Friday)
+[![License](https://img.shields.io/github/license/avinashkranjan/Friday)](https://github.com/avinashkranjan/Friday)
+![](https://img.shields.io/github/repo-size/avinashkranjan/Friday.svg?label=Repo%20size&style=flat-square)&nbsp;
   
   
 <h1 align=center> Introduction 🚩 </h1>
@@ -32,16 +39,6 @@
   
    <h2 align="center"> Video Preview ⏩ <a href="https://youtu.be/IJCo80Y0wjI">  <img src="https://img.shields.io/badge/Click Me%20-%23FF0000.svg?& style=for-the-badge logo=YouTube&logoColor=white"/> </a>
   
- ## Open Source Programs _Friday_ has been Part of 🚀
-
-<p align="center">
- <a>
-
- [<img width="400" height="100" src="https://raw.githubusercontent.com/GirlScriptSummerOfCode/MentorshipProgram/master/GSsoc%20Type%20Logo%20Black.png">](https://gssoc.girlscript.tech/)  [<img width="150" height="100" src="https://swoc.tech/img/logo-2.png">](https://swoc.tech/)
- 
- 
-</p>
-
 </br>
  
 ## Contributors ✨
@@ -61,16 +58,31 @@ Thanks to these wonderful people.
 
 Contributions of any kind welcome!
   
+## Open Source Programs _Friday_ has been Part of 🚀
+	
+ <a>
+	 
+ [<img width="400" height="100" src="https://raw.githubusercontent.com/GirlScriptSummerOfCode/MentorshipProgram/master/GSsoc%20Type%20Logo%20Black.png">](https://gssoc.girlscript.tech/)   [<img width="150" height="100" src="https://swoc.tech/img/logo-2.png">](https://swoc.tech/) 
+	 
+<h1 align=center> Project Mentors [GSSOC] 👨🏻‍💻 </h1>
+<table>
+<tr>	
+<td align="center"><a href="https://github.com/HimeshNayak"><img src="https://avatars.githubusercontent.com/u/30944790?v=4" width=150px height=150px /></a></br> <h4 style="color:red;">Himesh Nayak</h4><a href="https://www.linkedin.com/in/himeshnayak015/"><img src="https://mpng.subpng.com/20180324/vhe/kisspng-linkedin-computer-icons-logo-social-networking-ser-facebook-5ab6ebfe5f5397.2333748215219374063905.jpg" width="32px" height="32px"></a></td>
 
-![Issues](https://img.shields.io/github/issues/avinashkranjan/Friday)
-![Pull Requests](https://img.shields.io/github/issues-pr/avinashkranjan/Friday)
-![Forks](https://img.shields.io/github/forks/avinashkranjan/Friday)
-![Stars](https://img.shields.io/github/stars/avinashkranjan/Friday)
-[![License](https://img.shields.io/github/license/avinashkranjan/Friday)](https://github.com/avinashkranjan/Friday)
-![](https://img.shields.io/github/repo-size/avinashkranjan/Friday.svg?label=Repo%20size&style=flat-square)&nbsp;
+<td align="center" ><a href="https://github.com/hareshnayak"><img src="https://avatars.githubusercontent.com/u/61956975?v=4" width=150px height=150px /></a></br> <h4 style="color:red;">Haresh Nayak</h4>
+<a href="https://www.linkedin.com/in/hareshnayak08/"><img src="https://mpng.subpng.com/20180324/vhe/kisspng-linkedin-computer-icons-logo-social-networking-ser-facebook-5ab6ebfe5f5397.2333748215219374063905.jpg" width="32px" height="32px"></a></td>
 
+<td align="center"><a href="https://github.com/oshi36"><img src="https://avatars.githubusercontent.com/u/47573417?v=4" width=150px height=150px /></a></br> <h4 style="color:red;">Oshi Gupta</h4>
+<a href="https://www.linkedin.com/in/oshi36/"><img src="https://mpng.subpng.com/20180324/vhe/kisspng-linkedin-computer-icons-logo-social-networking-ser-facebook-5ab6ebfe5f5397.2333748215219374063905.jpg" width="32px" height="32px"></a></td>
 
+<td align="center"><a href="https://github.com/vatsalcode"><img src="https://avatars.githubusercontent.com/u/55058681?v=4" width=150px height=150px /></a></br> <h4 style="color:red;">Vatsal Verma</h4>   
+<a href="https://www.linkedin.com/in/vatsalcode/"><img src="https://mpng.subpng.com/20180324/vhe/kisspng-linkedin-computer-icons-logo-social-networking-ser-facebook-5ab6ebfe5f5397.2333748215219374063905.jpg" width="32px" height="32px"></a></td>
 
+<td align="center"><a href="https://github.com/alphaX86"><img src="https://avatars.githubusercontent.com/u/59508546?v=4" width=150px height=150px /></a></br> <h4 style="color:red;">Aadhitya A</h4>   
+<a href="https://www.linkedin.com/in/alphaX86/"><img src="https://mpng.subpng.com/20180324/vhe/kisspng-linkedin-computer-icons-logo-social-networking-ser-facebook-5ab6ebfe5f5397.2333748215219374063905.jpg" width="32px" height="32px"></a></td>
+</tr>
+</table>
+	 
 <h1 align=center> Project Admin ❤️ </h1>
 <p align="center">
   <a href="https://github.com/avinashkranjan"><img src="https://user-images.githubusercontent.com/55796944/95675026-dab07580-0bd1-11eb-93e2-1cb1de8acf38.png" width=150px height=150px /></a> 
