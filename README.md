@@ -76,7 +76,7 @@ Contributions of any kind welcome!
 <a href="https://www.linkedin.com/in/oshi36/"><img src="https://mpng.subpng.com/20180324/vhe/kisspng-linkedin-computer-icons-logo-social-networking-ser-facebook-5ab6ebfe5f5397.2333748215219374063905.jpg" width="32px" height="32px"></a></td>
 
 <td align="center"><a href="https://github.com/vatsalcode"><img src="https://avatars.githubusercontent.com/u/55058681?v=4" width=150px height=150px /></a></br> <h4 style="color:red;">Vatsal Verma</h4>   
-<a href="https://www.linkedin.com/in/vatsalcode/"><img src="https://mpng.subpng.com/20180324/vhe/kisspng-linkedin-computer-icons-logo-social-networking-ser-facebook-5ab6ebfe5f5397.2333748215219374063905.jpg" width="32px" height="32px"></a></td>
+<a href="https://www.linkedin.com/in/vatsal-verma22/"><img src="https://mpng.subpng.com/20180324/vhe/kisspng-linkedin-computer-icons-logo-social-networking-ser-facebook-5ab6ebfe5f5397.2333748215219374063905.jpg" width="32px" height="32px"></a></td>
 
 <td align="center"><a href="https://github.com/alphaX86"><img src="https://avatars.githubusercontent.com/u/59508546?v=4" width=150px height=150px /></a></br> <h4 style="color:red;">Aadhitya A</h4>   
 <a href="https://www.linkedin.com/in/alphaX86/"><img src="https://mpng.subpng.com/20180324/vhe/kisspng-linkedin-computer-icons-logo-social-networking-ser-facebook-5ab6ebfe5f5397.2333748215219374063905.jpg" width="32px" height="32px"></a></td>
