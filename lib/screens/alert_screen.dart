@@ -19,7 +19,7 @@ class _AlertScreenState extends State<AlertScreen> {
               Text(
                 "Recent Alerts",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.primary,
                   fontSize: 30.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -29,7 +29,7 @@ class _AlertScreenState extends State<AlertScreen> {
                 padding: EdgeInsets.all(35.0),
                 height: MediaQuery.of(context).size.height - 123,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).colorScheme.background,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50.0),
                     topRight: Radius.circular(50.0),

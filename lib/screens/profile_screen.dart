@@ -6,11 +6,13 @@ import 'package:class_manager/screens/onboarding_page.dart';
 import 'package:class_manager/services/authentication.dart';
 import 'package:class_manager/services/facebookAuthentication.dart';
 import 'package:class_manager/services/googleAuthentication.dart';
+import 'package:class_manager/services/theme_service.dart';
 import 'package:class_manager/services/user_info_services.dart';
 import 'package:class_manager/utils/bottom_navbar_tabs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
@@ -96,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       margin: EdgeInsets.fromLTRB(15, 15, 15, 60),
                       padding: EdgeInsets.all(30),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).colorScheme.background,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40),
                           topRight: Radius.circular(40),
@@ -125,11 +127,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           SizedBox(height: 20),
                           buildDetails(
+                              context,
                               "Email",
                               userInfo.hasData ? _user.email : "Loading...",
                               true),
                           SizedBox(height: 20),
                           buildDetails(
+                              context,
                               "College",
                               userInfo.hasData
                                   ? _user.university
@@ -137,11 +141,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               true),
                           SizedBox(height: 20),
                           buildDetails(
+                              context,
                               "Course",
                               userInfo.hasData ? _user.course : "Loading...",
                               true),
                           SizedBox(height: 20),
                           buildDetails(
+                              context,
                               "Deptartment/Major",
                               userInfo.hasData
                                   ? _user.department
@@ -149,6 +155,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               true),
                           SizedBox(height: 20),
                           buildDetails(
+                              context,
                               "Current Academic Year",
                               userInfo.hasData
                                   ? _user.year.toString()
@@ -159,6 +166,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               buildDetails(
+                                  context,
                                   "Gender",
                                   userInfo.hasData
                                       ? enumToString(_user.gender)
@@ -168,6 +176,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Visibility(
                                 visible: !visiblity_fields,
                                 child: buildDetails(
+                                    context,
                                     "Age",
                                     userInfo.hasData
                                         ? _user.age.toString()
@@ -271,7 +280,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 "Log out",
                                 style: TextStyle(
                                   fontSize: 20,
-                                  color: Colors.white,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                               ),
                             ),
@@ -319,7 +328,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     icon: Icon(
                       visiblity_name ? Icons.edit_outlined : Icons.check,
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.primary,
+                      size: profilePictureDiameter * 0.25,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: MediaQuery.of(context).size.height * 0.18,
+                  left: MediaQuery.of(context).size.width * 0.07,
+                  child: IconButton(
+                    onPressed: () {
+                      Get.isDarkMode
+                          ? Get.changeThemeMode(ThemeMode.light)
+                          : Get.changeThemeMode(ThemeMode.dark);
+                      ThemeService().switchTheme();
+                      print(Get.isDarkMode);
+                    },
+                    icon: Icon(
+                      Get.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                      color: Theme.of(context).colorScheme.primary,
                       size: profilePictureDiameter * 0.25,
                     ),
                   ),
@@ -366,7 +393,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-Widget buildDetails(String title, String detail, bool visible) {
+Widget buildDetails(context, String title, String detail, bool visible) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -375,7 +402,7 @@ Widget buildDetails(String title, String detail, bool visible) {
         style: TextStyle(
           fontSize: 18,
           letterSpacing: 1.2,
-          color: Colors.grey[600],
+          color: Theme.of(context).colorScheme.primaryVariant,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -386,7 +413,7 @@ Widget buildDetails(String title, String detail, bool visible) {
           detail,
           style: TextStyle(
             fontSize: 20,
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
       ),

@@ -256,7 +256,9 @@ class _BuildClassesState extends State<BuildClasses> {
       Text(
         text,
         style: TextStyle(
-          color: isPassed ? Colors.white.withOpacity(0.2) : Colors.white,
+          color: isPassed
+              ? Theme.of(context).colorScheme.primary.withOpacity(0.2)
+              : Theme.of(context).colorScheme.primary,
           fontSize: 18.0,
         ),
       );
@@ -292,7 +294,12 @@ class _BuildClassesState extends State<BuildClasses> {
           Text(
             text,
             style: TextStyle(
-              color: isPassed ? kTextColor.withOpacity(0.3) : kTextColor,
+              color: isPassed
+                  ? Theme.of(context)
+                      .colorScheme
+                      .primaryVariant
+                      .withOpacity(0.3)
+                  : Theme.of(context).colorScheme.primaryVariant,
               fontSize: 15.0,
               fontWeight: FontWeight.w600,
             ),
