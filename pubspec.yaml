@@ -30,6 +30,8 @@ dependencies:
   path_provider:
   date_time_picker: ^2.0.0
   table_calendar: ^3.0.0
+  get: ^4.3.8
+  get_storage: ^2.0.3
 
 
 dev_dependencies:

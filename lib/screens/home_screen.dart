@@ -35,15 +35,17 @@ class _HomeScreenState extends State<HomeScreen> {
             child: TextField(
               enabled: false,
               style: TextStyle(color: kTextColor),
-              cursorColor: kTextColor,
+              cursorColor: Theme.of(context).colorScheme.primary,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(8.0),
                 border: InputBorder.none,
                 fillColor: Theme.of(context).primaryColor,
                 filled: true,
                 hintText: "Search",
-                hintStyle: TextStyle(color: kTextColor),
-                prefixIcon: Icon(Icons.search, color: kTextColor, size: 26.0),
+                hintStyle:
+                    TextStyle(color: Theme.of(context).colorScheme.secondary),
+                prefixIcon: Icon(Icons.search,
+                    color: Theme.of(context).colorScheme.secondary, size: 26.0),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),
@@ -59,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Container(
           padding: EdgeInsets.all(35.0),
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).colorScheme.background,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(50.0),
               topRight: Radius.circular(50.0),
@@ -71,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(
                 "Recent Alerts",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.primary,
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -81,14 +83,15 @@ class _HomeScreenState extends State<HomeScreen> {
               Center(
                 child: Text(
                   "View all",
-                  style: TextStyle(color: Theme.of(context).accentColor, fontSize: 15.0),
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor, fontSize: 15.0),
                 ),
               ),
               SizedBox(height: 20.0),
               Text(
                 "Recent Homework",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.primary,
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -102,7 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: Text(
                     "View all",
-                    style: TextStyle(color: Theme.of(context).accentColor, fontSize: 15.0),
+                    style: TextStyle(
+                        color: Theme.of(context).accentColor, fontSize: 15.0),
                   ),
                   onPressed: () => widget.openHomeworkPage(),
                 ),
@@ -159,7 +163,11 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final List suggestionList = query.isEmpty ? recentAlerts : recentAlerts.where((p) => p.title.toLowerCase().contains(query.toLowerCase())).toList();
+    final List suggestionList = query.isEmpty
+        ? recentAlerts
+        : recentAlerts
+            .where((p) => p.title.toLowerCase().contains(query.toLowerCase()))
+            .toList();
     if (query.isEmpty) {
       return Center(
         child: Text('Search for the notes here'),
@@ -189,7 +197,8 @@ class DataSearch extends SearchDelegate<String> {
                   itemBuilder: (context, index) {
                     final DateFormat dateFormat = DateFormat("hh:mm a");
                     Alert alert = suggestionList[index];
-                    int hoursLeft = DateTime.now().difference(alert.time).inHours;
+                    int hoursLeft =
+                        DateTime.now().difference(alert.time).inHours;
                     hoursLeft = hoursLeft < 0 ? -hoursLeft : 0;
                     double percent = hoursLeft / 48;
                     return Row(
@@ -227,7 +236,8 @@ class DataSearch extends SearchDelegate<String> {
                                   Text(
                                     alert.title,
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
                                       fontSize: 18.0,
                                     ),
                                   ),
@@ -281,7 +291,8 @@ class DataSearch extends SearchDelegate<String> {
                                   child: Padding(
                                     padding: EdgeInsets.all(20.0),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           "$hoursLeft",
@@ -318,14 +329,15 @@ class DataSearch extends SearchDelegate<String> {
                 DateFormat dateFormat = DateFormat("hh:mm a");
 
                 List<dynamic> homeworkMap = list.data;
-                if (!list.hasData) return Center(child: CircularProgressIndicator());
+                if (!list.hasData)
+                  return Center(child: CircularProgressIndicator());
                 if (homeworkMap != null) {
                   if (homeworkMap.isEmpty)
                     return Center(
                       child: Text(
                         "No Homework",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.primary,
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                         ),
@@ -334,7 +346,13 @@ class DataSearch extends SearchDelegate<String> {
                   else {
                     List<Homework> recentHomeworks = [];
                     homeworkMap.forEach((element) {
-                      if (element['title'].toString().toLowerCase().contains(query.toLowerCase())) recentHomeworks.add(Homework(title: element['title'], dueTime: DateTime.parse(element['dueDate'])));
+                      if (element['title']
+                          .toString()
+                          .toLowerCase()
+                          .contains(query.toLowerCase()))
+                        recentHomeworks.add(Homework(
+                            title: element['title'],
+                            dueTime: DateTime.parse(element['dueDate'])));
                     });
                     return Column(
                       children: [
@@ -359,25 +377,31 @@ class DataSearch extends SearchDelegate<String> {
                               children: <Widget>[
                                 Container(
                                   margin: EdgeInsets.only(bottom: 30.0),
-                                  padding: EdgeInsets.fromLTRB(20.0, 20.0, 10.0, 10.0),
+                                  padding: EdgeInsets.fromLTRB(
+                                      20.0, 20.0, 10.0, 10.0),
                                   width: MediaQuery.of(context).size.width - 70,
                                   decoration: BoxDecoration(
                                     color: kCardColor,
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Container(
                                             width: 100,
                                             child: Text(
                                               homework.title,
                                               style: TextStyle(
-                                                color: Colors.white,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
                                                 fontSize: 18.0,
                                                 fontWeight: FontWeight.w500,
                                               ),
@@ -388,7 +412,8 @@ class DataSearch extends SearchDelegate<String> {
                                             children: <Widget>[
                                               Icon(
                                                 AntDesign.clockcircle,
-                                                color: Theme.of(context).accentColor,
+                                                color: Theme.of(context)
+                                                    .accentColor,
                                                 size: 17.0,
                                               ),
                                               SizedBox(width: 10.0),
@@ -442,9 +467,13 @@ class DataSearch extends SearchDelegate<String> {
         shape: CircleBorder(
           side: BorderSide(color: Theme.of(context).accentColor),
         ),
-        primary: homework.isDone ? Theme.of(context).accentColor : Colors.transparent,
+        primary: homework.isDone
+            ? Theme.of(context).accentColor
+            : Colors.transparent,
       ),
-      child: homework.isDone ? Icon(Icons.check, color: Colors.white) : null,
+      child: homework.isDone
+          ? Icon(Icons.check, color: Theme.of(context).colorScheme.primary)
+          : null,
     );
   }
 }

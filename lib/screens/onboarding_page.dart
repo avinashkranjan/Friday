@@ -52,7 +52,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     Text(
                       "Friday",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.primary,
                         fontSize: 32.0,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.1,
@@ -73,7 +73,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       child: RoundButton(
                         text: 'Sign Up',
                         color: kAuthThemeColor,
-                        textColor: Colors.white,
+                        textColor: Theme.of(context).colorScheme.primary,
                         onPressed: () {
                           Navigator.push(
                             context,

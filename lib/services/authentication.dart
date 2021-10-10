@@ -58,24 +58,24 @@ class AuthenticationService {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => SignUpAdditionalDetails()),
-                  (Route<dynamic> route) => false,
+              (Route<dynamic> route) => false,
             );
 
             showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  backgroundColor: Colors.black38,
-                  title: Text(
-                    "You are one step away from successful Log-In",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  content: Text(
-                    "Please Fill the Form to Complete Log-in",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ));
-
-
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      title: Text(
+                        "You are one step away from successful Log-In",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                      content: Text(
+                        "Please Fill the Form to Complete Log-in",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                    ));
           } else {
             // Navigate to Dashboard
             Navigator.pushAndRemoveUntil(
@@ -87,16 +87,18 @@ class AuthenticationService {
             showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  backgroundColor: Colors.black38,
-                  title: Text(
-                    "Log-in Complete",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  content: Text(
-                    "Enjoy this app",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ));
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      title: Text(
+                        "Log-in Complete",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                      content: Text(
+                        "Enjoy this app",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                    ));
           }
         } else {
           print("Login Error: Undefined Error!");
@@ -104,14 +106,16 @@ class AuthenticationService {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                    backgroundColor: Colors.black38,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     title: Text(
                       "Log-in Error",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary),
                     ),
                     content: Text(
                       "Undefined Error Occured",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary),
                     ),
                   ));
         }
@@ -120,14 +124,16 @@ class AuthenticationService {
         showDialog(
             context: context,
             builder: (context) => AlertDialog(
-                  backgroundColor: Colors.black38,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   title: Text(
                     "Log-in Error",
-                    style: TextStyle(color: Colors.white),
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.primary),
                   ),
                   content: Text(
                     "Email not verified.... \nA email with verification link is send to the registered email\nPlease verify at first then log-in",
-                    style: TextStyle(color: Colors.white),
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.primary),
                   ),
                 ));
       }
@@ -171,7 +177,7 @@ class AuthenticationService {
             .setEssentialDetailsOfUser(name, email);
         // Navigate to Addtional Details Form
 
-        user.sendEmailVerification();// Send Email Verification
+        user.sendEmailVerification(); // Send Email Verification
 
         FirebaseAuth.instance
             .signOut(); // Without that, If User Sign-Up, then close and reopen the app, can navigate to the

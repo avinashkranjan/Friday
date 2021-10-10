@@ -65,7 +65,7 @@ class _LoginFormState extends State<LoginForm> {
                   "Welcome!",
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.primary,
                     letterSpacing: 1.5,
                   ),
                 ),
@@ -80,7 +80,7 @@ class _LoginFormState extends State<LoginForm> {
                   style: TextStyle(
                     fontSize: 36,
                     letterSpacing: 2,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -94,7 +94,8 @@ class _LoginFormState extends State<LoginForm> {
                 controller: _email,
                 labelText: "Email",
                 textInputAction: TextInputAction.next,
-                suffixIcon: Icon(Icons.person, color: Colors.white),
+                suffixIcon: Icon(Icons.person,
+                    color: Theme.of(context).colorScheme.primary),
                 validator: (value) {
                   RegExp _emailRegex = RegExp(
                       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -118,7 +119,7 @@ class _LoginFormState extends State<LoginForm> {
                 suffixIcon: IconButton(
                   icon: Icon(
                     obscurePassword ? Entypo.eye : Entypo.eye_with_line,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.primary,
                     size: 20,
                   ),
                   onPressed: _switchObscurity,
@@ -134,27 +135,26 @@ class _LoginFormState extends State<LoginForm> {
               // Forgot Password Button
               Align(
                 alignment: Alignment.centerRight,
-
                 child: TextButton(
                   //padding: EdgeInsets.zero,
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => ResetScreen()));
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => ResetScreen()));
                   }, //TODO: Implement Forgot Password Feature
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                  ),
-                  onPressed: null, //TODO: Implement Forgot Password Feature
-                  child: Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: kAuthThemeColor,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                    ),
+                    onPressed: null, //TODO: Implement Forgot Password Feature
+                    child: Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: kAuthThemeColor,
+                      ),
                     ),
                   ),
                 ),
-              ),
               ),
               SizedBox(
                 height: 40,
@@ -237,7 +237,7 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     ],
                   )),
-              ],
+            ],
           ),
         ),
       ),
