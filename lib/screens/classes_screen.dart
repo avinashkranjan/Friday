@@ -58,7 +58,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
             Container(
               padding: EdgeInsets.all(40.0),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.all(Radius.circular(50.0)),
               ),
               child: Column(
@@ -75,8 +75,6 @@ class _ClassesScreenState extends State<ClassesScreen> {
     return Padding(
       padding: EdgeInsets.only(bottom: 60.0),
       child: FloatingActionButton(
-        foregroundColor: Theme.of(context).colorScheme.primary,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
         elevation: 7.0,
         child: Icon(
           Icons.add,
@@ -90,12 +88,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
     );
   }
 
-  DropdownButtonFormField<Mode> modeChoice(context) {
-    UnderlineInputBorder _inputBorderStyle = UnderlineInputBorder(
-      borderSide: BorderSide(
-        color: Theme.of(context).colorScheme.primary,
-      ),
-    );
+  DropdownButtonFormField<Mode> modeChoice() {
     return DropdownButtonFormField(
       validator: (currValue) {
         if (currValue == null) return "Please Select a Mode";
@@ -106,7 +99,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
               value: selectedMode,
               child: Text(
                 modeEnumToString(selectedMode),
-                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                style: TextStyle(color: Colors.white),
               )))
           .toList(),
       value: null,
@@ -120,21 +113,9 @@ class _ClassesScreenState extends State<ClassesScreen> {
           _mode = mode;
         });
       },
-
       dropdownColor: Theme.of(context).backgroundColor,
-      // decoration: dropdownDecoration.copyWith(
-      //   labelText: "Mode",
-      // ),
-      decoration: InputDecoration(
-        isDense: true,
+      decoration: dropdownDecoration.copyWith(
         labelText: "Mode",
-        border: _inputBorderStyle,
-        focusedBorder: _inputBorderStyle,
-        enabledBorder: _inputBorderStyle,
-        focusedErrorBorder: _inputBorderStyle,
-        focusColor: Colors.white,
-        hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-        labelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
       ),
     );
   }
@@ -154,7 +135,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
               child: Text(
                 "Add New Class",
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Colors.white,
                   fontWeight: FontWeight.w300,
                   letterSpacing: 1.0,
                 ),
@@ -169,14 +150,14 @@ class _ClassesScreenState extends State<ClassesScreen> {
                 child: ListView(
                   shrinkWrap: true,
                   children: [
-                    modeChoice(context),
+                    modeChoice(),
                     SizedBox(
                       height: 20.0,
                     ),
                     TextFormField(
                       controller: _subjectController,
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Colors.white,
                       ),
                       validator: (inputVal) {
                         if (inputVal.length == 0) return "Enter Subject Name";
@@ -184,18 +165,15 @@ class _ClassesScreenState extends State<ClassesScreen> {
                       },
                       decoration: InputDecoration(
                         labelText: "Subject",
-                        labelStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.primary),
-                        focusColor: Theme.of(context).colorScheme.primary,
-                        hoverColor: Theme.of(context).colorScheme.primary,
-                        fillColor: Theme.of(context).colorScheme.primary,
+                        labelStyle: TextStyle(color: Colors.white70),
+                        focusColor: Colors.white70,
+                        hoverColor: Colors.white70,
+                        fillColor: Colors.white70,
                         enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.primary),
+                          borderSide: BorderSide(color: Colors.white70),
                         ),
                         focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.primary),
+                          borderSide: BorderSide(color: Colors.white70),
                         ),
                       ),
                     ),
@@ -205,7 +183,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
                     TextFormField(
                       controller: _teacherNameController,
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Colors.white,
                       ),
                       validator: (inputVal) {
                         if (inputVal.length == 0) return "Enter Teacher Name";
@@ -213,18 +191,15 @@ class _ClassesScreenState extends State<ClassesScreen> {
                       },
                       decoration: InputDecoration(
                         labelText: 'Teacher Name',
-                        labelStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.primary),
-                        focusColor: Theme.of(context).colorScheme.primary,
-                        hoverColor: Theme.of(context).colorScheme.primary,
-                        fillColor: Theme.of(context).colorScheme.primary,
+                        labelStyle: TextStyle(color: Colors.white70),
+                        focusColor: Colors.white70,
+                        hoverColor: Colors.white70,
+                        fillColor: Colors.white70,
                         enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.primary),
+                          borderSide: BorderSide(color: Colors.white70),
                         ),
                         focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.primary),
+                          borderSide: BorderSide(color: Colors.white70),
                         ),
                       ),
                     ),
@@ -238,26 +213,18 @@ class _ClassesScreenState extends State<ClassesScreen> {
                           child: TextFormField(
                             controller: dateController,
                             enabled: false,
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary),
+                            style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                               labelText: 'Date',
-                              labelStyle: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary),
+                              labelStyle: TextStyle(color: Colors.white70),
                               enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
+                                borderSide: BorderSide(color: Colors.white70),
                               ),
                               focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
+                                borderSide: BorderSide(color: Colors.white70),
                               ),
                               disabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
+                                borderSide: BorderSide(color: Colors.white70),
                               ),
                             ),
                           ),
@@ -270,21 +237,16 @@ class _ClassesScreenState extends State<ClassesScreen> {
                             type: DateTimePickerType.time,
                             controller: this._timeController,
                             style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
+                              color: Colors.white,
                             ),
                             decoration: InputDecoration(
                               labelText: 'Time',
-                              labelStyle: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary),
+                              labelStyle: TextStyle(color: Colors.white70),
                               enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
+                                borderSide: BorderSide(color: Colors.white70),
                               ),
                               focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
+                                borderSide: BorderSide(color: Colors.white70),
                               ),
                             ),
                             onChanged: (val) => print(val),
@@ -304,7 +266,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
                     TextFormField(
                       controller: _joinLinkController,
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Colors.white,
                       ),
                       validator: (inputVal) {
                         if (inputVal.length == 0 && this._mode == Mode.Online)
@@ -316,22 +278,18 @@ class _ClassesScreenState extends State<ClassesScreen> {
                       },
                       decoration: InputDecoration(
                         labelText: "Join Link",
-                        labelStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.primary),
-                        focusColor: Theme.of(context).colorScheme.primary,
-                        hoverColor: Theme.of(context).colorScheme.primary,
-                        fillColor: Theme.of(context).colorScheme.primary,
+                        labelStyle: TextStyle(color: Colors.white70),
+                        focusColor: Colors.white70,
+                        hoverColor: Colors.white70,
+                        fillColor: Colors.white70,
                         enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.primary),
+                          borderSide: BorderSide(color: Colors.white70),
                         ),
                         focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.primary),
+                          borderSide: BorderSide(color: Colors.white70),
                         ),
                         disabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.primary),
+                          borderSide: BorderSide(color: Colors.white70),
                         ),
                       ),
                     ),
@@ -426,7 +384,7 @@ class CalenderDateFormatAddition extends StatelessWidget {
                       '\n',
               style: (itemSelected == true)
                   ? kCalendarDay.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Colors.white,
                       fontSize: 17.0,
                       fontWeight: FontWeight.w500,
                     )
@@ -443,7 +401,7 @@ class CalenderDateFormatAddition extends StatelessWidget {
                         .toString()
                 : '',
             style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
+              color: Colors.white,
               fontSize: 17.0,
               fontWeight: FontWeight.w500,
             ),

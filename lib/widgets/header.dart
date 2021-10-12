@@ -29,16 +29,14 @@ class Header extends StatelessWidget {
                               ? _userInfo.user.name.split(" ")[0]
                               : "Sir"),
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Colors.white,
                         fontSize: 25.0,
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.italic,
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
+                  SizedBox(width: 10.0,),
                   CircleAvatar(
                     radius: 25.0,
                     backgroundImage: _userInfo.user != null &&

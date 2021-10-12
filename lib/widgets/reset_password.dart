@@ -45,8 +45,7 @@ class _ResetScreenState extends State<ResetScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary),
+                      style: TextStyle(color: Colors.white),
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         prefixIcon: Padding(
@@ -65,9 +64,8 @@ class _ResetScreenState extends State<ResetScreen> {
                               color: Theme.of(context).accentColor, width: 2.0),
                         ),
                         hintText: 'Enter Registered Email',
-                        hintStyle: TextStyle(
-                            fontSize: 20.0,
-                            color: Theme.of(context).colorScheme.primary),
+                        hintStyle:
+                            TextStyle(fontSize: 20.0, color: Colors.white),
                       ),
                       onChanged: (value) {
                         setState(() {
@@ -125,7 +123,7 @@ class _ResetScreenState extends State<ResetScreen> {
                     child: Text(
                       "Send Reset Email",
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.1,

@@ -1,10 +1,7 @@
-import 'package:class_manager/services/theme.dart';
-import 'package:class_manager/services/theme_service.dart';
 import 'package:class_manager/utils/bottom_navbar_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 ///Project Local Imports
@@ -33,12 +30,15 @@ class MyApp extends StatelessWidget {
           create: (context) => BottomNavigationBarProvider(),
         )
       ],
-      child: GetMaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Friday',
-        theme: Themes().lightTheme(),
-        darkTheme: Themes().darkTheme(),
-        themeMode: ThemeService().theme,
+        theme: ThemeData(
+          primaryColor: Color(0xFF202328),
+          accentColor: Color(0xFF651FFF),
+          backgroundColor: Color(0xFF12171D),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
         home: AuthenticationService.handleEntryPoint(context),
       ),
     );

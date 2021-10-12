@@ -19,7 +19,7 @@ class _HomeworkScreenState extends State<HomeworkScreen> {
               Text(
                 "Recent Homework",
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Colors.white,
                   fontSize: 30.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -29,7 +29,7 @@ class _HomeworkScreenState extends State<HomeworkScreen> {
                 padding: EdgeInsets.all(35.0),
                 height: MediaQuery.of(context).size.height - 123,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50.0),
                     topRight: Radius.circular(50.0),

@@ -24,20 +24,20 @@ class AuthInputField extends StatefulWidget {
 }
 
 class _AuthInputFieldState extends State<AuthInputField> {
+  UnderlineInputBorder _inputBorderStyle = const UnderlineInputBorder(
+    borderSide: BorderSide(
+      color: Colors.white70,
+    ),
+  );
   @override
   Widget build(BuildContext context) {
-    UnderlineInputBorder _inputBorderStyle = UnderlineInputBorder(
-      borderSide: BorderSide(
-        color: Theme.of(context).colorScheme.primary,
-      ),
-    );
     return TextFormField(
       keyboardType: widget.textInputType,
       controller: widget.controller,
       obscureText: widget.obscureText,
-      cursorColor: Theme.of(context).colorScheme.primary,
+      cursorColor: Colors.white,
       textInputAction: widget.textInputAction,
-      style: TextStyle(color: Theme.of(context).colorScheme.primary),
+      style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         isDense: true,
         hintText: widget.hintText,
@@ -48,8 +48,8 @@ class _AuthInputFieldState extends State<AuthInputField> {
         enabledBorder: _inputBorderStyle,
         focusedErrorBorder: _inputBorderStyle,
         focusColor: Colors.white,
-        hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-        labelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+        hintStyle: kInputTextStyle,
+        labelStyle: kInputTextStyle,
       ),
       validator: widget.validator,
     );

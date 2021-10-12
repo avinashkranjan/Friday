@@ -15,6 +15,7 @@ import '../constants.dart';
 import 'bottom_navigation.dart';
 
 class SignUpFormAdditionalDetails extends StatefulWidget {
+
   SignUpFormAdditionalDetails();
 
   @override
@@ -149,7 +150,7 @@ class _SignUpFormAdditionalDetailsState
                                 style: TextStyle(
                                   fontSize: 35,
                                   letterSpacing: 2,
-                                  color: Theme.of(context).colorScheme.primary,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -164,9 +165,7 @@ class _SignUpFormAdditionalDetailsState
                                 style: TextStyle(
                                   fontSize: 16,
                                   letterSpacing: 1.2,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primaryVariant,
+                                  color: Colors.grey,
                                 ),
                               ),
                             ),
@@ -205,8 +204,8 @@ class _SignUpFormAdditionalDetailsState
                             }
                             return "Enter valid College Year";
                           },
-                          suffixIcon: Icon(Icons.confirmation_num,
-                              color: Theme.of(context).colorScheme.primary),
+                          suffixIcon:
+                              Icon(Icons.confirmation_num, color: Colors.white),
                         ),
                         SizedBox(height: 20),
                         Row(
@@ -228,9 +227,8 @@ class _SignUpFormAdditionalDetailsState
                                       int.parse(age) >= 16) return null;
                                   return "Enter Valid Age";
                                 },
-                                suffixIcon: Icon(Icons.menu_book,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
+                                suffixIcon:
+                                    Icon(Icons.menu_book, color: Colors.white),
                               ),
                             ),
                           ],
@@ -253,7 +251,7 @@ class _SignUpFormAdditionalDetailsState
                             "Save",
                             style: TextStyle(
                               fontSize: 20,
-                              color: Theme.of(context).colorScheme.secondary,
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -309,17 +307,11 @@ class _SignUpFormAdditionalDetailsState
                                         backgroundColor: Colors.black38,
                                         title: Text(
                                           "Log-in Complete",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primary),
+                                          style: TextStyle(color: Colors.white),
                                         ),
                                         content: Text(
                                           "Enjoy This App",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primary),
+                                          style: TextStyle(color: Colors.white),
                                         ),
                                       ));
                             }
@@ -350,11 +342,6 @@ class _SignUpFormAdditionalDetailsState
   }
 
   DropdownButtonFormField<String> collegeField(BuildContext context) {
-    UnderlineInputBorder _inputBorderStyle = UnderlineInputBorder(
-      borderSide: BorderSide(
-        color: Theme.of(context).colorScheme.primary,
-      ),
-    );
     return DropdownButtonFormField(
       isExpanded: true,
       validator: (value) {
@@ -365,7 +352,7 @@ class _SignUpFormAdditionalDetailsState
         return null;
       },
       style: TextStyle(
-        color: Theme.of(context).colorScheme.primary,
+        color: Colors.white,
       ),
       value: _defaultCollegeName,
       onChanged: (String newValue) {
@@ -472,17 +459,7 @@ class _SignUpFormAdditionalDetailsState
         });
       },
       dropdownColor: Theme.of(context).backgroundColor,
-      decoration: InputDecoration(
-        isDense: true,
-        labelText: "College",
-        border: _inputBorderStyle,
-        focusedBorder: _inputBorderStyle,
-        enabledBorder: _inputBorderStyle,
-        focusedErrorBorder: _inputBorderStyle,
-        focusColor: Colors.white,
-        hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-        labelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-      ),
+      decoration: dropdownDecoration.copyWith(labelText: 'College'),
       items: _collegeList.map<DropdownMenuItem<String>>(
         (String value) {
           return DropdownMenuItem<String>(
@@ -495,14 +472,8 @@ class _SignUpFormAdditionalDetailsState
   }
 
   DropdownButtonFormField<String> courseField(BuildContext context) {
-    UnderlineInputBorder _inputBorderStyle = UnderlineInputBorder(
-      borderSide: BorderSide(
-        color: Theme.of(context).colorScheme.primary,
-      ),
-    );
     return DropdownButtonFormField(
       isExpanded: true,
-      // Theme.of(context).colorScheme.primary
       validator: (value) {
         if (value == null) {
           return 'Required';
@@ -510,7 +481,7 @@ class _SignUpFormAdditionalDetailsState
         return null;
       },
       style: TextStyle(
-        color: Theme.of(context).colorScheme.primary,
+        color: Colors.white,
       ),
       value: _defaultCourseName,
       onChanged: (String newValue) {
@@ -617,19 +588,8 @@ class _SignUpFormAdditionalDetailsState
           _course = value;
         });
       },
-
       dropdownColor: Theme.of(context).backgroundColor,
-      decoration: InputDecoration(
-        isDense: true,
-        labelText: "Course",
-        border: _inputBorderStyle,
-        focusedBorder: _inputBorderStyle,
-        enabledBorder: _inputBorderStyle,
-        focusedErrorBorder: _inputBorderStyle,
-        focusColor: Colors.white,
-        hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-        labelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-      ),
+      decoration: dropdownDecoration.copyWith(labelText: 'Course'),
       items: _coursesList.map<DropdownMenuItem<String>>(
         (String value) {
           return DropdownMenuItem<String>(
@@ -642,11 +602,6 @@ class _SignUpFormAdditionalDetailsState
   }
 
   DropdownButtonFormField<String> deptField(BuildContext context) {
-    UnderlineInputBorder _inputBorderStyle = UnderlineInputBorder(
-      borderSide: BorderSide(
-        color: Theme.of(context).colorScheme.primary,
-      ),
-    );
     return DropdownButtonFormField(
       isExpanded: true,
       validator: (value) {
@@ -656,7 +611,7 @@ class _SignUpFormAdditionalDetailsState
         return null;
       },
       style: TextStyle(
-        color: Theme.of(context).colorScheme.primary,
+        color: Colors.white,
       ),
       value: _defaultDepartmentName,
       onChanged: (String newValue) {
@@ -760,17 +715,7 @@ class _SignUpFormAdditionalDetailsState
         });
       },
       dropdownColor: Theme.of(context).backgroundColor,
-      decoration: InputDecoration(
-        isDense: true,
-        labelText: "Department/Major",
-        border: _inputBorderStyle,
-        focusedBorder: _inputBorderStyle,
-        enabledBorder: _inputBorderStyle,
-        focusedErrorBorder: _inputBorderStyle,
-        focusColor: Colors.white,
-        hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-        labelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-      ),
+      decoration: dropdownDecoration.copyWith(labelText: 'Department/Major'),
       items: _departmentList.map<DropdownMenuItem<String>>(
         (String value) {
           return DropdownMenuItem<String>(
@@ -783,18 +728,13 @@ class _SignUpFormAdditionalDetailsState
   }
 
   DropdownButtonFormField<Gender> genderField(BuildContext context) {
-    UnderlineInputBorder _inputBorderStyle = UnderlineInputBorder(
-      borderSide: BorderSide(
-        color: Theme.of(context).colorScheme.primary,
-      ),
-    );
     return DropdownButtonFormField(
       items: Gender.values
           .map((e) => DropdownMenuItem<Gender>(
               value: e,
               child: Text(
                 enumToString(e),
-                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                style: TextStyle(color: Colors.white),
               )))
           .toList(),
       value: null,
@@ -809,16 +749,8 @@ class _SignUpFormAdditionalDetailsState
         });
       },
       dropdownColor: Theme.of(context).backgroundColor,
-      decoration: InputDecoration(
-        isDense: true,
+      decoration: dropdownDecoration.copyWith(
         labelText: "Gender",
-        border: _inputBorderStyle,
-        focusedBorder: _inputBorderStyle,
-        enabledBorder: _inputBorderStyle,
-        focusedErrorBorder: _inputBorderStyle,
-        focusColor: Colors.white,
-        hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-        labelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
       ),
     );
   }

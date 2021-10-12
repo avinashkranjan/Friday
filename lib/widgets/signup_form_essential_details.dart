@@ -81,7 +81,7 @@ class _SignUpFormEssentialDetailsState
                           style: TextStyle(
                             fontSize: 42,
                             letterSpacing: 2,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -96,7 +96,7 @@ class _SignUpFormEssentialDetailsState
                           style: TextStyle(
                             fontSize: 16,
                             letterSpacing: 1.2,
-                            color: Theme.of(context).colorScheme.primaryVariant,
+                            color: Colors.grey,
                           ),
                         ),
                       ),
@@ -109,8 +109,7 @@ class _SignUpFormEssentialDetailsState
                     controller: _name,
                     labelText: "Name",
                     textInputAction: TextInputAction.next,
-                    suffixIcon: Icon(Icons.person,
-                        color: Theme.of(context).colorScheme.primary),
+                    suffixIcon: Icon(Icons.person, color: Colors.white),
                     validator: (value) {
                       if (_name.text.isNotEmpty) {
                         return null;
@@ -127,8 +126,7 @@ class _SignUpFormEssentialDetailsState
                     controller: _email,
                     labelText: "Email",
                     textInputAction: TextInputAction.next,
-                    suffixIcon: Icon(Icons.email,
-                        color: Theme.of(context).colorScheme.primary),
+                    suffixIcon: Icon(Icons.email, color: Colors.white),
                     validator: (value) {
                       RegExp _emailRegex = RegExp(
                           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -151,7 +149,7 @@ class _SignUpFormEssentialDetailsState
                     suffixIcon: IconButton(
                       icon: Icon(
                         obscurePassword ? Entypo.eye : Entypo.eye_with_line,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Colors.white,
                         size: 20,
                       ),
                       onPressed: () {
@@ -180,7 +178,7 @@ class _SignUpFormEssentialDetailsState
                         obscureConfirmPassword
                             ? Entypo.eye
                             : Entypo.eye_with_line,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Colors.white,
                         size: 20,
                       ),
                       onPressed: () {
