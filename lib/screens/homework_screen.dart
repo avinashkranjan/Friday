@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:class_manager/widgets/recents_homeworks.dart';
+import 'package:friday/widgets/recents_homeworks.dart';
 
 class HomeworkScreen extends StatefulWidget {
   @override

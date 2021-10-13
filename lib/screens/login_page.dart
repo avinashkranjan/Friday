@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 ///Project Local Imports
-import 'package:class_manager/widgets/login_form.dart';
-import 'package:class_manager/widgets/onboarding_canvas_design.dart';
+import 'package:friday/widgets/login_form.dart';
+import 'package:friday/widgets/onboarding_canvas_design.dart';
 
 class LoginPage extends StatefulWidget {
   @override

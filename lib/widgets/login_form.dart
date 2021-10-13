@@ -1,15 +1,15 @@
-import 'package:class_manager/widgets/reset_password.dart';
+import 'package:friday/widgets/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 ///Project Local Imports
-import 'package:class_manager/constants.dart';
-import 'package:class_manager/screens/signup_page.dart';
-import 'package:class_manager/services/authentication.dart';
-import 'package:class_manager/services/auth_error_msg_toast.dart';
-import 'package:class_manager/widgets/auth_input_form_field.dart';
+import 'package:friday/constants.dart';
+import 'package:friday/screens/signup_page.dart';
+import 'package:friday/services/authentication.dart';
+import 'package:friday/services/auth_error_msg_toast.dart';
+import 'package:friday/widgets/auth_input_form_field.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -134,27 +134,26 @@ class _LoginFormState extends State<LoginForm> {
               // Forgot Password Button
               Align(
                 alignment: Alignment.centerRight,
-
                 child: TextButton(
                   //padding: EdgeInsets.zero,
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => ResetScreen()));
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => ResetScreen()));
                   }, //TODO: Implement Forgot Password Feature
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                  ),
-                  onPressed: null, //TODO: Implement Forgot Password Feature
-                  child: Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: kAuthThemeColor,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                    ),
+                    onPressed: null, //TODO: Implement Forgot Password Feature
+                    child: Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: kAuthThemeColor,
+                      ),
                     ),
                   ),
                 ),
-              ),
               ),
               SizedBox(
                 height: 40,
@@ -237,7 +236,7 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     ],
                   )),
-              ],
+            ],
           ),
         ),
       ),

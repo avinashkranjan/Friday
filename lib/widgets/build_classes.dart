@@ -1,13 +1,13 @@
 import 'dart:collection';
 
-import 'package:class_manager/screens/classes_screen.dart';
+import 'package:friday/screens/classes_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
-import 'package:class_manager/models/classes.dart';
+import 'package:friday/models/classes.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../constants.dart';

@@ -1,6 +1,6 @@
-import 'package:class_manager/constants.dart';
-import 'package:class_manager/models/users.dart';
-import 'package:class_manager/services/user_info_services.dart';
+import 'package:friday/constants.dart';
+import 'package:friday/models/users.dart';
+import 'package:friday/services/user_info_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';

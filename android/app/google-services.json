@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1045472240686:android:03a08917e27637088febbf",
         "android_client_info": {
-          "package_name": "com.example.class_manager"
+          "package_name": "com.avinashkranjan.friday"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "1045472240686-u6nq1paekv6a6jd10h813g2rqkfn977b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.class_manager",
+            "package_name": "com.avinashkranjan.friday",
             "certificate_hash": "026591a5ef09087a8f36e0991636e4bd40bfd9f2"
           }
         },

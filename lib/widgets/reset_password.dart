@@ -1,4 +1,4 @@
-import 'package:class_manager/widgets/onboarding_canvas_design.dart';
+import 'package:friday/widgets/onboarding_canvas_design.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,8 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:email_validator/email_validator.dart';
 
 ///Project Local Imports
-import 'package:class_manager/constants.dart';
-import 'package:class_manager/screens/login_page.dart';
+import 'package:friday/constants.dart';
+import 'package:friday/screens/login_page.dart';
 
 enum authProblems { UserNotFound, PasswordNotValid, NetworkError }
 

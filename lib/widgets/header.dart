@@ -1,4 +1,4 @@
-import 'package:class_manager/services/user_info_services.dart';
+import 'package:friday/services/user_info_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +36,9 @@ class Header extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 10.0,),
+                  SizedBox(
+                    width: 10.0,
+                  ),
                   CircleAvatar(
                     radius: 25.0,
                     backgroundImage: _userInfo.user != null &&

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 ///Project Local Imports
-import 'package:class_manager/widgets/signup_form_essential_details.dart';
-import 'package:class_manager/widgets/onboarding_canvas_design.dart';
+import 'package:friday/widgets/signup_form_essential_details.dart';
+import 'package:friday/widgets/onboarding_canvas_design.dart';
 
 class SignUpPage extends StatefulWidget {
   @override

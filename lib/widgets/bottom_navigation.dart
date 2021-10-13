@@ -1,4 +1,4 @@
-import 'package:class_manager/utils/bottom_navbar_tabs.dart';
+import 'package:friday/utils/bottom_navbar_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 ///Project Local Imports
-import 'package:class_manager/constants.dart';
-import 'package:class_manager/screens/login_page.dart';
-import 'package:class_manager/screens/signup_page.dart';
-import 'package:class_manager/widgets/onboarding_canvas_design.dart';
-import 'package:class_manager/widgets/round_button.dart';
-import 'package:class_manager/services/googleAuthentication.dart';
-import 'package:class_manager/services/facebookAuthentication.dart';
+import 'package:friday/constants.dart';
+import 'package:friday/screens/login_page.dart';
+import 'package:friday/screens/signup_page.dart';
+import 'package:friday/widgets/onboarding_canvas_design.dart';
+import 'package:friday/widgets/round_button.dart';
+import 'package:friday/services/googleAuthentication.dart';
+import 'package:friday/services/facebookAuthentication.dart';
 
 class OnboardingPage extends StatefulWidget {
   @override

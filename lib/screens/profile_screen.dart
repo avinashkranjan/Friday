@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:class_manager/constants.dart';
-import 'package:class_manager/models/users.dart';
-import 'package:class_manager/screens/onboarding_page.dart';
-import 'package:class_manager/services/authentication.dart';
-import 'package:class_manager/services/facebookAuthentication.dart';
-import 'package:class_manager/services/googleAuthentication.dart';
-import 'package:class_manager/services/user_info_services.dart';
-import 'package:class_manager/utils/bottom_navbar_tabs.dart';
+import 'package:friday/constants.dart';
+import 'package:friday/models/users.dart';
+import 'package:friday/screens/onboarding_page.dart';
+import 'package:friday/services/authentication.dart';
+import 'package:friday/services/facebookAuthentication.dart';
+import 'package:friday/services/googleAuthentication.dart';
+import 'package:friday/services/user_info_services.dart';
+import 'package:friday/utils/bottom_navbar_tabs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:class_manager/services/user_db_services.dart';
+import 'package:friday/services/user_db_services.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
-import 'package:class_manager/constants.dart';
-import 'package:class_manager/models/alert.dart';
-import 'package:class_manager/widgets/countdown_painter.dart';
+import 'package:friday/constants.dart';
+import 'package:friday/models/alert.dart';
+import 'package:friday/widgets/countdown_painter.dart';
 
 class RecentsAlerts extends StatelessWidget {
   final DateFormat dateFormat = DateFormat("hh:mm a");

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:class_manager/widgets/recents_alerts.dart';
+import 'package:friday/widgets/recents_alerts.dart';
 
 class AlertScreen extends StatefulWidget {
   @override

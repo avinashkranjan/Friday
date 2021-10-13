@@ -1,5 +1,5 @@
-import 'package:class_manager/models/users.dart';
-import 'package:class_manager/services/user_db_services.dart';
+import 'package:friday/models/users.dart';
+import 'package:friday/services/user_db_services.dart';
 import 'package:flutter/material.dart';
 
 class UserInfoServices extends ChangeNotifier {

@@ -1,12 +1,12 @@
-import 'package:class_manager/screens/signup_additional_details_screen.dart';
-import 'package:class_manager/widgets/bottom_navigation.dart';
+import 'package:friday/screens/signup_additional_details_screen.dart';
+import 'package:friday/widgets/bottom_navigation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:class_manager/services/user_info_services.dart';
+import 'package:friday/services/user_info_services.dart';
 
 class GoogleAuthenticate {
   var googleSignIn;
@@ -17,10 +17,9 @@ class GoogleAuthenticate {
   }
 
   Future loginViaGoogle() async {
-
     try {
-      if (!await googleSignIn
-          .isSignedIn()) { // Checking If Already Sign In With Google
+      if (!await googleSignIn.isSignedIn()) {
+        // Checking If Already Sign In With Google
         final user = await googleSignIn.signIn();
         if (user == null) {
           print("Google Sign In Not Completed");
@@ -33,7 +32,7 @@ class GoogleAuthenticate {
           );
 
           var registeredUser =
-          await FirebaseAuth.instance.signInWithCredential(credential);
+              await FirebaseAuth.instance.signInWithCredential(credential);
 
           print("Log In Successful " + registeredUser.user.displayName);
 
@@ -46,8 +45,8 @@ class GoogleAuthenticate {
             if (querySnapShot.docs.isEmpty) {
               // Set essential details to [UserInfoServices]
               Provider.of<UserInfoServices>(this._context, listen: false)
-                  .setEssentialDetailsOfUser(
-                  registeredUser.user.displayName, registeredUser.user.email);
+                  .setEssentialDetailsOfUser(registeredUser.user.displayName,
+                      registeredUser.user.email);
 
               // Navigate to Additional Details Form
               Navigator.push(this._context,
@@ -64,12 +63,12 @@ class GoogleAuthenticate {
         }
       } else {
         print("Already Signed In");
-        Navigator.push(
-            this._context,
+        Navigator.push(this._context,
             MaterialPageRoute(builder: (_) => BottomNavigation()));
       }
-    }catch(e){
-      messageShow(this._context, "Log In Error", "Log-in not Completed or\nEmail of this Account Already Present With Other Credentials");
+    } catch (e) {
+      messageShow(this._context, "Log In Error",
+          "Log-in not Completed or\nEmail of this Account Already Present With Other Credentials");
     }
   }
 

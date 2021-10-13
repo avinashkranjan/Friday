@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
-import 'package:class_manager/constants.dart';
-import 'package:class_manager/models/homework.dart';
+import 'package:friday/constants.dart';
+import 'package:friday/models/homework.dart';
 
 class RecentHomeworks extends StatefulWidget {
   @override

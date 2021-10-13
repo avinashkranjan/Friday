@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:class_manager/constants.dart';
+import 'package:friday/constants.dart';
 
 class AuthInputField extends StatefulWidget {
   final Widget suffixIcon;

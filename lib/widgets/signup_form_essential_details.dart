@@ -1,15 +1,15 @@
-import 'package:class_manager/screens/signup_additional_details_screen.dart';
-import 'package:class_manager/services/authentication.dart';
+import 'package:friday/screens/signup_additional_details_screen.dart';
+import 'package:friday/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 ///Project Local Imports
-import 'package:class_manager/constants.dart';
-import 'package:class_manager/screens/login_page.dart';
-import 'package:class_manager/services/auth_error_msg_toast.dart';
-import 'package:class_manager/widgets/auth_input_form_field.dart';
+import 'package:friday/constants.dart';
+import 'package:friday/screens/login_page.dart';
+import 'package:friday/services/auth_error_msg_toast.dart';
+import 'package:friday/widgets/auth_input_form_field.dart';
 
 class SignUpFormEssentialDetails extends StatefulWidget {
   @override

@@ -1,6 +1,6 @@
-import 'package:class_manager/screens/signup_additional_details_screen.dart';
-import 'package:class_manager/services/user_info_services.dart';
-import 'package:class_manager/widgets/bottom_navigation.dart';
+import 'package:friday/screens/signup_additional_details_screen.dart';
+import 'package:friday/services/user_info_services.dart';
+import 'package:friday/widgets/bottom_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
