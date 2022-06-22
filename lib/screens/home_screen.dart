@@ -7,7 +7,6 @@ import 'package:friday/constants.dart';
 import 'package:friday/widgets/header.dart';
 import 'package:friday/widgets/recents_alerts.dart';
 import 'package:friday/widgets/recents_homeworks.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -159,7 +158,7 @@ class DataSearch extends SearchDelegate<String> {
   }
 
   @override
-  Widget buildResults(BuildContext context) {}
+  Widget buildResults(BuildContext context) => SizedBox.shrink();
 
   @override
   Widget buildSuggestions(BuildContext context) {

@@ -2,7 +2,6 @@ import 'dart:collection';
 
 import 'package:friday/screens/classes_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -340,6 +339,7 @@ class _BuildClassesState extends State<BuildClasses> {
     return null;
   }
 
-  void _launchURL(String url) async =>
-      await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+  void _launchURL(String url) async => await canLaunchUrl(Uri.parse(url))
+      ? await launchUrl(Uri.parse(url))
+      : throw 'Could not launch $url';
 }

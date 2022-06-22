@@ -4,7 +4,6 @@ import 'package:friday/services/user_info_services.dart';
 import 'package:friday/widgets/auth_handling_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 /// Project Imports
@@ -163,7 +162,7 @@ class AuthenticationService {
             "signUpEmail succeeded \n Credentials of user=>Email: ${user.email} and  UID: ${user.uid}");
 
         // Add the name of user
-        await user.updateProfile(displayName: name);
+        await user.updateDisplayName(name);
         // Set essential details to [UserInfoServices]
         Provider.of<UserInfoServices>(context, listen: false)
             .setEssentialDetailsOfUser(name, email);

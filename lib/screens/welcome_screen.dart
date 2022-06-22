@@ -91,7 +91,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               right: 100.0,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).accentColor,
+                  primary: Theme.of(context).colorScheme.secondary,
                   shape: StadiumBorder(),
                   padding: EdgeInsets.symmetric(vertical: 15),
                 ),

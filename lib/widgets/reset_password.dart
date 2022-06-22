@@ -1,15 +1,8 @@
 import 'package:friday/widgets/onboarding_canvas_design.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:email_validator/email_validator.dart';
 
-///Project Local Imports
-import 'package:friday/constants.dart';
 import 'package:friday/screens/login_page.dart';
-
-enum authProblems { UserNotFound, PasswordNotValid, NetworkError }
 
 class ResetScreen extends StatefulWidget {
   @override
@@ -24,11 +17,6 @@ class _ResetScreenState extends State<ResetScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var textStyle = TextStyle(
-      color: kTextColor,
-      fontSize: 16.0,
-      fontWeight: FontWeight.w600,
-    );
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
@@ -57,11 +45,13 @@ class _ResetScreenState extends State<ResetScreen> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).accentColor, width: 2.0),
+                              color: Theme.of(context).colorScheme.secondary,
+                              width: 2.0),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).accentColor, width: 2.0),
+                              color: Theme.of(context).colorScheme.secondary,
+                              width: 2.0),
                         ),
                         hintText: 'Enter Registered Email',
                         hintStyle:
@@ -82,7 +72,7 @@ class _ResetScreenState extends State<ResetScreen> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape: StadiumBorder(),
-                      primary: Theme.of(context).accentColor,
+                      primary: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: () {
                       if (!emailValid) {

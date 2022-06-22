@@ -8,7 +8,7 @@ class AuthInputField extends StatefulWidget {
   final TextInputAction textInputAction;
   final TextEditingController controller;
   final String Function(String) validator;
-  TextInputType textInputType;
+  final TextInputType textInputType;
   AuthInputField({
     this.textInputType = TextInputType.text,
     @required this.controller,
