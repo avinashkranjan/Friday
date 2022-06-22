@@ -23,13 +23,13 @@ dependencies:
   email_validator: '^1.0.0'
   google_sign_in:
   uuid: ^3.0.1
-  flutter_facebook_login:
   image_picker:
   url_launcher: ^6.0.2
   firebase_storage: ^8.0.1
   path_provider:
   date_time_picker: ^2.0.0
   table_calendar: ^3.0.0
+  flutter_login_facebook: ^1.5.0+1
 
 
 dev_dependencies:

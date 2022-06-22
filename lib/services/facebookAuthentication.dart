@@ -1,10 +1,9 @@
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:friday/screens/signup_additional_details_screen.dart';
 import 'package:friday/services/user_info_services.dart';
 import 'package:friday/widgets/bottom_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
@@ -20,7 +19,10 @@ class FacebookAuth {
 
   void logInViaFacebook() async {
     // Log In Via Fb Registered Email
-    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+    final FacebookLoginResult result = await facebookSignIn.logIn(permissions: [
+      FacebookPermission.publicProfile,
+      FacebookPermission.email
+    ]);
 
     try {
       // For Firebase Authentication With Facebook
