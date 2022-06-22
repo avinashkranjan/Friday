@@ -11,8 +11,8 @@ import 'package:friday/utils/bottom_navbar_tabs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:path/path.dart' as Path;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:friday/services/user_db_services.dart';
@@ -27,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Reference _storageReference = FirebaseStorage.instance.ref();
 
   void getImage() async {
-    PickedFile image = await _imagePicker.getImage(source: ImageSource.gallery);
+    XFile image = await _imagePicker.pickImage(source: ImageSource.gallery);
 
     if (image == null) {
       return;
