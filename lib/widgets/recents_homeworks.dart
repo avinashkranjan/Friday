@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:intl/intl.dart';
 import 'package:friday/constants.dart';
 import 'package:friday/models/homework.dart';
@@ -80,7 +80,7 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
                             children: <Widget>[
                               Icon(
                                 AntDesign.clockcircle,
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).colorScheme.secondary,
                                 size: 17.0,
                               ),
                               SizedBox(width: 10.0),
@@ -118,10 +118,10 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
       },
       style: ElevatedButton.styleFrom(
         shape: CircleBorder(
-          side: BorderSide(color: Theme.of(context).accentColor),
+          side: BorderSide(color: Theme.of(context).colorScheme.secondary),
         ),
         primary: homework.isDone
-            ? Theme.of(context).accentColor
+            ? Theme.of(context).colorScheme.secondary
             : Colors.transparent,
       ),
       child: homework.isDone ? Icon(Icons.check, color: Colors.white) : null,

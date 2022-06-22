@@ -16,7 +16,6 @@ dependencies:
   provider: ^4.3.3
   fluttertoast: ^7.1.6
   flutter_svg: ^0.21.0-nullsafety.0
-  flutter_icons: ^1.1.0
   cupertino_icons: ^0.1.3
   cloud_firestore: ^1.0.3
   firebase_auth: ^1.0.1
@@ -30,6 +29,7 @@ dependencies:
   date_time_picker: ^2.0.0
   table_calendar: ^3.0.0
   flutter_login_facebook: ^1.5.0+1
+  flutter_icons_null_safety: ^1.1.0
 
 
 dev_dependencies:

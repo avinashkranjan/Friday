@@ -1,3 +1,4 @@
+import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:friday/models/alert.dart';
 import 'package:friday/models/homework.dart';
 import 'package:friday/widgets/countdown_painter.dart';
@@ -7,7 +8,6 @@ import 'package:friday/widgets/header.dart';
 import 'package:friday/widgets/recents_alerts.dart';
 import 'package:friday/widgets/recents_homeworks.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -82,7 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(
                   "View all",
                   style: TextStyle(
-                      color: Theme.of(context).accentColor, fontSize: 15.0),
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: 15.0),
                 ),
               ),
               SizedBox(height: 20.0),
@@ -104,7 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     "View all",
                     style: TextStyle(
-                        color: Theme.of(context).accentColor, fontSize: 15.0),
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 15.0),
                   ),
                   onPressed: () => widget.openHomeworkPage(),
                 ),
@@ -207,7 +209,7 @@ class DataSearch extends SearchDelegate<String> {
                           height: 130.0,
                           width: 15.0,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(30.0),
                               bottomLeft: Radius.circular(30.0),
@@ -243,7 +245,9 @@ class DataSearch extends SearchDelegate<String> {
                                     children: <Widget>[
                                       Icon(
                                         AntDesign.clockcircle,
-                                        color: Theme.of(context).accentColor,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
                                         size: 17.0,
                                       ),
                                       SizedBox(width: 10.0),
@@ -261,7 +265,9 @@ class DataSearch extends SearchDelegate<String> {
                                     children: <Widget>[
                                       Icon(
                                         Icons.receipt,
-                                        color: Theme.of(context).accentColor,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
                                         size: 17.0,
                                       ),
                                       SizedBox(width: 10.0),
@@ -408,7 +414,8 @@ class DataSearch extends SearchDelegate<String> {
                                               Icon(
                                                 AntDesign.clockcircle,
                                                 color: Theme.of(context)
-                                                    .accentColor,
+                                                    .colorScheme
+                                                    .secondary,
                                                 size: 17.0,
                                               ),
                                               SizedBox(width: 10.0),
@@ -446,7 +453,7 @@ class DataSearch extends SearchDelegate<String> {
   }
 
   _getColor(BuildContext context, double percent) {
-    if (percent >= 0.4) return Theme.of(context).accentColor;
+    if (percent >= 0.4) return Theme.of(context).colorScheme.secondary;
 
     return kHourColor;
   }
@@ -460,10 +467,10 @@ class DataSearch extends SearchDelegate<String> {
       },
       style: ElevatedButton.styleFrom(
         shape: CircleBorder(
-          side: BorderSide(color: Theme.of(context).accentColor),
+          side: BorderSide(color: Theme.of(context).colorScheme.secondary),
         ),
         primary: homework.isDone
-            ? Theme.of(context).accentColor
+            ? Theme.of(context).colorScheme.secondary
             : Colors.transparent,
       ),
       child: homework.isDone ? Icon(Icons.check, color: Colors.white) : null,
