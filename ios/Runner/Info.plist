@@ -5,6 +5,10 @@
 	<!-- Added for image picker -->
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>Access gallery to pick image</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Access camera to take image</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Access microphone to take audio</string>
 
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -45,5 +49,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 </dict>
 </plist>
