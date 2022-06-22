@@ -227,7 +227,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           SizedBox(height: 40),
                           Center(
-                            child: OutlineButton(
+                            child: OutlinedButton(
                               onPressed: () async {
                                 print("Signing out");
                                 await Provider.of<BottomNavigationBarProvider>(
@@ -257,16 +257,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   }
                                 }
                               },
-                              borderSide: BorderSide(color: Colors.red),
-                              highlightElevation: 1,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              shape: StadiumBorder(),
-                              color: Colors.transparent,
-                              hoverColor: Theme.of(context).primaryColor,
-                              splashColor: Theme.of(context).primaryColor,
-                              focusColor: Theme.of(context).primaryColor,
-                              highlightColor: Theme.of(context).primaryColor,
+                              style: OutlinedButton.styleFrom(
+                                side: BorderSide(color: Colors.red),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                shape: StadiumBorder(),
+                                primary: Colors.transparent,
+                              ),
                               child: Text(
                                 "Log out",
                                 style: TextStyle(
