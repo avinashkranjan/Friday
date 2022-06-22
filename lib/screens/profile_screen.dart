@@ -8,13 +8,11 @@ import 'package:friday/services/facebookAuthentication.dart';
 import 'package:friday/services/googleAuthentication.dart';
 import 'package:friday/services/user_info_services.dart';
 import 'package:friday/utils/bottom_navbar_tabs.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:path/path.dart' as Path;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:friday/services/user_db_services.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -27,7 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Reference _storageReference = FirebaseStorage.instance.ref();
 
   void getImage() async {
-    PickedFile image = await _imagePicker.getImage(source: ImageSource.gallery);
+    XFile image = await _imagePicker.pickImage(source: ImageSource.gallery);
 
     if (image == null) {
       return;
@@ -68,16 +66,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     userInfoProvider.upateProfilePictureUrl();
   }
 
-  bool visiblity_name = true;
-  bool visiblity_fields = false;
-  User _currUser = FirebaseAuth.instance.currentUser;
+  bool visibilityName = true;
+  bool visibilityFields = false;
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    final User userData = firebaseAuth.currentUser;
-    FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
-
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.8),
       body: SingleChildScrollView(
@@ -112,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: FittedBox(
                               fit: BoxFit.fitWidth,
                               child: Visibility(
-                                visible: visiblity_name,
+                                visible: visibilityName,
                                 child: Text(
                                   userInfo.hasData ? _user.name : "Loading...",
                                   style: TextStyle(
@@ -166,16 +159,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   true),
                               SizedBox(width: 20),
                               Visibility(
-                                visible: !visiblity_fields,
+                                visible: !visibilityFields,
                                 child: buildDetails(
                                     "Age",
                                     userInfo.hasData
                                         ? _user.age.toString()
                                         : "Loading...",
-                                    visiblity_name),
+                                    visibilityName),
                               ),
                               Visibility(
-                                visible: visiblity_fields,
+                                visible: visibilityFields,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -227,7 +220,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           SizedBox(height: 40),
                           Center(
-                            child: OutlineButton(
+                            child: OutlinedButton(
                               onPressed: () async {
                                 print("Signing out");
                                 await Provider.of<BottomNavigationBarProvider>(
@@ -257,16 +250,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   }
                                 }
                               },
-                              borderSide: BorderSide(color: Colors.red),
-                              highlightElevation: 1,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              shape: StadiumBorder(),
-                              color: Colors.transparent,
-                              hoverColor: Theme.of(context).primaryColor,
-                              splashColor: Theme.of(context).primaryColor,
-                              focusColor: Theme.of(context).primaryColor,
-                              highlightColor: Theme.of(context).primaryColor,
+                              style: OutlinedButton.styleFrom(
+                                side: BorderSide(color: Colors.red),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                shape: StadiumBorder(),
+                                primary: Colors.transparent,
+                              ),
                               child: Text(
                                 "Log out",
                                 style: TextStyle(
@@ -313,19 +303,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: IconButton(
                     onPressed: () {
                       setState(() {
-                        visiblity_fields = !visiblity_fields;
-                        visiblity_name = !visiblity_name;
+                        visibilityFields = !visibilityFields;
+                        visibilityName = !visibilityName;
                       });
                     },
                     icon: Icon(
-                      visiblity_name ? Icons.edit_outlined : Icons.check,
+                      visibilityName ? Icons.edit_outlined : Icons.check,
                       color: Colors.white,
                       size: profilePictureDiameter * 0.25,
                     ),
                   ),
                 ),
                 Visibility(
-                  visible: visiblity_fields,
+                  visible: visibilityFields,
                   child: Positioned(
                     top: MediaQuery.of(context).size.height * 0.26,
                     child: Container(

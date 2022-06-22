@@ -1,11 +1,9 @@
 import 'package:friday/models/users.dart';
-import 'package:friday/screens/login_page.dart';
 import 'package:friday/services/auth_error_msg_toast.dart';
 import 'package:friday/services/classes_db_services.dart';
 import 'package:friday/services/user_info_services.dart';
 import 'package:friday/widgets/auth_input_form_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -104,7 +102,6 @@ class _SignUpFormAdditionalDetailsState
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _year.dispose();
     _age.dispose();

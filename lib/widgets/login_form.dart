@@ -1,8 +1,8 @@
+import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:friday/widgets/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 
 ///Project Local Imports
 import 'package:friday/constants.dart';

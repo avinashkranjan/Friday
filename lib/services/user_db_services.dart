@@ -31,22 +31,22 @@ class UserDBServices {
     );
   }
 
-  static Future<void> updateName(String uid, String Name) async {
+  static Future<void> updateName(String uid, String name) async {
     FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
 
     await firestoreDB.collection(usersCollection).doc(uid).update(
       {
-        'name': Name,
+        'name': name,
       },
     );
   }
 
-  static Future<void> updateAge(String uid, int Age) async {
+  static Future<void> updateAge(String uid, int age) async {
     FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
 
     await firestoreDB.collection(usersCollection).doc(uid).update(
       {
-        'age': Age,
+        'age': age,
       },
     );
   }

@@ -76,7 +76,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                             width: 30,
                             height: 30,
                             color: (_selectedIdx == idx)
-                                ? Theme.of(context).accentColor
+                                ? Theme.of(context).colorScheme.secondary
                                 : kTextColor,
                           ),
                         ),
@@ -94,9 +94,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 fontWeight: FontWeight.w600,
                                 color: Color.lerp(
                                     Theme.of(context)
-                                        .accentColor
+                                        .colorScheme
+                                        .secondary
                                         .withOpacity(0.0),
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).colorScheme.secondary,
                                     isSelected),
                               ),
                             ),

@@ -1,9 +1,6 @@
 import 'package:friday/models/users.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:uuid/uuid.dart';
-
-import '../models/classes.dart';
 
 class ClassesDBServices {
   Stream<DocumentSnapshot> getClassListAsStream(String collegeID) {
@@ -24,7 +21,7 @@ class ClassesDBServices {
         .get();
 
     Map<String, dynamic> _classesListStored = Map<String, dynamic>();
-    _classesListStored = documentSnapShot.data()['classes'] as Map;
+    _classesListStored = (documentSnapShot.data() as Map)['classes'];
 
     if (_classesListStored.isNotEmpty &&
         _classesListStored.containsKey(_todayDate)) {
@@ -70,9 +67,9 @@ class ClassesDBServices {
     DocumentSnapshot documentSnapshot =
         await FirebaseFirestore.instance.doc('colleges/$_collegeName').get();
 
-    print(documentSnapshot.data()['courses']);
+    print((documentSnapshot.data() as Map)['courses']);
 
-    if (documentSnapshot.data()['courses'] == null) {
+    if ((documentSnapshot.data() as Map)['courses'] == null) {
       print("No Course Registered");
       FirebaseFirestore.instance.doc('colleges/$_collegeName').set({
         'courses': {
@@ -81,18 +78,19 @@ class ClassesDBServices {
       });
     } else {
       print("At least one course present");
-      if (documentSnapshot.data()['courses'].keys.contains(_course)) {
+      if ((documentSnapshot.data() as Map)['courses'].keys.contains(_course)) {
         print("Same Course Present");
-        print(documentSnapshot.data()['courses'][_course]);
+        print((documentSnapshot.data() as Map)['courses'][_course]);
 
-        if (documentSnapshot.data()['courses'][_course].contains(_dept)) {
+        if ((documentSnapshot.data() as Map)['courses'][_course]
+            .contains(_dept)) {
           print("Same Dept Present");
         } else {
           print("Dept not present");
           print(_dept);
 
           Map<String, dynamic> _currCourses =
-              documentSnapshot.data()['courses'];
+              (documentSnapshot.data() as Map)['courses'];
           _currCourses[_course].add(_dept);
 
           FirebaseFirestore.instance.doc('colleges/$_collegeName').update({
@@ -101,7 +99,7 @@ class ClassesDBServices {
         }
       } else {
         print("That new Course not present");
-        Map<String, dynamic> take = documentSnapshot.data()['courses'];
+        Map<String, dynamic> take = (documentSnapshot.data() as Map)['courses'];
         take.addAll({
           _course: [_dept],
         });

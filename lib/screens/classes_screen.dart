@@ -29,7 +29,6 @@ class _ClassesScreenState extends State<ClassesScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState(() {
       dateController.text = DateTime.now().toString().split(" ")[0];
@@ -38,7 +37,6 @@ class _ClassesScreenState extends State<ClassesScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     dateController.clear();
     _subjectController.clear();
