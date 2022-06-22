@@ -10,7 +10,7 @@
     <application
         
         android:requestLegacyExternalStorage= "true"
-        android:name="io.flutter.app.FlutterApplication"
+        android:name="${applicationName}"
         android:label="Friday"
         android:icon="@mipmap/launcher_icon">
         <activity
