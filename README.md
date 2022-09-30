@@ -1,4 +1,4 @@
-<h1 align=center> 🎓 Friday </h1>
+<h2 align=center> 🎓 Friday </h2>
 
 <p align="center">
   <a href="https://github.com/avinashkranjan/Friday">
