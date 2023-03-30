@@ -196,9 +196,9 @@ SPEC CHECKSUMS:
   FirebaseAuth: 3e73bf8abf4fbb40f8b421f361f4cc48ee57388c
   FirebaseCore: 5743c5785c074a794d35f2fff7ecc254a91e08b1
   FirebaseCoreDiagnostics: 92e07a649aeb66352b319d43bdd2ee3942af84cb
-  FirebaseFirestore: cb361b7f8f225a225c9f11b8d42066baebb1630c
+  FirebaseFirestore: 3a0a7e1e72e4359b92d4c38de06d84e4c4900c0a
   FirebaseStorage: 8019af461599b2c3bc61c6a5dbdfa3d2de66a4d9
-  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_login_facebook: 81cb3f8c7be925a28d544ae73574f0e71f41894a
   fluttertoast: 16fbe6039d06a763f3533670197d01fc73459037
   google_sign_in_ios: 90eec6616c4c2105b9f9fe5c774773d13565b504
@@ -214,6 +214,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
 
-PODFILE CHECKSUM: 90b396a8eadb55d6dbaa584efd93e52831f5be1c
+PODFILE CHECKSUM: 970d03145f7069d7ac767a34dd4106b7d2566904
 
 COCOAPODS: 1.11.3
