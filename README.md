@@ -1,9 +1,9 @@
 <h2 align=center> 🎓 Friday </h2>
 
 <p align="center">
-  <a href="https://github.com/avinashkranjan/Friday">
-    <img src="https://user-images.githubusercontent.com/55796944/95674682-5eb52e00-0bcf-11eb-969b-cb7add59921c.png" alt="Logo" height="150px" width="150px">
-  </a>
+	
+  ![Your_paragraph_text-removebg-preview](https://github.com/avinashkranjan/Friday/assets/63696299/201c3c42-ec7b-4fda-b4de-c92afab573ed)
+	</p>
 
 <h2 align=center> "Friday - Your Personal Class Assistant, It'll never let you miss another assignment deadline or any upcoming test."
 
