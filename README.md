@@ -62,7 +62,7 @@ Contributions of any kind welcome!
 	
  <a>
 	 
- [<img width="400" height="100" src="https://raw.githubusercontent.com/GirlScriptSummerOfCode/MentorshipProgram/master/GSsoc%20Type%20Logo%20Black.png">](https://gssoc.girlscript.tech/)   [<img width="150" height="100" src="https://swoc.tech/img/logo-2.png">](https://swoc.tech/) 
+ [<img src="https://raw.githubusercontent.com/GirlScriptSummerOfCode/MentorshipProgram/master/GSsoc%20Type%20Logo%20Black.png">](https://gssoc.girlscript.tech/)
 	 
 <h1 align=center> Project Admin ❤️ </h1>
 <p align="center">
