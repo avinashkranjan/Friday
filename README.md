@@ -2,8 +2,8 @@
 
 <p align="center">
 	
-  ![Your_paragraph_text-removebg-preview](https://github.com/avinashkranjan/Friday/assets/63696299/201c3c42-ec7b-4fda-b4de-c92afab573ed)
-	</p>
+ 
+opinion.![20230523_223933_0000.png](https://github.com/avinashkranjan/Friday/assets/63696299/199df5e8-c84d-41ab-9f19-bf3d638bdfbc)
 
 <h2 align=center> "Friday - Your Personal Class Assistant, It'll never let you miss another assignment deadline or any upcoming test."
 
