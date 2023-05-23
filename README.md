@@ -2,6 +2,8 @@
 
 # Friday - Your Personal Class Assistant
 
+Friday is an innovative application designed to help you stay organized and never miss an assignment deadline or upcoming test again. With the shift to online education due to the pandemic, keeping track of assignments, exams, and other academic tasks can be overwhelming. 
+
 <p align="center">
   <a href="https://github.com/avinashkranjan/Friday">
     <img src="https://user-images.githubusercontent.com/55796944/95674682-5eb52e00-0bcf-11eb-969b-cb7add59921c.png" alt="Logo" height="150px" width="150px">
@@ -10,7 +12,6 @@
 <h2 align=center> "Friday - Your Personal Class Assistant, It'll never let you miss another assignment deadline or any upcoming test."
 	
 	
-Friday is an innovative application designed to help you stay organized and never miss an assignment deadline or upcoming test again. With the shift to online education due to the pandemic, keeping track of assignments, exams, and other academic tasks can be overwhelming. Friday is here to make your life easier by reminding you of upcoming deadlines, unfinished homework, and important exam dates, so you can effectively plan your schedule and stay on top of your academic commitments.
 
 ![Issues](https://img.shields.io/github/issues/avinashkranjan/Friday)
 ![Pull Requests](https://img.shields.io/github/issues-pr/avinashkranjan/Friday)
@@ -110,9 +111,7 @@ Contributions of any kind welcome!
 	
 
 
-## GirlScript Summer of code'2023
 
-Friday is part of GirlScript Summer of code'2023. We would like to request you to participate in this program and contribute to this project.
 
 
 ---
