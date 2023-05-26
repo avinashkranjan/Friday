@@ -1,4 +1,4 @@
-# Contributing Guidelines
+# Contributing Guidelines ✅
 
 This documentation contains a set of guidelines to help you during the contribution process. 
 We are happy to welcome all the contributions from anyone willing to improve/add new scripts to this project. Thank you for helping out and remember,
@@ -48,6 +48,8 @@ $ git commit -m 'message
 - **NOTE**: A PR should have only one commit. Multiple commits should be squashed.
 ## Step 6 : Work Remotely
 - Now you are ready to your work to the remote repository.
+- Push your work to your remote repository.
+
 - When your work is ready and complies with the project conventions, upload your changes to your fork:
 
 ```
@@ -56,7 +58,8 @@ $ git push -u origin Branch_Name
 ```
 
 ## Step 7 : Pull Request
-- Go to your repository in browser and click on compare and pull requests. Then add a title and description to your pull request that explains your contribution.
+- Go to your repository in browser and click on compare and pull requests. 
+- Add a title and description to your pull request that explains your contribution.
 
 - Voila! Your Pull Request has been submitted and will be reviewed by the moderators and merged.🥳
 
@@ -70,4 +73,4 @@ You can refer to the following articles on basics of Git and Github and also con
 
 
 ## Tip from us😇
-It always takes time to understand and learn. So, do not worry at all. We know **you have got this**!💪
+Learning and understanding takes time, so don't worry if things seem challenging at first. So, do not worry at all. We know **you have got this**!💪
