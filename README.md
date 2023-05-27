@@ -5,9 +5,9 @@
 Friday is an innovative application designed to help you stay organized and never miss an assignment deadline or upcoming test again. With the shift to online education due to the pandemic, keeping track of assignments, exams, and other academic tasks can be overwhelming. 
 
 <p align="center">
-  <a href="https://github.com/avinashkranjan/Friday">
-    <img src="https://user-images.githubusercontent.com/55796944/95674682-5eb52e00-0bcf-11eb-969b-cb7add59921c.png" alt="Logo" height="150px" width="150px">
-  </a>
+	
+ 
+opinion.![20230523_223933_0000.png](https://github.com/avinashkranjan/Friday/assets/63696299/199df5e8-c84d-41ab-9f19-bf3d638bdfbc)
 
 <h2 align=center> "Friday - Your Personal Class Assistant, It'll never let you miss another assignment deadline or any upcoming test."
 	
