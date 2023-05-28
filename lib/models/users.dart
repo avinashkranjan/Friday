@@ -4,63 +4,73 @@ import 'package:flutter/cupertino.dart';
 enum Gender { Male, Female, Other }
 enum Mode { Online, Offline }
 
-class Users {
-  String uid, name, email, profilePictureUrl, university, course, department;
-  int age, year;
+class User {
+  final String uid;
+  String name;
+  String email;
+  String profilePictureUrl;
+  String university;
+  String course;
+  String department;
+  int age;
+  int year;
   Gender gender;
 
-  Users({
-    this.uid,
-    @required this.name,
-    @required this.email,
-    this.profilePictureUrl,
-    @required this.university,
-    @required this.course,
-    @required this.year,
-    @required this.department,
-    @required this.age,
-    @required this.gender,
+  User({
+    required this.uid,
+    required this.name,
+    required this.email,
+    this.profilePictureUrl = "",
+    required this.university,
+    required this.course,
+    required this.department,
+    required this.age,
+    required this.year,
+    required this.gender,
   });
 
-  Users.setEsssentialDetails(
-    String _name,
-    String _email,
-  ) {
-    this.name = _name;
-    this.email = _email;
+  void setEssentialDetails(String name, String email) {
+    this.name = name;
+    this.email = email;
   }
 
-  void setAdditionalDetails(String _course, String _dept, String _college,
-      int _year, Gender _gender, int _age,
-      [String _profilePicUrl = ""]) {
-    this.course = _course;
-    this.department = _dept;
-    this.university = _college;
-    this.year = _year;
-    this.gender = _gender;
-    this.age = _age;
-    this.profilePictureUrl = _profilePicUrl;
+  void setAdditionalDetails(
+    String course,
+    String department,
+    String university,
+    int year,
+    Gender gender,
+    int age, [
+    String profilePictureUrl = "",
+    ]) {
+    this.course = course;
+    this.department = department;
+    this.university = university;
+    this.year = year;
+    this.gender = gender;
+    this.age = age;
+    this.profilePictureUrl = profilePictureUrl;
   }
 
-  factory Users.fromJson(DocumentSnapshot _snapshot) {
-    Map<String, dynamic> json = _snapshot.data();
-    Gender _gender = stringToEnum(json["gender"]);
-    return new Users(
-      uid: _snapshot.id,
-      name: json["name"],
-      email: json["email"],
-      profilePictureUrl: json["profilePictureUrl"],
-      university: json["university"],
-      course: json["course"],
-      year: json["year"],
-      department: json["department"],
-      age: json["age"],
-      gender: _gender,
+  factory User.fromJson(DocumentSnapshot snapshot) {
+    Map<String, dynamic>? json = snapshot.data() as Map<String, dynamic>?;
+    Gender gender = stringToEnum(json?["gender"] as String);
+     return new User(
+      uid: snapshot.id,
+      name: json?["name"] as String? ?? "",
+      email: json?["email"] as String? ?? "",
+      profilePictureUrl: json?["profilePictureUrl"] as String? ?? "",
+      university: json?["university"] as String? ?? "",
+      course: json?["course"] as String? ?? "",
+      year: json?["year"] as int? ?? 0,
+      department: json?["department"] as String? ?? "",
+      age: json?["age"] as int? ?? 0,
+      gender: gender,
     );
   }
 
   Map<String, dynamic> toJson() {
-    String _gen = enumToString(gender);
+    String gen = enumToString(gender);
     return {
       "name": name,
       "email": email,
@@ -70,51 +80,52 @@ class Users {
       "year": year,
       "department": department,
       "age": age,
-      "gender": _gen,
+      "gender": gen,
       "classes": {},
     };
   }
 }
 
 // Function to convert Gender enum to String
-String enumToString(Gender _gen) {
-  switch (_gen) {
+String enumToString(Gender gender) {
+  switch (gender) {
     case Gender.Male:
       return "Male";
-      break;
+
     case Gender.Female:
       return "Female";
-      break;
+
     default:
       return "Other";
-      break;
+
   }
 }
 
 // Function to convert Mode enum to String
-String modeEnumToString(Mode _currMode) {
-  switch (_currMode) {
+String modeEnumToString(Mode currMode) {
+  switch (currMode) {
     case Mode.Online:
       return "Online";
-      break;
+
     default:
       return "Offline";
-      break;
+
   }
 }
 
-// Function to convert Gender enum to String
-Gender stringToEnum(String _gen) {
-  switch (_gen) {
+// Function to convert Gender string to enum
+Gender stringToEnum(String gen) {
+  switch (gen) {
     case "Male":
       return Gender.Male;
-      break;
+
     case "Female":
       return Gender.Female;
 
-      break;
+
     default:
       return Gender.Other;
-      break;
+
   }
 }
+
