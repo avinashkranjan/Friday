@@ -27,7 +27,7 @@ class Header extends StatelessWidget {
                       "Hello, " +
                           (_userInfo.user != null
                               ? _userInfo.user.name.split(" ")[0]
-                              : "Sir"),
+                              : "Professor"),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 25.0,
@@ -41,7 +41,7 @@ class Header extends StatelessWidget {
                   ),
                   CircleAvatar(
                     radius: 25.0,
-                      backgroundImage: _userInfo.user != null && _userInfo.user.profilePictureUrl.isNotEmpty
+                      backgroundImage: _userInfo.user.profilePictureUrl.isNotEmpty
                       ? NetworkImage(_userInfo.user.profilePictureUrl)
                       : AssetImage("assets/images/profile_pic.jpg") as ImageProvider<Object>,
                    ),
