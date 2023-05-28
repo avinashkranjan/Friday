@@ -8,26 +8,31 @@ class CountdownPainter extends CustomPainter {
   final double percent;
   final double width;
 
-  CountdownPainter({this.bgColor, this.lineColor, this.percent, this.width});
+  CountdownPainter({
+    required this.bgColor,
+    required this.lineColor,
+    required this.percent,
+    required this.width,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    Paint bgLine = Paint()
+    final Paint bgLine = Paint()
       ..color = bgColor
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..strokeWidth = width;
 
-    Paint completeLine = Paint()
+    final Paint completeLine = Paint()
       ..color = lineColor
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..strokeWidth = width;
 
-    Offset center = Offset(size.width / 2, size.height / 2);
-    double radius = min(size.width / 2, size.height / 2);
+    final Offset center = Offset(size.width / 2, size.height / 2);
+    final double radius = min(size.width / 2, size.height / 2);
 
-    double sweepAngle = 2 * pi * percent;
+    final double sweepAngle = 2 * pi * percent;
 
     canvas.drawCircle(center, radius, bgLine);
     canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2,
