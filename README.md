@@ -40,10 +40,12 @@ To get started with Friday, follow these simple steps:
 <h2 align=center> Tech Stack 🔥 </h2>  
   <p align="center">
   <img src="https://img.shields.io/badge/dart-%230175C2.svg?&style=for-the-badge&logo=dart&logoColor=white"/> <img src="https://img.shields.io/badge/Flutter%20-%2302569B.svg?&style=for-the-badge&logo=Flutter&logoColor=white" /> <img src="https://img.shields.io/badge/figma%20-%23F24E1E.svg?&style=for-the-badge&logo=figma&logoColor=white"/>  <img src="https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+  <img src="https://img.shields.io/badge/canva%20-%23G24E1E.svg?&style=for-the-badge&logo=canva&logoColor=white"/>
+
     
 <h1 align=center> Application Preview 👀 </h1> 
-  <p align="center">
-    <img src="https://user-images.githubusercontent.com/55796944/95674880-cb7cf800-0bd0-11eb-94fd-20b50ab35219.png" height="363px" width="181px">  <img src="https://user-images.githubusercontent.com/55796944/95674883-cddf5200-0bd0-11eb-9b9a-f22d94217089.png" height="363px" width="181px">  <img src="https://user-images.githubusercontent.com/55796944/95674884-d041ac00-0bd0-11eb-9eb3-299fd123973a.png" height="363px" width="181px">  <img src="https://user-images.githubusercontent.com/55796944/95674885-d172d900-0bd0-11eb-9259-d22fb91cfad6.png" height="363px" width="181px">
+
+![Friday Application Preview](graphics/friday_application_preview/friday_application_preview.png)
   
   <p align="center">
   <a href="https://github.com/avinashkranjan/Friday/releases/download/v1.0.0/friday.apk">
