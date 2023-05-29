@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:friday/constants.dart';
 
 class AuthInputField extends StatefulWidget {
-  final Widget suffixIcon;
+  final Widget? suffixIcon;
   final bool obscureText;
   final String labelText, hintText;
   final TextInputAction textInputAction;
   final TextEditingController controller;
-  final String Function(String) validator;
+  final String? Function(String?)? validator;
   final TextInputType textInputType;
   AuthInputField({
     this.textInputType = TextInputType.text,
-    @required this.controller,
-    @required this.labelText,
+    required this.controller,
+    required this.labelText,
     this.obscureText = false,
-    this.hintText,
-    @required this.textInputAction,
+    required this.hintText,
+    required this.textInputAction,
     this.suffixIcon,
     @required this.validator,
   });
@@ -29,6 +29,7 @@ class _AuthInputFieldState extends State<AuthInputField> {
       color: Colors.white70,
     ),
   );
+  
   @override
   Widget build(BuildContext context) {
     return TextFormField(
