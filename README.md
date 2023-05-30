@@ -6,8 +6,9 @@ Friday is an innovative application designed to help you stay organized and neve
 
 <p align="center">
 	
- 
-opinion.![20230523_223933_0000.png](https://github.com/avinashkranjan/Friday/assets/63696299/199df5e8-c84d-41ab-9f19-bf3d638bdfbc)
+ <img src="https://github.com/avinashkranjan/Friday/assets/63696299/199df5e8-c84d-41ab-9f19-bf3d638bdfbc" />
+	</p>
+
 
 <h2 align=center> "Friday - Your Personal Class Assistant, It'll never let you miss another assignment deadline or any upcoming test."
 	
