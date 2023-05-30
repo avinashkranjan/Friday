@@ -18,11 +18,14 @@ class SignUpFormEssentialDetails extends StatefulWidget {
 
 class _SignUpFormEssentialDetailsState
     extends State<SignUpFormEssentialDetails> {
-  FToast errToast;
-  String errorMsg;
-  bool isProcessing;
-  TextEditingController _email, _pswd, _name, _conpswd;
-  GlobalKey<FormState> _formKey;
+  FToast errToast = FToast();
+  String errorMsg = '';
+  bool isProcessing = false;
+  TextEditingController _email = TextEditingController();
+  TextEditingController _pswd = TextEditingController();
+  TextEditingController _name = TextEditingController();
+  TextEditingController _conpswd = TextEditingController();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool obscurePassword = true;
   bool obscureConfirmPassword = true;
@@ -107,6 +110,7 @@ class _SignUpFormEssentialDetailsState
                   AuthInputField(
                     controller: _name,
                     labelText: "Name",
+                    hintText: "Enter your name",
                     textInputAction: TextInputAction.next,
                     suffixIcon: Icon(Icons.person, color: Colors.white),
                     validator: (value) {
@@ -124,6 +128,7 @@ class _SignUpFormEssentialDetailsState
                   AuthInputField(
                     controller: _email,
                     labelText: "Email",
+                    hintText: "Enter your email",
                     textInputAction: TextInputAction.next,
                     suffixIcon: Icon(Icons.email, color: Colors.white),
                     validator: (value) {
@@ -143,6 +148,7 @@ class _SignUpFormEssentialDetailsState
                   AuthInputField(
                     controller: _pswd,
                     labelText: "Password",
+                    hintText: "Enter your password",
                     obscureText: obscurePassword,
                     textInputAction: TextInputAction.next,
                     suffixIcon: IconButton(
@@ -170,6 +176,7 @@ class _SignUpFormEssentialDetailsState
                   AuthInputField(
                     controller: _conpswd,
                     labelText: "Confirm Password",
+                    hintText: "Re-enter your password",
                     obscureText: obscureConfirmPassword,
                     textInputAction: TextInputAction.done,
                     suffixIcon: IconButton(
@@ -194,7 +201,7 @@ class _SignUpFormEssentialDetailsState
                           (_conpswd.text == _pswd.text)) {
                         return null;
                       } else
-                        return "Enter Valid password";
+                        return "Enter a Valid password";
                     },
                   ),
                   SizedBox(
@@ -220,8 +227,8 @@ class _SignUpFormEssentialDetailsState
                       ),
                     ),
                     onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        _formKey.currentState.save();
+                       if (_formKey.currentState?.validate() ?? false) {
+                        _formKey.currentState!.save();
                         print(
                             "Validated: Name: ${_name.text} \n email: ${_email.text}");
 
@@ -236,13 +243,14 @@ class _SignUpFormEssentialDetailsState
                             email: _email.text,
                             name: _name.text,
                             password: _pswd.text,
-                            context: context);
+                            context: context,
+                            );
                         setState(() {
                           isProcessing = false;
-                          _formKey.currentState.reset();
+                          _formKey.currentState?.reset();
                           //show error msg
-                          errorMsg != null
-                              ? showErrToast(errorMsg ?? " ", errToast)
+                            errorMsg != null
+                              ? showErrToast(errorMsg, errToast)
                               : print("User Authenticated");
                         });
                       }
