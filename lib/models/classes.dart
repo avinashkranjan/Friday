@@ -8,11 +8,11 @@ class Classes {
   bool isHappening = false;
 
   Classes({
-    this.subject,
-    this.type,
-    this.teacherName,
-    this.joinLink,
-    this.time,
+    required this.subject,
+    required this.type,
+    required this.teacherName,
+    required this.joinLink,
+    required this.time,
   });
 
   factory Classes.fromMap(Map<String, dynamic> snapshot) => Classes(
@@ -39,24 +39,28 @@ List<Classes> classes = [
     subject: "Math",
     type: "Online Class",
     teacherName: "Julie Raybon",
+    joinLink: "https://example.com",
     time: DateTime.parse("2020-06-04 10:30:00"),
   ),
   Classes(
     subject: "Physics",
     type: "Online Class",
     teacherName: "Robert Murray",
+    joinLink: "https://example.com",
     time: DateTime.parse("2020-06-04 14:30:00"),
   ),
   Classes(
     subject: "German",
     type: "Online Class",
     teacherName: "Mary Peterson",
+    joinLink: "https://example.com",
     time: DateTime.parse("2020-06-06 06:30:00"),
   ),
   Classes(
     subject: "History",
     type: "Online Class",
     teacherName: "Jim Brooke",
+    joinLink: "https://example.com",
     time: DateTime.parse("2020-06-06 07:30:00"),
   ),
 ];
