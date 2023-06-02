@@ -3,7 +3,7 @@ import 'package:friday/constants.dart';
 
 class CanvasDesign extends CustomPainter {
   final BuildContext context;
-  CanvasDesign({this.context});
+  CanvasDesign({required this.context});
 
   @override
   void paint(Canvas canvas, Size size) {
