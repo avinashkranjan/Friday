@@ -10,7 +10,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  GlobalKey<ScaffoldState> _scaffoldKey;
+  late GlobalKey<ScaffoldState> _scaffoldKey;
   @override
   void initState() {
     _scaffoldKey = new GlobalKey<ScaffoldState>();
