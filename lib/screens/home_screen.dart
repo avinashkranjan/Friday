@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback openHomeworkPage;
-  HomeScreen({@required this.openHomeworkPage});
+  HomeScreen({required this.openHomeworkPage});
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
-                  borderSide: BorderSide(width: 1, color: Colors.grey[600]),
+                  borderSide: BorderSide(width: 1, color: Colors.grey.shade600),
                 ),
               ),
             ),
@@ -152,7 +152,7 @@ class DataSearch extends SearchDelegate<String> {
         progress: transitionAnimation,
       ),
       onPressed: () {
-        close(context, null);
+        close(context, '');
       },
     );
   }
@@ -330,7 +330,7 @@ class DataSearch extends SearchDelegate<String> {
               builder: (context, list) {
                 DateFormat dateFormat = DateFormat("hh:mm a");
 
-                List<dynamic> homeworkMap = list.data;
+                List<dynamic>? homeworkMap = list.data;
                 if (!list.hasData)
                   return Center(child: CircularProgressIndicator());
                 if (homeworkMap != null) {
