@@ -11,7 +11,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  GlobalKey<ScaffoldState> _scaffoldKey;
+  late GlobalKey<ScaffoldState> _scaffoldKey;
   @override
   void initState() {
     _scaffoldKey = new GlobalKey<ScaffoldState>();

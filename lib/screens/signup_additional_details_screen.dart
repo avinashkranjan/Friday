@@ -13,7 +13,7 @@ class SignUpAdditionalDetails extends StatefulWidget {
 }
 
 class _SignUpAdditionalDetailsState extends State<SignUpAdditionalDetails> {
-  GlobalKey<ScaffoldState> _scaffoldKey;
+  late GlobalKey<ScaffoldState> _scaffoldKey;
 
   @override
   void initState() {
