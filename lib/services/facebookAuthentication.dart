@@ -10,7 +10,7 @@ import 'dart:async';
 import 'package:provider/provider.dart';
 
 class FacebookAuth {
-  FacebookLogin facebookSignIn;
+  late FacebookLogin facebookSignIn;
   BuildContext _context;
 
   FacebookAuth(this._context) {
@@ -27,7 +27,7 @@ class FacebookAuth {
     try {
       // For Firebase Authentication With Facebook
       final credential =
-          FacebookAuthProvider.credential(result.accessToken.token);
+          FacebookAuthProvider.credential(result.accessToken!.token);
       final fbUser =
           await FirebaseAuth.instance.signInWithCredential(credential);
       print("Facebook Authentication Successful");
@@ -36,15 +36,18 @@ class FacebookAuth {
       // Data Fetch From Firestore to verify
       FirebaseFirestore.instance
           .collection('users')
-          .where('email', isEqualTo: fbUser.user.email)
+          .where('email', isEqualTo: fbUser.user?.email)
           .get()
           .then((querySnapShot) {
         if (querySnapShot.docs.isEmpty) {
           // Set essential details to [UserInfoServices]
-          Provider.of<UserInfoServices>(this._context, listen: false)
-              .setEssentialDetailsOfUser(
-                  fbUser.user.displayName, fbUser.user.email);
+          final displayName = fbUser.user?.displayName ?? '';
+          final email = fbUser.user?.email ?? '';
 
+          if (displayName.isNotEmpty && email.isNotEmpty) {
+           Provider.of<UserInfoServices>(this._context, listen: false)
+          .setEssentialDetailsOfUser(displayName, email);
+        }
           // Navigate to Additional Details Form
           Navigator.push(this._context,
               MaterialPageRoute(builder: (_) => SignUpAdditionalDetails()));
