@@ -3,7 +3,7 @@ class Alert {
   final String subject;
   final DateTime time;
 
-  Alert({this.title, this.subject, this.time});
+  Alert({ required this.title, required this.subject, required this.time});
 }
 
 List<Alert> recentAlerts = [
