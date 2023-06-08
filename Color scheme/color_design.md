@@ -2,11 +2,9 @@
 
 https://docs.google.com/document/d/14mxkLvEQ7iCi1eaOutgqBEQKfqL-S4gP9fH5wItE5UU/edit?usp=sharing
 
-Certainly! Here's an example of three colors with a paragraph explaining their usage in an application color scheme, written in Markdown format:
-
 ---
 
-In the application's color scheme, the following colors are used:
+In the friday application color scheme used can be:
 
 # Red: 
 
