@@ -5,7 +5,7 @@ class Homework {
   final DateTime dueTime;
   bool isDone = false;
 
-  Homework({this.title, this.dueTime});
+  Homework({required this.title, required this.dueTime});
 }
 
 // List<Homework> recentHomeworks = [
@@ -26,7 +26,7 @@ Future<List<dynamic>> getHomeworkList() async {
       .doc('dummyCollege')
       .get()
       .then((data) {
-    homeworkMap = data.data()['homework'];
+    homeworkMap = data.data()!['homework'];
   });
   return homeworkMap;
 }
