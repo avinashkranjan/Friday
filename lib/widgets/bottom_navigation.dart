@@ -17,16 +17,16 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   int selectedTab = 0;
-  Widget _currentPage;
-  List<Widget> _pages;
-  HomeScreen _homeScreen;
-  HomeworkScreen _homeworkScreen;
-  AlertScreen _alertScreen;
-  ClassesScreen _classesScreen;
-  ProfileScreen _profileScreen;
+  late Widget _currentPage;
+  late List<Widget> _pages;
+  late HomeScreen _homeScreen;
+  late HomeworkScreen _homeworkScreen;
+  late AlertScreen _alertScreen;
+  late ClassesScreen _classesScreen;
+  late ProfileScreen _profileScreen;
   final PageController _pageController = PageController(initialPage: 0);
 
-  _setCurrentPage({@required int index}) {
+  _setCurrentPage({required int index}) {
     setState(() {
       selectedTab = index;
       _pageController.jumpToPage(index);
@@ -102,8 +102,8 @@ class CustomBottomNavigator extends StatelessWidget {
   final int selectedTab;
   final void Function(int) onPressed;
   CustomBottomNavigator({
-    @required this.selectedTab,
-    this.onPressed,
+    required this.selectedTab,
+    required this.onPressed,
   });
   @override
   Widget build(BuildContext context) {
