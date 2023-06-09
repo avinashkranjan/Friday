@@ -17,11 +17,12 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  FToast errToast;
-  String errorMsg;
-  bool isProcessing;
-  TextEditingController _email, _pswd;
-  GlobalKey<FormState> _formKey;
+  FToast errToast = FToast();
+  String errorMsg = '';
+  bool isProcessing = false;
+  TextEditingController _email = TextEditingController(); 
+  TextEditingController _pswd = TextEditingController();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool obscurePassword = true;
 
@@ -92,6 +93,7 @@ class _LoginFormState extends State<LoginForm> {
               // Email
               AuthInputField(
                 controller: _email,
+                hintText: "Enter your email",
                 labelText: "Email",
                 textInputAction: TextInputAction.next,
                 suffixIcon: Icon(Icons.person, color: Colors.white),
@@ -111,6 +113,7 @@ class _LoginFormState extends State<LoginForm> {
               // Password
               AuthInputField(
                 controller: _pswd,
+                hintText: "Enter your Password",
                 labelText: "Password",
                 obscureText: obscurePassword,
                 // helperText: "Password should be more than 8 characters",
@@ -213,8 +216,8 @@ class _LoginFormState extends State<LoginForm> {
                           ),
                         ),
                         onPressed: () async {
-                          if (_formKey.currentState.validate()) {
-                            _formKey.currentState.save();
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState?.save();
                             print("Validated: ${_email.text}, ${_pswd.text}");
                             //Close the keyboard
                             SystemChannels.textInput
@@ -227,7 +230,7 @@ class _LoginFormState extends State<LoginForm> {
 
                             setState(() {
                               isProcessing = false;
-                              _formKey.currentState.reset();
+                              _formKey.currentState?.reset();
                               //show error msg
                               showErrToast(errorMsg, errToast);
                             });
