@@ -12,11 +12,11 @@ class BottomNavBar extends StatefulWidget {
   final EdgeInsets itemPadding;
   final PageController navigationConroller = PageController(initialPage: 0);
   BottomNavBar({
-    Key key,
+    required Key key,
     this.selectedIdx = 0,
-    this.onPressed,
-    @required this.unselectedColor,
-    @required this.selectedColor,
+    required this.onPressed,
+    required this.unselectedColor,
+    required this.selectedColor,
     this.itemPadding = const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
   }) : super(key: key);
   @override
@@ -24,8 +24,13 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int _selectedIdx;
+  late int _selectedIdx;
+
   @override
+  void initState() {
+    super.initState();
+    _selectedIdx = widget.selectedIdx;
+  }
   @override
   Widget build(BuildContext context) {
     final navBarCurrentIndex =
@@ -60,7 +65,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                         _selectedIdx = idx;
                         navBarCurrentIndex.getCurrentIndex(index: idx);
                       });
-                      widget.onPressed?.call(idx);
+                      widget.onPressed.call(idx);
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -72,7 +77,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 widget.selectedColor, isSelected),
                           ),
                           child: SvgPicture.asset(
-                            bottomNavBarData[idx]['svg'],
+                            bottomNavBarData[idx]['svg']!,
                             width: 30,
                             height: 30,
                             color: (_selectedIdx == idx)
@@ -88,7 +93,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 left: widget.itemPadding.left / 2,
                                 right: widget.itemPadding.right),
                             child: Text(
-                              bottomNavBarData[idx]['title'],
+                              bottomNavBarData[idx]['title']!,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
