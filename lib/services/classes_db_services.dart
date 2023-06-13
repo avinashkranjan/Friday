@@ -7,7 +7,7 @@ class ClassesDBServices {
     final Stream<DocumentSnapshot> streamDocumentSnapshot = FirebaseFirestore
         .instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser.uid)
+        .doc(FirebaseAuth.instance.currentUser?.uid)
         .snapshots();
 
     return streamDocumentSnapshot;
@@ -15,9 +15,9 @@ class ClassesDBServices {
 
   Future<void> addNewClassToFireStore(String _todayDate, Mode _mode,
       String _subject, String _teacher, String _time,
-      [String _joinLink]) async {
+      [String? _joinLink]) async {
     final DocumentSnapshot documentSnapShot = await FirebaseFirestore.instance
-        .doc('users/${FirebaseAuth.instance.currentUser.uid}')
+        .doc('users/${FirebaseAuth.instance.currentUser?.uid}')
         .get();
 
     Map<String, dynamic> _classesListStored = Map<String, dynamic>();
@@ -56,7 +56,7 @@ class ClassesDBServices {
     }
 
     FirebaseFirestore.instance
-        .doc('users/${FirebaseAuth.instance.currentUser.uid}')
+        .doc('users/${FirebaseAuth.instance.currentUser?.uid}')
         .update({
       'classes': _classesListStored,
     });
