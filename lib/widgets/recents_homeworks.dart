@@ -17,7 +17,7 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
         future: getHomeworkList(),
         builder: (context, list) {
           if (!list.hasData) return Center(child: CircularProgressIndicator());
-          return homeworkListBuilder(list.data);
+          return homeworkListBuilder(list.data!);
         });
   }
 
