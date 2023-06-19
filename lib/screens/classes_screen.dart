@@ -101,14 +101,14 @@ class _ClassesScreenState extends State<ClassesScreen> {
               )))
           .toList(),
       value: null,
-      onChanged: (Mode mode) {
+      onChanged: (Mode? mode) {
         setState(() {
-          _mode = mode;
+          _mode = mode!;
         });
       },
-      onSaved: (Mode mode) {
+      onSaved: (Mode? mode) {
         setState(() {
-          _mode = mode;
+          _mode = mode!;
         });
       },
       dropdownColor: Theme.of(context).backgroundColor,
@@ -158,7 +158,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
                         color: Colors.white,
                       ),
                       validator: (inputVal) {
-                        if (inputVal.length == 0) return "Enter Subject Name";
+                        if (inputVal!.length == 0) return "Enter Subject Name";
                         return null;
                       },
                       decoration: InputDecoration(
@@ -184,7 +184,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
                         color: Colors.white,
                       ),
                       validator: (inputVal) {
-                        if (inputVal.length == 0) return "Enter Teacher Name";
+                        if (inputVal!.length == 0) return "Enter Teacher Name";
                         return null;
                       },
                       decoration: InputDecoration(
@@ -249,7 +249,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
                             ),
                             onChanged: (val) => print(val),
                             validator: (selectedTime) {
-                              if (selectedTime.length == 0)
+                              if (selectedTime!.length == 0)
                                 return "Enter a Valid Time";
                               return null;
                             },
@@ -267,9 +267,9 @@ class _ClassesScreenState extends State<ClassesScreen> {
                         color: Colors.white,
                       ),
                       validator: (inputVal) {
-                        if (inputVal.length == 0 && this._mode == Mode.Online)
+                        if (inputVal?.length == 0 && this._mode == Mode.Online)
                           return "Enter Meeting Join Link";
-                        else if (inputVal.length > 0 &&
+                        else if (inputVal!.length > 0 &&
                             this._mode == Mode.Offline)
                           return "Meeting Join Link Can't Take With Offline Mode";
                         return null;
@@ -311,7 +311,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
                           ),
                         ),
                         onPressed: () async {
-                          if (_addClassFormKey.currentState.validate()) {
+                          if (_addClassFormKey.currentState!.validate()) {
                             print("Proceed");
 
                             // Add New Class Data to Database
@@ -328,7 +328,6 @@ class _ClassesScreenState extends State<ClassesScreen> {
                               setState(() {
                                 dateController.clear();
                                 _timeController.clear();
-                                this._mode = null;
                                 _subjectController.clear();
                                 _teacherNameController.clear();
                                 _joinLinkController.clear();
@@ -360,9 +359,9 @@ class CalenderDateFormatAddition extends StatelessWidget {
   final int dayAdditon;
   final bool itemSelected;
 
-  CalenderDateFormatAddition(
-      {@required this.dateTime,
-      @required this.dayAdditon,
+  CalenderDateFormatAddition({
+      required this.dateTime,
+      required this.dayAdditon,
       this.itemSelected = false});
 
   @override
