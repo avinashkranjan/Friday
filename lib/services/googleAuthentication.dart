@@ -33,19 +33,19 @@ class GoogleAuthenticate {
           var registeredUser =
               await FirebaseAuth.instance.signInWithCredential(credential);
 
-          print("Log In Successful " + registeredUser.user.displayName);
+          print("Log In Successful ${registeredUser.user!.displayName}");
 
           // Data Fetch From Firestore to verify
           FirebaseFirestore.instance
               .collection('users')
-              .where('email', isEqualTo: registeredUser.user.email)
+              .where('email', isEqualTo: registeredUser.user!.email)
               .get()
               .then((querySnapShot) {
             if (querySnapShot.docs.isEmpty) {
               // Set essential details to [UserInfoServices]
               Provider.of<UserInfoServices>(this._context, listen: false)
-                  .setEssentialDetailsOfUser(registeredUser.user.displayName,
-                      registeredUser.user.email);
+                  .setEssentialDetailsOfUser(registeredUser.user?.displayName ?? '',
+                      registeredUser.user?.email ??'');
 
               // Navigate to Additional Details Form
               Navigator.push(this._context,
