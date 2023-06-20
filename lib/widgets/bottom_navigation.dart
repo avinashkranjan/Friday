@@ -65,7 +65,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   Widget build(BuildContext context) {
     final navBar = Provider.of<BottomNavigationBarProvider>(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(
         children: <Widget>[
           PageView(
@@ -113,7 +113,7 @@ class CustomBottomNavigator extends StatelessWidget {
       right: 0.0,
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.0),
             topRight: Radius.circular(30.0),
@@ -125,6 +125,7 @@ class CustomBottomNavigator extends StatelessWidget {
         child: Column(
           children: [
             BottomNavBar(
+              key: UniqueKey(),
               selectedIdx: selectedTab,
               selectedColor: Colors.white,
               unselectedColor: Colors.grey,
