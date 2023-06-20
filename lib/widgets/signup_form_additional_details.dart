@@ -371,6 +371,7 @@ class _SignUpFormAdditionalDetailsState
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
+                backgroundColor: kCardColor,
                     title: Text("Enter Your College Name"),
                     content: Container(
                       height: MediaQuery.of(context).size.height / 5,
@@ -387,9 +388,10 @@ class _SignUpFormAdditionalDetailsState
                               },
                               decoration: InputDecoration(
                                 labelText: "College name",
-                                focusColor: Colors.blue,
-                                hoverColor: Colors.blue,
-                                fillColor: Colors.blue,
+                                labelStyle: TextStyle(color: Colors.white),
+                                focusColor: kAuthThemeColor,
+                                hoverColor: kAuthThemeColor,
+                                fillColor: kAuthThemeColor,
                               ),
                             ),
                             SizedBox(
@@ -398,7 +400,7 @@ class _SignUpFormAdditionalDetailsState
                             Container(
                               alignment: Alignment.centerRight,
                               child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(),
+                                style: ElevatedButton.styleFrom(backgroundColor: kAuthThemeColor),
                                 child: Text(
                                   "Submit",
                                   style: TextStyle(
