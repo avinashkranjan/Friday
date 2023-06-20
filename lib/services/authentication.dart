@@ -16,28 +16,31 @@ class AuthenticationService {
   static Widget handleEntryPoint(BuildContext context) {
     final FirebaseAuth auth = FirebaseAuth.instance;
     print("Handling Auth");
-    User _currUser = auth.currentUser;
+    User? _currUser = auth.currentUser;
     if (_currUser == null) {
       return OnboardingPage();
     } else {
       return AuthHandlingWidget(
-          name: _currUser.displayName, email: _currUser.email);
-    }
+      key: UniqueKey(),
+      name: _currUser.displayName ?? '',
+      email: _currUser.email?? '',
+    );
   }
+}
 
   /// Handles Authentication Login
   static Future<String> handleLogin(
       String email, String password, BuildContext context) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
-    String errorMsg;
+    String errorMsg = '';
     try {
       UserCredential userCred = await auth.signInWithEmailAndPassword(
           email: email, password: password);
 
-      User user = userCred.user;
-      final User currentUser = auth.currentUser;
+      User? user = userCred.user;
+      final User? currentUser = auth.currentUser;
 
-      if (user.emailVerified) {
+      if (user!.emailVerified) {
         if ((user != null) &&
             (currentUser != null) &&
             (user.uid == currentUser.uid)) {
@@ -49,7 +52,7 @@ class AuthenticationService {
           print("User Logged In");
 
           DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-              .doc("users/${FirebaseAuth.instance.currentUser.uid}")
+              .doc("users/${FirebaseAuth.instance.currentUser?.uid}")
               .get();
 
           if (documentSnapshot.data() == null) {
@@ -97,7 +100,7 @@ class AuthenticationService {
           }
         } else {
           print("Login Error: Undefined Error!");
-          errorMsg = "Undefined Error Occured";
+          errorMsg = "Undefined Error Occurred";
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
@@ -107,7 +110,7 @@ class AuthenticationService {
                       style: TextStyle(color: Colors.white),
                     ),
                     content: Text(
-                      "Undefined Error Occured",
+                      "Undefined Error Occurred",
                       style: TextStyle(color: Colors.white),
                     ),
                   ));
@@ -123,7 +126,7 @@ class AuthenticationService {
                     style: TextStyle(color: Colors.white),
                   ),
                   content: Text(
-                    "Email not verified.... \nA email with verification link is send to the registered email\nPlease verify at first then log-in",
+                    "Email not verified.... \nA email with a verification link has been sent to the registered email.\nPlease verify first, then log in",
                     style: TextStyle(color: Colors.white),
                   ),
                 ));
@@ -133,7 +136,7 @@ class AuthenticationService {
       errorMsg = _handleLoginError(_err);
     } catch (unknownError) {
       print("Unknown Error: " + unknownError.toString());
-      errorMsg = "Undefined Error Occured";
+      errorMsg = "Undefined Error Occurred";
     }
 
     return errorMsg;
@@ -141,19 +144,19 @@ class AuthenticationService {
 
   /// Handles Authentication Sign Up
   static Future<String> handleSignUp({
-    @required String name,
-    @required String email,
-    @required String password,
-    @required BuildContext context,
+    required String name,
+    required String email,
+    required String password,
+    required BuildContext context,
   }) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
-    String errorMsg;
+    String errorMsg = '';
     try {
       UserCredential userCred = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
 
-      User user = userCred.user;
-      final User currentUser = auth.currentUser;
+      User? user = userCred.user;
+      final User? currentUser = auth.currentUser;
 
       if ((user != null) &&
           (currentUser != null) &&
@@ -174,17 +177,20 @@ class AuthenticationService {
             .signOut(); // Without that, If User Sign-Up, then close and reopen the app, can navigate to the
         //bottom_navigation screen
 
-        Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => LoginPage())
+        );
       } else {
         print("SignUp Error: Undefined Error!");
-        errorMsg = "Undefined Error Occured";
+        errorMsg = "Undefined Error Occurred";
       }
     } on FirebaseAuthException catch (_err) {
       print("SignUp Error: Code: ${_err.code}\nMsg: ${_err.message}");
       errorMsg = _handleSignUpError(_err);
     } catch (unknownError) {
       print("Unknown Error: " + unknownError.toString());
-      errorMsg = "Undefined Error Occured";
+      errorMsg = "Undefined Error Occurred";
     }
 
     return errorMsg;
@@ -193,8 +199,8 @@ class AuthenticationService {
   // Function to Sign User out of the App
   static Future<String> signout(BuildContext context) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
-    User _currUser = auth.currentUser;
-    print("Signing Out: " + _currUser.uid);
+    User? _currUser = auth.currentUser;
+    print("Signing Out: " + _currUser!.uid);
     if (_currUser != null) {
       await auth.signOut();
       // Navigate to Onboarding Page
@@ -211,9 +217,9 @@ class AuthenticationService {
 
   /// Function for FirebaseAuthException Handling while Signing Up
   static String _handleSignUpError(FirebaseAuthException _err) {
-    String _errorMsg = "Undefined Error Occured";
+    String _errorMsg = "Undefined Error Occurred";
     if (_err.code == 'email-already-in-use')
-      _errorMsg = "User already exist. Try Logging in.";
+      _errorMsg = "User already exists. Try logging in.";
     else if (_err.code == 'invalid-email')
       _errorMsg = "Invalid Email";
     else if (_err.code == 'weak-password')
@@ -223,7 +229,7 @@ class AuthenticationService {
 
   /// Function for FirebaseAuthException Handling while Logging in
   static String _handleLoginError(FirebaseAuthException _err) {
-    String _errorMsg = "Undefined Error Occured";
+    String _errorMsg = "Undefined Error Occurred";
     if (_err.code == 'user-not-found' || _err.code == 'user-disabled')
       _errorMsg = "User does not exist";
     else if (_err.code == 'invalid-email' || _err.code == 'wrong-password')
