@@ -372,7 +372,7 @@ class _SignUpFormAdditionalDetailsState
               context: context,
               builder: (context) => AlertDialog(
                 backgroundColor: kCardColor,
-                    title: Text("Enter Your College Name"),
+                    title: Text("Enter Your College Name" , style:  TextStyle(color: Colors.white),),
                     content: Container(
                       height: MediaQuery.of(context).size.height / 5,
                       child: Form(
