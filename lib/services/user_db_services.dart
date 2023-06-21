@@ -10,13 +10,13 @@ class UserDBServices {
   // Adds a `User` to [usersCollection] Collection
   static Future<void> addUser(Users _user) async {
     FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
-    User _currUser = FirebaseAuth.instance.currentUser;
+    User? _currUser = FirebaseAuth.instance.currentUser;
 
     assert(_currUser is User);
     // Adds a user using `uid` of Firebase_auth as primary key
     await firestoreDB
         .collection(usersCollection)
-        .doc(_currUser.uid)
+        .doc(_currUser?.uid)
         .set(_user.toJson(), SetOptions(merge: true));
   }
 
@@ -54,14 +54,14 @@ class UserDBServices {
   // Fetches User Data from Collection
   static Future<bool> fetchUserData(BuildContext context) async {
     FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
-    User _currUser = FirebaseAuth.instance.currentUser;
+    User? _currUser = FirebaseAuth.instance.currentUser;
     assert(_currUser is User);
 
-    DocumentSnapshot userSnap;
+    DocumentSnapshot? userSnap;
     try {
       userSnap = await firestoreDB
           .collection(usersCollection)
-          .doc(_currUser.uid)
+          .doc(_currUser?.uid)
           .get();
     } catch (e) {
       print("Error while fetching data: ${e.toString()}");
@@ -84,9 +84,9 @@ class UserDBServices {
   // Delete User from Database
   static Future<void> deleteUser(Users _user) async {
     FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
-    User _currUser = FirebaseAuth.instance.currentUser;
+    User? _currUser = FirebaseAuth.instance.currentUser;
     assert(_currUser is User);
 
-    await firestoreDB.collection(usersCollection).doc(_currUser.uid).delete();
+    await firestoreDB.collection(usersCollection).doc(_currUser?.uid).delete();
   }
 }

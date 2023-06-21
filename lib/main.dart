@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           future: Future.delayed(Duration(seconds: 3)),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return SplashScreen();
+              return SplashScreen(key: UniqueKey());
             } else {
               return AuthenticationService.handleEntryPoint(context);
             }
