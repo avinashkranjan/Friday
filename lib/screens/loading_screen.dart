@@ -7,9 +7,9 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<Color> _animationLeft;
-  Animation<Color> _animationRight;
+  AnimationController? _controller;
+  Animation<Color>? _animationLeft;
+  Animation<Color>? _animationRight;
   @override
   void initState() {
     super.initState();
@@ -17,29 +17,29 @@ class _LoadingScreenState extends State<LoadingScreen>
         vsync: this, duration: Duration(milliseconds: 1500));
     _animationLeft =
         ColorTween(begin: Colors.grey[700], end: Colors.grey.shade100)
-            .animate(_controller);
+            .animate(_controller!) as Animation<Color>;
 
     _animationRight =
         ColorTween(begin: Colors.grey.shade100, end: Colors.grey[700])
-            .animate(_controller);
+            .animate(_controller!) as Animation<Color>;
 
-    _controller.forward();
+    _controller!.forward();
 
-    _controller.addListener(listener);
+    _controller!.addListener(listener);
   }
 
   void listener() {
-    if (_controller.status == AnimationStatus.completed) {
-      _controller.reverse();
-    } else if (_controller.status == AnimationStatus.dismissed) {
-      _controller.forward();
+    if (_controller!.status == AnimationStatus.completed) {
+      _controller!.reverse();
+    } else if (_controller!.status == AnimationStatus.dismissed) {
+      _controller!.forward();
     }
     this.setState(() {});
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -50,7 +50,7 @@ class _LoadingScreenState extends State<LoadingScreen>
       body: ShaderMask(
         shaderCallback: (rect) {
           return LinearGradient(
-            colors: [_animationLeft.value, _animationRight.value],
+            colors: [_animationLeft!.value, _animationRight!.value],
           ).createShader(rect);
         },
         

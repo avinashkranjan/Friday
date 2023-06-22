@@ -4,18 +4,18 @@ import 'package:friday/services/user_info_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'bottom_navigation.dart';
+import 'package:friday/widgets/bottom_navigation.dart';
 
 class AuthHandlingWidget extends StatefulWidget {
   final String name, email;
 
-  const AuthHandlingWidget({Key key, this.name, this.email}) : super(key: key);
+  const AuthHandlingWidget({required Key key, required this.name, required this.email}) : super(key: key);
   @override
   _AuthHandlingWidgetState createState() => _AuthHandlingWidgetState();
 }
 
 class _AuthHandlingWidgetState extends State<AuthHandlingWidget> {
-  Future<bool> checkingUserDetails;
+  Future<bool>? checkingUserDetails;
   @override
   void initState() {
     super.initState();
@@ -29,14 +29,16 @@ class _AuthHandlingWidgetState extends State<AuthHandlingWidget> {
       future: checkingUserDetails,
       builder: (ctx, AsyncSnapshot<bool> isUserExists) {
         if (isUserExists.connectionState == ConnectionState.done) {
-          if (!isUserExists.data) {
+           if (isUserExists.data != null && !isUserExists.data!) {
             Provider.of<UserInfoServices>(ctx, listen: false)
                 .setEssentialDetailsOfUser(widget.name, widget.email);
             return SignUpAdditionalDetails();
-          } else
+          } else {
             return BottomNavigation();
-        } else
+          }
+        } else {
           return LoadingScreen();
+        }
       },
     );
   }

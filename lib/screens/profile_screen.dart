@@ -23,9 +23,10 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   ImagePicker _imagePicker = ImagePicker();
   Reference _storageReference = FirebaseStorage.instance.ref();
+  Map<String, dynamic> currentUser = {};
 
   void getImage() async {
-    XFile image = await _imagePicker.pickImage(source: ImageSource.gallery);
+    XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
 
     if (image == null) {
       return;
@@ -44,11 +45,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _storageReference.child('${Path.basename(image.path)}}');
 
     final UploadTask uploadTask = ref.putFile(image);
-    String pictureUrl;
 
-    await uploadTask.then(
-      (taskSnapshot) async {
-        pictureUrl = await taskSnapshot.ref.getDownloadURL();
+    String pictureUrl = await uploadTask.then((taskSnapshot) async {
+       return await taskSnapshot.ref.getDownloadURL();
       },
     );
 
@@ -58,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final userInfoProvider =
         Provider.of<UserInfoServices>(context, listen: false);
 
-    Users currentUser = userInfoProvider.user;
+    User currentUser = userInfoProvider.user;
     currentUser.profilePictureUrl = pictureUrl;
 
     userInfoProvider.setUser(currentUser);
@@ -77,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         child: Consumer<UserInfoServices>(
           builder: (context, userInfo, _) {
-            Users _user;
+            User _user;
             if (userInfo.hasData) _user = userInfo.user;
             return Stack(
               alignment: Alignment.center,
@@ -107,7 +106,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: Visibility(
                                 visible: visibilityName,
                                 child: Text(
-                                  userInfo.hasData ? _user.name : "Loading...",
+                                  userInfo.hasData 
+                                  ? currentUser['name']
+                                  : "Loading...",
                                   style: TextStyle(
                                     fontSize: 20,
                                     color: Colors.blue[200],
@@ -119,33 +120,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           SizedBox(height: 20),
                           buildDetails(
                               "Email",
-                              userInfo.hasData ? _user.email : "Loading...",
+                              userInfo.hasData 
+                              ? currentUser['email'] 
+                              : "Loading...",
                               true),
                           SizedBox(height: 20),
                           buildDetails(
                               "College",
-                              userInfo.hasData
-                                  ? _user.university
-                                  : "Loading...",
+                                   userInfo.hasData 
+                                   ? currentUser['university'] 
+                                   : "Loading...",
                               true),
                           SizedBox(height: 20),
                           buildDetails(
                               "Course",
-                              userInfo.hasData ? _user.course : "Loading...",
+                              userInfo.hasData 
+                              ? currentUser['course'] 
+                              : "Loading...",
                               true),
                           SizedBox(height: 20),
                           buildDetails(
                               "Deptartment/Major",
-                              userInfo.hasData
-                                  ? _user.department
-                                  : "Loading...",
+                              userInfo.hasData 
+                              ? currentUser['department']
+                              : "Loading...",
                               true),
                           SizedBox(height: 20),
                           buildDetails(
                               "Current Academic Year",
-                              userInfo.hasData
-                                  ? _user.year.toString()
-                                  : "Loading...",
+                               userInfo.hasData
+                               ? currentUser['year'].toString()
+                               : "Loading...",
                               true),
                           SizedBox(height: 20),
                           Row(
@@ -154,17 +159,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               buildDetails(
                                   "Gender",
                                   userInfo.hasData
-                                      ? enumToString(_user.gender)
-                                      : "Loading...",
+                                   ? enumToString(currentUser['gender'])
+                                   : "Loading...",
                                   true),
                               SizedBox(width: 20),
                               Visibility(
                                 visible: !visibilityFields,
                                 child: buildDetails(
                                     "Age",
-                                    userInfo.hasData
-                                        ? _user.age.toString()
-                                        : "Loading...",
+                                    userInfo.hasData 
+                                    ? currentUser['age'].toString() 
+                                    : "Loading...",
                                     visibilityName),
                               ),
                               Visibility(
@@ -204,9 +209,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         onChanged: (value) {
                                           setState(() async {
                                             if (value != '') {
-                                              _user.age = int.parse(value);
+                                              currentUser['age'] = int.parse(value);
                                               await UserDBServices.updateAge(
-                                                  _user.uid, int.parse(value));
+                                                  currentUser['uid'], int.parse(value));
                                             }
                                           });
                                         },
@@ -275,10 +280,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   top: 0.1 * MediaQuery.of(context).size.height,
                   child: CircleAvatar(
                     radius: profilePictureDiameter / 2,
-                    backgroundImage:
-                        _user != null && _user.profilePictureUrl.isNotEmpty
-                            ? NetworkImage(_user.profilePictureUrl)
-                            : AssetImage("assets/images/profile_pic.jpg"),
+                    backgroundImage: currentUser != null &&
+                           currentUser['profilePictureUrl'] != null && 
+                           currentUser['profilePictureUrl'].isNotEmpty
+                      ? NetworkImage(currentUser['profilePictureUrl'])
+                      : AssetImage("assets/images/profile_pic.jpg") as ImageProvider<Object>?,
                     backgroundColor: Colors.transparent,
                     foregroundColor: Theme.of(context).backgroundColor,
                   ),
@@ -338,8 +344,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         onChanged: (value) {
                           setState(() async {
                             if (value != '') {
-                              _user.name = value;
-                              await UserDBServices.updateName(_user.uid, value);
+                              currentUser['name'] = value;
+                              await UserDBServices.updateName(currentUser['uid'], value);
                             }
                           });
                         },

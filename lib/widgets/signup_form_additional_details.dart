@@ -22,21 +22,29 @@ class SignUpFormAdditionalDetails extends StatefulWidget {
 
 class _SignUpFormAdditionalDetailsState
     extends State<SignUpFormAdditionalDetails> {
-  FToast errToast;
-  String errorMsg;
-  bool isProcessing;
-  TextEditingController _deptName, _year, _age, _colName, _courseName;
-  Gender _gen;
-  GlobalKey<FormState> _formKey;
-  GlobalKey<FormState> _colFormKey, _courseFormKey, _deptFormKey;
-  String _defaultCollegeName, _defaultCourseName, _defaultDepartmentName;
+  FToast errToast = FToast();
+  String errorMsg = "";
+  bool isProcessing = false;
+  TextEditingController _deptName = TextEditingController();
+  TextEditingController _year = TextEditingController(); 
+  TextEditingController _age = TextEditingController(); 
+  TextEditingController _colName = TextEditingController();
+  TextEditingController _courseName = TextEditingController(); 
+  Gender? _gen;
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _colFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _courseFormKey = GlobalKey<FormState>(); 
+  GlobalKey<FormState> _deptFormKey = GlobalKey<FormState>();
+  String _defaultCollegeName = ""; 
+  String _defaultCourseName = "";
+  String _defaultDepartmentName = "";
 
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   ClassesDBServices classesDBServices = ClassesDBServices();
 
-  String _college, _course, _department;
+  String _college = "", _course = "", _department = "";
   final List<String> _collegeList = [], _coursesList = [], _departmentList = [];
-  Future fetchColleges;
+  late Future fetchColleges;
 
   getCollegeNameData() async {
     QuerySnapshot querySnapshot =
@@ -95,9 +103,9 @@ class _SignUpFormAdditionalDetailsState
     getCoursesData();
     getDepartmentData();
 
-    _defaultCollegeName = null;
-    _defaultCourseName = null;
-    _defaultDepartmentName = null;
+    _defaultCollegeName = '';
+    _defaultCourseName = '';
+    _defaultDepartmentName = '';
   }
 
   @override
@@ -122,7 +130,7 @@ class _SignUpFormAdditionalDetailsState
           child: SingleChildScrollView(
             physics:
                 AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-            child: FutureBuilder<Object>(
+            child: FutureBuilder<void>(
               future: fetchColleges,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
@@ -188,10 +196,11 @@ class _SignUpFormAdditionalDetailsState
                         AuthInputField(
                           textInputType: TextInputType.number,
                           labelText: "Current Academic Year",
+                          hintText: "Enter your current academic year",
                           controller: _year,
                           textInputAction: TextInputAction.next,
                           validator: (_) {
-                            int _yr = int.tryParse(_year.text);
+                            int? _yr = int.tryParse(_year.text);
                             if (_year.text.isNotEmpty &&
                                 _yr != null &&
                                 _yr > 0 &&
@@ -215,10 +224,11 @@ class _SignUpFormAdditionalDetailsState
                               child: AuthInputField(
                                 textInputType: TextInputType.number,
                                 labelText: "Age",
+                                hintText: "Enter your age",
                                 controller: _age,
                                 textInputAction: TextInputAction.next,
                                 validator: (age) {
-                                  if (age.isNotEmpty &&
+                                  if (age!.isNotEmpty &&
                                       age.length == 2 &&
                                       int.parse(age) >= 16) return null;
                                   return "Enter Valid Age";
@@ -252,8 +262,8 @@ class _SignUpFormAdditionalDetailsState
                             ),
                           ),
                           onPressed: () async {
-                            if (_formKey.currentState.validate()) {
-                              _formKey.currentState.save();
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState?.save();
                               print("Adding User to users collection");
 
                               setState(() {
@@ -271,13 +281,13 @@ class _SignUpFormAdditionalDetailsState
                                   _department.toUpperCase());
 
                               // Set Additional details to [UserInfoServices]
-                              int yr = int.tryParse(_year.text);
-                              int age = int.tryParse(_age.text);
+                              int? yr = int.tryParse(_year.text);
+                              int? age = int.tryParse(_age.text);
 
                               Provider.of<UserInfoServices>(context,
                                       listen: false)
                                   .setAdditionalDetailsOfUser(_course,
-                                      _department, _college, yr, _gen, age);
+                                      _department, _college, yr!, _gen!, age!);
 
                               await Provider.of<UserInfoServices>(context,
                                       listen: false)
@@ -285,7 +295,7 @@ class _SignUpFormAdditionalDetailsState
 
                               setState(() {
                                 isProcessing = false;
-                                _formKey.currentState.reset();
+                                _formKey.currentState?.reset();
                               });
 
                               print("User Details Added");
@@ -351,11 +361,11 @@ class _SignUpFormAdditionalDetailsState
         color: Colors.white,
       ),
       value: _defaultCollegeName,
-      onChanged: (String newValue) {
+      onChanged: (String? newValue) {
         print(newValue);
 
         setState(() {
-          _college = newValue;
+          _college = newValue!;
         });
         if (newValue == "Not in the list") {
           showDialog(
@@ -371,7 +381,7 @@ class _SignUpFormAdditionalDetailsState
                             TextFormField(
                               controller: _colName,
                               validator: (inputVal) {
-                                if (inputVal.length < 3)
+                                if (inputVal!.length < 3)
                                   return "Enter a valid College Name";
                                 return null;
                               },
@@ -400,7 +410,7 @@ class _SignUpFormAdditionalDetailsState
                                   SystemChannels.textInput
                                       .invokeMethod('TextInput.hide');
 
-                                  if (_colFormKey.currentState.validate()) {
+                                  if (_colFormKey.currentState!.validate()) {
                                     print("Validate");
 
                                     if (_collegeList.contains(
@@ -449,12 +459,12 @@ class _SignUpFormAdditionalDetailsState
                   ));
         }
       },
-      onSaved: (String value) {
+      onSaved: (String? value) {
         setState(() {
-          _college = value;
+          _college = value ?? '';
         });
       },
-      dropdownColor: Theme.of(context).backgroundColor,
+      dropdownColor: Theme.of(context).colorScheme.background,
       decoration: dropdownDecoration.copyWith(labelText: 'College'),
       items: _collegeList.map<DropdownMenuItem<String>>(
         (String value) {
@@ -480,11 +490,11 @@ class _SignUpFormAdditionalDetailsState
         color: Colors.white,
       ),
       value: _defaultCourseName,
-      onChanged: (String newValue) {
+      onChanged: (String? newValue) {
         print(newValue);
 
         setState(() {
-          _course = newValue;
+          _course = newValue ?? '';
         });
         if (newValue == "Not in the list") {
           showDialog(
@@ -500,7 +510,7 @@ class _SignUpFormAdditionalDetailsState
                             TextFormField(
                               controller: _courseName,
                               validator: (inputVal) {
-                                if (inputVal.length < 2)
+                                if (inputVal!.length < 2)
                                   return "Enter a valid Course Name";
                                 return null;
                               },
@@ -529,7 +539,7 @@ class _SignUpFormAdditionalDetailsState
                                   SystemChannels.textInput
                                       .invokeMethod('TextInput.hide');
 
-                                  if (_courseFormKey.currentState.validate()) {
+                                  if (_courseFormKey.currentState!.validate()) {
                                     print("Validate");
 
                                     if (_coursesList.contains(
@@ -579,9 +589,9 @@ class _SignUpFormAdditionalDetailsState
                   ));
         }
       },
-      onSaved: (String value) {
+      onSaved: (String? value) {
         setState(() {
-          _course = value;
+          _course = value!;
         });
       },
       dropdownColor: Theme.of(context).backgroundColor,
@@ -610,11 +620,11 @@ class _SignUpFormAdditionalDetailsState
         color: Colors.white,
       ),
       value: _defaultDepartmentName,
-      onChanged: (String newValue) {
+      onChanged: (String? newValue) {
         print(newValue);
 
         setState(() {
-          _department = newValue;
+          _department = newValue ?? '';
         });
         if (newValue == "Not in the list") {
           showDialog(
@@ -630,7 +640,7 @@ class _SignUpFormAdditionalDetailsState
                             TextFormField(
                               controller: _deptName,
                               validator: (inputVal) {
-                                if (inputVal.length < 3)
+                                if (inputVal!.length < 3)
                                   return "Enter a valid Department Name";
                                 return null;
                               },
@@ -659,7 +669,7 @@ class _SignUpFormAdditionalDetailsState
                                   SystemChannels.textInput
                                       .invokeMethod('TextInput.hide');
 
-                                  if (_deptFormKey.currentState.validate()) {
+                                  if (_deptFormKey.currentState!.validate()) {
                                     print("Validate");
 
                                     if (_departmentList.contains(
@@ -705,9 +715,9 @@ class _SignUpFormAdditionalDetailsState
                   ));
         }
       },
-      onSaved: (String value) {
+      onSaved: (String? value) {
         setState(() {
-          _department = value;
+          _department = value!;
         });
       },
       dropdownColor: Theme.of(context).backgroundColor,
@@ -734,14 +744,14 @@ class _SignUpFormAdditionalDetailsState
               )))
           .toList(),
       value: null,
-      onChanged: (Gender gender) {
+      onChanged: (Gender? gender) {
         setState(() {
-          _gen = gender;
+          _gen = gender!;
         });
       },
-      onSaved: (Gender gender) {
+      onSaved: (Gender? gender) {
         setState(() {
-          _gen = gender;
+          _gen = gender!;
         });
       },
       dropdownColor: Theme.of(context).backgroundColor,

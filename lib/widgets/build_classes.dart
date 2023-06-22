@@ -24,11 +24,11 @@ class _BuildClassesState extends State<BuildClasses> {
   List<Classes> classesList = [];
 
   DateTime _focusedDay = DateTime.now();
-  DateTime _selectedDay;
+  DateTime _selectedDay = DateTime.now();
 
   currClassesRealTimeDataFetch() {
     classesDBServices
-        .getClassListAsStream(FirebaseAuth.instance.currentUser.uid)
+        .getClassListAsStream(FirebaseAuth.instance.currentUser!.uid)
         .listen((documentSnapshot) {
       if (documentSnapshot.exists) {
         Map<dynamic, dynamic> classesMap = Map<dynamic, dynamic>();
@@ -88,7 +88,7 @@ class _BuildClassesState extends State<BuildClasses> {
                 element.time.year,
                 element.time.month,
                 element.time.day,
-              )],
+              )]!,
               element
             ]
           : [element];
@@ -251,7 +251,7 @@ class _BuildClassesState extends State<BuildClasses> {
   }
 
   Widget _displayClassHeading({
-    @required String text,
+    required String text,
     bool isPassed = true,
   }) =>
       Text(
@@ -275,9 +275,9 @@ class _BuildClassesState extends State<BuildClasses> {
   }
 
   Widget _buildClassDetail({
-    @required BuildContext context,
-    @required IconData icon,
-    @required String text,
+    required BuildContext context,
+    required IconData icon,
+    required String text,
     bool isPassed = true,
   }) =>
       Row(

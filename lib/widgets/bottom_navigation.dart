@@ -17,16 +17,16 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   int selectedTab = 0;
-  Widget _currentPage;
-  List<Widget> _pages;
-  HomeScreen _homeScreen;
-  HomeworkScreen _homeworkScreen;
-  AlertScreen _alertScreen;
-  ClassesScreen _classesScreen;
-  ProfileScreen _profileScreen;
+  late Widget _currentPage;
+  late List<Widget> _pages;
+  late HomeScreen _homeScreen;
+  late HomeworkScreen _homeworkScreen;
+  late AlertScreen _alertScreen;
+  late ClassesScreen _classesScreen;
+  late ProfileScreen _profileScreen;
   final PageController _pageController = PageController(initialPage: 0);
 
-  _setCurrentPage({@required int index}) {
+  _setCurrentPage({required int index}) {
     setState(() {
       selectedTab = index;
       _pageController.jumpToPage(index);
@@ -65,7 +65,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   Widget build(BuildContext context) {
     final navBar = Provider.of<BottomNavigationBarProvider>(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(
         children: <Widget>[
           PageView(
@@ -102,8 +102,8 @@ class CustomBottomNavigator extends StatelessWidget {
   final int selectedTab;
   final void Function(int) onPressed;
   CustomBottomNavigator({
-    @required this.selectedTab,
-    this.onPressed,
+    required this.selectedTab,
+    required this.onPressed,
   });
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,7 @@ class CustomBottomNavigator extends StatelessWidget {
       right: 0.0,
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.0),
             topRight: Radius.circular(30.0),
@@ -125,6 +125,7 @@ class CustomBottomNavigator extends StatelessWidget {
         child: Column(
           children: [
             BottomNavBar(
+              key: UniqueKey(),
               selectedIdx: selectedTab,
               selectedColor: Colors.white,
               unselectedColor: Colors.grey,

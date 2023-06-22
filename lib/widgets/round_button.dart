@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class RoundButton extends StatelessWidget {
-  RoundButton(
-      {@required this.color,
-      @required this.onPressed,
-      @required this.text,
-      @required this.textColor});
+  const RoundButton({
+      required this.color,
+      required this.onPressed,
+      required this.text,
+      required this.textColor});
   final Color color;
   final String text;
-  final Function onPressed;
+  final VoidCallback onPressed;
   final Color textColor;
 
   @override
@@ -20,6 +20,7 @@ class RoundButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusDirectional.circular(30)),
       ),
+      onPressed: onPressed,
       child: Container(
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width * 0.6,
@@ -31,7 +32,6 @@ class RoundButton extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: onPressed,
     );
   }
 }
