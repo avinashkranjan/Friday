@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 enum Gender { Male, Female, Other }
 enum Mode { Online, Offline }
 
-class User {
+class Users {
   final String uid;
   String name;
   String email;
@@ -16,7 +16,7 @@ class User {
   int year;
   Gender gender;
 
-  User({
+  Users({
     required this.uid,
     required this.name,
     required this.email,
@@ -52,10 +52,10 @@ class User {
     this.profilePictureUrl = profilePictureUrl;
   }
 
-  factory User.fromJson(DocumentSnapshot snapshot) {
+  factory Users.fromJson(DocumentSnapshot snapshot) {
     Map<String, dynamic>? json = snapshot.data() as Map<String, dynamic>?;
     Gender gender = stringToEnum(json?["gender"] as String);
-     return new User(
+     return new Users(
       uid: snapshot.id,
       name: json?["name"] as String? ?? "",
       email: json?["email"] as String? ?? "",

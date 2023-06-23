@@ -57,10 +57,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final userInfoProvider =
         Provider.of<UserInfoServices>(context, listen: false);
 
-    User currentUser = userInfoProvider.user;
-    currentUser.profilePictureUrl = pictureUrl;
+    Users? currentUser = userInfoProvider.user;
+    currentUser?.profilePictureUrl = pictureUrl;
 
-    userInfoProvider.setUser(currentUser);
+    userInfoProvider.setUser(currentUser!);
 
     userInfoProvider.upateProfilePictureUrl();
   }
@@ -76,8 +76,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         child: Consumer<UserInfoServices>(
           builder: (context, userInfo, _) {
-            User _user;
-            if (userInfo.hasData) _user = userInfo.user;
+            Users _user;
+            if (userInfo.hasData) _user = userInfo.user!;
             return Stack(
               alignment: Alignment.center,
               children: [
