@@ -212,8 +212,7 @@ class _SignUpFormEssentialDetailsState
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding:
-                          EdgeInsets.symmetric(vertical: 13, horizontal: 20),
-                      primary: kAuthThemeColor,
+                          EdgeInsets.symmetric(vertical: 13, horizontal: 20), backgroundColor: kAuthThemeColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadiusDirectional.circular(30),
                       ),
