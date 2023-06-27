@@ -15,8 +15,7 @@ class RoundButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-        primary: color, //kAuthThemeColor
+        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40), backgroundColor: color, //kAuthThemeColor
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusDirectional.circular(30)),
       ),
