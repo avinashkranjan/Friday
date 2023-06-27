@@ -71,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.8),
+      backgroundColor: Theme.of(context).colorScheme.background.withOpacity(0.8),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         child: Consumer<UserInfoServices>(
@@ -256,11 +256,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 }
                               },
                               style: OutlinedButton.styleFrom(
-                                side: BorderSide(color: Colors.red),
+                                foregroundColor: Colors.transparent, side: BorderSide(color: Colors.red),
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 10),
                                 shape: StadiumBorder(),
-                                primary: Colors.transparent,
                               ),
                               child: Text(
                                 "Log out",
@@ -286,7 +285,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ? NetworkImage(currentUser['profilePictureUrl'])
                       : AssetImage("assets/images/profile_pic.jpg") as ImageProvider<Object>?,
                     backgroundColor: Colors.transparent,
-                    foregroundColor: Theme.of(context).backgroundColor,
+                    foregroundColor: Theme.of(context).colorScheme.background,
                   ),
                 ),
                 Positioned(
