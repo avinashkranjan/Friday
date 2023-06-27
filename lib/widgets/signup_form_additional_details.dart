@@ -246,8 +246,7 @@ class _SignUpFormAdditionalDetailsState
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
-                                vertical: 13, horizontal: 20),
-                            primary: kAuthThemeColor,
+                                vertical: 13, horizontal: 20), backgroundColor: kAuthThemeColor,
                             shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadiusDirectional.circular(30),
@@ -594,7 +593,7 @@ class _SignUpFormAdditionalDetailsState
           _course = value!;
         });
       },
-      dropdownColor: Theme.of(context).backgroundColor,
+      dropdownColor: Theme.of(context).colorScheme.background,
       decoration: dropdownDecoration.copyWith(labelText: 'Course'),
       items: _coursesList.map<DropdownMenuItem<String>>(
         (String value) {
@@ -720,7 +719,7 @@ class _SignUpFormAdditionalDetailsState
           _department = value!;
         });
       },
-      dropdownColor: Theme.of(context).backgroundColor,
+      dropdownColor: Theme.of(context).colorScheme.background,
       decoration: dropdownDecoration.copyWith(labelText: 'Department/Major'),
       items: _departmentList.map<DropdownMenuItem<String>>(
         (String value) {
@@ -754,7 +753,7 @@ class _SignUpFormAdditionalDetailsState
           _gen = gender!;
         });
       },
-      dropdownColor: Theme.of(context).backgroundColor,
+      dropdownColor: Theme.of(context).colorScheme.background,
       decoration: dropdownDecoration.copyWith(
         labelText: "Gender",
       ),
