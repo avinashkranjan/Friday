@@ -119,8 +119,7 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
       style: ElevatedButton.styleFrom(
         shape: CircleBorder(
           side: BorderSide(color: Theme.of(context).colorScheme.secondary),
-        ),
-        primary: homework.isDone
+        ), backgroundColor: homework.isDone
             ? Theme.of(context).colorScheme.secondary
             : Colors.transparent,
       ),
