@@ -144,7 +144,7 @@ class _LoadingScreenState extends State<LoadingScreen>
       bottomNavigationBar: Container(
         // height: 100, //0.1 * MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.0),
             topRight: Radius.circular(30.0),
