@@ -37,10 +37,10 @@ class MyApp extends StatelessWidget {
         title: 'Friday',
         theme: ThemeData(
           primaryColor: Color(0xFF202328),
-          backgroundColor: Color(0xFF12171D),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          colorScheme:
-              ColorScheme.fromSwatch().copyWith(secondary: Color(0xFF651FFF)),
+          visualDensity: VisualDensity.adaptivePlatformDensity, 
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            secondary: Color(0xFF651FFF)).copyWith(
+              background: Color(0xFF12171D)),
         ),
         home: FutureBuilder(
           future: Future.delayed(Duration(seconds: 3)),
