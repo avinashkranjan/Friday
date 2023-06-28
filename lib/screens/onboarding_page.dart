@@ -9,6 +9,7 @@ import 'package:friday/widgets/onboarding_canvas_design.dart';
 import 'package:friday/widgets/round_button.dart';
 import 'package:friday/services/googleAuthentication.dart';
 import 'package:friday/services/facebookAuthentication.dart';
+import 'package:is_first_run/is_first_run.dart';
 
 class OnboardingPage extends StatefulWidget {
   @override
@@ -16,6 +17,21 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
+
+  late bool k;
+  Future<bool> isfirstrun() async{
+    k = await IsFirstRun.isFirstRun();
+    return k;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isfirstrun();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
