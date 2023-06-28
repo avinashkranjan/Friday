@@ -15,13 +15,26 @@ class _LoadingScreenState extends State<LoadingScreen>
     super.initState();
     _controller = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1500));
-    _animationLeft =
-        ColorTween(begin: Colors.grey[700], end: Colors.grey.shade100)
-            .animate(_controller!) as Animation<Color>;
 
-    _animationRight =
-        ColorTween(begin: Colors.grey.shade100, end: Colors.grey[700])
-            .animate(_controller!) as Animation<Color>;
+    _animationLeft = TweenSequence<Color>([
+    TweenSequenceItem(
+      tween: Tween<Color>(
+        begin: Colors.grey[700],
+        end: Colors.grey.shade100,
+      ),
+      weight: 1,
+    ),
+  ]).animate(_controller!);
+
+  _animationRight = TweenSequence<Color>([
+    TweenSequenceItem(
+      tween: Tween<Color>(
+        begin: Colors.grey.shade100,
+        end: Colors.grey[700],
+      ),
+      weight: 1,
+    ),
+  ]).animate(_controller!);
 
     _controller!.forward();
 
@@ -144,7 +157,7 @@ class _LoadingScreenState extends State<LoadingScreen>
       bottomNavigationBar: Container(
         // height: 100, //0.1 * MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.0),
             topRight: Radius.circular(30.0),
