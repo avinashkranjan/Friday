@@ -10,7 +10,7 @@ class _AlertScreenState extends State<AlertScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.8),
+      backgroundColor: Theme.of(context).colorScheme.background.withOpacity(0.8),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

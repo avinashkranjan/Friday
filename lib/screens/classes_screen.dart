@@ -48,7 +48,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         floatingActionButton: floatingActionButtonCall(),
         body: ListView(
           children: [
@@ -111,7 +111,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
           _mode = mode!;
         });
       },
-      dropdownColor: Theme.of(context).backgroundColor,
+      dropdownColor: Theme.of(context).colorScheme.background,
       decoration: dropdownDecoration.copyWith(
         labelText: "Mode",
       ),
@@ -123,7 +123,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
         context: context,
         builder: (_) {
           return AlertDialog(
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             elevation: 5.0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
@@ -298,7 +298,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
                       alignment: Alignment.center,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
+                          backgroundColor: Colors.green,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40.0),
                           ),

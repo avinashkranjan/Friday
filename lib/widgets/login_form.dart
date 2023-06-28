@@ -173,8 +173,7 @@ class _LoginFormState extends State<LoginForm> {
                           padding: EdgeInsets.symmetric(
                               vertical: 15,
                               horizontal:
-                                  (MediaQuery.of(context).size.width / 8) - 10),
-                          primary: Colors.white,
+                                  (MediaQuery.of(context).size.width / 8) - 10), backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadiusDirectional.circular(30),
                           ),
@@ -201,8 +200,7 @@ class _LoginFormState extends State<LoginForm> {
                           padding: EdgeInsets.symmetric(
                               vertical: 15,
                               horizontal:
-                                  (MediaQuery.of(context).size.width / 8) - 10),
-                          primary: kAuthThemeColor,
+                                  (MediaQuery.of(context).size.width / 8) - 10), backgroundColor: kAuthThemeColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadiusDirectional.circular(30),
                           ),

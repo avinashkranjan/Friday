@@ -24,7 +24,7 @@ class _SignUpAdditionalDetailsState extends State<SignUpAdditionalDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       key: _scaffoldKey,
       body: SafeArea(
         child: Stack(

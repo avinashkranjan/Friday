@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     final splashController = SplashAnimation(_controller);
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Container(
           height: MediaQuery.of(context).size.height,
