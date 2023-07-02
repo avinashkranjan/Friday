@@ -89,4 +89,6 @@ class UserDBServices {
 
     await firestoreDB.collection(usersCollection).doc(_currUser?.uid).delete();
   }
+
+  static updateBio(Users currentUser) {}
 }

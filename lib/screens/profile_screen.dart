@@ -24,6 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   ImagePicker _imagePicker = ImagePicker();
   Reference _storageReference = FirebaseStorage.instance.ref();
   Map<String, dynamic> currentUser = {};
+  String bio = '';
 
   void getImage() async {
     XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
@@ -33,7 +34,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     String imagePath = image.path;
-
     File file = File(imagePath);
 
     uploadPictures(file);
@@ -67,6 +67,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   bool visibilityName = true;
   bool visibilityFields = false;
+
+  void submitProfile() async {
+    final userInfoProvider = Provider.of<UserInfoServices>(context, listen: false);
+    Users? currentUser = userInfoProvider.user;
+    currentUser?.bio = bio;
+    userInfoProvider.setUser(currentUser!);
+
+    await UserDBServices.updateBio(currentUser);
+
+    setState(() {
+      visibilityFields = false;
+      visibilityName = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +138,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ? currentUser['email'] 
                               : "Loading...",
                               true),
+                           SizedBox(height: 20),
+                           buildDetails(
+                              "Bio",
+                               userInfo.hasData 
+                               ? currentUser['bio'] 
+                               ?? 'No bio available' : "Loading...",
+                               true),
                           SizedBox(height: 20),
+                          Visibility(
+                        visible: visibilityFields,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Bio',
+                              style: TextStyle(
+                                fontSize: 18,
+                                letterSpacing: 1.2,
+                                color: Colors.grey[600],
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Container(
+                              width: 200,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: kAuthThemeColor, width: 3),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: kAuthThemeColor, width: 3),
+                                  ),
+                                ),
+                                style: TextStyle(color: Colors.white),
+                                cursorColor: Colors.white,
+                                onChanged: (value) {
+                                  setState(() {
+                                    bio = value;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                           buildDetails(
                               "College",
                                    userInfo.hasData 
@@ -307,6 +365,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   right: MediaQuery.of(context).size.width * 0.07,
                   child: IconButton(
                     onPressed: () {
+                      if (visibilityFields) {
+                        submitProfile();
+                      }
                       setState(() {
                         visibilityFields = !visibilityFields;
                         visibilityName = !visibilityName;
