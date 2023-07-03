@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 ///Project Local Imports
 import 'package:friday/services/authentication.dart';
 import 'package:friday/services/user_info_services.dart';
-
+import 'screens/settings_screen.dart';
 import 'onboarding/introslider.dart';
 
 void main() async {
@@ -133,6 +133,7 @@ class _MyAppState extends State<MyApp> {
         ),
           routes: {
            '/feedback': (context) => FeedbackPage(),
+           '/settings': (context) => SettingsScreen(),
           },
         ),
       ),

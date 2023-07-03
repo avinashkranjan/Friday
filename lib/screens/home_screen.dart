@@ -11,7 +11,8 @@ import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback openHomeworkPage;
-  HomeScreen({required this.openHomeworkPage});
+  final VoidCallback openSettingsPage;
+  HomeScreen({required this.openHomeworkPage, required this.openSettingsPage});
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -111,6 +112,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(height: 30.0),
+               ListTile(
+                leading: Icon(Icons.settings),
+                title: Text('Settings'),
+                onTap: () {
+                  widget.openSettingsPage();
+                },
+              ),
             ],
           ),
         ),
