@@ -38,7 +38,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   void initState() {
     super.initState();
     _homeScreen = HomeScreen(
-      openHomeworkPage: openHomeworkPage,
+      openHomeworkPage: openHomeworkPage, openSettingsPage: () {  },
     );
     _classesScreen = ClassesScreen();
     _homeworkScreen = HomeworkScreen();
