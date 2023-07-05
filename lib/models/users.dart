@@ -29,6 +29,8 @@ class Users {
     required this.gender,
   });
 
+  set bio(String bio) {}
+
   void setEssentialDetails(String name, String email) {
     this.name = name;
     this.email = email;
