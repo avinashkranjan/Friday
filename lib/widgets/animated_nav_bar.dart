@@ -76,14 +76,19 @@ class _BottomNavBarState extends State<BottomNavBar> {
                             color: Color.lerp(widget.unselectedColor,
                                 widget.selectedColor, isSelected),
                           ),
-                          child: SvgPicture.asset(
-                            bottomNavBarData[idx]['svg']!,
-                            width: 30,
-                            height: 30,
-                            color: (_selectedIdx == idx)
-                                ? Theme.of(context).colorScheme.secondary
-                                : kTextColor,
-                          ),
+                         child: ColorFiltered(
+                              colorFilter: ColorFilter.mode(
+                                (_selectedIdx == idx)
+                                    ? Theme.of(context).colorScheme.secondary
+                                    : kTextColor,
+                                BlendMode.srcIn,
+                              ),
+                              child: SvgPicture.asset(
+                                bottomNavBarData[idx]['svg']!,
+                                width: 30,
+                                height: 30,
+                              ),
+                            ),
                         ),
                         Align(
                           alignment: Alignment(-0.2, 0.0),
