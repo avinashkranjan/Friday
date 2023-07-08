@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:friday/models/alert.dart';
 import 'package:friday/screens/onboarding_page.dart';
 import 'package:friday/screens/splash.dart';
 
@@ -38,6 +39,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     checkFirstRun();
+    loadpref();
   }
 
  Future<void> checkFirstRun() async {
@@ -138,5 +140,19 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  void loadpref() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    List<String>? k = await pref.getStringList('favbool');
+    if(k == null) {
+      List<String> tmp = [];
+      int len = recentAlerts.length;
+      for(var i = 0; i < len; i++) {
+        tmp.add('false');
+
+      }
+      await pref.setStringList('favbool', tmp);
+    }
   }
 }

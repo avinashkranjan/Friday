@@ -1,6 +1,7 @@
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:friday/models/alert.dart';
 import 'package:friday/models/homework.dart';
+import 'package:friday/screens/favourites_screen.dart';
 import 'package:friday/widgets/countdown_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:friday/constants.dart';
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return ListView(
       children: <Widget>[
         Header(),
+
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 30.0),
           child: GestureDetector(
@@ -55,7 +57,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        SizedBox(height: 30.0),
+        SizedBox(height: 10,),
+        Center(child: TextButton(onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => FavouritesScreen()));
+        },child: Text('SEE FAVOURITES', style: TextStyle(color: Theme.of(context).colorScheme.secondary),),),),
+        SizedBox(height: 15.0),
         Container(
           padding: EdgeInsets.all(35.0),
           decoration: BoxDecoration(
