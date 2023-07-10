@@ -34,11 +34,35 @@ Friday is an innovative application designed to help you stay organized and neve
 
 To get started with Friday, follow these simple steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/friday.git`
-2. Install the necessary dependencies: [Insert instructions for installing dependencies]
-3. Configure the application: [Insert instructions for configuration, if any]
-4. Start the development server: [Insert instructions for starting the server]
-5. Access Friday on your browser at [Insert local server address]
+1. Clone this repository:
+
+ ```bash
+ git clone https://github.com/your-username/friday.git`
+```
+
+2. Navigate to the project's root directory:
+
+```bash
+cd Friday
+```
+
+3. Install dependencies:
+
+```bash
+flutter pub get
+``` 
+
+4. Check for Flutter setup and connected devices:
+
+```bash
+flutter doctor
+```
+
+5. Run the app:
+
+```bash
+flutter run
+```
 
 <h2 align=center> Tech Stack Used 🔥</h2>  
   <p align="center">
