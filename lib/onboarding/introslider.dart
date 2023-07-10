@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:friday/screens/home_screen.dart';
 import 'package:friday/screens/login_page.dart';
-import 'package:friday/screens/onboarding_page.dart';
+
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,8 +15,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: IntroductionScreen(
-      skip: Text('SKIP', style: TextStyle(color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold, fontSize: 18),),
-      next: Text('NEXT', style: TextStyle(color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold, fontSize: 18),),
+      skip: Text('SKIP', style: TextStyle(color: Colors.deepOrangeAccent, fontWeight: FontWeight.bold, fontSize: 18),),
+      next: Text('NEXT', style: TextStyle(color: Colors.deepOrangeAccent, fontWeight: FontWeight.bold, fontSize: 18),),
       globalBackgroundColor: Colors.black,
       isProgressTap: true,
       isProgress: true,
@@ -25,20 +24,20 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: 'Make Your Assignments and Quizzes Unforgettable',
               body: 'Keep track of all of your tests/submissions in a single go.',
-          image: Center(child:Image.asset("assets/images/slider1.png",width: 350,),),
+          image: Center(child:Image.asset("assets/images/foodPlate.svg",width: 350,),),
           decoration: getDecoration()
 
         ),
         PageViewModel(
           title: 'Outperform your competition!',
           body: 'Track your work progress, get timely alerts about your submissions, and much more.',
-          image: Center(child:Image.asset("assets/images/slider2.png",width: 350,),),
+          image: Center(child:Image.asset("assets/images/menu.svg",width: 350,),),
             decoration: getDecoration()
         ),
         PageViewModel(
             title: 'Be Ahead of Time',
             body: 'Be organized in class or workspace, and never miss an important deadline.',
-            image: Center(child:Image.asset("assets/images/slider3.png",width: 350,),),
+            image: Center(child:Image.asset("assets/images/reviews.svg",width: 350,),),
             decoration: getDecoration()
         ),
         PageViewModel(
@@ -49,11 +48,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             ,onPressed: () async{
               final prefs = await SharedPreferences.getInstance();
               await prefs.setBool('showslider', false);
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => OnboardingPage())); },
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginPage())); },
             child: Text('PPROCEED TO SIGNUP/LOGIN', style: TextStyle(fontWeight: FontWeight.bold),),
 
             ),),),
-            image: Center(child:Image.asset("assets/icons/icon.png",width: 350,),),
+            image: Center(child:Image.asset("assets/icons/foodPlate.svg",width: 350,),),
             decoration: getDecoration(),
 
         ),
@@ -69,8 +68,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         size: const Size.square(10.0),
 
         activeSize: const Size(20.0, 10.0),
-        activeColor: Colors.deepPurple,
-        color: Colors.deepPurple,
+        activeColor: Colors.deepOrangeAccent,
+        color: Colors.deepOrangeAccent,
         spacing: const EdgeInsets.symmetric(horizontal: 3.0),
         activeShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0)
@@ -82,7 +81,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   }
 
   getDecoration() => PageDecoration(
-    titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 30,color: Colors.white ),
+    titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 30,color: Colors.deepOrangeAccent ),
     bodyTextStyle: TextStyle(fontSize: 20, color: Colors.white),
     bodyPadding: EdgeInsets.all(10),
     imagePadding: EdgeInsets.all(20),

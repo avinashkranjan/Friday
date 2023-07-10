@@ -3,10 +3,26 @@ import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:intl/intl.dart';
 import 'package:friday/constants.dart';
 import 'package:friday/models/alert.dart';
+import 'dart:convert';
 import 'package:friday/widgets/countdown_painter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences_android/shared_preferences_android.dart';
 
-class RecentsAlerts extends StatelessWidget {
+class RecentsAlerts extends StatefulWidget {
+  @override
+  State<RecentsAlerts> createState() => _RecentsAlertsState();
+}
+
+class _RecentsAlertsState extends State<RecentsAlerts> {
   final DateFormat dateFormat = DateFormat("hh:mm a");
+  late List<String> impstuff;
+  late SharedPreferences preferences;
+  @override
+  void initState() {
+    // TODO: implement initState
+    loadpref();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +36,12 @@ class RecentsAlerts extends StatelessWidget {
         hoursLeft = hoursLeft < 0 ? -hoursLeft : 0;
         double percent = hoursLeft / 48;
 
+
         return Row(
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(bottom: 30.0),
-              height: 130.0,
+              height: 160.0,
               width: 15.0,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.secondary,
@@ -37,7 +54,7 @@ class RecentsAlerts extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(bottom: 30.0),
               padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
-              height: 130.0,
+              height: 160.0,
               width: MediaQuery.of(context).size.width - 85,
               decoration: BoxDecoration(
                 color: kCardColor,
@@ -74,6 +91,7 @@ class RecentsAlerts extends StatelessWidget {
                               fontSize: 15.0,
                             ),
                           ),
+
                         ],
                       ),
                       SizedBox(height: 10.0),
@@ -94,6 +112,26 @@ class RecentsAlerts extends StatelessWidget {
                           ),
                         ],
                       ),
+                      Row(
+                        children: <Widget>[
+                          Icon(
+                            AntDesign.checkcircle,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 17.0,
+                          ),
+                          SizedBox(width: 10,),
+                          Text('Mark as Important :', style: TextStyle(color: kTextColor),),
+                          Checkbox(value: impstuff[index]=='false'?false:true, onChanged: (s) async {
+                            impstuff[index] = s.toString();
+                            await preferences.setStringList('favbool', impstuff).then((value) => print(impstuff));
+                            
+                            setState(() {
+                              impstuff;
+                            });
+
+                          })
+                        ],
+                      )
                     ],
                   ),
                   Positioned(
@@ -143,5 +181,14 @@ class RecentsAlerts extends StatelessWidget {
     if (percent >= 0.4) return Theme.of(context).colorScheme.secondary;
 
     return kHourColor;
+  }
+
+  void loadpref() async{
+    preferences = await SharedPreferences.getInstance();
+    impstuff = await preferences.getStringList('favbool')!;
+    setState(() {
+      impstuff;
+    });
+
   }
 }
