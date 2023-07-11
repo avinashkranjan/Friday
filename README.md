@@ -106,11 +106,15 @@ Thanks to these wonderful people.
 Contributions of any kind are welcome!
   
 ## Open Source Programs _Friday_ has been Part of 🚀
-	
- <a>
-	 
- [<img src="https://raw.githubusercontent.com/GirlScriptSummerOfCode/MentorshipProgram/master/GSsoc%20Type%20Logo%20Black.png">](https://gssoc.girlscript.tech/)
-	 
+
+ <picture>
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/suman-somu/Friday/assets/75962762/46c3036a-2f52-4c9f-9cae-1222918bd5cd">
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/suman-somu/Friday/assets/75962762/6f8ea759-8c9e-4c77-b21d-a46821910892">
+  <img alt="Girlscript Summer of Code" src="https://github.com/suman-somu/Friday/assets/75962762/a803f788-8fbc-46b2-9c01-5761b2a463d3">
+</picture>
+
+
+	  	 
 <h1 align=center> Project Admin ❤️ </h1>
 <p align="center">
   <a href="https://github.com/avinashkranjan"><img src="https://user-images.githubusercontent.com/55796944/95675026-dab07580-0bd1-11eb-93e2-1cb1de8acf38.png" width=150px height=150px /></a> 
