@@ -108,12 +108,10 @@ Contributions of any kind are welcome!
 ## Open Source Programs _Friday_ has been Part of 🚀
 
  <picture>
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/suman-somu/Friday/assets/75962762/46c3036a-2f52-4c9f-9cae-1222918bd5cd">
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/suman-somu/Friday/assets/75962762/ba81bd7e-721f-416a-a9d7-5ec2822bd4bb">
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/suman-somu/Friday/assets/75962762/6f8ea759-8c9e-4c77-b21d-a46821910892">
   <img alt="Girlscript Summer of Code" src="https://github.com/suman-somu/Friday/assets/75962762/a803f788-8fbc-46b2-9c01-5761b2a463d3">
 </picture>
-
-
 	  	 
 <h1 align=center> Project Admin ❤️ </h1>
 <p align="center">
