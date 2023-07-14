@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:friday/screens/theme_screen.dart';
 import 'help_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -22,6 +23,17 @@ class SettingsScreen extends StatelessWidget {
             title: Text('Notifications'),
             onTap: () {
               // Navigate to notification settings screen
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.settings_display_sharp),
+            title: Text('Theme'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ThemeScreen(),
+                ),
+              );
             },
           ),
           ListTile(
