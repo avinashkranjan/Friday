@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:friday/models/alert.dart';
 import 'package:friday/screens/onboarding_page.dart';
 import 'package:friday/screens/splash.dart';
 
@@ -16,6 +17,9 @@ import 'package:provider/provider.dart';
 import 'package:friday/services/authentication.dart';
 import 'package:friday/services/user_info_services.dart';
 import 'screens/settings_screen.dart';
+import 'screens/help_screen.dart';
+import 'screens/contact_us_screen.dart';
+import 'screens/app_info_screen.dart';
 import 'onboarding/introslider.dart';
 
 void main() async {
@@ -38,6 +42,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     checkFirstRun();
+    loadpref();
   }
 
  Future<void> checkFirstRun() async {
@@ -134,9 +139,26 @@ class _MyAppState extends State<MyApp> {
           routes: {
            '/feedback': (context) => FeedbackPage(),
            '/settings': (context) => SettingsScreen(),
+           '/help': (context) => HelpScreen(),
+           '/contact': (context) => ContactUsScreen(),
+           '/appInfo': (context) => AppInfoScreen(),
           },
         ),
       ),
     );
+  }
+
+  void loadpref() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    List<String>? k = await pref.getStringList('favbool');
+    if(k == null) {
+      List<String> tmp = [];
+      int len = recentAlerts.length;
+      for(var i = 0; i < len; i++) {
+        tmp.add('false');
+
+      }
+      await pref.setStringList('favbool', tmp);
+    }
   }
 }

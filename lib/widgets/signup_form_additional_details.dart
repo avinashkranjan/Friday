@@ -43,7 +43,7 @@ class _SignUpFormAdditionalDetailsState
   ClassesDBServices classesDBServices = ClassesDBServices();
 
   String _college = "", _course = "", _department = "";
-  final List<String> _collegeList = [], _coursesList = [], _departmentList = [];
+  final List<String> _collegeList = [''], _coursesList = [''], _departmentList = [''];
   late Future fetchColleges;
 
   getCollegeNameData() async {
@@ -440,6 +440,8 @@ class _SignUpFormAdditionalDetailsState
 
                                         _defaultCollegeName =
                                             this._colName.text.toUpperCase();
+                                        _defaultCollegeName;
+                                        _collegeList;
                                       });
 
                                       showErrToast(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'help_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -41,7 +42,12 @@ class SettingsScreen extends StatelessWidget {
             leading: Icon(Icons.help),
             title: Text('Help'),
             onTap: () {
-              // Navigate to help screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HelpScreen(),
+                ),
+              );
             },
           ),
         ],
