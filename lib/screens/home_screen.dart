@@ -9,6 +9,8 @@ import 'package:friday/widgets/header.dart';
 import 'package:friday/widgets/recents_alerts.dart';
 import 'package:friday/widgets/recents_homeworks.dart';
 import 'package:intl/intl.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/services.dart' show rootBundle;
 import 'chat_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,6 +22,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+ List<AssignmentData> assignmentData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAssignmentData().then((data) {
+      setState(() {
+        assignmentData = data;
+      });
+    });
+  }
+
+  Future<List<AssignmentData>> fetchAssignmentData() async {
+    String fileData = await rootBundle.loadString('assets/assignment_data.txt');
+
+    List<AssignmentData> assignmentDataList = fileData
+        .split('\n')
+        .map((line) {
+          List<String> values = line.split(',');
+          DateTime date = DateTime.parse(values[0]);
+          double score = double.parse(values[1]);
+          int assignmentNumber = int.parse(values[2]);
+          String subject = values[3];
+          Duration timeSpent = Duration(hours: int.parse(values[4]));
+          return AssignmentData(date, score, assignmentNumber, subject, timeSpent);
+        })
+        .toList();
+
+    return assignmentDataList;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -502,4 +535,70 @@ class DataSearch extends SearchDelegate<String> {
       child: homework.isDone ? Icon(Icons.check, color: Colors.white) : null,
     );
   }
+}
+
+class ProgressChart extends StatelessWidget {
+  final List<AssignmentData> data;
+
+  ProgressChart({required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          "Progress Line",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 10.0),
+        Expanded(
+          child: charts.TimeSeriesChart(
+            _createChartSeries(),
+            animate: true,
+          ),
+        ),
+        SizedBox(height: 10.0),
+        Text(
+          "Score ReferenceLine",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+
+  List<charts.Series<AssignmentData, DateTime>> _createChartSeries() {
+    return [
+      charts.Series(
+        id: 'Assignment Progress',
+        data: data,
+        domainFn: (AssignmentData assignment, _) => assignment.date,
+        measureFn: (AssignmentData assignment, _) => assignment.score,
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      ),
+    ];
+  }
+}
+
+class AssignmentData {
+  final DateTime date;
+  final double score;
+  final int assignmentNumber;
+  final String subject;
+  final Duration timeSpent;
+
+  AssignmentData(
+    this.date,
+    this.score,
+    this.assignmentNumber,
+    this.subject,
+    this.timeSpent,
+  );
 }
