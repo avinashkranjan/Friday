@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:friday/models/alert.dart';
+import 'package:friday/screens/faqs_screen.dart';
 import 'package:friday/screens/onboarding_page.dart';
 import 'package:friday/screens/splash.dart';
+import 'package:friday/screens/faqs_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:friday/feedback.dart';
@@ -144,6 +146,7 @@ class _MyAppState extends State<MyApp> {
            '/help': (context) => HelpScreen(),
            '/contact': (context) => ContactUsScreen(),
            '/appInfo': (context) => AppInfoScreen(),
+           '/faqs':(context) => FAQScreen(),
            '/phoneVerification': (context) => PhoneVerificationScreen(),
            '/verifyCode': (context) => VerifyCodeScreen(),
           },
