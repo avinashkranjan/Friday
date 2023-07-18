@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:friday/screens/theme_screen.dart';
+import 'package:friday/screens/faqs_screen.dart';
 import 'help_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -25,6 +27,17 @@ class SettingsScreen extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: Icon(Icons.settings_display_sharp),
+            title: Text('Theme'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ThemeScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.language),
             title: Text('Language'),
             onTap: () {
@@ -35,7 +48,12 @@ class SettingsScreen extends StatelessWidget {
             leading: Icon(Icons.question_answer),
             title: Text('FAQs'),
             onTap: () {
-              // Navigate to FAQs screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FAQScreen(),
+                ),
+              );
             },
           ),
           ListTile(

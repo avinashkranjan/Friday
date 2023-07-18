@@ -11,6 +11,7 @@ import 'package:friday/widgets/recents_homeworks.dart';
 import 'package:intl/intl.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/services.dart' show rootBundle;
+import 'chat_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback openHomeworkPage;
@@ -54,10 +55,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        Header(),
-
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ChatScreen()),
+          );
+        },
+        child: Icon(Icons.chat),
+        backgroundColor: Color.fromARGB(255, 83, 53, 231),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      body: ListView(
+        children: <Widget>[
+          Header(),
+      
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 30.0),
           child: GestureDetector(
@@ -162,6 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ],
+      ),
     );
   }
 }
