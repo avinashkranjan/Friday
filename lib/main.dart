@@ -6,6 +6,8 @@ import 'package:friday/screens/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:friday/feedback.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:friday/screens/phone_verification_screen.dart';
+import 'package:friday/screens/verify_code_screen.dart';
 
 import 'package:friday/utils/bottom_navbar_tabs.dart';
 import 'package:flutter/services.dart';
@@ -142,6 +144,8 @@ class _MyAppState extends State<MyApp> {
            '/help': (context) => HelpScreen(),
            '/contact': (context) => ContactUsScreen(),
            '/appInfo': (context) => AppInfoScreen(),
+           '/phoneVerification': (context) => PhoneVerificationScreen(),
+           '/verifyCode': (context) => VerifyCodeScreen(),
           },
         ),
       ),
