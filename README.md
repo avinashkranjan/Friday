@@ -131,6 +131,7 @@ Contributions of any kind are welcome!
   
 ## Open Source Programs _Friday_ has been Part of 🚀
 
+
  <picture>
   <source media="(prefers-color-scheme: light)" srcset="https://github.com/suman-somu/Friday/assets/75962762/ba81bd7e-721f-416a-a9d7-5ec2822bd4bb">
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/suman-somu/Friday/assets/75962762/6f8ea759-8c9e-4c77-b21d-a46821910892">
