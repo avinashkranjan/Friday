@@ -1,4 +1,4 @@
-name: Build
+name: Build and Deploy
 
 on:
   push:
@@ -13,7 +13,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '2.x'  # Replace with the desired Flutter version
+      
       - name: Install Dependencies
-        run: npm install
-      - name: Build Project
-        run: npm run build
+        run: flutter pub get
+      
+      - name: Build Android
+        run: flutter build apk
+      
+      - name: Build iOS
+        run: flutter build ios
+      
+      # Add more steps for other build targets (web, macOS, etc.) if needed
+      
+      - name: Archive Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Build Artifacts
+          path: |
+            build/app/outputs/apk/release/app-release.apk
+            build/ios/archive/Runner.xcarchive
+      
+      # Add deployment steps here (e.g., upload artifacts, deploy to app store, etc.)
+
