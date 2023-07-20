@@ -8,6 +8,7 @@ import 'package:friday/screens/faqs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:friday/feedback.dart';
 import 'package:friday/screens/theme_screen.dart';
+import 'package:friday/services/phone_number_verification_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:friday/screens/phone_verification_screen.dart';
 import 'package:friday/screens/verify_code_screen.dart';
@@ -150,7 +151,7 @@ class _MyAppState extends State<MyApp> {
            '/theme':(context) => ThemeScreen(),
            '/faqs':(context) => FAQScreen(),
            '/phoneVerification': (context) => PhoneVerificationScreen(),
-           '/verifyCode': (context) => VerifyCodeScreen(),
+           '/verifyCode': (context) => VerifyCodeScreen(phoneNumber: '7267097531', phoneNumberVerificationDb: PhoneNumberVerificationDb(verificationCallback: null),),
           },
         ),
       ),
