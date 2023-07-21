@@ -1,0 +1,60 @@
+name: "CodeQL"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '43 3 * * 6'
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'dart' ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+          
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      # Additional step for Dart analysis
+      - name: Install Dart SDK
+        uses: dart-lang/setup-dart@v1
+
+      # Add any pre-build steps specific to your Flutter project if necessary
+      # For example, running `flutter pub get` to get dependencies
+      # - name: Flutter pub get
+      #   run: flutter pub get
+
+      # Add your Flutter/Dart build step if needed
+      # - name: Flutter build
+      #   run: flutter build apk --release
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          # Update this to match your Flutter project's (Friday) source folder
+          # For example, if your Dart code is inside the 'lib' folder, use: - languages: dart/lib
+          # or if you have both Dart and Flutter code, use: - languages: dart/lib,flutter
+          languages: dart/path/to/your/source/folder
+
+          # Optionally, you can include specific queries or query packs for Dart
+          # queries: security-extended,security-and-quality
