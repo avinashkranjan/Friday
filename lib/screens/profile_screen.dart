@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter_share/flutter_share.dart';
 import 'package:friday/constants.dart';
 import 'package:friday/models/users.dart';
 import 'package:friday/screens/onboarding_page.dart';
+import 'package:friday/screens/settings_screen.dart';
 import 'package:friday/services/authentication.dart';
 import 'package:friday/services/facebookAuthentication.dart';
 import 'package:friday/services/googleAuthentication.dart';
@@ -12,6 +14,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:path/path.dart' as Path;
 import 'package:friday/services/user_db_services.dart';
 
@@ -82,9 +85,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+  void shareapp() async {
+    await FlutterShare.share(
+        title: 'Friday: Your personal class assistant!',
+        text: 'Check out Friday: Your Personal Class Manager Assistant, It\'ll never let you miss another assignment deadline or upcoming test. Download from play store : https://play.google.com/store/apps/details?id=com.avinashkranjan.friday',
+        linkUrl: 'https://play.google.com/store/apps/details?id=com.avinashkranjan.friday',
+        chooserTitle: 'Friday!');
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(elevation: 0,backgroundColor:  Theme.of(context).colorScheme.background.withOpacity(0.8),actions: [
+        PopupMenuButton<String>(
+          onSelected: (s) async {
+          },
+          itemBuilder: (BuildContext context) {
+            return {'Share App','Settings'}.map((String choice) {
+              return PopupMenuItem<String>(
+                value: choice,
+                child: Text(choice),
+                onTap: () {
+                  if(choice == 'Share App') {
+                  shareapp();
+                  }
+                  else {
+                    print('pencho');
+                    Navigator.of(this.context).push(MaterialPageRoute(builder: (context) => SettingsScreen()));
+                  }
+                },
+              );
+            }).toList();
+          },
+        ),
+      ],
+
+      centerTitle: true,),
       backgroundColor: Theme.of(context).colorScheme.background.withOpacity(0.8),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
@@ -97,7 +132,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Column(
                   children: [
-                    SizedBox(height: 0.15 * MediaQuery.of(context).size.height),
+            Text(
+            "Your Profile",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+              ),),
+                    SizedBox(height: 0.12 * MediaQuery.of(context).size.height),
                     Container(
                       margin: EdgeInsets.fromLTRB(15, 15, 15, 60),
                       padding: EdgeInsets.all(30),

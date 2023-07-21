@@ -185,7 +185,7 @@ class DataSearch extends SearchDelegate<String> {
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context).copyWith(
       appBarTheme: AppBarTheme(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.black,
         titleTextStyle: TextStyle(color: kTextColor),
       ),
     );
