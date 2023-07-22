@@ -46,3 +46,6 @@ app.*.map.json
 
 # Demo Video
 Friday.mp4
+
+# remove node_modules
+node_modules/

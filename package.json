@@ -1,0 +1,29 @@
+{
+  "name": "friday",
+  "version": "1.0.0",
+  "description": "<h1 align=center> <a><img src=\"https://github.com/iqrafirdose/Friday/assets/114678694/ef952111-ec10-4eda-b805-4cbb42e4f2d6\" height=\"32\" alt=\"logo\"/> Friday </h1>",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nishitbaria/Friday.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nishitbaria/Friday/issues"
+  },
+  "homepage": "https://github.com/Nishitbaria/Friday#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.7",
+    "@commitlint/config-conventional": "^17.6.7",
+    "husky": "^8.0.3"
+  }
+}
