@@ -12,34 +12,35 @@ dependencies:
   flutter:
     sdk: flutter
 
-  intl: ^0.17.0
-  provider: ^6.0.5
-  fluttertoast: ^8.2.2
-  flutter_svg: ^2.0.6
-  cupertino_icons: ^1.0.5
-  cloud_firestore: ^4.7.1
-  firebase_auth: ^4.6.3
-  email_validator: ^2.1.17
-  google_sign_in: ^6.1.0
-  uuid: ^3.0.7
-  url_launcher: ^6.1.11
-  firebase_storage: ^11.2.3
-  path_provider: ^2.0.11
-  date_time_picker: ^2.1.0
-  table_calendar: ^3.0.6
-  flutter_login_facebook: ^1.5.0+1
-  flutter_icons_null_safety: ^1.1.0
-  firebase_core: ^2.13.0
-  image_picker: ^0.8.9
-  introduction_screen: ^3.1.9
-  is_first_run: ^1.0.0
-  shared_preferences: ^2.1.1
-  charts_flutter: ^0.12.0
-  share_plus: ^7.0.2
-  flutter_share: ^2.0.0
-  settings_ui: ^2.0.2
-  external_app_launcher: ^3.1.0
-  open_url: ^2.0.1
+  intl:
+  provider:
+  fluttertoast:
+  flutter_svg:
+  cupertino_icons:
+  cloud_firestore:
+  firebase_auth:
+  email_validator:
+  google_sign_in:
+  uuid:
+  url_launcher:
+  firebase_storage:
+  path_provider:
+  date_time_picker:
+  table_calendar:
+  flutter_login_facebook:
+  flutter_icons_null_safety:
+  firebase_core:
+  image_picker:
+  introduction_screen:
+  is_first_run:
+  shared_preferences:
+  charts_flutter:
+  share_plus:
+  flutter_share:
+  settings_ui:
+  external_app_launcher:
+  open_url:
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:

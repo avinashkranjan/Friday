@@ -1,7 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
+import 'package:http/http.dart' as http;
 import '../models/users.dart';
 import '../services/user_info_services.dart';
 
@@ -12,9 +13,26 @@ class ContactUsScreen extends StatefulWidget {
 
 class _ContactUsScreenState extends State<ContactUsScreen> {
   String question = 'How can we help?';
+  String email = '';
+
+
 
   @override
   Widget build(BuildContext context) {
+    final userInfoProvider =
+    Provider.of<UserInfoServices>(context, listen: false);
+
+    Users? currentUser = userInfoProvider.user;
+    if(currentUser == null) {
+      email = '';
+    }
+    else {
+      email = currentUser.email.toString();
+    }
+
+
+
+
     return Scaffold(
       appBar: AppBar(elevation: 0,backgroundColor:  Colors.transparent,
 
@@ -85,11 +103,28 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                               SizedBox(height: 16.0),
                               ElevatedButton(
                                 child: Text('Send'),
-                                onPressed: () {
+                                onPressed: () async {
                                   DateTime now = DateTime.now();
-                                  String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
-                                  // Send the question to your support team
-                                  // Implement your logic here
+                                  String dateinsert = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
+
+                                  String queryString  = "?query=$question&email=$email&timestamp=$dateinsert";
+                                  String finalquery = 'https://script.google.com/macros/s/AKfycbwbXfW9AeABuhhKiJAnUs_ZCQ-6x4OJECSgq7_xCTcNpbds45IUy_d6mlKrLsouzweJPQ/exec'+queryString;
+                                  var finalURI = Uri.parse(finalquery);
+                                  var response = await http.get(finalURI);
+                                  if (response.statusCode == 200) {
+                                    print('User query published successfully!');
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      content: Text("User query published successfully!"),
+                                    ));
+
+                                  }
+                                  else {
+                                    print('User query failed to be published!');
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      content: Text("User query failed to be published!"),
+                                    ));
+                                  }
+
                                 },
                               ),])))])]);
           },
