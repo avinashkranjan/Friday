@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:friday/screens/faqs_screen.dart';
 import 'package:friday/screens/help_screen.dart';
+import 'package:friday/screens/themes.dart';
 import 'package:open_url/open_url.dart';
 import 'package:provider/provider.dart';
-import 'package:external_app_launcher/external_app_launcher.dart';
 import '../models/users.dart';
 import '../services/user_info_services.dart';
 import 'package:settings_ui/settings_ui.dart';
-
-
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class SettingsScreen extends StatefulWidget {
@@ -18,15 +19,66 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   get visibilityName => null;
+  bool modeval = false;
+  late bool? notification;
+  ThemeData? _currentTheme;
+
+  void _setTheme(ThemeData? theme) {
+    if (theme != null) {
+      setState(() {
+        _currentTheme = theme;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    checknotify();
+    _currentTheme = ThemeMode.system == ThemeMode.light ? lightTheme : darkTheme;
+    super.initState();
+  }
+
+  void notificationsInitialize() async {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+    const AndroidInitializationSettings initializationSettingsAndroid =
+    AndroidInitializationSettings('app_icon');
+    final DarwinInitializationSettings initializationSettingsDarwin =
+    DarwinInitializationSettings(
+        onDidReceiveLocalNotification: null);
+    final LinuxInitializationSettings initializationSettingsLinux =
+    LinuxInitializationSettings(
+        defaultActionName: 'Open notification');
+    final InitializationSettings initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: initializationSettingsDarwin,
+        macOS: initializationSettingsDarwin,
+        linux: initializationSettingsLinux);
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onDidReceiveNotificationResponse: null);
+  }
+
+  Future<void> checknotify() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    notification = prefs.getBool('notification');
+    if(notification==null){
+      notification = true;
+    }
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(elevation: 0,backgroundColor:  Theme.of(context).colorScheme.background.withOpacity(0.8),
 
         centerTitle: true,),
       backgroundColor: Theme.of(context).colorScheme.background.withOpacity(0.8),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         child: Consumer<UserInfoServices>(
           builder: (context, userInfo, _) {
@@ -77,6 +129,47 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     title: Text('Language'),
                                     value: Text('English'),
                                   ),
+                                  SettingsTile.switchTile(initialValue: ThemeMode.system == ThemeMode.light ? !modeval : modeval, onToggle: (s) {
+                                    setState(() {
+                                      modeval = s;
+                                    });
+                                    if(modeval) {
+                                      setState(() {
+                                        _setTheme(lightTheme);
+                                      });
+                                    }
+                                    else {
+                                      setState(() {
+                                        _setTheme(darkTheme);
+                                      });
+                                    }
+
+                                  }, title: Text('Light mode'), enabled: true, leading: Icon(Icons.light_mode),),
+
+                                  SettingsTile.navigation(
+                                    leading: Icon(Icons.notifications_active_outlined),
+                                    title: Text('Notifications'),
+                                    onPressed: (s) async {
+                                      if(notification!){
+                                        await FlutterLocalNotificationsPlugin().cancelAll();
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          content: Text("Notifications turned off!"),
+                                        ));
+                                      }
+                                      else {
+                                        notificationsInitialize();
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          content: Text("Notifications turned on!"),
+                                        ));
+                                      }
+
+
+
+                                      notificationsInitialize();
+                                    },
+                                    value: Text('Turn app\'s notifications on or off'),
+                                  ),
+
                                   SettingsTile.navigation(
                                     leading: Icon(Icons.help_outline),
                                     title: Text('Help'),
@@ -85,6 +178,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     },
                                     value: Text('See our help modules for queries'),
                                   ),
+
 
                                   SettingsTile.navigation(
                                     leading: Icon(Icons.info_outlined),

@@ -56,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background.withOpacity(0.8),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
