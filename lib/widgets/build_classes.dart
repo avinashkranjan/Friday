@@ -41,7 +41,7 @@ class _BuildClassesState extends State<BuildClasses> {
           if (mounted) {
             setState(() {
               List<dynamic> allClassesList =
-                  classesMap[_selectedDay.toString().split(" ")[0]];
+              classesMap[_selectedDay.toString().split(" ")[0]];
 
               allClassesList.forEach((classInformation) {
                 classesList.add(Classes.fromMap(classInformation));
@@ -78,19 +78,19 @@ class _BuildClassesState extends State<BuildClasses> {
         element.time.month,
         element.time.day,
       )] = kEventSource[DateTime(
-                element.time.year,
-                element.time.month,
-                element.time.day,
-              )] !=
-              null
+        element.time.year,
+        element.time.month,
+        element.time.day,
+      )] !=
+          null
           ? [
-              ...kEventSource[DateTime(
-                element.time.year,
-                element.time.month,
-                element.time.day,
-              )]!,
-              element
-            ]
+        ...kEventSource[DateTime(
+          element.time.year,
+          element.time.month,
+          element.time.day,
+        )]!,
+        element
+      ]
           : [element];
     });
 
@@ -102,9 +102,9 @@ class _BuildClassesState extends State<BuildClasses> {
   }
 
   Widget classCalendarView(
-    List<Classes> classes,
-    Map<DateTime, List<Classes>> dateClassesMap,
-  ) {
+      List<Classes> classes,
+      Map<DateTime, List<Classes>> dateClassesMap,
+      ) {
     final kEvents = LinkedHashMap<DateTime, List<Classes>>(
       equals: isSameDay,
       hashCode: _getHashCode,
@@ -128,122 +128,129 @@ class _BuildClassesState extends State<BuildClasses> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          TableCalendar<Classes>(
-            onFormatChanged: (format) {},
-            firstDay: DateTime.utc(2002),
-            lastDay: DateTime.utc(2024),
-            focusedDay: _focusedDay,
-            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-            eventLoader: _getEventsForDay,
-            onDaySelected: _onDaySelected,
-            calendarStyle: CalendarStyle(
-              markerDecoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.amber,
+          Card(shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20))
+          ),color: Colors.white12,
+            child:
+            TableCalendar<Classes>(
+              onFormatChanged: (format) {},
+              firstDay: DateTime.utc(2002),
+              lastDay: DateTime.utc(2024),
+              focusedDay: _focusedDay,
+              selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+              eventLoader: _getEventsForDay,
+              onDaySelected: _onDaySelected,
+
+              calendarStyle: CalendarStyle(
+                disabledTextStyle: TextStyle(color: Colors.white),
+                weekNumberTextStyle: TextStyle(color: Theme.of(context).primaryColor),
+                markerDecoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.amber,
+                ),
               ),
-            ),
-          ),
+            ),),
           classesList != null && classesList.isNotEmpty
               ? Padding(
-                  padding: EdgeInsets.only(
-                    left: 20.0,
-                    right: 40.0,
-                    top: 40.0,
-                    bottom: 30.0,
-                  ),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    itemCount: classes.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      Classes c = classes[index];
-                      _getStatus(c);
-                      return Column(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              _displayClassHeading(
-                                  text: "${dateFormat.format(c.time)}",
-                                  isPassed: c.isPassed),
-                              SizedBox(width: 20.0),
-                              _getTime(c, context),
-                              SizedBox(width: 20.0),
-                              _displayClassHeading(
-                                  text: c.subject, isPassed: c.isPassed),
-                              SizedBox(width: 20.0),
-                              c.isHappening
-                                  ? Container(
-                                      height: 25.0,
-                                      width: 40.0,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Center(
-                                          child: Text(
-                                        "Now",
-                                        style: TextStyle(color: Colors.white),
-                                      )),
-                                    )
-                                  : Container(),
-                            ],
+            padding: EdgeInsets.only(
+              left: 20.0,
+              right: 40.0,
+              top: 40.0,
+              bottom: 30.0,
+            ),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              itemCount: classes.length,
+              itemBuilder: (BuildContext context, int index) {
+                Classes c = classes[index];
+                _getStatus(c);
+                return Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        _displayClassHeading(
+                            text: "${dateFormat.format(c.time)}",
+                            isPassed: c.isPassed),
+                        SizedBox(width: 20.0),
+                        _getTime(c, context),
+                        SizedBox(width: 20.0),
+                        _displayClassHeading(
+                            text: c.subject, isPassed: c.isPassed),
+                        SizedBox(width: 20.0),
+                        c.isHappening
+                            ? Container(
+                          height: 25.0,
+                          width: 40.0,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .secondary,
+                            borderRadius:
+                            BorderRadius.circular(5.0),
                           ),
-                          SizedBox(height: 20.0),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                margin:
-                                    EdgeInsets.only(left: 117.0, bottom: 20.0),
-                                width: 2,
-                                height: 100.0,
-                                color: c.isPassed
-                                    ? kTextColor.withOpacity(0.3)
-                                    : kTextColor,
+                          child: Center(
+                              child: Text(
+                                "Now",
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        )
+                            : Container(),
+                      ],
+                    ),
+                    SizedBox(height: 20.0),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          margin:
+                          EdgeInsets.only(left: 117.0, bottom: 20.0),
+                          width: 2,
+                          height: 100.0,
+                          color: c.isPassed
+                              ? kTextColor.withOpacity(0.3)
+                              : kTextColor,
+                        ),
+                        SizedBox(width: 28.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            _buildClassDetail(
+                              context: context,
+                              icon: Icons.location_on,
+                              text: c.type,
+                              isPassed: c.isPassed,
+                            ),
+                            SizedBox(height: 6.0),
+                            _buildClassDetail(
+                              context: context,
+                              icon: Icons.person,
+                              text: c.teacherName,
+                              isPassed: c.isPassed,
+                            ),
+                            SizedBox(height: 6.0),
+                            if (!c.isPassed && c.type == 'Online')
+                              InkWell(
+                                onTap: () {
+                                  _launchURL(c.joinLink);
+                                },
+                                child: _buildClassDetail(
+                                  context: context,
+                                  icon: Icons.phone_outlined,
+                                  text: 'Join Now',
+                                  isPassed: c.isPassed,
+                                ),
                               ),
-                              SizedBox(width: 28.0),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  _buildClassDetail(
-                                    context: context,
-                                    icon: Icons.location_on,
-                                    text: c.type,
-                                    isPassed: c.isPassed,
-                                  ),
-                                  SizedBox(height: 6.0),
-                                  _buildClassDetail(
-                                    context: context,
-                                    icon: Icons.person,
-                                    text: c.teacherName,
-                                    isPassed: c.isPassed,
-                                  ),
-                                  SizedBox(height: 6.0),
-                                  if (!c.isPassed && c.type == 'Online')
-                                    InkWell(
-                                      onTap: () {
-                                        _launchURL(c.joinLink);
-                                      },
-                                      child: _buildClassDetail(
-                                        context: context,
-                                        icon: Icons.phone_outlined,
-                                        text: 'Join Now',
-                                        isPassed: c.isPassed,
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(width: 20.0),
-                        ],
-                      );
-                    },
-                  ),
-                )
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 20.0),
+                  ],
+                );
+              },
+            ),
+          )
               : Center(),
         ],
       ),
