@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:friday/models/alert.dart';
 import 'package:friday/screens/faqs_screen.dart';
 import 'package:friday/screens/onboarding_page.dart';
@@ -27,6 +28,7 @@ import 'screens/help_screen.dart';
 import 'screens/contact_us_screen.dart';
 import 'screens/app_info_screen.dart';
 import 'onboarding/introslider.dart';
+import 'utils/notifications.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,11 +45,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool isFirstRun = false;
     int backButtonPressCounter = 0;
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   @override
   void initState() {
     super.initState();
     checkFirstRun();
+    Noti.initialize(flutterLocalNotificationsPlugin);
     loadpref();
   }
 
