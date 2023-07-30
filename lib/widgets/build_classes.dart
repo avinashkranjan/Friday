@@ -130,8 +130,8 @@ class _BuildClassesState extends State<BuildClasses> {
         children: [
           TableCalendar<Classes>(
             onFormatChanged: (format) {},
-            firstDay: DateTime.utc(2018),
-            lastDay: DateTime.utc(2022),
+            firstDay: DateTime.utc(2002),
+            lastDay: DateTime.utc(2024),
             focusedDay: _focusedDay,
             selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
             eventLoader: _getEventsForDay,
