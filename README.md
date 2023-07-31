@@ -4,7 +4,7 @@
 
 # Friday - Your Personal Class Assistant
 
-Friday is an innovative application designed to help you stay organized and never miss an assignment deadline or upcoming test again. With the shift to online education due to the pandemic, keeping track of assignments, exams, and other academic tasks can be overwhelming. 
+Your academic assistant for staying organized and on top of assignments and tests. Never miss a deadline again in the online education era. Simplify your academic life with intuitive features and smart reminders. Elevate your educational experience with Friday today. 
 
 <p align="center">
 	
@@ -27,7 +27,7 @@ Friday is an innovative application designed to help you stay organized and neve
 <h1 align=center> Introduction 🚩 </h1>
 
   <p align="center">
-    Since the pandemic, almost everything has been moved on to the virtual world and So has <b>Education</b>. All our classes have been moved online and with that, all our <b><em> assignments, tests, exams, Viva</b></em> are being held on an online platform as well, With so many <b><em>assignment deadlines, upcoming exam dates, and being busy with our life</b></em> we forget the deadlines and exam dates on most occasion. I don't know how many of you but it happens to me frequently. So I came up with this <b>app</b> which once fed with all the required data it'll remind you of the <b><em>assignment deadlines, upcoming exams, unfinished homework</b></em>. So, you can plan your schedule accordingly.
+    In response to the pandemic-induced shift to virtual education, all classes, assignments, tests, exams, and vivas have migrated online. Amid this transition and the busy pace of life, it's common to forget important deadlines and exam dates. To address this challenge, I've developed an ingenious app. Once you input the required data, the app becomes your personal reminder, ensuring you never miss an assignment deadline, upcoming exam, or unfinished homework. Say farewell to stress and embrace a well-organized schedule that aligns perfectly with your academic needs. Take control of your academic life with this powerful tool, confident that you'll stay ahead of all deadlines and exams. Enjoy the convenience and peace of mind as you seamlessly plan your schedule and excel in your virtual education journey.
     
 
 ## Getting Started🚀🚀
