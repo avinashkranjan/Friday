@@ -13,7 +13,7 @@ class RecentsAlerts extends StatefulWidget {
   State<RecentsAlerts> createState() => _RecentsAlertsState();
 }
 
-class _RecentsAlertsState extends State<RecentsAlerts> {
+class _RecentsAlertsState extends State<RecentsAlerts> with WidgetsBindingObserver {
   final DateFormat dateFormat = DateFormat("hh:mm a");
   late List<String> impstuff;
   late SharedPreferences preferences;
@@ -21,7 +21,21 @@ class _RecentsAlertsState extends State<RecentsAlerts> {
   void initState() {
     // TODO: implement initState
     loadpref();
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('chaltorahbeh');
+
+    loadpref();
   }
 
   @override

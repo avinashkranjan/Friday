@@ -49,6 +49,11 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(height: 10,),
+              Center(child: TextButton(onPressed: () {
+                removeall();
+                },
+              child: Text('CLEAR ALL FAVOURITES')),),
               SizedBox(height: 30.0),
               Container(
                 padding: EdgeInsets.all(35.0),
@@ -215,9 +220,18 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     setState(() {
       favlist;
     });
-
+    print('yehaibe\n');
     print(favlist);
 
+  }
+
+  void removeall() async {
+    preferences = await SharedPreferences.getInstance();
+    await preferences.remove('favbool');
+    favlist = [];
+    setState(() {
+      favlist;
+    });
   }
 }
 
