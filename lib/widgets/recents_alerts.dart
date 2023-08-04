@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:friday/constants.dart';
 import 'package:friday/models/alert.dart';
 import 'dart:convert';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:friday/widgets/countdown_painter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_android/shared_preferences_android.dart';
@@ -13,7 +14,7 @@ class RecentsAlerts extends StatefulWidget {
   State<RecentsAlerts> createState() => _RecentsAlertsState();
 }
 
-class _RecentsAlertsState extends State<RecentsAlerts> {
+class _RecentsAlertsState extends State<RecentsAlerts> with WidgetsBindingObserver {
   final DateFormat dateFormat = DateFormat("hh:mm a");
   late List<String> impstuff;
   late SharedPreferences preferences;
@@ -21,7 +22,21 @@ class _RecentsAlertsState extends State<RecentsAlerts> {
   void initState() {
     // TODO: implement initState
     loadpref();
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('chaltorahbeh');
+
+    loadpref();
   }
 
   @override
@@ -157,7 +172,7 @@ class _RecentsAlertsState extends State<RecentsAlerts> {
                               ),
                             ),
                             Text(
-                              "hours left",
+                              AppLocalizations.of(context).hoursleft,
                               style: TextStyle(
                                 color: _getColor(context, percent),
                                 fontSize: 13.0,
