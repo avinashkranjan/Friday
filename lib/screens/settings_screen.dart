@@ -3,8 +3,10 @@ import 'package:flutter/rendering.dart';
 import 'package:friday/screens/faqs_screen.dart';
 import 'package:friday/screens/help_screen.dart';
 import 'package:friday/screens/themes.dart';
+import 'package:friday/utils/notifications.dart';
 import 'package:open_url/open_url.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../models/users.dart';
 import '../services/user_info_services.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -90,7 +92,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Column(
                   children: [
                     Text(
-                      "Settings",
+                      AppLocalizations.of(context).settings,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30.0,
@@ -117,7 +119,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             ,sections: [
                               SettingsSection(
 
-                                title: Text('Common'),
+                                title: Text(AppLocalizations.of(context).common),
                                 tiles: <SettingsTile>[
                                   SettingsTile.navigation(
                                     leading: Icon(Icons.language),
@@ -126,7 +128,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         content: Text("Currently support is for Single language only. Stay tuned!"),
                                       ));
                                     },
-                                    title: Text('Language'),
+                                    title: Text(AppLocalizations.of(context).language),
                                     value: Text('English'),
                                   ),
                                   SettingsTile.switchTile(initialValue: ThemeMode.system == ThemeMode.light ? !modeval : modeval, onToggle: (s) {
@@ -144,53 +146,56 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       });
                                     }
 
-                                  }, title: Text('Light mode'), enabled: true, leading: Icon(Icons.light_mode),),
+                                  }, title: Text(AppLocalizations.of(context).lightmode), enabled: true, leading: Icon(Icons.light_mode),),
 
                                   SettingsTile.navigation(
                                     leading: Icon(Icons.notifications_active_outlined),
-                                    title: Text('Notifications'),
+                                    title: Text(AppLocalizations.of(context).notifications),
                                     onPressed: (s) async {
-                                      if(notification!){
-                                        await FlutterLocalNotificationsPlugin().cancelAll();
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                          content: Text("Notifications turned off!"),
-                                        ));
-                                      }
-                                      else {
-                                        notificationsInitialize();
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                          content: Text("Notifications turned on!"),
-                                        ));
-                                      }
+
+                                      NotificationService().showNotification(title: 'olalalaaa', body: 'it works');
+
+                                      //if(notification!){
+                                        //await FlutterLocalNotificationsPlugin().cancelAll();
+                                        //ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                         // content: Text("Notifications turned off!"),
+                                        //));
+                                      //}
+                                      //else {
+                                        //notificationsInitialize();
+                                        //ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                         // content: Text("Notifications turned on!"),
+                                        //));
+                                      //}
 
 
 
-                                      notificationsInitialize();
+                                      //notificationsInitialize();
                                     },
-                                    value: Text('Turn app\'s notifications on or off'),
+                                    value: Text(AppLocalizations.of(context).notificationsdesc),
                                   ),
 
                                   SettingsTile.navigation(
                                     leading: Icon(Icons.help_outline),
-                                    title: Text('Help'),
+                                    title: Text(AppLocalizations.of(context).help),
                                     onPressed: (s) {
                                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => HelpScreen()));
                                     },
-                                    value: Text('See our help modules for queries'),
+                                    value: Text(AppLocalizations.of(context).helpdesc),
                                   ),
 
 
                                   SettingsTile.navigation(
                                     leading: Icon(Icons.info_outlined),
-                                    title: Text('FAQs'),
-                                    value: Text('Basic usage guidelines!'),
+                                    title: Text(AppLocalizations.of(context).faqs),
+                                    value: Text(AppLocalizations.of(context).faqsdesc),
                                     onPressed: (s) {
                                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => FAQScreen()));
                                     },
                                   ),
                                   SettingsTile.navigation(
                                     leading: Icon(Icons.support),
-                                    title: Text('Support Development'),
+                                    title: Text(AppLocalizations.of(context).supportdevelopment),
                                     onPressed: (s) async {
                                       //js.context.callMethod('open', ['https://github.com/avinashkranjan/Friday']);
                                       final result = await openUrl('https://github.com/avinashkranjan/Friday');
@@ -202,7 +207,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       }
 
                                     },
-                                    value: Text('Resolve issues, report bugs, write documentations, and much more!'),
+                                    value: Text(AppLocalizations.of(context).supportdevelopmentdesc),
                                   ),
 
                                 ],
