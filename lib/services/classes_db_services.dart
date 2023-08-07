@@ -2,6 +2,7 @@ import 'package:friday/models/users.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+
 class ClassesDBServices {
   Stream<DocumentSnapshot> getClassListAsStream(String collegeID) {
     final Stream<DocumentSnapshot> streamDocumentSnapshot = FirebaseFirestore
@@ -16,12 +17,36 @@ class ClassesDBServices {
   Future<void> addNewClassToFireStore(String _todayDate, Mode _mode,
       String _subject, String _teacher, String _time,
       [String? _joinLink]) async {
-    final DocumentSnapshot documentSnapShot = await FirebaseFirestore.instance
+    final DocumentSnapshot<Map<String, dynamic>> documentSnapShot = await FirebaseFirestore.instance
         .doc('users/${FirebaseAuth.instance.currentUser?.uid}')
         .get();
 
     Map<String, dynamic> _classesListStored = Map<String, dynamic>();
-    _classesListStored = (documentSnapShot.data() as Map)['classes'];
+    if(documentSnapShot.data()!=null) {
+      _classesListStored = (documentSnapShot.data())!['classes'];
+    }
+    else {
+      _classesListStored.addAll({
+        _todayDate: [
+          {
+            'subject': _subject,
+            'type': modeEnumToString(_mode),
+            'teacherName': _teacher,
+            'joinLink': modeEnumToString(_mode) == "Online" ? _joinLink : null,
+            'time': '$_todayDate $_time',
+          }
+        ]
+      });
+
+      print(_classesListStored);
+      print('adding stuff to database...');
+      FirebaseFirestore.instance
+          .doc('users/${FirebaseAuth.instance.currentUser?.uid}')
+          .update({
+        'classes': _classesListStored,
+      }).then((value) => print("New Date Container Added"));
+    }
+
 
     if (_classesListStored.isNotEmpty &&
         _classesListStored.containsKey(_todayDate)) {
@@ -40,7 +65,7 @@ class ClassesDBServices {
 
       _classesListStored[_todayDate] = dateSpecificRoutine;
     } else {
-      print("New Date Container Added");
+      
 
       _classesListStored.addAll({
         _todayDate: [
@@ -59,7 +84,7 @@ class ClassesDBServices {
         .doc('users/${FirebaseAuth.instance.currentUser?.uid}')
         .update({
       'classes': _classesListStored,
-    });
+    }).then((value) => print("New Date Container Added"));
   }
 
   Future<void> verifyCollegeFieldAndUpdate(
