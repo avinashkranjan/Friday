@@ -44,6 +44,8 @@ dependencies:
   http: ^0.13.6
 
   flutter_local_notifications: ^15.1.0+1
+  flutter_localizations:
+    sdk: flutter
 
 
 dev_dependencies:
@@ -51,13 +53,16 @@ dev_dependencies:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
 
+
 flutter_icons:
   android: true
   ios: true
   image_path: "assets/icons/icon.png"
 
 flutter:
+  generate: true
   uses-material-design: true
+
 
   assets:
     - assets/icons/

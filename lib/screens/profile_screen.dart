@@ -4,6 +4,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:friday/constants.dart';
 import 'package:friday/models/users.dart';
 import 'package:friday/screens/onboarding_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:friday/screens/settings_screen.dart';
 import 'package:friday/services/authentication.dart';
 import 'package:friday/services/facebookAuthentication.dart';
@@ -45,20 +46,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
   uploadPictures(File image) async {
     // uploads picture(s) to storage and return it's URL
     final Reference ref =
-        _storageReference.child('${Path.basename(image.path)}}');
+    _storageReference.child('${Path.basename(image.path)}}');
 
     final UploadTask uploadTask = ref.putFile(image);
 
     String pictureUrl = await uploadTask.then((taskSnapshot) async {
-       return await taskSnapshot.ref.getDownloadURL();
-      },
+      return await taskSnapshot.ref.getDownloadURL();
+    },
     );
 
     // UploadTaskSnapshot uploadTaskSnapshot = await uploadTask.future;
     // String pictureUrl = uploadTaskSnapshot.downloadUrl.toString();
 
     final userInfoProvider =
-        Provider.of<UserInfoServices>(context, listen: false);
+    Provider.of<UserInfoServices>(context, listen: false);
 
     Users? currentUser = userInfoProvider.user;
     currentUser?.profilePictureUrl = pictureUrl;
@@ -106,7 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Text(choice),
                 onTap: () {
                   if(choice == 'Share App') {
-                  shareapp();
+                    shareapp();
                   }
                   else {
                     print('pencho');
@@ -119,7 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ],
 
-      centerTitle: true,),
+        centerTitle: true,),
       backgroundColor: Theme.of(context).colorScheme.background.withOpacity(0.8),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
@@ -132,13 +133,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Column(
                   children: [
-            Text(
-            "Your Profile",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold,
-              ),),
+                    Text(
+                      AppLocalizations.of(context).yourprofile,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                      ),),
                     SizedBox(height: 0.12 * MediaQuery.of(context).size.height),
                     Container(
                       margin: EdgeInsets.fromLTRB(15, 15, 15, 60),
@@ -162,9 +163,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: Visibility(
                                 visible: visibilityName,
                                 child: Text(
-                                  userInfo.hasData 
-                                  ? currentUser['name']
-                                  : "Loading...",
+                                  userInfo.hasData
+                                      ? currentUser['name']
+                                      : AppLocalizations.of(context).loading,
                                   style: TextStyle(
                                     fontSize: 20,
                                     color: Colors.blue[200],
@@ -175,101 +176,101 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           SizedBox(height: 20),
                           buildDetails(
-                              "Email",
-                              userInfo.hasData 
-                              ? currentUser['email'] 
-                              : "Loading...",
+                              AppLocalizations.of(context).email,
+                              userInfo.hasData
+                                  ? currentUser['email']
+                                  : AppLocalizations.of(context).loading,
                               true),
-                           SizedBox(height: 20),
-                           buildDetails(
-                              "Bio",
-                               userInfo.hasData 
-                               ? currentUser['bio'] 
-                               ?? 'No bio available' : "Loading...",
-                               true),
+                          SizedBox(height: 20),
+                          buildDetails(
+                              AppLocalizations.of(context).bio,
+                              userInfo.hasData
+                                  ? currentUser['bio']
+                                  ?? 'No bio available' : AppLocalizations.of(context).loading,
+                              true),
                           SizedBox(height: 20),
                           Visibility(
-                        visible: visibilityFields,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Bio',
-                              style: TextStyle(
-                                fontSize: 18,
-                                letterSpacing: 1.2,
-                                color: Colors.grey[600],
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Container(
-                              width: 200,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: kAuthThemeColor, width: 3),
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: kAuthThemeColor, width: 3),
+                            visible: visibilityFields,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Bio',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    letterSpacing: 1.2,
+                                    color: Colors.grey[600],
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                style: TextStyle(color: Colors.white),
-                                cursorColor: Colors.white,
-                                onChanged: (value) {
-                                  setState(() {
-                                    bio = value;
-                                  });
-                                },
-                              ),
+                                Container(
+                                  width: 200,
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: kAuthThemeColor, width: 3),
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: kAuthThemeColor, width: 3),
+                                      ),
+                                    ),
+                                    style: TextStyle(color: Colors.white),
+                                    cursorColor: Colors.white,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        bio = value;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
+                          ),
                           buildDetails(
-                              "College",
-                                   userInfo.hasData 
-                                   ? currentUser['university'] 
-                                   : "Loading...",
+                              AppLocalizations.of(context).college,
+                              userInfo.hasData
+                                  ? currentUser['university']
+                                  : AppLocalizations.of(context).loading,
                               true),
                           SizedBox(height: 20),
                           buildDetails(
-                              "Course",
-                              userInfo.hasData 
-                              ? currentUser['course'] 
-                              : "Loading...",
+                              AppLocalizations.of(context).course,
+                              userInfo.hasData
+                                  ? currentUser['course']
+                                  : AppLocalizations.of(context).loading,
                               true),
                           SizedBox(height: 20),
                           buildDetails(
-                              "Deptartment/Major",
-                              userInfo.hasData 
-                              ? currentUser['department']
-                              : "Loading...",
+                              AppLocalizations.of(context).departmentmajor,
+                              userInfo.hasData
+                                  ? currentUser['department']
+                                  : AppLocalizations.of(context).loading,
                               true),
                           SizedBox(height: 20),
                           buildDetails(
-                              "Current Academic Year",
-                               userInfo.hasData
-                               ? currentUser['year'].toString()
-                               : "Loading...",
+                              AppLocalizations.of(context).currentacademicyear,
+                              userInfo.hasData
+                                  ? currentUser['year'].toString()
+                                  : AppLocalizations.of(context).loading,
                               true),
                           SizedBox(height: 20),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               buildDetails(
-                                  "Gender",
+                                  AppLocalizations.of(context).gender,
                                   userInfo.hasData
-                                   ? enumToString(currentUser['gender'])
-                                   : "Loading...",
+                                      ? enumToString(currentUser['gender'])
+                                      : AppLocalizations.of(context).loading,
                                   true),
                               SizedBox(width: 20),
                               Visibility(
                                 visible: !visibilityFields,
                                 child: buildDetails(
-                                    "Age",
-                                    userInfo.hasData 
-                                    ? currentUser['age'].toString() 
-                                    : "Loading...",
+                                    AppLocalizations.of(context).age,
+                                    userInfo.hasData
+                                        ? currentUser['age'].toString()
+                                        : AppLocalizations.of(context).loading,
                                     visibilityName),
                               ),
                               Visibility(
@@ -329,8 +330,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onPressed: () async {
                                 print("Signing out");
                                 await Provider.of<BottomNavigationBarProvider>(
-                                        context,
-                                        listen: false)
+                                    context,
+                                    listen: false)
                                     .resetCurrentIndex();
                                 var _gAuth = GoogleAuthenticate(context);
                                 bool gResponse = await _gAuth.logOut();
@@ -350,7 +351,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (_) => OnboardingPage()),
-                                      (Route<dynamic> route) => false,
+                                          (Route<dynamic> route) => false,
                                     );
                                   }
                                 }
@@ -380,10 +381,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: CircleAvatar(
                     radius: profilePictureDiameter / 2,
                     backgroundImage: currentUser != null &&
-                           currentUser['profilePictureUrl'] != null && 
-                           currentUser['profilePictureUrl'].isNotEmpty
-                      ? NetworkImage(currentUser['profilePictureUrl'])
-                      : AssetImage("assets/images/profile_pic.jpg") as ImageProvider<Object>?,
+                        currentUser['profilePictureUrl'] != null &&
+                        currentUser['profilePictureUrl'].isNotEmpty
+                        ? NetworkImage(currentUser['profilePictureUrl'])
+                        : AssetImage("assets/images/profile_pic.jpg") as ImageProvider<Object>?,
                     backgroundColor: Colors.transparent,
                     foregroundColor: Theme.of(context).colorScheme.background,
                   ),
@@ -434,11 +435,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                             borderSide:
-                                BorderSide(color: kAuthThemeColor, width: 3),
+                            BorderSide(color: kAuthThemeColor, width: 3),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide:
-                                BorderSide(color: kAuthThemeColor, width: 3),
+                            BorderSide(color: kAuthThemeColor, width: 3),
                           ),
                         ),
                         style: TextStyle(color: Colors.white),

@@ -21,12 +21,18 @@ class ClassesDBServices {
         .get();
 
     Map<String, dynamic> _classesListStored = Map<String, dynamic>();
-    _classesListStored = (documentSnapShot.data() as Map)['classes'];
+    if(documentSnapShot.exists) {
+      _classesListStored =
+      (documentSnapShot.data() as Map<String, dynamic>)['classe2s'];
+    }
+    else {
+      print(' null class, not added!');
+    }
 
     if (_classesListStored.isNotEmpty &&
         _classesListStored.containsKey(_todayDate)) {
       final List<dynamic> dateSpecificRoutine =
-          _classesListStored[_todayDate].toList();
+      _classesListStored[_todayDate].toList();
 
       print("New Data Added in Old Date Container");
 
@@ -65,7 +71,7 @@ class ClassesDBServices {
   Future<void> verifyCollegeFieldAndUpdate(
       String _collegeName, String _course, String _dept) async {
     DocumentSnapshot documentSnapshot =
-        await FirebaseFirestore.instance.doc('colleges/$_collegeName').get();
+    await FirebaseFirestore.instance.doc('colleges/$_collegeName').get();
 
     print((documentSnapshot.data() as Map)['courses']);
 
@@ -90,7 +96,7 @@ class ClassesDBServices {
           print(_dept);
 
           Map<String, dynamic> _currCourses =
-              (documentSnapshot.data() as Map)['courses'];
+          (documentSnapshot.data() as Map)['courses'];
           _currCourses[_course].add(_dept);
 
           FirebaseFirestore.instance.doc('colleges/$_collegeName').update({
