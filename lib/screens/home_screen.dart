@@ -21,11 +21,12 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
  List<AssignmentData> assignmentData = [];
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
     fetchAssignmentData().then((data) {
       setState(() {
@@ -34,7 +35,28 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Future<List<AssignmentData>> fetchAssignmentData() async {
+ @override
+ void dispose() {
+   WidgetsBinding.instance.removeObserver(this);
+   super.dispose();
+ }
+
+ @override
+ void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('chaltorahbeh');
+   if (state == AppLifecycleState.resumed) {
+     fetchAssignmentData().then((data) {
+       setState(() {
+         assignmentData = data;
+       });
+     });
+   }
+ }
+
+
+
+
+ Future<List<AssignmentData>> fetchAssignmentData() async {
     String fileData = await rootBundle.loadString('assets/assignment_data.txt');
 
     List<AssignmentData> assignmentDataList = fileData
