@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:friday/screens/faqs_screen.dart';
 import 'package:friday/screens/help_screen.dart';
 import 'package:friday/screens/themes.dart';
+import 'package:friday/utils/notifications.dart';
 import 'package:open_url/open_url.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -108,27 +109,111 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             topRight: Radius.circular(40),
                           ),
                         ),
-                        width: double.infinity,
-                        child:
 
-                        SizedBox(height: MediaQuery.of(context).size.height ,width: MediaQuery.of(context).size.width,child:SettingsList(
-                          lightTheme: SettingsThemeData(settingsListBackground: Theme.of(context).primaryColor, titleTextColor: Theme.of(context).secondaryHeaderColor,
-                              settingsTileTextColor: Colors.white, leadingIconsColor: Colors.white, dividerColor: Colors.white70, tileDescriptionTextColor: Theme.of(context).primaryColorDark)
+                      ),
+                      width: double.infinity,
+                      child:
 
-                          ,sections: [
-                          SettingsSection(
+                          SizedBox(height: MediaQuery.of(context).size.height ,width: MediaQuery.of(context).size.width,child:SettingsList(
+                            lightTheme: SettingsThemeData(settingsListBackground: Theme.of(context).primaryColor, titleTextColor: Theme.of(context).secondaryHeaderColor,
+                            settingsTileTextColor: Colors.white, leadingIconsColor: Colors.white, dividerColor: Colors.white70, tileDescriptionTextColor: Theme.of(context).primaryColorDark)
 
-                            title: Text(AppLocalizations.of(context).common),
-                            tiles: <SettingsTile>[
-                              SettingsTile.navigation(
-                                leading: Icon(Icons.language),
-                                onPressed: (c) {
-                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                    content: Text("Currently support is for Single language only. Stay tuned!"),
-                                  ));
-                                },
-                                title: Text(AppLocalizations.of(context).language),
-                                value: Text('English'),
+                            ,sections: [
+                              SettingsSection(
+
+                                title: Text(AppLocalizations.of(context).common),
+                                tiles: <SettingsTile>[
+                                  SettingsTile.navigation(
+                                    leading: Icon(Icons.language),
+                                    onPressed: (c) {
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                        content: Text("Currently support is for Single language only. Stay tuned!"),
+                                      ));
+                                    },
+                                    title: Text(AppLocalizations.of(context).language),
+                                    value: Text('English'),
+                                  ),
+                                  SettingsTile.switchTile(initialValue: ThemeMode.system == ThemeMode.light ? !modeval : modeval, onToggle: (s) {
+                                    setState(() {
+                                      modeval = s;
+                                    });
+                                    if(modeval) {
+                                      setState(() {
+                                        _setTheme(lightTheme);
+                                      });
+                                    }
+                                    else {
+                                      setState(() {
+                                        _setTheme(darkTheme);
+                                      });
+                                    }
+
+                                  }, title: Text(AppLocalizations.of(context).lightmode), enabled: true, leading: Icon(Icons.light_mode),),
+
+                                  SettingsTile.navigation(
+                                    leading: Icon(Icons.notifications_active_outlined),
+                                    title: Text(AppLocalizations.of(context).notifications),
+                                    onPressed: (s) async {
+
+                                      NotificationService().showNotification(title: 'olalalaaa', body: 'it works');
+
+                                      //if(notification!){
+                                        //await FlutterLocalNotificationsPlugin().cancelAll();
+                                        //ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                         // content: Text("Notifications turned off!"),
+                                        //));
+                                      //}
+                                      //else {
+                                        //notificationsInitialize();
+                                        //ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                         // content: Text("Notifications turned on!"),
+                                        //));
+                                      //}
+
+
+
+                                      //notificationsInitialize();
+                                    },
+                                    value: Text(AppLocalizations.of(context).notificationsdesc),
+                                  ),
+
+                                  SettingsTile.navigation(
+                                    leading: Icon(Icons.help_outline),
+                                    title: Text(AppLocalizations.of(context).help),
+                                    onPressed: (s) {
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HelpScreen()));
+                                    },
+                                    value: Text(AppLocalizations.of(context).helpdesc),
+                                  ),
+
+
+                                  SettingsTile.navigation(
+                                    leading: Icon(Icons.info_outlined),
+                                    title: Text(AppLocalizations.of(context).faqs),
+                                    value: Text(AppLocalizations.of(context).faqsdesc),
+                                    onPressed: (s) {
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => FAQScreen()));
+                                    },
+                                  ),
+                                  SettingsTile.navigation(
+                                    leading: Icon(Icons.support),
+                                    title: Text(AppLocalizations.of(context).supportdevelopment),
+                                    onPressed: (s) async {
+                                      //js.context.callMethod('open', ['https://github.com/avinashkranjan/Friday']);
+                                      final result = await openUrl('https://github.com/avinashkranjan/Friday');
+                                      if (result.exitCode == 0) {
+                                        print('URL opened!');
+                                      } else {
+                                        print('Something went wrong (exit code = ${result.exitCode}): '
+                                            '${result.stderr}');
+                                      }
+
+                                    },
+                                    value: Text(AppLocalizations.of(context).supportdevelopmentdesc),
+                                  ),
+
+                                ],
+
                               ),
                               SettingsTile.switchTile(initialValue: ThemeMode.system == ThemeMode.light ? !modeval : modeval, onToggle: (s) {
                                 setState(() {

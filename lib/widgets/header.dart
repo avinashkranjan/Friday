@@ -26,9 +26,9 @@ class Header extends StatelessWidget {
                     fit: BoxFit.fitWidth,
                     child: Text(
 
-                      _userInfo.user != null
-                          ? "Hello, " + _userInfo.user!.name.split(" ")[0]
-                          :  AppLocalizations.of(context).hellosir,
+                          _userInfo.user != null
+                              ? "Hello, " + _userInfo.user!.name.split(" ")[0]
+                              :  AppLocalizations.of(context).hellosir,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 25.0,

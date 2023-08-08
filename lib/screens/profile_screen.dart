@@ -133,13 +133,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Column(
                   children: [
-                    Text(
-                      AppLocalizations.of(context).yourprofile,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
-                      ),),
+
+            Text(
+              AppLocalizations.of(context).yourprofile,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+              ),),
+
                     SizedBox(height: 0.12 * MediaQuery.of(context).size.height),
                     Container(
                       margin: EdgeInsets.fromLTRB(15, 15, 15, 60),
@@ -163,9 +165,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: Visibility(
                                 visible: visibilityName,
                                 child: Text(
-                                  userInfo.hasData
-                                      ? currentUser['name']
-                                      : AppLocalizations.of(context).loading,
+
+                                  userInfo.hasData 
+                                  ? currentUser['name']
+                                  : AppLocalizations.of(context).loading,
+
                                   style: TextStyle(
                                     fontSize: 20,
                                     color: Colors.blue[200],
@@ -177,17 +181,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           SizedBox(height: 20),
                           buildDetails(
                               AppLocalizations.of(context).email,
-                              userInfo.hasData
-                                  ? currentUser['email']
-                                  : AppLocalizations.of(context).loading,
+
+                              userInfo.hasData 
+                              ? currentUser['email'] 
+                              : AppLocalizations.of(context).loading,
                               true),
-                          SizedBox(height: 20),
-                          buildDetails(
-                              AppLocalizations.of(context).bio,
-                              userInfo.hasData
-                                  ? currentUser['bio']
-                                  ?? 'No bio available' : AppLocalizations.of(context).loading,
-                              true),
+                           SizedBox(height: 20),
+                           buildDetails(
+                               AppLocalizations.of(context).bio,
+                               userInfo.hasData 
+                               ? currentUser['bio'] 
+                               ?? 'No bio available' : AppLocalizations.of(context).loading,
+                               true),
+
                           SizedBox(height: 20),
                           Visibility(
                             visible: visibilityFields,
@@ -228,30 +234,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           buildDetails(
                               AppLocalizations.of(context).college,
-                              userInfo.hasData
-                                  ? currentUser['university']
-                                  : AppLocalizations.of(context).loading,
+
+                                   userInfo.hasData 
+                                   ? currentUser['university'] 
+                                   : AppLocalizations.of(context).loading,
+
                               true),
                           SizedBox(height: 20),
                           buildDetails(
                               AppLocalizations.of(context).course,
-                              userInfo.hasData
-                                  ? currentUser['course']
-                                  : AppLocalizations.of(context).loading,
+
+                              userInfo.hasData 
+                              ? currentUser['course'] 
+                              : AppLocalizations.of(context).loading,
+
                               true),
                           SizedBox(height: 20),
                           buildDetails(
                               AppLocalizations.of(context).departmentmajor,
-                              userInfo.hasData
-                                  ? currentUser['department']
-                                  : AppLocalizations.of(context).loading,
+
+                              userInfo.hasData 
+                              ? currentUser['department']
+                              : AppLocalizations.of(context).loading,
                               true),
                           SizedBox(height: 20),
                           buildDetails(
                               AppLocalizations.of(context).currentacademicyear,
-                              userInfo.hasData
-                                  ? currentUser['year'].toString()
-                                  : AppLocalizations.of(context).loading,
+
+                               userInfo.hasData
+                               ? currentUser['year'].toString()
+                               : AppLocalizations.of(context).loading,
                               true),
                           SizedBox(height: 20),
                           Row(
@@ -260,17 +272,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               buildDetails(
                                   AppLocalizations.of(context).gender,
                                   userInfo.hasData
-                                      ? enumToString(currentUser['gender'])
-                                      : AppLocalizations.of(context).loading,
+
+                                   ? enumToString(currentUser['gender'])
+                                   : AppLocalizations.of(context).loading,
+
                                   true),
                               SizedBox(width: 20),
                               Visibility(
                                 visible: !visibilityFields,
                                 child: buildDetails(
                                     AppLocalizations.of(context).age,
-                                    userInfo.hasData
-                                        ? currentUser['age'].toString()
-                                        : AppLocalizations.of(context).loading,
+
+                                    userInfo.hasData 
+                                    ? currentUser['age'].toString() 
+                                    : AppLocalizations.of(context).loading,
+
                                     visibilityName),
                               ),
                               Visibility(

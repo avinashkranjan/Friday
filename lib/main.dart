@@ -30,10 +30,13 @@ import 'screens/help_screen.dart';
 import 'screens/contact_us_screen.dart';
 import 'screens/app_info_screen.dart';
 import 'onboarding/introslider.dart';
+import 'utils/notifications.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  NotificationService().initNotification();
+  NotificationService().showNotification(title: 'olalalaaa', body: 'it works');
   await Firebase.initializeApp();
   runApp(MyApp());
 }
@@ -129,34 +132,38 @@ class _MyAppState extends State<MyApp> {
             GlobalCupertinoLocalizations.delegate,
           ],
           locale: Locale('hi'),
-          supportedLocales: [
 
+          
+
+          locale: Locale('en'),
+          supportedLocales: [
             Locale('ru'),
+            Locale('en'), // English
+            Locale('hi'), // Hindi
           ],
-          debugShowCheckedModeBanner: false,
-          title: 'Friday',
-          theme: ThemeData(
-            primaryColor: Color(0xFF202328),
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-            colorScheme: ColorScheme.fromSwatch()
-                .copyWith(secondary: Color(0xFF651FFF))
-                .copyWith(background: Color(0xFF12171D)),
-          ),
-          home: FutureBuilder(
-              future: Future.delayed(Duration(seconds: 3)),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return SplashScreen(key: UniqueKey());
-                } else {
-                  if (isFirstRun) {
-                    return OnBoardingPage();
-                  } else {
-                    WidgetsBinding.instance.addPostFrameCallback(
-                          (_) => showRatingDialog(context),
-                    );
-                    return AuthenticationService.handleEntryPoint(context);
-                  }
-                }
+        debugShowCheckedModeBanner: false,
+        title: 'Friday',
+        theme: ThemeData(
+          primaryColor: Color(0xFF202328),
+          visualDensity: VisualDensity.adaptivePlatformDensity, 
+          colorScheme: ColorScheme.fromSwatch()
+          .copyWith(secondary: Color(0xFF651FFF))
+          .copyWith(background: Color(0xFF12171D)),
+        ),
+        home: FutureBuilder(
+          future: Future.delayed(Duration(seconds: 3)),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return SplashScreen(key: UniqueKey());
+            } else {
+              if (isFirstRun) {
+                return OnBoardingPage();
+              } else {
+                WidgetsBinding.instance.addPostFrameCallback(
+                  (_) => showRatingDialog(context),
+                );
+                return AuthenticationService.handleEntryPoint(context);
+
               }
           ),
           routes: {
