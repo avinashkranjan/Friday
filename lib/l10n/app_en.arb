@@ -1,4 +1,5 @@
 {
+
   "friday": "Friday",
   "@friday": {
     "description": "App's name"
@@ -42,4 +43,5 @@
   "faqsdesc": "Basic usage guidelines",
   "supportdevelopment": "Support Development",
   "supportdevelopmentdesc": "See latest issues and contribute to the project!"
+
 }
