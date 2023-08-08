@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:friday/constants.dart';
 import 'package:friday/models/alert.dart';
 import 'dart:convert';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:friday/widgets/countdown_painter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_android/shared_preferences_android.dart';
@@ -171,7 +172,7 @@ class _RecentsAlertsState extends State<RecentsAlerts> with WidgetsBindingObserv
                               ),
                             ),
                             Text(
-                              "hours left",
+                              AppLocalizations.of(context).hoursleft,
                               style: TextStyle(
                                 color: _getColor(context, percent),
                                 fontSize: 13.0,

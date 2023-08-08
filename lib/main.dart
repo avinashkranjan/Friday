@@ -1,4 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:friday/models/alert.dart';
 import 'package:friday/screens/faqs_screen.dart';
 import 'package:friday/screens/onboarding_page.dart';
@@ -27,9 +30,12 @@ import 'screens/help_screen.dart';
 import 'screens/contact_us_screen.dart';
 import 'screens/app_info_screen.dart';
 import 'onboarding/introslider.dart';
+import 'utils/notifications.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  NotificationService().initNotification();
+  NotificationService().showNotification(title: 'olalalaaa', body: 'it works');
   await Firebase.initializeApp();
   runApp(MyApp());
 }
@@ -48,6 +54,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     checkFirstRun();
+
+
     loadpref();
   }
 
@@ -116,6 +124,17 @@ class _MyAppState extends State<MyApp> {
       child: WillPopScope(
         onWillPop:onWillPop,
         child: MaterialApp(
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          locale: Locale('en'),
+          supportedLocales: [
+            Locale('en'), // English
+            Locale('hi'), // Hindi
+          ],
         debugShowCheckedModeBanner: false,
         title: 'Friday',
         theme: ThemeData(
