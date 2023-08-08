@@ -94,11 +94,11 @@ class _ClassesScreenState extends State<ClassesScreen> {
       },
       items: Mode.values
           .map((selectedMode) => DropdownMenuItem<Mode>(
-              value: selectedMode,
-              child: Text(
-                modeEnumToString(selectedMode),
-                style: TextStyle(color: Colors.white),
-              )))
+          value: selectedMode,
+          child: Text(
+            modeEnumToString(selectedMode),
+            style: TextStyle(color: Colors.white),
+          )))
           .toList(),
       value: null,
       onChanged: (Mode? mode) {
@@ -360,9 +360,9 @@ class CalenderDateFormatAddition extends StatelessWidget {
   final bool itemSelected;
 
   CalenderDateFormatAddition({
-      required this.dateTime,
-      required this.dayAdditon,
-      this.itemSelected = false});
+    required this.dateTime,
+    required this.dayAdditon,
+    this.itemSelected = false});
 
   @override
   Widget build(BuildContext context) {
@@ -373,29 +373,29 @@ class CalenderDateFormatAddition extends StatelessWidget {
           TextSpan(
               text: (dayAdditon > 0)
                   ? dateTime.add(Duration(days: dayAdditon)).day.toString() +
-                      '\n'
+                  '\n'
                   : dateTime
-                          .subtract(Duration(days: dayAdditon * -1))
-                          .day
-                          .toString() +
-                      '\n',
+                  .subtract(Duration(days: dayAdditon * -1))
+                  .day
+                  .toString() +
+                  '\n',
               style: (itemSelected == true)
                   ? kCalendarDay.copyWith(
-                      color: Colors.white,
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.w500,
-                    )
+                color: Colors.white,
+                fontSize: 17.0,
+                fontWeight: FontWeight.w500,
+              )
                   : kCalendarDay),
           TextSpan(
             text: (itemSelected == true)
                 ? (dayAdditon > 0)
-                    ? DateFormat.E()
-                        .format(dateTime.add(Duration(days: dayAdditon)))
-                        .toString()
-                    : DateFormat.E()
-                        .format(
-                            dateTime.subtract(Duration(days: dayAdditon * -1)))
-                        .toString()
+                ? DateFormat.E()
+                .format(dateTime.add(Duration(days: dayAdditon)))
+                .toString()
+                : DateFormat.E()
+                .format(
+                dateTime.subtract(Duration(days: dayAdditon * -1)))
+                .toString()
                 : '',
             style: TextStyle(
               color: Colors.white,

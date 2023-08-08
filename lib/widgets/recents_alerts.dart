@@ -145,7 +145,7 @@ class _RecentsAlertsState extends State<RecentsAlerts> with WidgetsBindingObserv
                           Checkbox(value: impstuff[index]=='false'?false:true, onChanged: (s) async {
                             impstuff[index] = s.toString();
                             await preferences.setStringList('favbool', impstuff).then((value) => print(impstuff));
-                            
+
                             setState(() {
                               impstuff;
                             });
@@ -213,6 +213,9 @@ class _RecentsAlertsState extends State<RecentsAlerts> with WidgetsBindingObserv
 
   }
 
+}
+
+
   void loadalerts() async {
 
     final DocumentSnapshot<Map<String, dynamic>> documentSnapShot = await FirebaseFirestore.instance
@@ -228,3 +231,4 @@ class _RecentsAlertsState extends State<RecentsAlerts> with WidgetsBindingObserv
     }
   }
 }
+

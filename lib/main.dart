@@ -32,6 +32,7 @@ import 'screens/app_info_screen.dart';
 import 'onboarding/introslider.dart';
 import 'utils/notifications.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   NotificationService().initNotification();
@@ -48,7 +49,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool isFirstRun = false;
-    int backButtonPressCounter = 0;
+  int backButtonPressCounter = 0;
 
   @override
   void initState() {
@@ -59,7 +60,7 @@ class _MyAppState extends State<MyApp> {
     loadpref();
   }
 
- Future<void> checkFirstRun() async {
+  Future<void> checkFirstRun() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     isFirstRun = IsFirstRun.isFirstRun() as bool;
     setState(() {
@@ -67,7 +68,7 @@ class _MyAppState extends State<MyApp> {
     });
     prefs.setBool('already_rated', false);
   }
-   Future<void> showRatingDialog(BuildContext context) async {
+  Future<void> showRatingDialog(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool alreadyRated = prefs.getBool('already_rated') ?? false;
     if (!alreadyRated) {
@@ -97,7 +98,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-   Future<bool> onWillPop() async {
+  Future<bool> onWillPop() async {
     backButtonPressCounter++;
     if (backButtonPressCounter == 2) {
       backButtonPressCounter = 0;
@@ -131,8 +132,12 @@ class _MyAppState extends State<MyApp> {
             GlobalCupertinoLocalizations.delegate,
           ],
           locale: Locale('hi'),
+
+          
+
           locale: Locale('en'),
           supportedLocales: [
+            Locale('ru'),
             Locale('en'), // English
             Locale('hi'), // Hindi
           ],
@@ -158,20 +163,19 @@ class _MyAppState extends State<MyApp> {
                   (_) => showRatingDialog(context),
                 );
                 return AuthenticationService.handleEntryPoint(context);
+
               }
-            }
-          }
-        ),
+          ),
           routes: {
-           '/feedback': (context) => FeedbackPage(),
-           '/settings': (context) => SettingsScreen(),
-           '/help': (context) => HelpScreen(),
-           '/contact': (context) => ContactUsScreen(),
-           '/appInfo': (context) => AppInfoScreen(),
-           '/theme':(context) => ThemeScreen(),
-           '/faqs':(context) => FAQScreen(),
-           '/phoneVerification': (context) => PhoneVerificationScreen(),
-           '/verifyCode': (context) => VerifyCodeScreen(phoneNumber: '7267097531', phoneNumberVerificationDb: PhoneNumberVerificationDb(verificationCallback: null),),
+            '/feedback': (context) => FeedbackPage(),
+            '/settings': (context) => SettingsScreen(),
+            '/help': (context) => HelpScreen(),
+            '/contact': (context) => ContactUsScreen(),
+            '/appInfo': (context) => AppInfoScreen(),
+            '/theme':(context) => ThemeScreen(),
+            '/faqs':(context) => FAQScreen(),
+            '/phoneVerification': (context) => PhoneVerificationScreen(),
+            '/verifyCode': (context) => VerifyCodeScreen(phoneNumber: '7267097531', phoneNumberVerificationDb: PhoneNumberVerificationDb(verificationCallback: null),),
           },
         ),
       ),

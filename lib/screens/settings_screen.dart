@@ -100,14 +100,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),),
                     SizedBox(height: 0.12 * MediaQuery.of(context).size.height),
                     Container(
-                      margin: EdgeInsets.fromLTRB(15, 15, 15, 60),
-                      padding: EdgeInsets.all(30),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40),
+                        margin: EdgeInsets.fromLTRB(15, 15, 15, 60),
+                        padding: EdgeInsets.all(30),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40),
+                          ),
                         ),
+
                       ),
                       width: double.infinity,
                       child:
@@ -211,13 +213,93 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   ),
 
                                 ],
+
                               ),
+                              SettingsTile.switchTile(initialValue: ThemeMode.system == ThemeMode.light ? !modeval : modeval, onToggle: (s) {
+                                setState(() {
+                                  modeval = s;
+                                });
+                                if(modeval) {
+                                  setState(() {
+                                    _setTheme(lightTheme);
+                                  });
+                                }
+                                else {
+                                  setState(() {
+                                    _setTheme(darkTheme);
+                                  });
+                                }
+
+                              }, title: Text(AppLocalizations.of(context).lightmode), enabled: true, leading: Icon(Icons.light_mode),),
+
+                              SettingsTile.navigation(
+                                leading: Icon(Icons.notifications_active_outlined),
+                                title: Text(AppLocalizations.of(context).notifications),
+                                onPressed: (s) async {
+
+                                  //if(notification!){
+                                  //await FlutterLocalNotificationsPlugin().cancelAll();
+                                  //ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  // content: Text("Notifications turned off!"),
+                                  //));
+                                  //}
+                                  //else {
+                                  //notificationsInitialize();
+                                  //ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  // content: Text("Notifications turned on!"),
+                                  //));
+                                  //}
+
+
+
+                                  //notificationsInitialize();
+                                },
+                                value: Text(AppLocalizations.of(context).notificationsdesc),
+                              ),
+
+                              SettingsTile.navigation(
+                                leading: Icon(Icons.help_outline),
+                                title: Text(AppLocalizations.of(context).help),
+                                onPressed: (s) {
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => HelpScreen()));
+                                },
+                                value: Text(AppLocalizations.of(context).helpdesc),
+                              ),
+
+
+                              SettingsTile.navigation(
+                                leading: Icon(Icons.info_outlined),
+                                title: Text(AppLocalizations.of(context).faqs),
+                                value: Text(AppLocalizations.of(context).faqsdesc),
+                                onPressed: (s) {
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => FAQScreen()));
+                                },
+                              ),
+                              SettingsTile.navigation(
+                                leading: Icon(Icons.support),
+                                title: Text(AppLocalizations.of(context).supportdevelopment),
+                                onPressed: (s) async {
+                                  //js.context.callMethod('open', ['https://github.com/avinashkranjan/Friday']);
+                                  final result = await openUrl('https://github.com/avinashkranjan/Friday');
+                                  if (result.exitCode == 0) {
+                                    print('URL opened!');
+                                  } else {
+                                    print('Something went wrong (exit code = ${result.exitCode}): '
+                                        '${result.stderr}');
+                                  }
+
+                                },
+                                value: Text(AppLocalizations.of(context).supportdevelopmentdesc),
+                              ),
+
                             ],
-                          ),)
+                          ),
+                        ],
+                        ),)
 
 
 
-                      ),
+                    ),
 
                   ],
                 ),

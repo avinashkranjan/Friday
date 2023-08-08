@@ -23,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
- List<AssignmentData> assignmentData = [];
+  List<AssignmentData> assignmentData = [];
 
   @override
   void initState() {
@@ -36,41 +36,41 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     });
   }
 
- @override
- void dispose() {
-   WidgetsBinding.instance.removeObserver(this);
-   super.dispose();
- }
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
- @override
- void didChangeAppLifecycleState(AppLifecycleState state) {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
     print('chaltorahbeh');
-   if (state == AppLifecycleState.resumed) {
-     fetchAssignmentData().then((data) {
-       setState(() {
-         assignmentData = data;
-       });
-     });
-   }
- }
+    if (state == AppLifecycleState.resumed) {
+      fetchAssignmentData().then((data) {
+        setState(() {
+          assignmentData = data;
+        });
+      });
+    }
+  }
 
 
 
 
- Future<List<AssignmentData>> fetchAssignmentData() async {
+  Future<List<AssignmentData>> fetchAssignmentData() async {
     String fileData = await rootBundle.loadString('assets/assignment_data.txt');
 
     List<AssignmentData> assignmentDataList = fileData
         .split('\n')
         .map((line) {
-          List<String> values = line.split(',');
-          DateTime date = DateTime.parse(values[0]);
-          double score = double.parse(values[1]);
-          int assignmentNumber = int.parse(values[2]);
-          String subject = values[3];
-          Duration timeSpent = Duration(hours: int.parse(values[4]));
-          return AssignmentData(date, score, assignmentNumber, subject, timeSpent);
-        })
+      List<String> values = line.split(',');
+      DateTime date = DateTime.parse(values[0]);
+      double score = double.parse(values[1]);
+      int assignmentNumber = int.parse(values[2]);
+      String subject = values[3];
+      Duration timeSpent = Duration(hours: int.parse(values[4]));
+      return AssignmentData(date, score, assignmentNumber, subject, timeSpent);
+    })
         .toList();
 
     return assignmentDataList;
@@ -94,6 +94,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       body: ListView(
         children: <Widget>[
           Header(),
+
+
+          
       
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 30.0),
@@ -122,10 +125,36 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide(width: 1, color: Colors.grey.shade600),
+
                 ),
               ),
             ),
           ),
+
+          SizedBox(height: 10,),
+          Center(child: TextButton(onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => FavouritesScreen()));
+          },child: Text( AppLocalizations.of(context).seefavourites, style: TextStyle(color: Theme.of(context).colorScheme.secondary),),),),
+          SizedBox(height: 15.0),
+          Container(
+            padding: EdgeInsets.all(35.0),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50.0),
+                topRight: Radius.circular(50.0),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  AppLocalizations.of(context).recentalerts,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+
         ),
         SizedBox(height: 10,),
         Center(child: TextButton(onPressed: () {
@@ -177,28 +206,56 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 child: TextButton(
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.all(0),
+
                   ),
+                ),
+                SizedBox(height: 30.0),
+                RecentsAlerts(),
+                Center(
                   child: Text(
-                    "View all",
+                    AppLocalizations.of(context).viewall,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary,
                         fontSize: 15.0),
                   ),
-                  onPressed: () => widget.openHomeworkPage(),
                 ),
-              ),
-              SizedBox(height: 30.0),
-               ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Settings'),
-                onTap: () {
-                  widget.openSettingsPage();
-                },
-              ),
-            ],
+                SizedBox(height: 20.0),
+                Text(
+                  AppLocalizations.of(context).recenthomework,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 30.0),
+                RecentHomeworks(),
+                Center(
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.all(0),
+                    ),
+                    child: Text(
+                      "View all",
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 15.0),
+                    ),
+                    onPressed: () => widget.openHomeworkPage(),
+                  ),
+                ),
+                SizedBox(height: 30.0),
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Settings'),
+                  onTap: () {
+                    widget.openSettingsPage();
+                  },
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
       ),
     );
   }
@@ -250,8 +307,8 @@ class DataSearch extends SearchDelegate<String> {
     final List suggestionList = query.isEmpty
         ? recentAlerts
         : recentAlerts
-            .where((p) => p.title.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+        .where((p) => p.title.toLowerCase().contains(query.toLowerCase()))
+        .toList();
     if (query.isEmpty) {
       return Center(
         child: Text('Search for the notes here'),
@@ -379,7 +436,7 @@ class DataSearch extends SearchDelegate<String> {
                                     padding: EdgeInsets.all(20.0),
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           "$hoursLeft",
@@ -473,13 +530,13 @@ class DataSearch extends SearchDelegate<String> {
                                   ),
                                   child: Row(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Container(
                                             width: 100,
@@ -553,8 +610,8 @@ class DataSearch extends SearchDelegate<String> {
         shape: CircleBorder(
           side: BorderSide(color: Theme.of(context).colorScheme.secondary),
         ), backgroundColor: homework.isDone
-            ? Theme.of(context).colorScheme.secondary
-            : Colors.transparent,
+          ? Theme.of(context).colorScheme.secondary
+          : Colors.transparent,
       ),
       child: homework.isDone ? Icon(Icons.check, color: Colors.white) : null,
     );
@@ -619,10 +676,10 @@ class AssignmentData {
   final Duration timeSpent;
 
   AssignmentData(
-    this.date,
-    this.score,
-    this.assignmentNumber,
-    this.subject,
-    this.timeSpent,
-  );
+      this.date,
+      this.score,
+      this.assignmentNumber,
+      this.subject,
+      this.timeSpent,
+      );
 }
