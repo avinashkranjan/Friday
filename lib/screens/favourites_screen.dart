@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../constants.dart';
 import '../models/alert.dart';
 import '../widgets/countdown_painter.dart';
@@ -42,7 +43,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
 
               SizedBox(height: 30.0),
               Text(
-                "Favourites",
+                AppLocalizations.of(context).favourites,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 30.0,
@@ -53,7 +54,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
               Center(child: TextButton(onPressed: () {
                 removeall();
                 },
-              child: Text('CLEAR ALL FAVOURITES')),),
+              child: Text(AppLocalizations.of(context).clearallfavourites)),),
               SizedBox(height: 30.0),
               Container(
                 padding: EdgeInsets.all(35.0),

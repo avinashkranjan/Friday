@@ -131,6 +131,7 @@ class _MyAppState extends State<MyApp> {
             GlobalCupertinoLocalizations.delegate,
           ],
           locale: Locale('hi'),
+          locale: Locale('en'),
           supportedLocales: [
             Locale('en'), // English
             Locale('hi'), // Hindi
