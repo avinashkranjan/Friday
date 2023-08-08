@@ -2,6 +2,7 @@ import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:friday/models/alert.dart';
 import 'package:friday/models/homework.dart';
 import 'package:friday/screens/favourites_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:friday/widgets/countdown_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:friday/constants.dart';
@@ -112,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 border: InputBorder.none,
                 fillColor: Theme.of(context).primaryColor,
                 filled: true,
-                hintText: "Search",
+                hintText:  AppLocalizations.of(context).search,
                 hintStyle: TextStyle(color: kTextColor),
                 prefixIcon: Icon(Icons.search, color: kTextColor, size: 26.0),
                 enabledBorder: OutlineInputBorder(
@@ -129,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         SizedBox(height: 10,),
         Center(child: TextButton(onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => FavouritesScreen()));
-        },child: Text('SEE FAVOURITES', style: TextStyle(color: Theme.of(context).colorScheme.secondary),),),),
+        },child: Text( AppLocalizations.of(context).seefavourites, style: TextStyle(color: Theme.of(context).colorScheme.secondary),),),),
         SizedBox(height: 15.0),
         Container(
           padding: EdgeInsets.all(35.0),
@@ -144,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "Recent Alerts",
+                AppLocalizations.of(context).recentalerts,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
@@ -155,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
               RecentsAlerts(),
               Center(
                 child: Text(
-                  "View all",
+                  AppLocalizations.of(context).viewall,
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontSize: 15.0),
@@ -163,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
               ),
               SizedBox(height: 20.0),
               Text(
-                "Recent Homework",
+                AppLocalizations.of(context).recenthomework,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,

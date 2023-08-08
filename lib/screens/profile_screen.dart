@@ -4,6 +4,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:friday/constants.dart';
 import 'package:friday/models/users.dart';
 import 'package:friday/screens/onboarding_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:friday/screens/settings_screen.dart';
 import 'package:friday/services/authentication.dart';
 import 'package:friday/services/facebookAuthentication.dart';
@@ -133,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Column(
                   children: [
             Text(
-            "Your Profile",
+              AppLocalizations.of(context).yourprofile,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 30.0,
@@ -164,7 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 child: Text(
                                   userInfo.hasData 
                                   ? currentUser['name']
-                                  : "Loading...",
+                                  : AppLocalizations.of(context).loading,
                                   style: TextStyle(
                                     fontSize: 20,
                                     color: Colors.blue[200],
@@ -175,17 +176,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           SizedBox(height: 20),
                           buildDetails(
-                              "Email",
+                              AppLocalizations.of(context).email,
                               userInfo.hasData 
                               ? currentUser['email'] 
-                              : "Loading...",
+                              : AppLocalizations.of(context).loading,
                               true),
                            SizedBox(height: 20),
                            buildDetails(
-                              "Bio",
+                               AppLocalizations.of(context).bio,
                                userInfo.hasData 
                                ? currentUser['bio'] 
-                               ?? 'No bio available' : "Loading...",
+                               ?? 'No bio available' : AppLocalizations.of(context).loading,
                                true),
                           SizedBox(height: 20),
                           Visibility(
@@ -226,50 +227,50 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                           buildDetails(
-                              "College",
+                              AppLocalizations.of(context).college,
                                    userInfo.hasData 
                                    ? currentUser['university'] 
-                                   : "Loading...",
+                                   : AppLocalizations.of(context).loading,
                               true),
                           SizedBox(height: 20),
                           buildDetails(
-                              "Course",
+                              AppLocalizations.of(context).course,
                               userInfo.hasData 
                               ? currentUser['course'] 
-                              : "Loading...",
+                              : AppLocalizations.of(context).loading,
                               true),
                           SizedBox(height: 20),
                           buildDetails(
-                              "Deptartment/Major",
+                              AppLocalizations.of(context).departmentmajor,
                               userInfo.hasData 
                               ? currentUser['department']
-                              : "Loading...",
+                              : AppLocalizations.of(context).loading,
                               true),
                           SizedBox(height: 20),
                           buildDetails(
-                              "Current Academic Year",
+                              AppLocalizations.of(context).currentacademicyear,
                                userInfo.hasData
                                ? currentUser['year'].toString()
-                               : "Loading...",
+                               : AppLocalizations.of(context).loading,
                               true),
                           SizedBox(height: 20),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               buildDetails(
-                                  "Gender",
+                                  AppLocalizations.of(context).gender,
                                   userInfo.hasData
                                    ? enumToString(currentUser['gender'])
-                                   : "Loading...",
+                                   : AppLocalizations.of(context).loading,
                                   true),
                               SizedBox(width: 20),
                               Visibility(
                                 visible: !visibilityFields,
                                 child: buildDetails(
-                                    "Age",
+                                    AppLocalizations.of(context).age,
                                     userInfo.hasData 
                                     ? currentUser['age'].toString() 
-                                    : "Loading...",
+                                    : AppLocalizations.of(context).loading,
                                     visibilityName),
                               ),
                               Visibility(

@@ -129,9 +129,29 @@ class _BuildClassesState extends State<BuildClasses> {
       child: Column(
         children: [
           Card(shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20))
-          ),color: Colors.white12,
+
+      borderRadius: BorderRadius.all(Radius.circular(20))
+    ),color: Colors.white12,
             child:
+          TableCalendar<Classes>(
+            onFormatChanged: (format) {},
+            firstDay: DateTime.utc(2002),
+            lastDay: DateTime.utc(2024),
+            focusedDay: _focusedDay,
+            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+            eventLoader: _getEventsForDay,
+            onDaySelected: _onDaySelected,
+
+            calendarStyle: CalendarStyle(
+             disabledTextStyle: TextStyle(color: Colors.white),
+              weekNumberTextStyle: TextStyle(color: Theme.of(context).primaryColor),
+              markerDecoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.amber,
+              ),
+            ),
+          ),),
+
             TableCalendar<Classes>(
               onFormatChanged: (format) {},
               firstDay: DateTime.utc(2002),
@@ -149,7 +169,8 @@ class _BuildClassesState extends State<BuildClasses> {
                   color: Colors.amber,
                 ),
               ),
-            ),),
+            ),
+
           classesList != null && classesList.isNotEmpty
               ? Padding(
             padding: EdgeInsets.only(

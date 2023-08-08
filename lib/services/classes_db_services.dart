@@ -47,6 +47,14 @@ class ClassesDBServices {
       }).then((value) => print("New Date Container Added"));
     }
 
+    if(documentSnapShot.exists) {
+      _classesListStored =
+      (documentSnapShot.data() as Map<String, dynamic>)['classe2s'];
+    }
+    else {
+      print(' null class, not added!');
+    }
+
 
     if (_classesListStored.isNotEmpty &&
         _classesListStored.containsKey(_todayDate)) {
