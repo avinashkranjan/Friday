@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:friday/main.dart';
 import 'package:friday/screens/faqs_screen.dart';
 import 'package:friday/screens/help_screen.dart';
 import 'package:friday/screens/themes.dart';
@@ -12,6 +13,32 @@ import '../services/user_info_services.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+
+class MyApps extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+
+  static _MyAppState? of(BuildContext context) => context.findAncestorStateOfType<_MyAppState>();
+}
+
+class _MyAppState extends State<MyApps> {
+  late Locale _locale;
+
+  void setLocale(Locale value) {
+    setState(() {
+      _locale = value;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      locale: _locale,
+      home: MyApp(),
+    );
+  }
+}
 
 
 class SettingsScreen extends StatefulWidget {
@@ -109,111 +136,52 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             topRight: Radius.circular(40),
                           ),
                         ),
+                        width: double.infinity,
+                        child:
 
-                      ),
-                      width: double.infinity,
-                      child:
+                        SizedBox(height: MediaQuery.of(context).size.height ,width: MediaQuery.of(context).size.width,child:SettingsList(
+                          lightTheme: SettingsThemeData(settingsListBackground: Theme.of(context).primaryColor, titleTextColor: Theme.of(context).secondaryHeaderColor,
+                              settingsTileTextColor: Colors.white, leadingIconsColor: Colors.white, dividerColor: Colors.white70, tileDescriptionTextColor: Theme.of(context).primaryColorDark)
 
-                          SizedBox(height: MediaQuery.of(context).size.height ,width: MediaQuery.of(context).size.width,child:SettingsList(
-                            lightTheme: SettingsThemeData(settingsListBackground: Theme.of(context).primaryColor, titleTextColor: Theme.of(context).secondaryHeaderColor,
-                            settingsTileTextColor: Colors.white, leadingIconsColor: Colors.white, dividerColor: Colors.white70, tileDescriptionTextColor: Theme.of(context).primaryColorDark)
-
-                            ,sections: [
-                              SettingsSection(
-
-                                title: Text(AppLocalizations.of(context).common),
-                                tiles: <SettingsTile>[
-                                  SettingsTile.navigation(
-                                    leading: Icon(Icons.language),
-                                    onPressed: (c) {
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                        content: Text("Currently support is for Single language only. Stay tuned!"),
-                                      ));
-                                    },
-                                    title: Text(AppLocalizations.of(context).language),
-                                    value: Text('English'),
-                                  ),
-                                  SettingsTile.switchTile(initialValue: ThemeMode.system == ThemeMode.light ? !modeval : modeval, onToggle: (s) {
-                                    setState(() {
-                                      modeval = s;
-                                    });
-                                    if(modeval) {
-                                      setState(() {
-                                        _setTheme(lightTheme);
-                                      });
-                                    }
-                                    else {
-                                      setState(() {
-                                        _setTheme(darkTheme);
-                                      });
-                                    }
-
-                                  }, title: Text(AppLocalizations.of(context).lightmode), enabled: true, leading: Icon(Icons.light_mode),),
-
-                                  SettingsTile.navigation(
-                                    leading: Icon(Icons.notifications_active_outlined),
-                                    title: Text(AppLocalizations.of(context).notifications),
-                                    onPressed: (s) async {
-
-                                      NotificationService().showNotification(title: 'olalalaaa', body: 'it works');
-
-                                      //if(notification!){
-                                        //await FlutterLocalNotificationsPlugin().cancelAll();
-                                        //ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                         // content: Text("Notifications turned off!"),
-                                        //));
-                                      //}
-                                      //else {
-                                        //notificationsInitialize();
-                                        //ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                         // content: Text("Notifications turned on!"),
-                                        //));
-                                      //}
-
-
-
-                                      //notificationsInitialize();
-                                    },
-                                    value: Text(AppLocalizations.of(context).notificationsdesc),
-                                  ),
-
-                                  SettingsTile.navigation(
-                                    leading: Icon(Icons.help_outline),
-                                    title: Text(AppLocalizations.of(context).help),
-                                    onPressed: (s) {
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HelpScreen()));
-                                    },
-                                    value: Text(AppLocalizations.of(context).helpdesc),
-                                  ),
-
-
-                                  SettingsTile.navigation(
-                                    leading: Icon(Icons.info_outlined),
-                                    title: Text(AppLocalizations.of(context).faqs),
-                                    value: Text(AppLocalizations.of(context).faqsdesc),
-                                    onPressed: (s) {
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => FAQScreen()));
-                                    },
-                                  ),
-                                  SettingsTile.navigation(
-                                    leading: Icon(Icons.support),
-                                    title: Text(AppLocalizations.of(context).supportdevelopment),
-                                    onPressed: (s) async {
-                                      //js.context.callMethod('open', ['https://github.com/avinashkranjan/Friday']);
-                                      final result = await openUrl('https://github.com/avinashkranjan/Friday');
-                                      if (result.exitCode == 0) {
-                                        print('URL opened!');
-                                      } else {
-                                        print('Something went wrong (exit code = ${result.exitCode}): '
-                                            '${result.stderr}');
-                                      }
-
-                                    },
-                                    value: Text(AppLocalizations.of(context).supportdevelopmentdesc),
-                                  ),
-
-                                ],
-
+                          ,sections: [
+                          SettingsSection(
+                            title: Text(AppLocalizations.of(context).common),
+                            tiles: <SettingsTile>[
+                              SettingsTile.navigation(
+                                leading: Icon(Icons.language),
+                                onPressed: (c) {
+                                  var languages = ['English','Russian','Hindi'];
+                                  showDialog(context: context, builder: (BuildContext context) {
+                                    return new AlertDialog(
+                                      backgroundColor: Colors.black,
+                                      actions: [TextButton(onPressed: () {
+                                        Navigator.pop(context);
+                                      }, child: Text('OK', style: TextStyle(color: Colors.deepPurpleAccent),))],
+                                      title: new Text('Select a Language', style: TextStyle(color: Colors.deepPurpleAccent),),
+                                      content: Container(height:200, width: MediaQuery.of(context).size.width ,child:ListView.builder(
+                                        itemCount: languages.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            title: Text(languages[index],style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                                            onTap: () {
+                                              if(index == 0) {
+                                                MyApps.of(context)!.setLocale(Locale.fromSubtags(languageCode: 'en'));
+                                              }
+                                              else if(index == 1) {
+                                                MyApps.of(context)!.setLocale(Locale.fromSubtags(languageCode: 'hi'));
+                                              }
+                                              else if(index == 2) {
+                                                MyApps.of(context)!.setLocale(Locale.fromSubtags(languageCode: 'ru'));
+                                              }
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ));
+                                  });
+                                },
+                                title: Text(AppLocalizations.of(context).language),
+                                value: Text('English'),
                               ),
                               SettingsTile.switchTile(initialValue: ThemeMode.system == ThemeMode.light ? !modeval : modeval, onToggle: (s) {
                                 setState(() {
@@ -236,6 +204,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 leading: Icon(Icons.notifications_active_outlined),
                                 title: Text(AppLocalizations.of(context).notifications),
                                 onPressed: (s) async {
+
+                                  NotificationService().showNotification(title: 'olalalaaa', body: 'it works');
 
                                   //if(notification!){
                                   //await FlutterLocalNotificationsPlugin().cancelAll();

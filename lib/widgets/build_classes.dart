@@ -173,7 +173,7 @@ class _BuildClassesState extends State<BuildClasses> {
             ),
           ),
 
-            ),
+
 
           classesList != null && classesList.isNotEmpty
               ? Padding(
