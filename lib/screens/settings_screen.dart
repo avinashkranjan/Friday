@@ -199,10 +199,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 onPressed: (s) async {
                                   //js.context.callMethod('open', ['https://github.com/avinashkranjan/Friday']);
                                   final result = await openUrl('https://github.com/avinashkranjan/Friday');
-                                  if (result.exitCode == 0) {
-                                    print('URL opened!');
+                                  int a = result.exitCode;
+                                  if (a == 0) {
+                                    print('URL opened in your system!');
+                                    print('\n');
                                   } else {
-                                    print('Something went wrong (exit code = ${result.exitCode}): '
+                                    print('Something went wrong with exit code = ${result.exitCode}: '
                                         '${result.stderr}');
                                   }
 
