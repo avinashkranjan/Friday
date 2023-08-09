@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:friday/main.dart';
 import 'package:friday/screens/faqs_screen.dart';
 import 'package:friday/screens/help_screen.dart';
 import 'package:friday/screens/themes.dart';
@@ -13,32 +12,6 @@ import '../services/user_info_services.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
-class MyApps extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-
-  static _MyAppState? of(BuildContext context) => context.findAncestorStateOfType<_MyAppState>();
-}
-
-class _MyAppState extends State<MyApps> {
-  late Locale _locale;
-
-  void setLocale(Locale value) {
-    setState(() {
-      _locale = value;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      locale: _locale,
-      home: MyApp(),
-    );
-  }
-}
 
 
 class SettingsScreen extends StatefulWidget {
@@ -145,40 +118,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                           ,sections: [
                           SettingsSection(
+
                             title: Text(AppLocalizations.of(context).common),
                             tiles: <SettingsTile>[
                               SettingsTile.navigation(
                                 leading: Icon(Icons.language),
                                 onPressed: (c) {
-                                  var languages = ['English','Russian','Hindi'];
-                                  showDialog(context: context, builder: (BuildContext context) {
-                                    return new AlertDialog(
-                                      backgroundColor: Colors.black,
-                                      actions: [TextButton(onPressed: () {
-                                        Navigator.pop(context);
-                                      }, child: Text('OK', style: TextStyle(color: Colors.deepPurpleAccent),))],
-                                      title: new Text('Select a Language', style: TextStyle(color: Colors.deepPurpleAccent),),
-                                      content: Container(height:200, width: MediaQuery.of(context).size.width ,child:ListView.builder(
-                                        itemCount: languages.length,
-                                        itemBuilder: (context, index) {
-                                          return ListTile(
-                                            title: Text(languages[index],style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                                            onTap: () {
-                                              if(index == 0) {
-                                                MyApps.of(context)!.setLocale(Locale.fromSubtags(languageCode: 'en'));
-                                              }
-                                              else if(index == 1) {
-                                                MyApps.of(context)!.setLocale(Locale.fromSubtags(languageCode: 'hi'));
-                                              }
-                                              else if(index == 2) {
-                                                MyApps.of(context)!.setLocale(Locale.fromSubtags(languageCode: 'ru'));
-                                              }
-                                            },
-                                          );
-                                        },
-                                      ),
-                                    ));
-                                  });
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: Text("Currently support is for Single language only. Stay tuned!"),
+                                  ));
                                 },
                                 title: Text(AppLocalizations.of(context).language),
                                 value: Text('English'),
