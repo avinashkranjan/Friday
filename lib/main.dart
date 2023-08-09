@@ -132,7 +132,7 @@ class _MyAppState extends State<MyApp> {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          locale: Locale('en'),
+          locale: Locale('hi'),
           supportedLocales: [
             Locale('ru'),
             Locale('en'), // English
