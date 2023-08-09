@@ -208,6 +208,8 @@ class DataSearch extends SearchDelegate<String> {
   @override
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context).copyWith(
+      scaffoldBackgroundColor: Theme.of(context).colorScheme.background.withOpacity(0.8),
+
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.black,
         titleTextStyle: TextStyle(color: kTextColor),
@@ -254,13 +256,14 @@ class DataSearch extends SearchDelegate<String> {
             .toList();
     if (query.isEmpty) {
       return Center(
-        child: Text('Search for the notes here'),
+        child: Text('Search for the notes here', style: TextStyle(color: Colors.white),),
       );
     }
     return SingleChildScrollView(
+
       child: Padding(
         padding: EdgeInsets.all(8.0),
-        child: Column(
+        child: Container(child: Column(
           children: [
             Column(
               children: [
@@ -268,7 +271,7 @@ class DataSearch extends SearchDelegate<String> {
                   Text(
                     "Recent Alerts",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -447,7 +450,7 @@ class DataSearch extends SearchDelegate<String> {
                           Text(
                             "Recent Homework",
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Colors.white,
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
                             ),
@@ -533,7 +536,7 @@ class DataSearch extends SearchDelegate<String> {
           ],
         ),
       ),
-    );
+    ));
   }
 
   _getColor(BuildContext context, double percent) {
