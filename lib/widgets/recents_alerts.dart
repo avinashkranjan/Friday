@@ -230,5 +230,5 @@ class _RecentsAlertsState extends State<RecentsAlerts> with WidgetsBindingObserv
 
     }
   }
-}
+
 

@@ -95,42 +95,38 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         children: <Widget>[
           Header(),
 
-
-          
-      
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.0),
-          child: GestureDetector(
-            onTap: () {
-              showSearch(
-                context: context,
-                delegate: DataSearch(),
-              );
-            },
-            child: TextField(
-              enabled: false,
-              style: TextStyle(color: kTextColor),
-              cursorColor: kTextColor,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(8.0),
-                border: InputBorder.none,
-                fillColor: Theme.of(context).primaryColor,
-                filled: true,
-                hintText:  AppLocalizations.of(context).search,
-                hintStyle: TextStyle(color: kTextColor),
-                prefixIcon: Icon(Icons.search, color: kTextColor, size: 26.0),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                  borderSide: BorderSide(width: 1, color: Colors.grey.shade600),
-
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
+            child: GestureDetector(
+              onTap: () {
+                showSearch(
+                  context: context,
+                  delegate: DataSearch(),
+                );
+              },
+              child: TextField(
+                enabled: false,
+                style: TextStyle(color: kTextColor),
+                cursorColor: kTextColor,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(8.0),
+                  border: InputBorder.none,
+                  fillColor: Theme.of(context).primaryColor,
+                  filled: true,
+                  hintText:  AppLocalizations.of(context).search,
+                  hintStyle: TextStyle(color: kTextColor),
+                  prefixIcon: Icon(Icons.search, color: kTextColor, size: 26.0),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide(width: 1, color: Colors.grey.shade600),
+                  ),
                 ),
               ),
             ),
           ),
-
           SizedBox(height: 10,),
           Center(child: TextButton(onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => FavouritesScreen()));
@@ -154,59 +150,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                     color: Colors.white,
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
-
-        ),
-        SizedBox(height: 10,),
-        Center(child: TextButton(onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => FavouritesScreen()));
-        },child: Text( AppLocalizations.of(context).seefavourites, style: TextStyle(color: Theme.of(context).colorScheme.secondary),),),),
-        SizedBox(height: 15.0),
-        Container(
-          padding: EdgeInsets.all(35.0),
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(50.0),
-              topRight: Radius.circular(50.0),
-            ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                AppLocalizations.of(context).recentalerts,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 30.0),
-              RecentsAlerts(),
-              Center(
-                child: Text(
-                  AppLocalizations.of(context).viewall,
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 15.0),
-                ),
-              ),
-              SizedBox(height: 20.0),
-              Text(
-                AppLocalizations.of(context).recenthomework,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 30.0),
-              RecentHomeworks(),
-              Center(
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.all(0),
-
                   ),
                 ),
                 SizedBox(height: 30.0),

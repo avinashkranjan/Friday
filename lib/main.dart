@@ -51,6 +51,7 @@ class _MyAppState extends State<MyApp> {
   bool isFirstRun = false;
   int backButtonPressCounter = 0;
 
+
   @override
   void initState() {
     super.initState();
@@ -131,10 +132,6 @@ class _MyAppState extends State<MyApp> {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          locale: Locale('hi'),
-
-          
-
           locale: Locale('en'),
           supportedLocales: [
             Locale('ru'),
@@ -156,16 +153,16 @@ class _MyAppState extends State<MyApp> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return SplashScreen(key: UniqueKey());
             } else {
-              if (isFirstRun) {
-                return OnBoardingPage();
-              } else {
-                WidgetsBinding.instance.addPostFrameCallback(
-                  (_) => showRatingDialog(context),
-                );
-                return AuthenticationService.handleEntryPoint(context);
+    if (isFirstRun) {
+    return OnBoardingPage();
+    } else {
+    WidgetsBinding.instance.addPostFrameCallback(
+    (_) => showRatingDialog(context),
+    );
+    return AuthenticationService.handleEntryPoint(context);
 
-              }
-          ),
+    }}}
+    ),
           routes: {
             '/feedback': (context) => FeedbackPage(),
             '/settings': (context) => SettingsScreen(),
