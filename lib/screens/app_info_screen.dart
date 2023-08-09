@@ -31,48 +31,48 @@ class AppInfoScreen extends StatelessWidget {
                           ),),
                         SizedBox(height: 0.12 * MediaQuery.of(context).size.height),
                         Container(
-                            margin: EdgeInsets.fromLTRB(15, 15, 15, 60),
-                            padding: EdgeInsets.all(30),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(40),
-                                topRight: Radius.circular(40),
-                              ),
+                          margin: EdgeInsets.fromLTRB(15, 15, 15, 60),
+                          padding: EdgeInsets.all(30),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              topRight: Radius.circular(40),
                             ),
-                            width: double.infinity,
-                            child:
+                          ),
+                          width: double.infinity,
+                          child:
 
-                            SizedBox(height: MediaQuery.of(context).size.height ,width: MediaQuery.of(context).size.width,child:Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Friday',
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context).secondaryHeaderColor
-                                    ),
-                                  ),
-                                  SizedBox(height: 16),
-                                  Text(
-                                    'Version 1.0.0',
-                                    style: TextStyle(fontSize: 18, color: Theme.of(context).secondaryHeaderColor),
-
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    'Developer: Avinash Ranjan',
-                                    style: TextStyle(fontSize: 18, color: Theme.of(context).secondaryHeaderColor),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    'Email: ranjan.avinash@hotmail.com',
-                                    style: TextStyle(fontSize: 18, color: Theme.of(context).secondaryHeaderColor),
-                                  ),
-                                ],
+                          SizedBox(height: MediaQuery.of(context).size.height ,width: MediaQuery.of(context).size.width,child:Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Friday',
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).secondaryHeaderColor
+                                ),
                               ),
-                            ),)])]);
+                              SizedBox(height: 16),
+                              Text(
+                                'Version 1.0.0',
+                                style: TextStyle(fontSize: 18, color: Theme.of(context).secondaryHeaderColor),
+
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Developer: Avinash Ranjan',
+                                style: TextStyle(fontSize: 18, color: Theme.of(context).secondaryHeaderColor),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Email: ranjan.avinash@hotmail.com',
+                                style: TextStyle(fontSize: 18, color: Theme.of(context).secondaryHeaderColor),
+                              ),
+                            ],
+                          ),
+                          ),)])]);
           },
         ),
       ),

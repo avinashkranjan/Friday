@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:friday/models/users.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
+import 'package:friday/services/classes_db_services.dart';
 import 'package:intl/intl.dart';
 import 'package:friday/constants.dart';
 import 'package:friday/models/alert.dart';
@@ -22,6 +26,7 @@ class _RecentsAlertsState extends State<RecentsAlerts> with WidgetsBindingObserv
   void initState() {
     // TODO: implement initState
     loadpref();
+    loadalerts();
     WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
@@ -34,7 +39,8 @@ class _RecentsAlertsState extends State<RecentsAlerts> with WidgetsBindingObserv
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('chaltorahbeh');
+
+    loadalerts();
 
     loadpref();
   }
@@ -139,7 +145,7 @@ class _RecentsAlertsState extends State<RecentsAlerts> with WidgetsBindingObserv
                           Checkbox(value: impstuff[index]=='false'?false:true, onChanged: (s) async {
                             impstuff[index] = s.toString();
                             await preferences.setStringList('favbool', impstuff).then((value) => print(impstuff));
-                            
+
                             setState(() {
                               impstuff;
                             });
@@ -206,4 +212,23 @@ class _RecentsAlertsState extends State<RecentsAlerts> with WidgetsBindingObserv
     });
 
   }
+
 }
+
+
+  void loadalerts() async {
+
+    final DocumentSnapshot<Map<String, dynamic>> documentSnapShot = await FirebaseFirestore.instance
+        .doc('users/${FirebaseAuth.instance.currentUser?.uid}')
+        .get();
+
+    Map<String, dynamic> _classesListStored = Map<String, dynamic>();
+    if(documentSnapShot.data()!=null) {
+      _classesListStored = (documentSnapShot.data())!;
+      print(_classesListStored);
+      print('yha ka hai');
+
+    }
+  }
+
+

@@ -130,8 +130,10 @@ class _BuildClassesState extends State<BuildClasses> {
         children: [
           Card(shape: RoundedRectangleBorder(
 
+
       borderRadius: BorderRadius.all(Radius.circular(20))
     ),color: Colors.white12,
+
             child:
           TableCalendar<Classes>(
             onFormatChanged: (format) {},
@@ -151,7 +153,6 @@ class _BuildClassesState extends State<BuildClasses> {
               ),
             ),
           ),),
-
 
 
           classesList != null && classesList.isNotEmpty
