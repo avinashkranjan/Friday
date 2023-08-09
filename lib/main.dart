@@ -132,12 +132,12 @@ class _MyAppState extends State<MyApp> {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          locale: Locale('en'),
+          locale: Locale('te'),
           supportedLocales: [
             Locale('ru'),
             Locale('en'), // English
             Locale('hi'),
-            Locale('bn')// Hindi
+            Locale('te')// Hindi
           ],
         debugShowCheckedModeBanner: false,
         title: 'Friday',
