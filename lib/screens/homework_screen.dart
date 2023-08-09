@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:friday/widgets/recents_homeworks.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeworkScreen extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _HomeworkScreenState extends State<HomeworkScreen> {
             children: <Widget>[
               SizedBox(height: 30.0),
               Text(
-                "Recent Homework",
+                AppLocalizations.of(context).recenthomework,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 30.0,

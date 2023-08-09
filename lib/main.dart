@@ -1,4 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:friday/models/alert.dart';
 import 'package:friday/screens/faqs_screen.dart';
 import 'package:friday/screens/onboarding_page.dart';
@@ -27,9 +30,13 @@ import 'screens/help_screen.dart';
 import 'screens/contact_us_screen.dart';
 import 'screens/app_info_screen.dart';
 import 'onboarding/introslider.dart';
+import 'utils/notifications.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  NotificationService().initNotification();
+  NotificationService().showNotification(title: 'olalalaaa', body: 'it works');
   await Firebase.initializeApp();
   runApp(MyApp());
 }
@@ -42,16 +49,19 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool isFirstRun = false;
-    int backButtonPressCounter = 0;
+  int backButtonPressCounter = 0;
+
 
   @override
   void initState() {
     super.initState();
     checkFirstRun();
+
+
     loadpref();
   }
 
- Future<void> checkFirstRun() async {
+  Future<void> checkFirstRun() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     isFirstRun = IsFirstRun.isFirstRun() as bool;
     setState(() {
@@ -59,7 +69,7 @@ class _MyAppState extends State<MyApp> {
     });
     prefs.setBool('already_rated', false);
   }
-   Future<void> showRatingDialog(BuildContext context) async {
+  Future<void> showRatingDialog(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool alreadyRated = prefs.getBool('already_rated') ?? false;
     if (!alreadyRated) {
@@ -89,7 +99,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-   Future<bool> onWillPop() async {
+  Future<bool> onWillPop() async {
     backButtonPressCounter++;
     if (backButtonPressCounter == 2) {
       backButtonPressCounter = 0;
@@ -116,6 +126,20 @@ class _MyAppState extends State<MyApp> {
       child: WillPopScope(
         onWillPop:onWillPop,
         child: MaterialApp(
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          locale: Locale('hi'),
+          supportedLocales: [
+            Locale('ru'),
+            Locale('en'), // English
+            Locale('hi'),
+            Locale('gu'),// Hindi
+            Locale('mr')// Hindi
+          ],
         debugShowCheckedModeBanner: false,
         title: 'Friday',
         theme: ThemeData(
@@ -131,27 +155,26 @@ class _MyAppState extends State<MyApp> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return SplashScreen(key: UniqueKey());
             } else {
-              if (isFirstRun) {
-                return OnBoardingPage();
-              } else {
-                WidgetsBinding.instance.addPostFrameCallback(
-                  (_) => showRatingDialog(context),
-                );
-                return AuthenticationService.handleEntryPoint(context);
-              }
-            }
-          }
-        ),
+    if (isFirstRun) {
+    return OnBoardingPage();
+    } else {
+    WidgetsBinding.instance.addPostFrameCallback(
+    (_) => showRatingDialog(context),
+    );
+    return AuthenticationService.handleEntryPoint(context);
+
+    }}}
+    ),
           routes: {
-           '/feedback': (context) => FeedbackPage(),
-           '/settings': (context) => SettingsScreen(),
-           '/help': (context) => HelpScreen(),
-           '/contact': (context) => ContactUsScreen(),
-           '/appInfo': (context) => AppInfoScreen(),
-           '/theme':(context) => ThemeScreen(),
-           '/faqs':(context) => FAQScreen(),
-           '/phoneVerification': (context) => PhoneVerificationScreen(),
-           '/verifyCode': (context) => VerifyCodeScreen(phoneNumber: '7267097531', phoneNumberVerificationDb: PhoneNumberVerificationDb(verificationCallback: null),),
+            '/feedback': (context) => FeedbackPage(),
+            '/settings': (context) => SettingsScreen(),
+            '/help': (context) => HelpScreen(),
+            '/contact': (context) => ContactUsScreen(),
+            '/appInfo': (context) => AppInfoScreen(),
+            '/theme':(context) => ThemeScreen(),
+            '/faqs':(context) => FAQScreen(),
+            '/phoneVerification': (context) => PhoneVerificationScreen(),
+            '/verifyCode': (context) => VerifyCodeScreen(phoneNumber: '7267097531', phoneNumberVerificationDb: PhoneNumberVerificationDb(verificationCallback: null),),
           },
         ),
       ),
