@@ -137,7 +137,7 @@ class _MyAppState extends State<MyApp> {
             Locale('ru'),
             Locale('en'), // English
             Locale('hi'),
-            Locale('ar')// Hindi
+            Locale('bn')// Hindi
           ],
         debugShowCheckedModeBanner: false,
         title: 'Friday',
