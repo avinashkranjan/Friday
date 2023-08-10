@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:friday/feedback.dart';
 import 'package:friday/screens/theme_screen.dart';
 import 'package:friday/services/phone_number_verification_db.dart';
+import 'package:friday/services/theme_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:friday/screens/phone_verification_screen.dart';
 import 'package:friday/screens/verify_code_screen.dart';
@@ -38,7 +39,14 @@ void main() async {
   NotificationService().initNotification();
   NotificationService().showNotification(title: 'olalalaaa', body: 'it works');
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(MultiProvider( // create the provider
+    providers: [
+      ChangeNotifierProvider(
+        create: (_) => ThemeProvider(),
+      )
+    ],
+    child: MyApp(),
+  ),);
 }
 
 class MyApp extends StatefulWidget {
@@ -126,6 +134,7 @@ class _MyAppState extends State<MyApp> {
       child: WillPopScope(
         onWillPop:onWillPop,
         child: MaterialApp(
+          theme: Provider.of<ThemeProvider>(context).currentTheme,
           localizationsDelegates: [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -142,13 +151,7 @@ class _MyAppState extends State<MyApp> {
           ],
         debugShowCheckedModeBanner: false,
         title: 'Friday',
-        theme: ThemeData(
-          primaryColor: Color(0xFF202328),
-          visualDensity: VisualDensity.adaptivePlatformDensity, 
-          colorScheme: ColorScheme.fromSwatch()
-          .copyWith(secondary: Color(0xFF651FFF))
-          .copyWith(background: Color(0xFF12171D)),
-        ),
+
         home: FutureBuilder(
           future: Future.delayed(Duration(seconds: 3)),
           builder: (context, snapshot) {
