@@ -101,18 +101,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           onSelected: (s) async {
           },
           itemBuilder: (BuildContext context) {
-            return {'Share App','Settings'}.map((String choice) {
+            return {'Share App'}.map((String choice) {
               return PopupMenuItem<String>(
                 value: choice,
                 child: Text(choice),
                 onTap: () {
-                  if(choice == 'Share App') {
                     shareapp();
-                  }
-                  else {
-                    print('pencho');
-                    Navigator.of(this.context).push(MaterialPageRoute(builder: (context) => SettingsScreen()));
-                  }
+                  
                 },
               );
             }).toList();
