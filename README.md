@@ -115,7 +115,9 @@ We welcome contributions from the community, and we appreciate your interest in 
 We would like to express our heartfelt gratitude to the following contributors for their valuable contributions to Friday:
 
 Thanks to these wonderful people.
-
+<p>
+  <img src="https://api.vaunt.dev/v1/github/entities/avinashkranjan/repositories/Friday/contributors?format=svg&limit=54" width="600" height"250" />
+</p>
 <table>
 	<tr>
 		<td>
