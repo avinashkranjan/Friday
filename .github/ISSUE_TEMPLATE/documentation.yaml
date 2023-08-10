@@ -1,6 +1,6 @@
 name: "📑 Documentation Update"
 description: "Improve Documentation"
-title: "DOC:"
+title: "[DOC]"
 labels: [DOC, Needs Triage]
 body:
  
