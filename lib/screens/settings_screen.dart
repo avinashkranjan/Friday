@@ -8,6 +8,7 @@ import 'package:open_url/open_url.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../models/users.dart';
+import '../services/theme_provider.dart';
 import '../services/user_info_services.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -22,6 +23,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   get visibilityName => null;
   bool modeval = false;
+
   late bool? notification;
   ThemeData? _currentTheme;
 
@@ -131,18 +133,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 title: Text(AppLocalizations.of(context).language),
                                 value: Text('English'),
                               ),
-                              SettingsTile.switchTile(initialValue: ThemeMode.system == ThemeMode.light ? !modeval : modeval, onToggle: (s) {
+                              SettingsTile.switchTile(initialValue: modeval, onToggle: (s) {
+                                final themeProvider =
+                                Provider.of<ThemeProvider>(context, listen: false);
                                 setState(() {
                                   modeval = s;
                                 });
                                 if(modeval) {
                                   setState(() {
-                                    _setTheme(lightTheme);
+                                    themeProvider.setLightMode();
                                   });
                                 }
                                 else {
                                   setState(() {
-                                    _setTheme(darkTheme);
+                                    themeProvider.setDarkmode();
                                   });
                                 }
 
