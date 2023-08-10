@@ -135,7 +135,7 @@ Contributions of any kind are welcome!
  <picture>
   <source media="(prefers-color-scheme: light)" srcset="https://github.com/suman-somu/Friday/assets/75962762/ba81bd7e-721f-416a-a9d7-5ec2822bd4bb">
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/suman-somu/Friday/assets/75962762/6f8ea759-8c9e-4c77-b21d-a46821910892">
-  <img alt="Girlscript Summer of Code" src="https://github.com/suman-somu/Friday/assets/75962762/a803f788-8fbc-46b2-9c01-5761b2a463d3">
+  <a href="https://gssoc.girlscript.tech/"><img alt="Girlscript Summer of Code" src="https://github.com/suman-somu/Friday/assets/75962762/a803f788-8fbc-46b2-9c01-5761b2a463d3"></a>
 </picture>
 	  	 
 <h1 align=center> Project Admin ❤️ </h1>
@@ -143,7 +143,9 @@ Contributions of any kind are welcome!
   <a href="https://github.com/avinashkranjan"><img src="https://user-images.githubusercontent.com/55796944/95675026-dab07580-0bd1-11eb-93e2-1cb1de8acf38.png" width=150px height=150px /></a> 
     
 <p align="center">
-  <img src="https://img.shields.io/badge/avinashkranjan%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>  <img src="https://img.shields.io/badge/iavinashranjan%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/> <img src="https://img.shields.io/badge/avinashkranjan7%20-%23E4405F.svg?&style=for-the-badge&logo=Instagram&logoColor=white"/>               
+  	<a href="https://www.linkedin.com/in/avinashkranjan"><img src="https://img.shields.io/badge/avinashkranjan%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a>  
+	<a href="https://twitter.com/iavinashranjan"><img src="https://img.shields.io/badge/iavinashranjan%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/></a>
+	<a href="https://www.instagram.com/avinashkranjan7/"><img src="https://img.shields.io/badge/avinashkranjan7%20-%23E4405F.svg?&style=for-the-badge&logo=Instagram&logoColor=white"/></a>              
 	
 	
 
