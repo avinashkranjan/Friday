@@ -6,13 +6,13 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.12.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  intl: ^0.17.0
+  intl: ^0.18.1
   provider:
   fluttertoast:
   flutter_svg:
@@ -25,7 +25,7 @@ dependencies:
   url_launcher:
   firebase_storage:
   path_provider:
-  date_time_picker:
+  # date_time_picker:
   table_calendar:
   flutter_login_facebook:
   flutter_icons_null_safety:
@@ -34,7 +34,7 @@ dependencies:
   introduction_screen:
   is_first_run:
   shared_preferences:
-  charts_flutter:
+  # charts_flutter:
   share_plus:
   flutter_share:
   settings_ui:
