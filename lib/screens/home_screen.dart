@@ -1,17 +1,18 @@
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
+import 'package:friday/constants.dart';
 import 'package:friday/models/alert.dart';
 import 'package:friday/models/homework.dart';
 import 'package:friday/screens/favourites_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:friday/widgets/countdown_painter.dart';
-import 'package:flutter/material.dart';
-import 'package:friday/constants.dart';
 import 'package:friday/widgets/header.dart';
 import 'package:friday/widgets/recents_alerts.dart';
 import 'package:friday/widgets/recents_homeworks.dart';
 import 'package:intl/intl.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter/services.dart' show rootBundle;
+
 import 'chat_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -54,15 +55,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     }
   }
 
-
-
-
   Future<List<AssignmentData>> fetchAssignmentData() async {
     String fileData = await rootBundle.loadString('assets/assignment_data.txt');
 
-    List<AssignmentData> assignmentDataList = fileData
-        .split('\n')
-        .map((line) {
+    List<AssignmentData> assignmentDataList = fileData.split('\n').map((line) {
       List<String> values = line.split(',');
       DateTime date = DateTime.parse(values[0]);
       double score = double.parse(values[1]);
@@ -70,8 +66,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       String subject = values[3];
       Duration timeSpent = Duration(hours: int.parse(values[4]));
       return AssignmentData(date, score, assignmentNumber, subject, timeSpent);
-    })
-        .toList();
+    }).toList();
 
     return assignmentDataList;
   }
@@ -79,7 +74,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background.withOpacity(0.8),
+      backgroundColor:
+          Theme.of(context).colorScheme.background.withOpacity(0.8),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -94,7 +90,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       body: ListView(
         children: <Widget>[
           Header(),
-
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 30.0),
             child: GestureDetector(
@@ -113,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   border: InputBorder.none,
                   fillColor: Theme.of(context).primaryColor,
                   filled: true,
-                  hintText:  AppLocalizations.of(context).search,
+                  hintText: AppLocalizations.of(context)?.search ?? "",
                   hintStyle: TextStyle(color: kTextColor),
                   prefixIcon: Icon(Icons.search, color: kTextColor, size: 26.0),
                   enabledBorder: OutlineInputBorder(
@@ -121,16 +116,29 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
-                    borderSide: BorderSide(width: 1, color: Colors.grey.shade600),
+                    borderSide:
+                        BorderSide(width: 1, color: Colors.grey.shade600),
                   ),
                 ),
               ),
             ),
           ),
-          SizedBox(height: 10,),
-          Center(child: TextButton(onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => FavouritesScreen()));
-          },child: Text( AppLocalizations.of(context).seefavourites, style: TextStyle(color: Theme.of(context).colorScheme.secondary),),),),
+          SizedBox(
+            height: 10,
+          ),
+          Center(
+            child: TextButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => FavouritesScreen()));
+              },
+              child: Text(
+                AppLocalizations.of(context)?.seefavourites ?? "",
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.secondary),
+              ),
+            ),
+          ),
           SizedBox(height: 15.0),
           Container(
             padding: EdgeInsets.all(35.0),
@@ -145,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  AppLocalizations.of(context).recentalerts,
+                  AppLocalizations.of(context)?.recentalerts ?? "",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
@@ -156,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 RecentsAlerts(),
                 Center(
                   child: Text(
-                    AppLocalizations.of(context).viewall,
+                    AppLocalizations.of(context)?.viewall ?? "",
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary,
                         fontSize: 15.0),
@@ -164,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 ),
                 SizedBox(height: 20.0),
                 Text(
-                  AppLocalizations.of(context).recenthomework,
+                  AppLocalizations.of(context)?.recenthomework ?? "",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
@@ -208,8 +216,8 @@ class DataSearch extends SearchDelegate<String> {
   @override
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context).copyWith(
-      scaffoldBackgroundColor: Theme.of(context).colorScheme.background.withOpacity(0.8),
-
+      scaffoldBackgroundColor:
+          Theme.of(context).colorScheme.background.withOpacity(0.8),
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.black,
         titleTextStyle: TextStyle(color: kTextColor),
@@ -252,18 +260,21 @@ class DataSearch extends SearchDelegate<String> {
     final List suggestionList = query.isEmpty
         ? recentAlerts
         : recentAlerts
-        .where((p) => p.title.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+            .where((p) => p.title.toLowerCase().contains(query.toLowerCase()))
+            .toList();
     if (query.isEmpty) {
       return Center(
-        child: Text('Search for the notes here', style: TextStyle(color: Colors.white),),
+        child: Text(
+          'Search for the notes here',
+          style: TextStyle(color: Colors.white),
+        ),
       );
     }
     return SingleChildScrollView(
-
-      child: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Container(child: Column(
+        child: Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Container(
+        child: Column(
           children: [
             Column(
               children: [
@@ -382,7 +393,7 @@ class DataSearch extends SearchDelegate<String> {
                                     padding: EdgeInsets.all(20.0),
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           "$hoursLeft",
@@ -476,13 +487,13 @@ class DataSearch extends SearchDelegate<String> {
                                   ),
                                   child: Row(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Container(
                                             width: 100,
@@ -555,9 +566,10 @@ class DataSearch extends SearchDelegate<String> {
       style: ElevatedButton.styleFrom(
         shape: CircleBorder(
           side: BorderSide(color: Theme.of(context).colorScheme.secondary),
-        ), backgroundColor: homework.isDone
-          ? Theme.of(context).colorScheme.secondary
-          : Colors.transparent,
+        ),
+        backgroundColor: homework.isDone
+            ? Theme.of(context).colorScheme.secondary
+            : Colors.transparent,
       ),
       child: homework.isDone ? Icon(Icons.check, color: Colors.white) : null,
     );
@@ -622,10 +634,10 @@ class AssignmentData {
   final Duration timeSpent;
 
   AssignmentData(
-      this.date,
-      this.score,
-      this.assignmentNumber,
-      this.subject,
-      this.timeSpent,
-      );
+    this.date,
+    this.score,
+    this.assignmentNumber,
+    this.subject,
+    this.timeSpent,
+  );
 }
