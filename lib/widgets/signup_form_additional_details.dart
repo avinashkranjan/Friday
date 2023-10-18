@@ -1,12 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:friday/models/users.dart';
 import 'package:friday/services/auth_error_msg_toast.dart';
 import 'package:friday/services/classes_db_services.dart';
 import 'package:friday/services/user_info_services.dart';
 import 'package:friday/widgets/auth_input_form_field.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
@@ -26,16 +26,16 @@ class _SignUpFormAdditionalDetailsState
   String errorMsg = "";
   bool isProcessing = false;
   TextEditingController _deptName = TextEditingController();
-  TextEditingController _year = TextEditingController(); 
-  TextEditingController _age = TextEditingController(); 
+  TextEditingController _year = TextEditingController();
+  TextEditingController _age = TextEditingController();
   TextEditingController _colName = TextEditingController();
-  TextEditingController _courseName = TextEditingController(); 
+  TextEditingController _courseName = TextEditingController();
   Gender? _gen;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   GlobalKey<FormState> _colFormKey = GlobalKey<FormState>();
-  GlobalKey<FormState> _courseFormKey = GlobalKey<FormState>(); 
+  GlobalKey<FormState> _courseFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> _deptFormKey = GlobalKey<FormState>();
-  String _defaultCollegeName = ""; 
+  String _defaultCollegeName = "";
   String _defaultCourseName = "";
   String _defaultDepartmentName = "";
 
@@ -43,7 +43,9 @@ class _SignUpFormAdditionalDetailsState
   ClassesDBServices classesDBServices = ClassesDBServices();
 
   String _college = "", _course = "", _department = "";
-  final List<String> _collegeList = [''], _coursesList = [''], _departmentList = [''];
+  final List<String> _collegeList = [''],
+      _coursesList = [''],
+      _departmentList = [''];
   late Future fetchColleges;
 
   getCollegeNameData() async {
@@ -246,7 +248,8 @@ class _SignUpFormAdditionalDetailsState
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
-                                vertical: 13, horizontal: 20), backgroundColor: kAuthThemeColor,
+                                vertical: 13, horizontal: 20),
+                            backgroundColor: kAuthThemeColor,
                             shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadiusDirectional.circular(30),
@@ -370,8 +373,11 @@ class _SignUpFormAdditionalDetailsState
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                backgroundColor: kCardColor,
-                    title: Text("Enter Your College Name" , style:  TextStyle(color: Colors.white),),
+                    backgroundColor: kCardColor,
+                    title: Text(
+                      "Enter Your College Name",
+                      style: TextStyle(color: Colors.white),
+                    ),
                     content: Container(
                       height: MediaQuery.of(context).size.height / 5,
                       child: Form(
@@ -399,7 +405,8 @@ class _SignUpFormAdditionalDetailsState
                             Container(
                               alignment: Alignment.centerRight,
                               child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(backgroundColor: kAuthThemeColor),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: kAuthThemeColor),
                                 child: Text(
                                   "Submit",
                                   style: TextStyle(

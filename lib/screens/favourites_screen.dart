@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../constants.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../models/alert.dart';
 import '../widgets/countdown_painter.dart';
-
 
 class FavouritesScreen extends StatefulWidget {
   const FavouritesScreen({Key? key}) : super(key: key);
@@ -27,35 +26,50 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     initpref();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(elevation: 0,backgroundColor: Colors.transparent ,leading: IconButton(
-        icon: Icon(Icons.arrow_back_rounded, color: Colors.white,),
-        onPressed: (){
-          Navigator.pop(context);
-        },
-      ),),
-      backgroundColor: Theme.of(context).colorScheme.background.withOpacity(0.8),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      backgroundColor:
+          Theme.of(context).colorScheme.background.withOpacity(0.8),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-
               SizedBox(height: 30.0),
               Text(
-                AppLocalizations.of(context).favourites,
+                AppLocalizations.of(context)?.favourites ?? "",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 30.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10,),
-              Center(child: TextButton(onPressed: () {
-                removeall();
-                },
-              child: Text(AppLocalizations.of(context).clearallfavourites)),),
+              SizedBox(
+                height: 10,
+              ),
+              Center(
+                child: TextButton(
+                    onPressed: () {
+                      removeall();
+                    },
+                    child: Text(
+                        AppLocalizations.of(context)?.clearallfavourites ??
+                            "")),
+              ),
               SizedBox(height: 30.0),
               Container(
                 padding: EdgeInsets.all(35.0),
@@ -73,10 +87,10 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                   itemCount: favlist.length,
                   itemBuilder: (BuildContext context, int index) {
                     Alert alert = favlist[index];
-                    int hoursLeft = DateTime.now().difference(favlist[index].time).inHours;
+                    int hoursLeft =
+                        DateTime.now().difference(favlist[index].time).inHours;
                     hoursLeft = hoursLeft < 0 ? -hoursLeft : 0;
                     double percent = hoursLeft / 48;
-
 
                     return Row(
                       children: <Widget>[
@@ -121,7 +135,9 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                     children: <Widget>[
                                       Icon(
                                         AntDesign.clockcircle,
-                                        color: Theme.of(context).colorScheme.secondary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
                                         size: 17.0,
                                       ),
                                       SizedBox(width: 10.0),
@@ -132,7 +148,6 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                           fontSize: 15.0,
                                         ),
                                       ),
-
                                     ],
                                   ),
                                   SizedBox(height: 10.0),
@@ -140,7 +155,9 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                     children: <Widget>[
                                       Icon(
                                         Icons.receipt,
-                                        color: Theme.of(context).colorScheme.secondary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
                                         size: 17.0,
                                       ),
                                       SizedBox(width: 10.0),
@@ -153,7 +170,6 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                       ),
                                     ],
                                   ),
-
                                 ],
                               ),
                               Positioned(
@@ -168,7 +184,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                   child: Padding(
                                     padding: EdgeInsets.all(20.0),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           "$hoursLeft",
@@ -204,17 +221,18 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
       ),
     );
   }
+
   _getColor(BuildContext context, double percent) {
     if (percent >= 0.4) return Theme.of(context).colorScheme.secondary;
 
     return kHourColor;
   }
 
-  void initpref() async{
+  void initpref() async {
     preferences = await SharedPreferences.getInstance();
     var x = await preferences.getStringList('favbool')!;
     var t = x.length;
-    for(var i = 0; i < t; i++) {
+    for (var i = 0; i < t; i++) {
       if (x[i] == 'true') {
         favlist.add(recentAlerts[i]);
       }
@@ -224,7 +242,6 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     });
     print('yehaibe\n');
     print(favlist);
-
   }
 
   void removeall() async {
@@ -236,4 +253,3 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     });
   }
 }
-

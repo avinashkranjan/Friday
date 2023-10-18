@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:is_first_run/is_first_run.dart';
+
 import '../widgets/onboarding_canvas_design.dart';
 import '../widgets/splash_animation.dart';
 
@@ -19,7 +19,6 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.dispose();
     super.dispose();
   }
-
 
   @override
   void initState() {

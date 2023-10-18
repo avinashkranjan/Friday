@@ -1,8 +1,8 @@
-import 'package:friday/services/user_info_services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:friday/services/user_info_services.dart';
+import 'package:provider/provider.dart';
 
 class Header extends StatelessWidget {
   @override
@@ -25,10 +25,9 @@ class Header extends StatelessWidget {
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-
-                          _userInfo.user != null
-                              ? "Hello, " + _userInfo.user!.name.split(" ")[0]
-                              :  AppLocalizations.of(context).hellosir,
+                      _userInfo.user != null
+                          ? "Hello, " + _userInfo.user!.name.split(" ")[0]
+                          : AppLocalizations.of(context)?.hellosir ?? "",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 25.0,
@@ -42,9 +41,11 @@ class Header extends StatelessWidget {
                   ),
                   CircleAvatar(
                     radius: 25.0,
-                    backgroundImage: _userInfo.user != null && _userInfo.user!.profilePictureUrl.isNotEmpty
+                    backgroundImage: _userInfo.user != null &&
+                            _userInfo.user!.profilePictureUrl.isNotEmpty
                         ? NetworkImage(_userInfo.user!.profilePictureUrl)
-                        : AssetImage("assets/images/profile_pic.jpg") as ImageProvider<Object>,
+                        : AssetImage("assets/images/profile_pic.jpg")
+                            as ImageProvider<Object>,
                   ),
                 ],
               );
