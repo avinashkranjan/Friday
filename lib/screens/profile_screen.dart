@@ -394,8 +394,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   top: 0.1 * MediaQuery.of(context).size.height,
                   child: CircleAvatar(
                     radius: profilePictureDiameter / 2,
-                    backgroundImage: currentUser != null &&
-                            currentUser['profilePictureUrl'] != null &&
+                    backgroundImage: currentUser['profilePictureUrl'] != null &&
                             currentUser['profilePictureUrl'].isNotEmpty
                         ? NetworkImage(currentUser['profilePictureUrl'])
                         : AssetImage("assets/images/profile_pic.jpg")

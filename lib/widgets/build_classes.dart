@@ -156,7 +156,7 @@ class _BuildClassesState extends State<BuildClasses> {
             ),),
 
 
-          classesList != null && classesList.isNotEmpty
+          classesList.isNotEmpty
               ? Padding(
             padding: EdgeInsets.only(
               left: 20.0,

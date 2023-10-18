@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:friday/feedback.dart';
+import 'package:friday/firebase_options.dart';
 import 'package:friday/models/alert.dart';
 import 'package:friday/screens/faqs_screen.dart';
 import 'package:friday/screens/phone_verification_screen.dart';
@@ -31,11 +32,12 @@ import 'utils/notifications.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   NotificationService().initNotification();
-  NotificationService().showNotification(title: 'olalalaaa', body: 'it works');
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await Firebase.initializeApp();
   runApp(
     MultiProvider(
-      // create the provider
       providers: [
         ChangeNotifierProvider(
           create: (_) => ThemeProvider(),
@@ -59,7 +61,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     checkFirstRun();
-
     loadpref();
   }
 
@@ -117,7 +118,6 @@ class _MyAppState extends State<MyApp> {
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
     return MultiProvider(
-      ///Adding providers for App
       providers: [
         ChangeNotifierProvider(
           create: (context) => UserInfoServices(),
@@ -136,13 +136,13 @@ class _MyAppState extends State<MyApp> {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          locale: Locale('hi'),
+          locale: Locale('en'),
           supportedLocales: [
             Locale('ru'),
-            Locale('en'), // English
+            Locale('en'),
             Locale('hi'),
-            Locale('gu'), // Hindi
-            Locale('mr') // Hindi
+            Locale('gu'),
+            Locale('mr')
           ],
           debugShowCheckedModeBanner: false,
           title: 'Friday',

@@ -230,7 +230,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
 
   void initpref() async {
     preferences = await SharedPreferences.getInstance();
-    var x = await preferences.getStringList('favbool')!;
+    var x = preferences.getStringList('favbool')!;
     var t = x.length;
     for (var i = 0; i < t; i++) {
       if (x[i] == 'true') {

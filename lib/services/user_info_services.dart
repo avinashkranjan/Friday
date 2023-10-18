@@ -8,7 +8,6 @@ class UserInfoServices extends ChangeNotifier {
 
   Users? get user => _user;
   Future<bool> fetchUserDetailsFromDatabase(BuildContext context) async {
-    // Write the code to fetch from Firestore Collection `users`
     bool isUserExists = await UserDBServices.fetchUserData(context);
     if (!isUserExists) {
       print("user details not present in firestore");
@@ -18,21 +17,19 @@ class UserInfoServices extends ChangeNotifier {
   }
 
   Future<void> addUserToDatabase() async {
-     if (_user != null) {
-    await UserDBServices.addUser(_user!);
-    notifyListeners();
+    if (_user != null) {
+      await UserDBServices.addUser(_user!);
+      notifyListeners();
+    }
   }
-}
 
   Future<void> upateProfilePictureUrl() async {
-     if (_user != null) {
-    await UserDBServices.updateProfilePictureUrl(
-        _user!.uid,
-        _user!.profilePictureUrl
-    );
-    // notifyListeners();
+    if (_user != null) {
+      await UserDBServices.updateProfilePictureUrl(
+          _user!.uid, _user!.profilePictureUrl);
+      // notifyListeners();
+    }
   }
-}
 
   void setUser(Users user) {
     this._user = user;
@@ -41,22 +38,19 @@ class UserInfoServices extends ChangeNotifier {
   }
 
   void setEssentialDetailsOfUser(String name, String email) {
-     if (_user != null) {
-    _user!.setEssentialDetails(name, email);
-  }
+    if (_user != null) {
+      _user!.setEssentialDetails(name, email);
+    }
   }
 
-  void setAdditionalDetailsOfUser(
-    String _course, 
-    String _dept, 
-    String _college,
-    int _year, 
-    Gender _gender, 
-    int _age,
-    [String? _profilePicUrl]) {
+  void setAdditionalDetailsOfUser(String _course, String _dept, String _college,
+      int _year, Gender _gender, int _age,
+      [String? _profilePicUrl]) {
     if (_user != null) {
-    this._user!.setAdditionalDetails(_course, _dept, _college, _year, _gender, _age);
-    notifyListeners();
+      this
+          ._user!
+          .setAdditionalDetails(_course, _dept, _college, _year, _gender, _age);
+      notifyListeners();
+    }
   }
- }
 }

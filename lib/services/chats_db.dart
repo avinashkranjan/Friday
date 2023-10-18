@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Function to create a new group
 Future<String> createGroup(String groupName, String userId) async {
-  CollectionReference groupsRef = FirebaseFirestore.instance.collection('groups');
+  CollectionReference groupsRef =
+      FirebaseFirestore.instance.collection('groups');
 
   DocumentReference groupDocRef = await groupsRef.add({
     'name': groupName,
@@ -14,7 +15,8 @@ Future<String> createGroup(String groupName, String userId) async {
 }
 
 // Function to send a message in a group chat
-Future<void> sendMessage(String groupId, String senderId, String message) async {
+Future<void> sendMessage(
+    String groupId, String senderId, String message) async {
   CollectionReference messagesRef = FirebaseFirestore.instance
       .collection('groups')
       .doc(groupId)
@@ -38,7 +40,8 @@ Stream<QuerySnapshot<Object?>> getGroupMessages(String groupId) {
 }
 
 // Function to search for users by ID and perform additional actions
-Future<void> searchUsersByIdAndPerformActions(String userId, String groupId, String message) async {
+Future<void> searchUsersByIdAndPerformActions(
+    String userId, String groupId, String message) async {
   QuerySnapshot snapshot = await FirebaseFirestore.instance
       .collection('users')
       .where('userId', isEqualTo: userId)
@@ -57,9 +60,12 @@ Future<void> searchUsersByIdAndPerformActions(String userId, String groupId, Str
         print('Message sent successfully');
 
         // Get group messages
-        Stream<QuerySnapshot<Map<String, dynamic>>>? messagesStream = getGroupMessages(groupId) as Stream<QuerySnapshot<Map<String, dynamic>>>?;
+        Stream<QuerySnapshot<Map<String, dynamic>>>? messagesStream =
+            getGroupMessages(groupId)
+                as Stream<QuerySnapshot<Map<String, dynamic>>>?;
         messagesStream?.listen((QuerySnapshot<Map<String, dynamic>> snapshot) {
-          List<QueryDocumentSnapshot<Map<String, dynamic>>> messageDocs = snapshot.docs;
+          List<QueryDocumentSnapshot<Map<String, dynamic>>> messageDocs =
+              snapshot.docs;
 
           for (var messageDoc in messageDocs) {
             String senderId = messageDoc['senderId'];
@@ -83,4 +89,3 @@ Future<void> searchUsersByIdAndPerformActions(String userId, String groupId, Str
 void exampleUsage() {
   searchUsersByIdAndPerformActions('user123', 'group456', 'Hello everyone!');
 }
-

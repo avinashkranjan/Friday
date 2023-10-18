@@ -21,7 +21,6 @@ class _RecentsAlertsState extends State<RecentsAlerts>
   late SharedPreferences preferences;
   @override
   void initState() {
-    // TODO: implement initState
     loadpref();
     loadalerts();
     WidgetsBinding.instance.addObserver(this);
@@ -208,7 +207,7 @@ class _RecentsAlertsState extends State<RecentsAlerts>
 
   void loadpref() async {
     preferences = await SharedPreferences.getInstance();
-    impstuff = await preferences.getStringList('favbool')!;
+    impstuff = preferences.getStringList('favbool')!;
     setState(() {
       impstuff;
     });

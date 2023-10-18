@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   intl: ^0.18.1
   provider:
@@ -47,8 +49,6 @@ dependencies:
   http: ^0.13.6
 
   flutter_local_notifications: ^15.1.0+1
-  flutter_localizations:
-    sdk: flutter
 
 
 dev_dependencies:
@@ -63,8 +63,8 @@ flutter_icons:
   image_path: "assets/icons/icon.png"
 
 flutter:
-  generate: true
   uses-material-design: true
+  generate: true
 
 
   assets:

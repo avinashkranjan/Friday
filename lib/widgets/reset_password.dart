@@ -13,7 +13,7 @@ class _ResetScreenState extends State<ResetScreen> {
   String _email = '';
   bool emailValid = false;
   String error = '';
-  
+
   final auth = FirebaseAuth.instance;
 
   @override
@@ -72,7 +72,8 @@ class _ResetScreenState extends State<ResetScreen> {
                 Center(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(), backgroundColor: Theme.of(context).colorScheme.secondary,
+                      shape: StadiumBorder(),
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: () {
                       if (!emailValid) {

@@ -7,17 +7,61 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1045472240686:android:03a08917e27637088febbf",
+        "mobilesdk_app_id": "1:1045472240686:android:30a67f49892fee138febbf",
         "android_client_info": {
           "package_name": "com.avinashkranjan.friday"
         }
       },
       "oauth_client": [
         {
+          "client_id": "1045472240686-kb4dutm11oj1kvv64440ruu28u624lk0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUIjZBBzAPZ83p1yDPCOAra-ErOs9K2ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1045472240686-kb4dutm11oj1kvv64440ruu28u624lk0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1045472240686-6hi7tgkpuq1860ntv6ungfqv4f8pop23.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.flutter.flutter.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045472240686:android:03a08917e27637088febbf",
+        "android_client_info": {
+          "package_name": "com.example.class_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1045472240686-q3fnk5dg2ra4lg4u3ufqe2pkj74gm6st.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.class_manager",
+            "certificate_hash": "1196d792aca8f2486fc068a03f5abda9d0d0fe50"
+          }
+        },
+        {
           "client_id": "1045472240686-u6nq1paekv6a6jd10h813g2rqkfn977b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.avinashkranjan.friday",
+            "package_name": "com.example.class_manager",
             "certificate_hash": "026591a5ef09087a8f36e0991636e4bd40bfd9f2"
           }
         },
