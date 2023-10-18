@@ -1,11 +1,11 @@
+import 'package:date_time_picker_selector/date_time_picker_selector.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:friday/constants.dart';
 import 'package:friday/models/users.dart';
 import 'package:friday/services/classes_db_services.dart';
-import 'package:date_time_picker/date_time_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:friday/constants.dart';
 import 'package:friday/widgets/build_classes.dart';
 import 'package:friday/widgets/header.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 TextEditingController dateController = TextEditingController();
@@ -94,11 +94,11 @@ class _ClassesScreenState extends State<ClassesScreen> {
       },
       items: Mode.values
           .map((selectedMode) => DropdownMenuItem<Mode>(
-          value: selectedMode,
-          child: Text(
-            modeEnumToString(selectedMode),
-            style: TextStyle(color: Colors.white),
-          )))
+              value: selectedMode,
+              child: Text(
+                modeEnumToString(selectedMode),
+                style: TextStyle(color: Colors.white),
+              )))
           .toList(),
       value: null,
       onChanged: (Mode? mode) {
@@ -359,10 +359,10 @@ class CalenderDateFormatAddition extends StatelessWidget {
   final int dayAdditon;
   final bool itemSelected;
 
-  CalenderDateFormatAddition({
-    required this.dateTime,
-    required this.dayAdditon,
-    this.itemSelected = false});
+  CalenderDateFormatAddition(
+      {required this.dateTime,
+      required this.dayAdditon,
+      this.itemSelected = false});
 
   @override
   Widget build(BuildContext context) {
@@ -373,29 +373,29 @@ class CalenderDateFormatAddition extends StatelessWidget {
           TextSpan(
               text: (dayAdditon > 0)
                   ? dateTime.add(Duration(days: dayAdditon)).day.toString() +
-                  '\n'
+                      '\n'
                   : dateTime
-                  .subtract(Duration(days: dayAdditon * -1))
-                  .day
-                  .toString() +
-                  '\n',
+                          .subtract(Duration(days: dayAdditon * -1))
+                          .day
+                          .toString() +
+                      '\n',
               style: (itemSelected == true)
                   ? kCalendarDay.copyWith(
-                color: Colors.white,
-                fontSize: 17.0,
-                fontWeight: FontWeight.w500,
-              )
+                      color: Colors.white,
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.w500,
+                    )
                   : kCalendarDay),
           TextSpan(
             text: (itemSelected == true)
                 ? (dayAdditon > 0)
-                ? DateFormat.E()
-                .format(dateTime.add(Duration(days: dayAdditon)))
-                .toString()
-                : DateFormat.E()
-                .format(
-                dateTime.subtract(Duration(days: dayAdditon * -1)))
-                .toString()
+                    ? DateFormat.E()
+                        .format(dateTime.add(Duration(days: dayAdditon)))
+                        .toString()
+                    : DateFormat.E()
+                        .format(
+                            dateTime.subtract(Duration(days: dayAdditon * -1)))
+                        .toString()
                 : '',
             style: TextStyle(
               color: Colors.white,

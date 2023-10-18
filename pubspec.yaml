@@ -25,7 +25,7 @@ dependencies:
   url_launcher:
   firebase_storage:
   path_provider:
-  # date_time_picker:
+  date_time_picker_selector:
   table_calendar:
   flutter_login_facebook:
   flutter_icons_null_safety:
@@ -35,6 +35,9 @@ dependencies:
   is_first_run:
   shared_preferences:
   # charts_flutter:
+  d_chart:
+  community_charts_common: ^1.0.2
+  community_charts_flutter: ^1.0.2
   share_plus:
   flutter_share:
   settings_ui:

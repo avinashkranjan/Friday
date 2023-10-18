@@ -105,6 +105,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.2"
+  community_charts_common:
+    dependency: "direct main"
+    description:
+      name: community_charts_common
+      sha256: "20697244c826df0545237ebe01d61caa96a2a2e4d23c6f88890441636a4d5220"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
+  community_charts_flutter:
+    dependency: "direct main"
+    description:
+      name: community_charts_flutter
+      sha256: ca5bd07337e162daee13c19679f602cd8b3f704520d242beeebbc2e312f84f89
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   convert:
     dependency: transitive
     description:
@@ -137,6 +153,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  d_chart:
+    dependency: "direct main"
+    description:
+      name: d_chart
+      sha256: "25383f0d0b71a3f540511573ac0603286b2d736ead55073d595b7f48764919e4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.6.2"
+  date_time_picker_selector:
+    dependency: "direct main"
+    description:
+      name: date_time_picker_selector
+      sha256: d7e70109490ac778b6203f95578db06a21447df7a83d1d8e24dd80f2dd54291e
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   dbus:
     dependency: transitive
     description:

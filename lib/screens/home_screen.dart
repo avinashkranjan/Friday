@@ -1,4 +1,5 @@
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:d_chart/commons/data_model.dart';
+import 'package:d_chart/time/line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -595,10 +596,17 @@ class ProgressChart extends StatelessWidget {
         ),
         SizedBox(height: 10.0),
         Expanded(
-          child: charts.TimeSeriesChart(
-            _createChartSeries(),
-            animate: true,
+          child: AspectRatio(
+            aspectRatio: 16 / 9,
+            child: DChartLineT(
+              // groupList: timeGroupList,
+              groupList: _createChartsSeries(),
+            ),
           ),
+          // child: charts.TimeSeriesChart(
+          //   _createChartSeries(),
+          //   animate: true,
+          // ),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -609,21 +617,33 @@ class ProgressChart extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        SizedBox(
+          height: 30,
+        )
       ],
     );
   }
 
-  List<charts.Series<AssignmentData, DateTime>> _createChartSeries() {
-    return [
-      charts.Series(
-        id: 'Assignment Progress',
-        data: data,
-        domainFn: (AssignmentData assignment, _) => assignment.date,
-        measureFn: (AssignmentData assignment, _) => assignment.score,
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-      ),
-    ];
+  List<TimeGroup> _createChartsSeries() {
+    List<TimeData> timeDataList = data
+        .map(
+          (assignment) =>
+              TimeData(domain: assignment.date, measure: assignment.score),
+        )
+        .toList();
+    return [TimeGroup(id: "Assignment Progress", data: timeDataList)];
   }
+  // List<charts.Series<AssignmentData, DateTime>> _createChartSeries() {
+  //   return [
+  //     charts.Series(
+  //       id: 'Assignment Progress',
+  //       data: data,
+  //       domainFn: (AssignmentData assignment, _) => assignment.date,
+  //       measureFn: (AssignmentData assignment, _) => assignment.score,
+  //       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+  //     ),
+  //   ];
+  // }
 }
 
 class AssignmentData {
