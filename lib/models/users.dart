@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 
 enum Gender { Male, Female, Other }
+
 enum Mode { Online, Offline }
 
 class Users {
@@ -44,7 +44,7 @@ class Users {
     Gender gender,
     int age, [
     String profilePictureUrl = "",
-    ]) {
+  ]) {
     this.course = course;
     this.department = department;
     this.university = university;
@@ -57,7 +57,7 @@ class Users {
   factory Users.fromJson(DocumentSnapshot snapshot) {
     Map<String, dynamic>? json = snapshot.data() as Map<String, dynamic>?;
     Gender gender = stringToEnum(json?["gender"] as String);
-     return new Users(
+    return new Users(
       uid: snapshot.id,
       name: json?["name"] as String? ?? "",
       email: json?["email"] as String? ?? "",
@@ -99,7 +99,6 @@ String enumToString(Gender gender) {
 
     default:
       return "Other";
-
   }
 }
 
@@ -111,7 +110,6 @@ String modeEnumToString(Mode currMode) {
 
     default:
       return "Offline";
-
   }
 }
 
@@ -124,10 +122,7 @@ Gender stringToEnum(String gen) {
     case "Female":
       return Gender.Female;
 
-
     default:
       return Gender.Other;
-
   }
 }
-
