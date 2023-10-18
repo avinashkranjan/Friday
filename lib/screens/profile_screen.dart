@@ -127,6 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         child: Consumer<UserInfoServices>(
           builder: (context, userInfo, _) {
+            // ignore: unused_local_variable
             Users _user;
             if (userInfo.hasData) _user = userInfo.user!;
             return Stack(

@@ -18,7 +18,7 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   int selectedTab = 0;
-  late Widget _currentPage;
+  late Widget currentPage;
   late List<Widget> _pages;
   late HomeScreen _homeScreen;
   late HomeworkScreen _homeworkScreen;
@@ -40,7 +40,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
   void initState() {
     super.initState();
     _homeScreen = HomeScreen(
-      openHomeworkPage: openHomeworkPage, openSettingsPage: () {  },
+      openHomeworkPage: openHomeworkPage,
+      openSettingsPage: () {},
     );
     _classesScreen = ClassesScreen();
     _homeworkScreen = HomeworkScreen();
@@ -55,13 +56,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
       _profileScreen,
       _settingsScreen
     ];
-    _currentPage = _homeScreen;
+    currentPage = _homeScreen;
   }
 
   void openHomeworkPage() {
     setState(() {
       selectedTab = 2;
-      _currentPage = _pages[2];
+      currentPage = _pages[2];
     });
   }
 
@@ -91,7 +92,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
             selectedTab: selectedTab,
             onPressed: (int idx) {
               _setCurrentPage(index: idx);
-              _currentPage = _pages[idx];
+              currentPage = _pages[idx];
               print(selectedTab);
               // _selectedTab = idx;
             },

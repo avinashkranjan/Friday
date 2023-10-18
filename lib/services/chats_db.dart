@@ -48,8 +48,8 @@ Future<void> searchUsersByIdAndPerformActions(
       .get();
 
   if (snapshot.docs.isNotEmpty) {
-    DocumentSnapshot userSnapshot = snapshot.docs.first;
-    String userName = userSnapshot['name'];
+    // DocumentSnapshot userSnapshot = snapshot.docs.first;
+    // String userName = userSnapshot['name'];
 
     // Create a new group
     createGroup(groupId, userId).then((groupId) {

@@ -212,7 +212,8 @@ class _SignUpFormEssentialDetailsState
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding:
-                          EdgeInsets.symmetric(vertical: 13, horizontal: 20), backgroundColor: kAuthThemeColor,
+                          EdgeInsets.symmetric(vertical: 13, horizontal: 20),
+                      backgroundColor: kAuthThemeColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadiusDirectional.circular(30),
                       ),
@@ -226,7 +227,7 @@ class _SignUpFormEssentialDetailsState
                       ),
                     ),
                     onPressed: () async {
-                       if (_formKey.currentState?.validate() ?? false) {
+                      if (_formKey.currentState?.validate() ?? false) {
                         _formKey.currentState!.save();
                         print(
                             "Validated: Name: ${_name.text} \n email: ${_email.text}");
@@ -239,16 +240,16 @@ class _SignUpFormEssentialDetailsState
                         });
                         // Authenticate user
                         errorMsg = await AuthenticationService.handleSignUp(
-                            email: _email.text,
-                            name: _name.text,
-                            password: _pswd.text,
-                            context: context,
-                            );
+                          email: _email.text,
+                          name: _name.text,
+                          password: _pswd.text,
+                          context: context,
+                        );
                         setState(() {
                           isProcessing = false;
                           _formKey.currentState?.reset();
                           //show error msg
-                            errorMsg != null
+                          errorMsg != ""
                               ? showErrToast(errorMsg, errToast)
                               : print("User Authenticated");
                         });

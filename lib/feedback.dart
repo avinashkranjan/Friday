@@ -8,8 +8,8 @@ class FeedbackPage extends StatefulWidget {
 
 class _FeedbackPageState extends State<FeedbackPage> {
   TextEditingController _commentController = TextEditingController();
-  double _rating = 0.0;
-  bool _alreadyRated = false;
+  double rating = 0.0;
+  bool alreadyRated = false;
 
   @override
   void initState() {
@@ -21,13 +21,13 @@ class _FeedbackPageState extends State<FeedbackPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool alreadyRated = prefs.getBool('already_rated') ?? false;
     setState(() {
-      _alreadyRated = alreadyRated;
+      alreadyRated = alreadyRated;
     });
   }
 
   void _submitFeedback() {
     // Submit the feedback to your backend service or database
-    String comment = _commentController.text;
+    // String comment = _commentController.text;
     // Store the feedback and rating
 
     // Update the alreadyRated flag
@@ -71,7 +71,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
             RatingBar(
               onRatingChanged: (rating) {
                 setState(() {
-                  _rating = rating;
+                  rating = rating;
                 });
               },
             ),

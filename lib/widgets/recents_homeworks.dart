@@ -104,7 +104,6 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
         },
       );
     }
-      return Text('NULL');
   }
 
   _todoButton(Homework homework) {
@@ -117,7 +116,8 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
       style: ElevatedButton.styleFrom(
         shape: CircleBorder(
           side: BorderSide(color: Theme.of(context).colorScheme.secondary),
-        ), backgroundColor: homework.isDone
+        ),
+        backgroundColor: homework.isDone
             ? Theme.of(context).colorScheme.secondary
             : Colors.transparent,
       ),

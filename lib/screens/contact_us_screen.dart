@@ -39,6 +39,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         child: Consumer<UserInfoServices>(
           builder: (context, userInfo, _) {
+            // ignore: unused_local_variable
             Users user;
             if (userInfo.hasData) user = userInfo.user!;
             return Stack(alignment: Alignment.center, children: [

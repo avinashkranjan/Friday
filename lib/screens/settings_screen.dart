@@ -24,22 +24,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool modeval = false;
 
   late bool? notification;
-  ThemeData? _currentTheme;
+  ThemeData? currentTheme;
 
   void _setTheme(ThemeData? theme) {
     if (theme != null) {
       setState(() {
-        _currentTheme = theme;
+        currentTheme = theme;
       });
     }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     checknotify();
-    _currentTheme =
-        ThemeMode.system == ThemeMode.light ? lightTheme : darkTheme;
+    currentTheme = ThemeMode.system == ThemeMode.light ? lightTheme : darkTheme;
     super.initState();
   }
 
@@ -86,6 +84,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         child: Consumer<UserInfoServices>(
           builder: (context, userInfo, _) {
+            // ignore: unused_local_variable
             Users _user;
             if (userInfo.hasData) _user = userInfo.user!;
             return Stack(

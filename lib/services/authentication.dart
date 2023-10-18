@@ -21,12 +21,12 @@ class AuthenticationService {
       return OnboardingPage();
     } else {
       return AuthHandlingWidget(
-      key: UniqueKey(),
-      name: _currUser.displayName ?? '',
-      email: _currUser.email?? '',
-    );
+        key: UniqueKey(),
+        name: _currUser.displayName ?? '',
+        email: _currUser.email ?? '',
+      );
+    }
   }
-}
 
   /// Handles Authentication Login
   static Future<String> handleLogin(
@@ -41,6 +41,7 @@ class AuthenticationService {
       final User? currentUser = auth.currentUser;
 
       if (user!.emailVerified) {
+        // ignore: unnecessary_null_comparison
         if ((user != null) &&
             (currentUser != null) &&
             (user.uid == currentUser.uid)) {
@@ -177,10 +178,7 @@ class AuthenticationService {
             .signOut(); // Without that, If User Sign-Up, then close and reopen the app, can navigate to the
         //bottom_navigation screen
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => LoginPage())
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage()));
       } else {
         print("SignUp Error: Undefined Error!");
         errorMsg = "Undefined Error Occurred";
@@ -201,6 +199,7 @@ class AuthenticationService {
     final FirebaseAuth auth = FirebaseAuth.instance;
     User? _currUser = auth.currentUser;
     print("Signing Out: " + _currUser!.uid);
+    // ignore: unnecessary_null_comparison
     if (_currUser != null) {
       await auth.signOut();
       // Navigate to Onboarding Page

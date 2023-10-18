@@ -2,12 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class PhoneNumberVerificationDb {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
+
   var verificationCallback;
 
   PhoneNumberVerificationDb({required this.verificationCallback});
 
-  Future<void> verifyPhoneNumber(String phoneNumber, verifyCodeScreenCallback) async {
+  Future<void> verifyPhoneNumber(
+      String phoneNumber, verifyCodeScreenCallback) async {
     await _auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: (PhoneAuthCredential credential) async {
@@ -18,10 +19,9 @@ class PhoneNumberVerificationDb {
       },
       codeSent: (String verificationId, int? resendToken) {
         print('Verification Code Sent to $phoneNumber');
-        // Call a function in VerifyCodeScreen to pass the verification ID
-        // and navigate to the VerifyCodeScreen.
-        codeSent: (String verificationId, int? resendToken) {
-           print('Verification Code Sent to $phoneNumber');
+        // ignore: unnecessary_statements
+        (String verificationId, int? resendToken) {
+          print('Verification Code Sent to $phoneNumber');
         };
       },
       codeAutoRetrievalTimeout: (String verificationId) {
@@ -41,7 +41,8 @@ class PhoneNumberVerificationDb {
 
   Future<void> _signInWithCredential(PhoneAuthCredential credential) async {
     try {
-      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+      final UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
       final User? user = userCredential.user;
       if (user != null) {
         print('Phone Number Verified: ${user.phoneNumber}');
