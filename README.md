@@ -2,9 +2,9 @@
 
 
 
-# Friday - Your Personal Class Assistant
+# Friday - Your Personal Class Jarvis
 
-Friday is an innovative application designed to help you stay organized and never miss an assignment deadline or upcoming test again. With the shift to online education due to the pandemic, keeping track of assignments, exams, and other academic tasks can be overwhelming. 
+Friday is an innovative application designed to help you stay organized and never miss an assignment deadline or upcoming test again. With the shift to online education after the pandemic, keeping track of assignments, exams, and other academic tasks can be overwhelming. 
 
 <p align="center">
 	
@@ -27,7 +27,7 @@ Friday is an innovative application designed to help you stay organized and neve
 <h1 align=center> Introduction 🚩 </h1>
 
   <p align="center">
-    Since the pandemic, almost everything has been moved on to the virtual world and So has <b>Education</b>. All our classes have been moved online and with that, all our <b><em> assignments, tests, exams, Viva</b></em> are being held on an online platform as well, With so many <b><em>assignment deadlines, upcoming exam dates, and being busy with our life</b></em> we forget the deadlines and exam dates on most occasion. I don't know how many of you but it happens to me frequently. So I came up with this <b>app</b> which once fed with all the required data it'll remind you of the <b><em>assignment deadlines, upcoming exams, unfinished homework</b></em>. So, you can plan your schedule accordingly.
+    Since the pandemic, almost everything has moved to the virtual world, and so has <b>education</b>. All our classes have been moved online, and with that, all our <b><em>assignments, tests, exams, and viva</b></em> are being held on an online platform as well. With so many <b><em>assignment deadlines, upcoming exam dates, and being busy with our lives</b></em>, we often forget the deadlines and exam dates. I don't know how many of you can relate, but it happens to me frequently. So, I came up with this <b>app</b>, which once fed with all the required data, will remind you of the <b><em>assignment deadlines, upcoming exams, and unfinished homework</b></em>. This way, you can plan your schedule accordingly.
     
 
 ## Getting Started🚀🚀
